@@ -27,31 +27,57 @@
         body { background-color: #050505; color: #e0e0e0; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         h1, h2, h3, .nav-link { font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; }
 
-        /* --- MENÜ --- */
+        /* --- MENÜ (GÜNCELLENDİ) --- */
         nav { 
-            position: fixed; top: 0; left: 0; width: 100%; padding: 20px 50px; 
-            display: flex; justify-content: space-between; align-items: center; 
-            z-index: 9999; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            padding: 20px 50px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            z-index: 9999; 
+            background: rgba(0,0,0,0.8); 
+            backdrop-filter: blur(10px); 
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
+        
         .logo-text { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; letter-spacing: 2px; }
+        
         .nav-links { display: flex; gap: 40px; }
         .nav-link { color: #fff; text-decoration: none; font-size: 14px; letter-spacing: 1px; opacity: 0.8; transition: 0.3s; position: relative; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
         .nav-link:hover { opacity: 1; }
         .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 1px; background: #fff; transition: 0.3s; }
         .nav-link:hover::after { width: 100%; }
+
+        /* HAMBURGER MENÜ İKONU (Masaüstünde Gizli) */
         .menu-toggle { display: none; font-size: 28px; cursor: pointer; color: #fff; }
 
+        /* --- MOBİL MENÜ AYARLARI --- */
         @media (max-width: 768px) {
-            nav { padding: 15px 20px; }
-            .menu-toggle { display: block; }
+            nav { padding: 15px 20px; } /* Mobilde padding azalt */
+            
+            .menu-toggle { display: block; } /* İkonu göster */
+            
             .nav-links {
-                display: none; position: absolute; top: 100%; left: 0; width: 100%;
-                background-color: #000; flex-direction: column; align-items: center;
-                gap: 25px; padding: 30px 0; border-bottom: 1px solid #333;
+                display: none; /* Başlangıçta gizle */
+                position: absolute;
+                top: 100%; /* Nav'ın hemen altına */
+                left: 0;
+                width: 100%;
+                background-color: #000; /* Siyah zemin */
+                flex-direction: column;
+                align-items: center;
+                gap: 25px;
+                padding: 30px 0;
+                border-bottom: 1px solid #333;
             }
+            
+            /* JS ile 'active' sınıfı eklenince açılacak */
             .nav-links.active { display: flex; }
-            .nav-link { font-size: 18px; }
+            
+            .nav-link { font-size: 18px; } /* Mobilde yazılar biraz daha büyük */
         }
 
         /* --- ANİMASYONLAR --- */
@@ -71,10 +97,11 @@
         .section-title { font-size: 14px; color: #888; letter-spacing: 2px; margin-bottom: 40px; display: block; border-bottom: 1px solid #333; padding-bottom: 10px; }
         .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; }
         .project-card { position: relative; height: 500px; overflow: hidden; cursor: default; background: #000; }
+        
         .project-img, .gallery-img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; filter: grayscale(100%); transition: transform 0.8s ease, filter 0.5s ease, opacity 0.8s ease; }
         .project-card:hover .project-img, .project-card:hover .gallery-img, .project-card.active .project-img, .project-card.active .gallery-img { filter: grayscale(0%); transform: scale(1.05); }
 
-        /* SLAYT ANİMASYONLARI */
+        /* --- SLAYT ANİMASYONLARI --- */
         .img-1 { z-index: 3; opacity: 1; } .img-2 { z-index: 2; opacity: 0; } .img-3 { z-index: 1; opacity: 0; }
         @keyframes cycleThreeImg1 { 0% { opacity: 1; } 30% { opacity: 1; } 33.33% { opacity: 0; } 96.66% { opacity: 0; } 100% { opacity: 1; } }
         @keyframes cycleThreeImg2 { 0% { opacity: 0; } 30% { opacity: 0; } 33.33% { opacity: 1; } 63.33% { opacity: 1; } 66.66% { opacity: 0; } 100% { opacity: 0; } }
@@ -84,9 +111,11 @@
         @keyframes cycleTwoImg2 { 0% { opacity: 0; } 45% { opacity: 0; } 50% { opacity: 1; } 95% { opacity: 1; } 100% { opacity: 0; } }
         .slideshow-2 .img-1 { animation: cycleTwoImg1 6s infinite; } .slideshow-2 .img-2 { animation: cycleTwoImg2 6s infinite; }
 
+        /* Video Kontrol */
         .project-static { z-index: 2; opacity: 1; } .project-video { z-index: 1; opacity: 0; }
         .project-card.playing .project-static { opacity: 0; } .project-card.playing .project-video { opacity: 1; filter: grayscale(0%); }
 
+        /* Mobil */
         @media (max-width: 768px) {
             .portfolio-grid { grid-template-columns: 1fr; }
             .project-img, .gallery-img { filter: grayscale(0%) !important; }
@@ -115,22 +144,13 @@
         .stat-item:last-child .stat-number::after { content: ''; } 
         .stat-label { color: #888; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* FOOTER & İLETİŞİM (GÜNCELLENDİ) */
+        /* Footer & Form */
+        .about-container { display: flex; justify-content: space-between; align-items: center; gap: 50px; }
         .about-text { font-size: 2rem; line-height: 1.4; max-width: 800px; color: #fff; }
-        .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+        .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
         .contact-left { display: flex; flex-direction: column; justify-content: space-between; }
-        .contact-info-block { font-size: 1.5rem; color: #888; margin-bottom: 40px; }
-        .contact-info-block p { margin-bottom: 10px; }
-        .contact-email { color: #fff; font-weight: 500; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 5px; transition: 0.3s; }
-        .contact-email:hover { border-bottom: 1px solid #fff; }
-        
-        .social-links-footer { display: flex; gap: 30px; margin-top: 30px; }
-        .social-link { color: #fff; text-decoration: none; font-size: 0.9rem; letter-spacing: 2px; font-weight: 500; border-bottom: 1px solid #333; padding-bottom: 5px; transition: 0.3s; }
-        .social-link:hover { border-bottom: 1px solid #fff; color: #ccc; }
-
         .footer-tiger-img { width: 100%; max-width: 350px; margin-top: 40px; opacity: 0.9; filter: grayscale(20%) contrast(1.1); transition: all 0.5s ease; }
         .footer-tiger-img:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.02); }
-
         form { display: flex; flex-direction: column; gap: 30px; }
         .form-group { position: relative; }
         input, textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid #444; padding: 15px 0; color: #fff; font-family: 'Inter', sans-serif; font-size: 16px; outline: none; transition: 0.3s; }
@@ -139,14 +159,18 @@
         input:focus ~ label, input:valid ~ label, textarea:focus ~ label, textarea:valid ~ label { top: -10px; font-size: 12px; color: #fff; }
         button { background: #fff; color: #000; border: none; padding: 15px 40px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; cursor: pointer; align-self: flex-start; margin-top: 20px; transition: 0.3s; }
         button:hover { background: #ccc; letter-spacing: 1px; }
-        
-        footer { padding: 40px 50px; border-top: 1px solid #222; display: flex; justify-content: space-between; font-size: 13px; color: #555; background: #050505; }
+        footer { padding: 50px; border-top: 1px solid #222; display: flex; justify-content: space-between; font-size: 14px; color: #555; }
+        .social-link { color: #fff; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 5px; transition: 0.3s; }
+        .social-link:hover { border-bottom: 1px solid #fff; opacity: 0.8; }
+        .highlight { color: #888; }
     </style>
 </head>
 <body>
     <nav>
         <a href="#" class="logo-text">BG STUDIO</a>
+        
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        
         <div class="nav-links" id="navLinks">
             <a href="#projects" class="nav-link" onclick="toggleMenu()">PROJELER</a>
             <a href="#about" class="nav-link" onclick="toggleMenu()">STÜDYO</a>
@@ -174,8 +198,8 @@
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">01 — KONUT / KIRSAL TASARIM</span>
                     <h3>ALPINE REFUGE</h3>
-                    <span class="project-subtitle">DAĞ SIĞINAĞI</span>
-                    <p class="project-desc">Vahşi doğanın kalbinde, topoğrafyayla yarışmak yerine ona tamamen eklemlenen, doğal taş ve ahşap dokuların modern bir yorumuyla kurgulanan sürdürülebilir bir sığınak projesi.</p>
+                    <span class="project-subtitle">DAĞ EVİ</span>
+                    <p class="project-desc">Vahşi doğanın kalbinde, topoğrafyayla yarışmak yerine ona uyum sağlayan bir sığınak.</p>
                 </div>
             </div>
 
@@ -196,8 +220,7 @@
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">03 — KONUT / İÇ MEKAN TASARIMI</span>
                     <h3>REFLECTIVE WARMTH</h3>
-                    <span class="project-subtitle">YANSIMALARIN SICAKLIĞI</span>
-                    <p class="project-desc">Fonksiyonelliğin minimalist estetikle buluştuğu bu koridor tasarımı, dikey hatlar ve gizli aydınlatmalarla mekan derinliğini artırırken dingin bir geçiş alanı vadediyor.</p>
+                    <p class="project-desc">Fonksiyonelliğin estetikle buluştuğu minimalist bir geçiş alanı.</p>
                 </div>
             </div>
 
@@ -206,8 +229,7 @@
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">04 — EĞİTİM / KAMPÜS TASARIMI</span>
                     <h3>SOCIAL CAMPUS</h3>
-                    <span class="project-subtitle">SOSYAL KAMPÜS</span>
-                    <p class="project-desc">Sosyal etkileşimi ve kolektif çalışmayı odağına alan bu dinamik kampüs tasarımı, modüler kütle hareketleri ve geniş kamusal meydanları ile yaşayan bir öğrenme ortamı sunuyor.</p>
+                    <p class="project-desc">Sosyal etkileşimi odağına alan dinamik bir kampüs tasarımı.</p>
                 </div>
             </div>
 
@@ -216,8 +238,7 @@
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">05 — KONUT / KONSEPT TASARIM</span>
                     <h3>SCULPTURAL LIVING</h3>
-                    <span class="project-subtitle">HEYKELSİ YAŞAM ALANI</span>
-                    <p class="project-desc">Doğal mermer dokularının yumuşak tekstillerle ve organik formlarla buluştuğu bu iç mekan çalışmasında, her bir detay mekanı yaşayan bir sanat eseri olarak kurguluyor.</p>
+                    <p class="project-desc">Doğal taş dokularının yumuşak tekstillerle buluştuğu dingin bir yaşam alanı.</p>
                 </div>
             </div>
 
@@ -228,24 +249,24 @@
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">06 — İÇ MEKAN</span>
                     <h3>RHYTHM & CONTRAST</h3>
-                    <span class="project-subtitle">RİTİM VE KONTRAST</span>
-                    <p class="project-desc">Müziğin ritmini mimari formlara tercüme eden bu deneysel iç mekan çalışması, parametrik duvar tasarımlarıyla akustik performansı görsel bir şölene dönüştürüyor.</p>
+                    <p class="project-desc">Müziğin ritmini mimari formlara tercüme eden deneysel bir çalışma.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="about" style="position: relative; overflow: hidden; min-height: 80vh; display: flex; align-items: center;">
+    <section id="about" style="position: relative; overflow: hidden;">
         <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.4; filter: grayscale(100%) contrast(1.2);">
             <source src="vizyon.mp4" type="video/mp4">
         </video>
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, #050505 0%, rgba(0,0,0,0.5) 50%, #050505 100%); z-index: 1;"></div>
-        <div class="about-container hidden" style="position: relative; z-index: 2; padding: 0 50px;">
+        <span class="section-title hidden" style="position: relative; z-index: 2;">VİZYON</span>
+        <div class="about-container hidden" style="position: relative; z-index: 2;">
             <p class="about-text">
-                "Her yapı, bulunduğu coğrafyayla konuşan bir hikayedir. 
+                "Her yapı, bulunduğu coğrafyayla konuşan bir hikayedir. 
                 <br><br>
-                Mimarlık eğitimim boyunca ve profesyonel üretimlerimde; <span style="color:#fff; font-weight:bold;">mekansal hafıza</span>, sürdürülebilirlik ve dijital görselleştirme üzerine odaklanıyorum. 
-                AYDIN merkezli çalışmalarımda, brütalist estetiği modern ihtiyaçlarla harmanlayarak, sadece izlenen değil, yaşanan mekanlar kurguluyorum."
+                Mimarlık eğitimim boyunca ve profesyonel üretimlerimde; <span style="color:#fff; font-weight:bold;">mekansal hafıza</span>, sürdürülebilirlik ve dijital görselleştirme üzerine odaklanıyorum. 
+                AYDIN merkezli çalışmalarımda, brütalist estetiği modern ihtiyaçlarla harmanlayarak, sadece izlenen değil, <span class="highlight">yaşanan mekanlar</span> kurguluyorum."
             </p>
         </div>
     </section>
@@ -272,13 +293,12 @@
         <span class="section-title hidden">BİRLİKTE ÇALIŞALIM</span>
         <div class="contact-container hidden">
             <div class="contact-left">
-                <div class="contact-info-block">
-                    <p>Projeleriniz ve iş birliği için</p>
-                    <a href="mailto:bgstudio.arch@gmail.com" class="contact-email">bgstudio.arch@gmail.com</a>
-                    <p style="font-size: 0.9rem; margin-top: 25px; letter-spacing: 1px;">KUŞADASI / AYDIN</p>
-                    
-                    <div class="social-links-footer">
-                        <a href="https://instagram.com/bgstudio_arch" target="_blank" class="social-link">INSTAGRAM</a>
+                <div style="font-size: 1.5rem; color: #888;">
+                    <p>Projeleriniz için iletişime geçin.</p>
+                    <p style="color: #fff; margin-top: 10px;">bgstudio.arch@gmail.com</p> 
+                    <p style="margin-top: 20px; font-size: 14px;">Kuşadası, AYDIN</p>
+                    <div style="margin-top: 30px; display: flex; gap: 20px;">
+                        <a href="#" target="_blank" class="social-link">INSTAGRAM</a>
                         <a href="https://t.me/bgstudio_arch" target="_blank" class="social-link">TELEGRAM</a>
                     </div>
                 </div>
@@ -288,43 +308,41 @@
             <form action="https://formsubmit.co/bgstudio.arch@gmail.com" method="POST">
                 <input type="hidden" name="_subject" value="Yeni Proje Başvurusu - BG STUDIO">
                 <input type="hidden" name="_captcha" value="false">
-                <div class="form-group">
-                    <input type="text" name="name" required>
-                    <label>Adınız Soyadınız</label>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" required>
-                    <label>E-posta Adresiniz</label>
-                </div>
-                <div class="form-group">
-                    <textarea rows="4" name="message" required></textarea>
-                    <label>Proje Detayları ve Mesajınız</label>
-                </div>
+                <div class="form-group"><input type="text" name="name" required><label>Adınız Soyadınız</label></div>
+                <div class="form-group"><input type="email" name="email" required><label>E-posta Adresiniz</label></div>
+                <div class="form-group"><textarea rows="4" name="message" required></textarea><label>Proje Detayları</label></div>
                 <button type="submit">GÖNDER →</button>
             </form>
         </div>
     </section>
     
     <footer>
-        <div>BG STUDIO © 2026 | ARCHITECTURE & VISUALIZATION</div>
-        <div>TÜM HAKLARI SAKLIDIR</div>
+        <div>BG STUDIO © 2026</div>
+        <div style="display:flex; gap:20px;">
+            <a href="#" target="_blank" style="color:#555; text-decoration:none;">INSTAGRAM</a>
+            <a href="https://t.me/bgstudio_arch" target="_blank" style="color:#555; text-decoration:none;">TELEGRAM</a>
+        </div>
     </footer>
 
     <script>
+        // MOBİL MENÜ KONTROLÜ
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('active');
         }
 
+        // Hero & Scroll
         const heroObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { const heroContent = document.querySelector('.hero-content'); const heroVideo = document.querySelector('.video-bg'); if (entry.isIntersecting) { heroContent.classList.add('show'); if(heroVideo) { heroVideo.currentTime = 0; heroVideo.play(); } } else { heroContent.classList.remove('show'); } }); }, { threshold: 0.1 }); 
         heroObserver.observe(document.querySelector('.hero'));
         const standardObserver = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('show'); } }); });
         document.querySelectorAll('.hidden:not(.hero-content)').forEach((el) => standardObserver.observe(el));
 
+        // İstatistik Animasyon
         const statsSection = document.querySelector('#stats');
         const statsObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const counters = document.querySelectorAll('.stat-number'); counters.forEach(counter => { const updateCount = () => { const target = +counter.getAttribute('data-target'); const count = +counter.innerText; let speed = 50; if(target < 10) speed = 300; else if(target > 50) speed = 20; const inc = 1; if (count < target) { counter.innerText = count + inc; setTimeout(updateCount, speed); } else { counter.innerText = target; } }; updateCount(); }); statsObserver.unobserve(entry.target); } }); }, { threshold: 0.5 });
         statsObserver.observe(statsSection);
 
+        // Video & Mobil
         function toggleVideo(cardId) { const card = document.getElementById(cardId); const video = card.querySelector('.project-video'); const icon = card.querySelector('.play-icon svg'); if (card.classList.contains('playing')) { video.pause(); card.classList.remove('playing'); icon.setAttribute('d', 'M8 5v14l11-7z'); } else { video.play(); card.classList.add('playing'); icon.setAttribute('d', 'M6 19h4V5H6v14zm8-14v14h4V5h-4z'); } }
         const projectCards = document.querySelectorAll('.project-card'); projectCards.forEach(card => { card.addEventListener('click', function() { if (this.classList.contains('active')) { this.classList.remove('active'); } else { projectCards.forEach(c => c.classList.remove('active')); this.classList.add('active'); } }); });
     </script>
