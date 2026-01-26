@@ -27,7 +27,7 @@
         body { background-color: #050505; color: #e0e0e0; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         h1, h2, h3, .nav-link { font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; }
 
-        /* --- MENÜ (GÜNCELLENDİ) --- */
+        /* --- MENÜ --- */
         nav { 
             position: fixed; 
             top: 0; 
@@ -44,40 +44,32 @@
         }
         
         .logo-text { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; letter-spacing: 2px; }
-        
         .nav-links { display: flex; gap: 40px; }
         .nav-link { color: #fff; text-decoration: none; font-size: 14px; letter-spacing: 1px; opacity: 0.8; transition: 0.3s; position: relative; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
         .nav-link:hover { opacity: 1; }
         .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 1px; background: #fff; transition: 0.3s; }
         .nav-link:hover::after { width: 100%; }
 
-        /* HAMBURGER MENÜ İKONU (Masaüstünde Gizli) */
         .menu-toggle { display: none; font-size: 28px; cursor: pointer; color: #fff; }
 
-        /* --- MOBİL MENÜ AYARLARI --- */
         @media (max-width: 768px) {
-            nav { padding: 15px 20px; } /* Mobilde padding azalt */
-            
-            .menu-toggle { display: block; } /* İkonu göster */
-            
+            nav { padding: 15px 20px; }
+            .menu-toggle { display: block; }
             .nav-links {
-                display: none; /* Başlangıçta gizle */
+                display: none;
                 position: absolute;
-                top: 100%; /* Nav'ın hemen altına */
+                top: 100%;
                 left: 0;
                 width: 100%;
-                background-color: #000; /* Siyah zemin */
+                background-color: #000;
                 flex-direction: column;
                 align-items: center;
                 gap: 25px;
                 padding: 30px 0;
                 border-bottom: 1px solid #333;
             }
-            
-            /* JS ile 'active' sınıfı eklenince açılacak */
             .nav-links.active { display: flex; }
-            
-            .nav-link { font-size: 18px; } /* Mobilde yazılar biraz daha büyük */
+            .nav-link { font-size: 18px; }
         }
 
         /* --- ANİMASYONLAR --- */
@@ -115,7 +107,6 @@
         .project-static { z-index: 2; opacity: 1; } .project-video { z-index: 1; opacity: 0; }
         .project-card.playing .project-static { opacity: 0; } .project-card.playing .project-video { opacity: 1; filter: grayscale(0%); }
 
-        /* Mobil */
         @media (max-width: 768px) {
             .portfolio-grid { grid-template-columns: 1fr; }
             .project-img, .gallery-img { filter: grayscale(0%) !important; }
@@ -144,8 +135,6 @@
         .stat-item:last-child .stat-number::after { content: ''; } 
         .stat-label { color: #888; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* Footer & Form */
-        .about-container { display: flex; justify-content: space-between; align-items: center; gap: 50px; }
         .about-text { font-size: 2rem; line-height: 1.4; max-width: 800px; color: #fff; }
         .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
         .contact-left { display: flex; flex-direction: column; justify-content: space-between; }
@@ -162,15 +151,12 @@
         footer { padding: 50px; border-top: 1px solid #222; display: flex; justify-content: space-between; font-size: 14px; color: #555; }
         .social-link { color: #fff; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 5px; transition: 0.3s; }
         .social-link:hover { border-bottom: 1px solid #fff; opacity: 0.8; }
-        .highlight { color: #888; }
     </style>
 </head>
 <body>
     <nav>
         <a href="#" class="logo-text">BG STUDIO</a>
-        
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-        
         <div class="nav-links" id="navLinks">
             <a href="#projects" class="nav-link" onclick="toggleMenu()">PROJELER</a>
             <a href="#about" class="nav-link" onclick="toggleMenu()">STÜDYO</a>
@@ -198,8 +184,8 @@
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">01 — KONUT / KIRSAL TASARIM</span>
                     <h3>ALPINE REFUGE</h3>
-                    <span class="project-subtitle">DAĞ EVİ</span>
-                    <p class="project-desc">Vahşi doğanın kalbinde, topoğrafyayla yarışmak yerine ona uyum sağlayan bir sığınak.</p>
+                    <span class="project-subtitle">DAĞ SIĞINAĞI</span>
+                    <p class="project-desc">Vahşi doğanın kalbinde, topoğrafyayla yarışmak yerine ona tamamen eklemlenen, doğal taş ve ahşap dokuların modern bir yorumuyla kurgulanan sürdürülebilir bir sığınak projesi.</p>
                 </div>
             </div>
 
@@ -220,7 +206,8 @@
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">03 — KONUT / İÇ MEKAN TASARIMI</span>
                     <h3>REFLECTIVE WARMTH</h3>
-                    <p class="project-desc">Fonksiyonelliğin estetikle buluştuğu minimalist bir geçiş alanı.</p>
+                    <span class="project-subtitle">YANSIMALARIN SICAKLIĞI</span>
+                    <p class="project-desc">Fonksiyonelliğin minimalist estetikle buluştuğu bu koridor tasarımı, dikey hatlar ve gizli aydınlatmalarla mekan derinliğini artırırken dingin bir geçiş alanı vadediyor.</p>
                 </div>
             </div>
 
@@ -229,7 +216,8 @@
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">04 — EĞİTİM / KAMPÜS TASARIMI</span>
                     <h3>SOCIAL CAMPUS</h3>
-                    <p class="project-desc">Sosyal etkileşimi odağına alan dinamik bir kampüs tasarımı.</p>
+                    <span class="project-subtitle">SOSYAL KAMPÜS</span>
+                    <p class="project-desc">Sosyal etkileşimi ve kolektif çalışmayı odağına alan bu dinamik kampüs tasarımı, modüler kütle hareketleri ve geniş kamusal meydanları ile yaşayan bir öğrenme ortamı sunuyor.</p>
                 </div>
             </div>
 
@@ -238,7 +226,8 @@
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">05 — KONUT / KONSEPT TASARIM</span>
                     <h3>SCULPTURAL LIVING</h3>
-                    <p class="project-desc">Doğal taş dokularının yumuşak tekstillerle buluştuğu dingin bir yaşam alanı.</p>
+                    <span class="project-subtitle">HEYKELSİ YAŞAM ALANI</span>
+                    <p class="project-desc">Doğal mermer dokularının yumuşak tekstillerle ve organik formlarla buluştuğu bu iç mekan çalışmasında, her bir detay mekanı yaşayan bir sanat eseri olarak kurguluyor.</p>
                 </div>
             </div>
 
@@ -249,7 +238,8 @@
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">06 — İÇ MEKAN</span>
                     <h3>RHYTHM & CONTRAST</h3>
-                    <p class="project-desc">Müziğin ritmini mimari formlara tercüme eden deneysel bir çalışma.</p>
+                    <span class="project-subtitle">RİTİM VE KONTRAST</span>
+                    <p class="project-desc">Müziğin ritmini mimari formlara tercüme eden bu deneysel iç mekan çalışması, parametrik duvar tasarımlarıyla akustik performansı görsel bir şölene dönüştürüyor.</p>
                 </div>
             </div>
         </div>
@@ -325,24 +315,20 @@
     </footer>
 
     <script>
-        // MOBİL MENÜ KONTROLÜ
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('active');
         }
 
-        // Hero & Scroll
         const heroObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { const heroContent = document.querySelector('.hero-content'); const heroVideo = document.querySelector('.video-bg'); if (entry.isIntersecting) { heroContent.classList.add('show'); if(heroVideo) { heroVideo.currentTime = 0; heroVideo.play(); } } else { heroContent.classList.remove('show'); } }); }, { threshold: 0.1 }); 
         heroObserver.observe(document.querySelector('.hero'));
         const standardObserver = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('show'); } }); });
         document.querySelectorAll('.hidden:not(.hero-content)').forEach((el) => standardObserver.observe(el));
 
-        // İstatistik Animasyon
         const statsSection = document.querySelector('#stats');
         const statsObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const counters = document.querySelectorAll('.stat-number'); counters.forEach(counter => { const updateCount = () => { const target = +counter.getAttribute('data-target'); const count = +counter.innerText; let speed = 50; if(target < 10) speed = 300; else if(target > 50) speed = 20; const inc = 1; if (count < target) { counter.innerText = count + inc; setTimeout(updateCount, speed); } else { counter.innerText = target; } }; updateCount(); }); statsObserver.unobserve(entry.target); } }); }, { threshold: 0.5 });
         statsObserver.observe(statsSection);
 
-        // Video & Mobil
         function toggleVideo(cardId) { const card = document.getElementById(cardId); const video = card.querySelector('.project-video'); const icon = card.querySelector('.play-icon svg'); if (card.classList.contains('playing')) { video.pause(); card.classList.remove('playing'); icon.setAttribute('d', 'M8 5v14l11-7z'); } else { video.play(); card.classList.add('playing'); icon.setAttribute('d', 'M6 19h4V5H6v14zm8-14v14h4V5h-4z'); } }
         const projectCards = document.querySelectorAll('.project-card'); projectCards.forEach(card => { card.addEventListener('click', function() { if (this.classList.contains('active')) { this.classList.remove('active'); } else { projectCards.forEach(c => c.classList.remove('active')); this.classList.add('active'); } }); });
     </script>
