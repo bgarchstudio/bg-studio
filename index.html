@@ -15,88 +15,75 @@
     
     <link rel="icon" href="logo.jpg" type="image/jpeg">
     <link rel="shortcut icon" href="logo.jpg" type="image/jpeg">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- TEMEL AYARLAR --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body { background-color: #050505; color: #e0e0e0; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         h1, h2, h3, .nav-link { font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; }
 
-        /* --- MENÜ --- */
-        nav { 
-            position: fixed; top: 0; left: 0; width: 100%; padding: 20px 50px; 
-            display: flex; justify-content: space-between; align-items: center; 
-            z-index: 9999; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); 
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
+        nav { position: fixed; top: 0; left: 0; width: 100%; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 9999; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05); }
         .logo-text { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; letter-spacing: 2px; }
         .nav-links { display: flex; gap: 40px; }
-        .nav-link { color: #fff; text-decoration: none; font-size: 14px; letter-spacing: 1px; opacity: 0.8; transition: 0.3s; position: relative; }
+        .nav-link { color: #fff; text-decoration: none; font-size: 14px; letter-spacing: 1px; opacity: 0.8; transition: 0.3s; }
         .nav-link:hover { opacity: 1; }
         .menu-toggle { display: none; font-size: 28px; cursor: pointer; color: #fff; }
 
         @media (max-width: 768px) {
-            nav { padding: 15px 20px; }
-            .menu-toggle { display: block; }
-            .nav-links {
-                display: none; position: absolute; top: 100%; left: 0; width: 100%;
-                background-color: #000; flex-direction: column; align-items: center;
-                gap: 25px; padding: 30px 0; border-bottom: 1px solid #333;
-            }
+            nav { padding: 15px 20px; } .menu-toggle { display: block; }
+            .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #000; flex-direction: column; align-items: center; gap: 25px; padding: 30px 0; border-bottom: 1px solid #333; }
             .nav-links.active { display: flex; }
         }
 
-        /* --- ANİMASYONLAR --- */
         .hidden { opacity: 0; filter: blur(5px); transform: translateY(30px); transition: 0.8s ease-out; }
         .show { opacity: 1; filter: blur(0); transform: translateY(0); }
 
-        /* --- HERO --- */
         .hero { position: relative; height: 100vh; width: 100%; display: flex; justify-content: center; align-items: center; overflow: hidden; }
         .video-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; object-fit: cover; z-index: 1; filter: grayscale(100%) brightness(0.8); }
-        .hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 2; }
         h1 { font-size: 9vw; line-height: 0.85; color: #fff; position: relative; z-index: 10; text-align: center; }
 
-        /* --- PROJELER --- */
         section { padding: 100px 50px; }
         .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         .project-card { position: relative; height: 500px; overflow: hidden; background: #000; }
         .project-img, .gallery-img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; filter: grayscale(100%); transition: 0.8s; }
         .project-card:hover .project-img, .project-card:hover .gallery-img { filter: grayscale(0%); transform: scale(1.05); }
 
-        /* SLAYT ANİMASYONLARI (3 SN) */
         .img-1 { z-index: 3; opacity: 1; } .img-2 { z-index: 2; opacity: 0; } .img-3 { z-index: 1; opacity: 0; }
-        @keyframes cycle3 { 0%, 30% { opacity: 1; } 33.3%, 96.6% { opacity: 0; } 100% { opacity: 1; } }
-        @keyframes cycle3-2 { 0%, 30% { opacity: 0; } 33.3%, 63.3% { opacity: 1; } 66.6%, 100% { opacity: 0; } }
-        @keyframes cycle3-3 { 0%, 63.3% { opacity: 0; } 66.6%, 96.6% { opacity: 1; } 100% { opacity: 0; } }
+        @keyframes cycle3 { 0%, 30% { opacity: 1; } 33%, 96% { opacity: 0; } 100% { opacity: 1; } }
+        @keyframes cycle3-2 { 0%, 33% { opacity: 0; } 36%, 63% { opacity: 1; } 66%, 100% { opacity: 0; } }
+        @keyframes cycle3-3 { 0%, 66% { opacity: 0; } 69%, 96% { opacity: 1; } 100% { opacity: 0; } }
         .slideshow-3 .img-1 { animation: cycle3 9s infinite; } .slideshow-3 .img-2 { animation: cycle3-2 9s infinite; } .slideshow-3 .img-3 { animation: cycle3-3 9s infinite; }
         @keyframes cycle2 { 0%, 45% { opacity: 1; } 50%, 95% { opacity: 0; } 100% { opacity: 1; } }
-        @keyframes cycle2-2 { 0%, 45% { opacity: 0; } 50%, 95% { opacity: 1; } 100% { opacity: 0; } }
+        @keyframes cycle2-2 { 0%, 50% { opacity: 0; } 55%, 95% { opacity: 1; } 100% { opacity: 0; } }
         .slideshow-2 .img-1 { animation: cycle2 6s infinite; } .slideshow-2 .img-2 { animation: cycle2-2 6s infinite; }
 
-        /* Kart Detayları */
-        .card-overlay { position: absolute; bottom: 30px; left: 30px; z-index: 5; width: 85%; pointer-events: none; }
-        .project-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 70%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); z-index: 3; }
+        .card-overlay { position: absolute; bottom: 30px; left: 30px; z-index: 5; width: 85%; }
+        .project-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 70%; background: linear-gradient(to top, rgba(0,0,0,0.95), transparent); z-index: 3; }
         .project-subtitle { display: block; font-size: 1.1rem; color: #bbb; margin-bottom: 5px; }
         .project-desc { color: #ddd; font-size: 0.95rem; line-height: 1.5; opacity: 0; max-height: 0; transition: 0.5s; overflow: hidden; }
-        .project-card:hover .project-desc { opacity: 1; max-height: 200px; margin-top: 15px; }
+        .project-card:hover .project-desc { opacity: 1; max-height: 400px; margin-top: 15px; }
+
+        #about { position: relative; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+        .about-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, #050505 0%, rgba(0,0,0,0.4) 50%, #050505 100%); z-index: 1; }
+        .about-text { font-size: 2rem; line-height: 1.4; color: #fff; max-width: 800px; position: relative; z-index: 2; }
+
+        #stats { display: flex; justify-content: space-around; padding: 80px 20px; background: #080808; border-top: 1px solid #222; }
+        .stat-number { font-size: 3.5rem; font-weight: 700; color: #fff; font-family: 'Space Grotesk'; }
+
+        .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+        .social-link { color: #fff; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 5px; margin-right: 20px; transition: 0.3s; }
+        .social-link:hover { border-bottom: 1px solid #fff; }
+        form { display: flex; flex-direction: column; gap: 25px; }
+        input, textarea { background: transparent; border: none; border-bottom: 1px solid #444; padding: 15px 0; color: #fff; outline: none; width: 100%; }
+        button { background: #fff; padding: 15px 40px; cursor: pointer; font-weight: 700; border: none; align-self: flex-start; }
 
         @media (max-width: 768px) {
-            .portfolio-grid { grid-template-columns: 1fr; }
+            .portfolio-grid, .contact-container { grid-template-columns: 1fr; }
+            section { padding: 50px 20px; }
             .project-img, .gallery-img { filter: grayscale(0%) !important; }
-            .project-desc { opacity: 1; max-height: 200px; margin-top: 10px; }
+            .project-desc { opacity: 1; max-height: 400px; margin-top: 10px; }
         }
-
-        #stats { display: flex; justify-content: space-around; padding: 80px 20px; background: #080808; text-align: center; }
-        .stat-number { font-size: 3rem; font-weight: 700; color: #fff; font-family: 'Space Grotesk'; }
-        .footer-tiger-img { width: 100%; max-width: 350px; margin-top: 40px; }
-        form { display: flex; flex-direction: column; gap: 20px; }
-        input, textarea { background: transparent; border: none; border-bottom: 1px solid #444; padding: 15px 0; color: #fff; outline: none; }
-        button { background: #fff; padding: 15px; cursor: pointer; font-weight: 700; border: none; }
     </style>
 </head>
 <body>
@@ -112,21 +99,18 @@
 
     <header class="hero">
         <video class="video-bg" autoplay loop muted playsinline><source src="animasyon.mp4" type="video/mp4"></video>
-        <div class="hero-content hidden">
-            <h1>BG<br>STUDIO</h1>
-            <p style="letter-spacing: 5px; color: #fff;">MİMARİ TASARIM & GÖRSELLEŞTİRME</p>
-        </div>
+        <h1>BG<br>STUDIO</h1>
     </header>
 
     <section id="projects">
         <div class="portfolio-grid">
-            <div class="project-card hidden" id="project1" style="height: 800px;">
+            <div class="project-card hidden" style="height: 800px;">
                 <img src="proje1.jpg" class="project-img">
                 <div class="card-overlay">
                     <span style="color:#aaa; font-size: 0.8rem;">01 — KONUT / KIRSAL TASARIM</span>
                     <h3>ALPINE REFUGE</h3>
                     <span class="project-subtitle">DAĞ SIĞINAĞI</span>
-                    <p class="project-desc">Vahşi doğanın kalbinde, topoğrafyayla yarışmak yerine ona tamamen eklemlenen, doğal taş ve ahşap dokuların modern bir yorumuyla kurgulanan sürdürülebilir bir sığınak projesi.</p>
+                    <p class="project-desc">Vahşi doğanın kalbinde, topoğrafyayla yarışmak yerine ona tamamen eklemlenen sürdürülebilir bir sığınak projesi.</p>
                 </div>
             </div>
 
@@ -137,7 +121,7 @@
                 <div class="card-overlay">
                     <span style="color:#aaa; font-size: 0.8rem;">02 — PETSHOP / İÇ MEKAN TASARIMI</span>
                     <h3>ŞANSLI PATİLER</h3>
-                    <p class="project-desc">Kuşadası'nda hayata geçen bu petshop projesi, şeffaf cam cephesiyle sokağa açılan davetkar bir atmosfer sunuyor. Standart mağaza algısını kıran tasarımda; doğal ahşap dokular ve biofilik öğeler sıcak bir ortam yaratırken, modern sergileme üniteleri deneyimi güçlendiriyor.</p>
+                    <p class="project-desc">Kuşadası'nda hayata geçen bu <strong>petshop projesi</strong>, şeffaf cam cephesiyle sokağa açılan davetkar bir atmosfer sunuyor. Standart mağaza algısını kıran tasarımda; doğal ahşap dokular ve biofilik öğeler sıcak bir ortam yaratırken, modern sergileme üniteleri deneyimi güçlendiriyor.</p>
                 </div>
             </div>
 
@@ -147,7 +131,7 @@
                     <span style="color:#aaa; font-size: 0.8rem;">03 — KONUT / İÇ MEKAN TASARIMI</span>
                     <h3>REFLECTIVE WARMTH</h3>
                     <span class="project-subtitle">YANSIMALARIN SICAKLIĞI</span>
-                    <p class="project-desc">Fonksiyonelliğin minimalist estetikle buluştuğu bu koridor tasarımı, dikey hatlar ve gizli aydınlatmalarla mekan derinliğini artırırken dingin bir geçiş alanı vadediyor.</p>
+                    <p class="project-desc">Fonksiyonelliğin minimalist estetikle buluştuğu bu koridor tasarımı, dikey hatlar ve gizli aydınlatmalarla mekan derinliğini artırıyor.</p>
                 </div>
             </div>
 
@@ -157,7 +141,7 @@
                     <span style="color:#aaa; font-size: 0.8rem;">04 — EĞİTİM / KAMPÜS TASARIMI</span>
                     <h3>SOCIAL CAMPUS</h3>
                     <span class="project-subtitle">SOSYAL KAMPÜS</span>
-                    <p class="project-desc">Sosyal etkileşimi ve kolektif çalışmayı odağına alan bu dinamik kampüs tasarımı, modüler kütle hareketleri ve geniş kamusal meydanları ile öğrencilere yaşayan bir öğrenme ortamı sunuyor.</p>
+                    <p class="project-desc">Sosyal etkileşimi odağına alan dinamik bir kampüs tasarımı, modüler kütle hareketleri ile yaşayan bir öğrenme ortamı sunuyor.</p>
                 </div>
             </div>
 
@@ -167,7 +151,7 @@
                     <span style="color:#aaa; font-size: 0.8rem;">05 — KONUT / KONSEPT TASARIM</span>
                     <h3>SCULPTURAL LIVING</h3>
                     <span class="project-subtitle">HEYKELSİ YAŞAM ALANI</span>
-                    <p class="project-desc">Doğal mermer dokularının yumuşak tekstillerle ve organik formlarla buluştuğu bu iç mekan çalışmasında, her bir detay mekanı yaşayan bir sanat eseri olarak kurguluyor.</p>
+                    <p class="project-desc">Doğal mermer dokularının organik formlarla buluştuğu bu çalışmada, tasarım dili heykelsi bir zarafete bürünüyor.</p>
                 </div>
             </div>
 
@@ -175,44 +159,53 @@
                 <img src="proje6-1.jpg" class="gallery-img img-1">
                 <img src="proje6-2.jpg" class="gallery-img img-2">
                 <div class="card-overlay">
-                    <span style="color:#aaa; font-size: 0.8rem;">06 — İÇ MEKAN / AKUSTİK TASARIM</span>
+                    <span style="color:#aaa; font-size: 0.8rem;">06 — KONSER SALONU / AKUSTİK TASARIM</span>
                     <h3>RHYTHM & CONTRAST</h3>
                     <span class="project-subtitle">RİTİM VE KONTRAST</span>
-                    <p class="project-desc">Müziğin ritmini mimari formlara tercüme eden bu deneysel iç mekan çalışması, parametrik yüzeylerle akustik performansı görsel bir şölene dönüştürüyor.</p>
+                    <p class="project-desc">Müziğin ritmini mimari formlara tercüme eden bu deneysel çalışma, parametrik duvar tasarımlarıyla hayat buluyor.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="about" style="position: relative; overflow: hidden; padding: 100px 50px;">
-        <video autoplay loop muted playsinline style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:0; opacity:0.3; filter: grayscale(100%);"><source src="vizyon.mp4" type="video/mp4"></video>
-        <div style="position: relative; z-index: 2;">
-            <p style="font-size: 2rem; max-width: 800px; color: #fff;">"Her yapı, bulunduğu coğrafyayla konuşan bir hikayedir. Mimarlık eğitimim boyunca ve profesyonel üretimlerimde; <span style="font-weight:bold;">mekansal hafıza</span> ve sürdürülebilirlik üzerine odaklanıyorum."</p>
+    <section id="about">
+        <video autoplay loop muted playsinline style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:0; opacity:0.4; filter: grayscale(100%);"><source src="vizyon.mp4" type="video/mp4"></video>
+        <div class="about-overlay"></div>
+        <div class="about-text hidden">
+            <p>"Her yapı, bulunduğu coğrafyayla konuşan bir hikayedir. Mimarlık eğitimim boyunca; <span style="font-weight:bold;">mekansal hafıza</span> ve sürdürülebilirlik üzerine odaklanıyorum."</p>
         </div>
     </section>
 
-    <section id="contact" style="padding: 100px 50px;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px;">
-            <div>
+    <section id="stats" class="hidden">
+        <div class="stat-item"><div class="stat-number">4+</div><p>YIL DENEYİM</p></div>
+        <div class="stat-item"><div class="stat-number">30+</div><p>PROJE</p></div>
+        <div class="stat-item"><div class="stat-number">100%</div><p>MEMNUNİYET</p></div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-container hidden">
+            <div class="contact-left">
                 <h3>BİRLİKTE ÇALIŞALIM</h3>
-                <p>bgstudio.arch@gmail.com</p>
+                <p style="margin: 10px 0 30px;">bgstudio.arch@gmail.com</p>
+                <div style="margin-bottom: 40px;">
+                    <a href="https://instagram.com/bgstudio_arch" target="_blank" class="social-link">INSTAGRAM</a>
+                    <a href="https://t.me/bgstudio_arch" target="_blank" class="social-link">TELEGRAM</a>
+                </div>
                 <img src="tiger.jpg" class="footer-tiger-img">
             </div>
             <form action="https://formsubmit.co/bgstudio.arch@gmail.com" method="POST">
                 <input type="text" placeholder="Adınız" required>
                 <input type="email" placeholder="E-posta" required>
                 <textarea rows="4" placeholder="Proje Detayları" required></textarea>
-                <button type="submit">GÖNDER</button>
+                <button type="submit">GÖNDER →</button>
             </form>
         </div>
     </section>
 
     <script>
         function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('show'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
+        const obs = new IntersectionObserver(ents => ents.forEach(e => e.isIntersecting && e.target.classList.add('show')), {threshold: 0.1});
+        document.querySelectorAll('.hidden').forEach(el => obs.observe(el));
     </script>
 </body>
 </html>
