@@ -163,27 +163,6 @@
         .social-link { color: #fff; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 5px; transition: 0.3s; }
         .social-link:hover { border-bottom: 1px solid #fff; opacity: 0.8; }
         .highlight { color: #888; }
-
-/* Başarı Mesajı Penceresi */
-#success-toast {
-    position: fixed;
-    bottom: -100px; /* Başlangıçta ekranın dışında */
-    left: 50%;
-    transform: translateX(-50%);
-    background: #c6a87c; /* Senin ikon rengin */
-    color: #000;
-    padding: 15px 40px;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    z-index: 10000;
-    transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-#success-toast.show {
-    bottom: 30px; /* Ekrana giriş mesafesi */
-}
     </style>
 </head>
 <body>
@@ -332,7 +311,7 @@
             
             <form action="https://formsubmit.co/bgstudio.arch@gmail.com" method="POST">
                 <input type="hidden" name="_subject" value="Yeni Proje Başvurusu - BG STUDIO">
-                <input type="hidden" name="_next" value="https://bgarchstudio.github.io/bg-studio/?success=true">
+                <input type="hidden" name="_next" value="https://bgarchstudio.github.io/bg-studio/">
                 <input type="hidden" name="_captcha" value="false">
                 <div class="form-group"><input type="text" name="name" required><label>Adınız Soyadınız</label></div>
                 <div class="form-group"><input type="email" name="email" required><label>E-posta Adresiniz</label></div>
@@ -371,27 +350,6 @@
         // Video & Mobil
         function toggleVideo(cardId) { const card = document.getElementById(cardId); const video = card.querySelector('.project-video'); const icon = card.querySelector('.play-icon svg'); if (card.classList.contains('playing')) { video.pause(); card.classList.remove('playing'); icon.setAttribute('d', 'M8 5v14l11-7z'); } else { video.play(); card.classList.add('playing'); icon.setAttribute('d', 'M6 19h4V5H6v14zm8-14v14h4V5h-4z'); } }
         const projectCards = document.querySelectorAll('.project-card'); projectCards.forEach(card => { card.addEventListener('click', function() { if (this.classList.contains('active')) { this.classList.remove('active'); } else { projectCards.forEach(c => c.classList.remove('active')); this.classList.add('active'); } }); });
-
-// Sayfa yüklendiğinde yönlendirmeden gelip gelmediğini kontrol et
-window.onload = function() {
-   window.addEventListener('load', function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('success') === 'true') {
-        const toast = document.getElementById('success-toast');
-        if (toast) {
-            toast.classList.add('show');
-            
-            // 4 saniye sonra bildirimi kaldır ve URL'yi temizle
-            setTimeout(() => {
-                toast.classList.remove('show');
-                // Linkteki ?success=true kısmını kullanıcıyı rahatsız etmeden temizler
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }, 4000);
-        }
-    }
-});
-
     </script>
-<div id="success-toast">MESAJINIZ BAŞARIYLA İLETİLDİ</div>
 </body>
 </html>
