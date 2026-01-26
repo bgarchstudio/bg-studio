@@ -332,7 +332,7 @@
             
             <form action="https://formsubmit.co/bgstudio.arch@gmail.com" method="POST">
                 <input type="hidden" name="_subject" value="Yeni Proje Başvurusu - BG STUDIO">
-                <input type="hidden" name="_next" value="https://bgarchstudio.github.io/bg-studio/">
+                <input type="hidden" name="_next" value="https://bgarchstudio.github.io/bg-studio/?success=true">
                 <input type="hidden" name="_captcha" value="false">
                 <div class="form-group"><input type="text" name="name" required><label>Adınız Soyadınız</label></div>
                 <div class="form-group"><input type="email" name="email" required><label>E-posta Adresiniz</label></div>
@@ -374,17 +374,22 @@
 
 // Sayfa yüklendiğinde yönlendirmeden gelip gelmediğini kontrol et
 window.onload = function() {
-    // FormSubmit yönlendirmesi sonrası sayfa yenilendiği için mesajı gösteriyoruz
-    if (document.referrer && document.referrer.includes('formsubmit.co')) {
+   window.addEventListener('load', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === 'true') {
         const toast = document.getElementById('success-toast');
-        toast.classList.add('show');
-        
-        // 3 saniye sonra geri sakla
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 3000);
+        if (toast) {
+            toast.classList.add('show');
+            
+            // 4 saniye sonra bildirimi kaldır ve URL'yi temizle
+            setTimeout(() => {
+                toast.classList.remove('show');
+                // Linkteki ?success=true kısmını kullanıcıyı rahatsız etmeden temizler
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }, 4000);
+        }
     }
-};
+});
 
     </script>
 <div id="success-toast">MESAJINIZ BAŞARIYLA İLETİLDİ</div>
