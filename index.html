@@ -364,8 +364,22 @@
         statsObserver.observe(statsSection);
 
         // Video & Mobil
-        function toggleVideo(cardId) { const card = document.getElementById(cardId); const video = card.querySelector('.project-video'); const icon = card.querySelector('.play-icon svg'); if (card.classList.contains('playing')) { video.pause(); card.classList.remove('playing'); icon.setAttribute('d', 'M8 5v14l11-7z'); } else { video.play(); card.classList.add('playing'); icon.setAttribute('d', 'M6 19h4V5H6v14zm8-14v14h4V5h-4z'); } }
-        const projectCards = document.querySelectorAll('.project-card'); projectCards.forEach(card => { card.addEventListener('click', function() { if (this.classList.contains('active')) { this.classList.remove('active'); } else { projectCards.forEach(c => c.classList.remove('active')); this.classList.add('active'); } }); });
+        function toggleVideo(cardId) {
+    const card = document.getElementById(cardId);
+    const video = card.querySelector('.project-video');
+    const path = card.querySelector('.play-icon path');
+
+    if (card.classList.contains('playing')) {
+        video.pause();
+        card.classList.remove('playing');
+        path.setAttribute('d', 'M8 5v14l11-7z'); // play
+    } else {
+        video.play();
+        card.classList.add('playing');
+        path.setAttribute('d', 'M6 19h4V5H6v14zm8-14v14h4V5h-4z'); // pause
+    }
+}
+
     </script>
 </body>
 </html>
