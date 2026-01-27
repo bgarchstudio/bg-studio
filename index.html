@@ -5,13 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>BG STUDIO | Mimari Görselleştirme & Tasarım</title>
-<meta name="description" content="BG STUDIO, mimari projeleriniz için profesyonel 3D render, animasyon ve görselleştirme hizmetleri sunar.">
+<meta name="description" content="BG STUDIO, mimari projeleriniz için profesyonel 3D render ve görselleştirme hizmetleri sunar.">
 <meta name="author" content="Mimar Berkant Gökbel">
 
 <meta property="og:title" content="BG STUDIO | Mimari Görselleştirme & Tasarım">
-<meta property="og:description" content="Projelerinizin sunumunda çözüm ortağınız olalım.">
-<meta property="og:image" content="https://bgstudio.com.tr/logo.webp">
-<meta property="og:url" content="https://bgstudio.com.tr">
+<meta property="og:description" content="Projelerinizin sunumunda çözüm ortağınız.">
+<meta property="og:image" content="logo.webp">
 <meta property="og:type" content="website">
 
 <link rel="icon" type="image/webp" href="favicon.webp">
@@ -23,43 +22,91 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:#050505;color:#e0e0e0;font-family:Inter,sans-serif;overflow-x:hidden}
+body{background:#050505;color:#e0e0e0;font-family:'Inter',sans-serif;overflow-x:hidden}
 h1,h2,h3,.nav-link{font-family:'Space Grotesk',sans-serif;text-transform:uppercase}
 
-/* NAV */
-nav{position:fixed;top:0;width:100%;padding:20px 50px;display:flex;justify-content:space-between;align-items:center;z-index:9999;background:rgba(0,0,0,.8);backdrop-filter:blur(10px)}
-.logo-text{font-weight:700;font-size:24px;color:#fff;text-decoration:none}
+nav{
+position:fixed;top:0;left:0;width:100%;
+padding:20px 50px;
+display:flex;justify-content:space-between;align-items:center;
+background:rgba(0,0,0,.8);backdrop-filter:blur(10px);
+z-index:9999;border-bottom:1px solid rgba(255,255,255,.05)
+}
+.logo-text{color:#fff;font-size:24px;font-weight:700;text-decoration:none}
 .nav-links{display:flex;gap:40px}
 .nav-link{color:#fff;text-decoration:none;font-size:14px;opacity:.8}
 .nav-link:hover{opacity:1}
-.menu-toggle{display:none;color:#fff;font-size:28px;cursor:pointer}
+.menu-toggle{display:none;font-size:28px;color:#fff;cursor:pointer}
 
 @media(max-width:768px){
 nav{padding:15px 20px}
 .menu-toggle{display:block}
-.nav-links{display:none;position:absolute;top:100%;left:0;width:100%;background:#000;flex-direction:column;align-items:center;gap:25px;padding:30px 0}
+.nav-links{
+display:none;flex-direction:column;
+position:absolute;top:100%;left:0;width:100%;
+background:#000;padding:30px 0;gap:25px
+}
 .nav-links.active{display:flex}
+.nav-link{font-size:18px}
 }
 
-/* HERO */
-.hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative}
-.video-bg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);min-width:100%;min-height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.2) brightness(.9)}
-.hero::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.3)}
-.hero-content{position:relative;z-index:2;text-align:center}
-h1{font-size:9vw;color:#fff;line-height:.85}
+.hidden{opacity:0;transform:translateY(30px)}
+.show{opacity:1;transform:none;transition:.8s ease}
 
-/* ANIMATION */
-.hidden{opacity:0;transform:translateY(30px);transition:.8s}
-.show{opacity:1;transform:none}
+.hero{
+height:100vh;display:flex;justify-content:center;align-items:center;
+position:relative;overflow:hidden;background:#000
+}
+.video-bg{
+position:absolute;top:50%;left:50%;
+transform:translate(-50%,-50%);
+min-width:100%;min-height:100%;
+object-fit:cover;filter:grayscale(100%) brightness(.8)
+}
+.hero::after{
+content:"";position:absolute;inset:0;
+background:rgba(0,0,0,.4)
+}
+.hero-content{z-index:2;text-align:center}
+h1{font-size:9vw;line-height:.85;color:#fff}
 
-/* FORM FIX */
-input,textarea{background:transparent;border:none;border-bottom:1px solid #444;color:#fff;padding:15px 0;width:100%}
-label{position:absolute;top:15px;color:#666;transition:.3s}
-input:focus~label,
-input:not(:placeholder-shown)~label,
-textarea:focus~label,
-textarea:not(:placeholder-shown)~label{
-top:-10px;font-size:12px;color:#fff}
+section{padding:100px 50px}
+@media(max-width:768px){
+section{padding:60px 20px}
+h1{font-size:15vw}
+}
+
+.portfolio-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+@media(max-width:768px){.portfolio-grid{grid-template-columns:1fr}}
+
+.project-card{
+position:relative;height:500px;overflow:hidden;background:#000
+}
+.project-img{
+position:absolute;inset:0;width:100%;height:100%;
+object-fit:cover;filter:grayscale(100%);
+transition:.8s
+}
+.project-card:hover .project-img{filter:grayscale(0);transform:scale(1.05)}
+
+.card-overlay{
+position:absolute;bottom:30px;left:30px;z-index:3;width:85%
+}
+.project-card::after{
+content:"";position:absolute;bottom:0;left:0;width:100%;height:70%;
+background:linear-gradient(to top,rgba(0,0,0,.9),transparent)
+}
+.project-desc{
+opacity:0;max-height:0;overflow:hidden;transition:.5s
+}
+.project-card:hover .project-desc{
+opacity:1;max-height:400px;margin-top:15px
+}
+
+footer{
+padding:50px;border-top:1px solid #222;
+display:flex;justify-content:space-between;color:#555
+}
 </style>
 </head>
 
@@ -81,58 +128,60 @@ top:-10px;font-size:12px;color:#fff}
 </video>
 <div class="hero-content hidden">
 <h1>BG<br>STUDIO</h1>
-<p>MİMARİ TASARIM & GÖRSELLEŞTİRME</p>
+<p style="letter-spacing:5px">MİMARİ TASARIM &amp; GÖRSELLEŞTİRME</p>
 </div>
 </header>
 
+<section id="projects">
+<div class="portfolio-grid">
+
+<div class="project-card hidden">
+<img src="proje1.webp" class="project-img" alt="Alpine Refuge" loading="lazy">
+<div class="card-overlay">
+<h3>ALPINE REFUGE</h3>
+<p class="project-desc">
+Doğayla bütünleşen, sürdürülebilir dağ evi tasarımı.
+</p>
+</div>
+</div>
+
+<div class="project-card hidden">
+<img src="proje2-1.webp" class="project-img" alt="Şanslı Patiler" loading="lazy">
+<div class="card-overlay">
+<h3>ŞANSLI PATİLER</h3>
+<p class="project-desc">
+Şeffaf cepheli, biofilik iç mekan petshop tasarımı.
+</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<footer>
+<div>BG STUDIO © 2026 — Berkant Gökbel</div>
+<div>
+<a href="#" style="color:#555;text-decoration:none">INSTAGRAM</a>
+</div>
+</footer>
+
 <script>
-// Menü
 function toggleMenu(){
-document.getElementById('navLinks').classList.toggle('active')
+const nav=document.getElementById("navLinks");
+if(nav) nav.classList.toggle("active");
 }
 
-// Hero observer (temiz)
-const hero = document.querySelector('.hero')
-const heroContent = document.querySelector('.hero-content')
-const heroVideo = document.querySelector('.video-bg')
-
-new IntersectionObserver(entries=>{
+const observer=new IntersectionObserver(entries=>{
 entries.forEach(e=>{
-if(e.isIntersecting){
-heroContent.classList.add('show')
-if(heroVideo && heroVideo.paused){
-heroVideo.play().catch(()=>{})
-}
-}
-})
-},{threshold:.2}).observe(hero)
+if(e.isIntersecting)e.target.classList.add("show");
+});
+},{threshold:.2});
 
-// Genel reveal
-const revealObserver = new IntersectionObserver(entries=>{
-entries.forEach(e=>{
-if(e.isIntersecting)e.target.classList.add('show')
-})
-})
+document.querySelectorAll(".hidden").forEach(el=>observer.observe(el));
 
-document.querySelectorAll('.hidden').forEach(el=>revealObserver.observe(el))
-
-// Video toggle (safe)
-function toggleVideo(id){
-const card=document.getElementById(id)
-if(!card)return
-const video=card.querySelector('.project-video')
-const path=card.querySelector('.play-icon path')
-if(!video||!path)return
-
-if(card.classList.contains('playing')){
-video.pause()
-card.classList.remove('playing')
-path.setAttribute('d','M8 5v14l11-7z')
-}else{
-video.play().catch(()=>{})
-card.classList.add('playing')
-path.setAttribute('d','M6 19h4V5H6v14zm8-14v14h4V5h-4z')
-}
+const heroVideo=document.querySelector(".video-bg");
+if(heroVideo){
+heroVideo.play().catch(()=>{});
 }
 </script>
 
