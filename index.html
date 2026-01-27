@@ -184,44 +184,6 @@
         .social-link { color: #fff; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 5px; transition: 0.3s; }
         .social-link:hover { border-bottom: 1px solid #fff; opacity: 0.8; }
         .highlight { color: #888; }
-<script>
-const cursorDot = document.querySelector(".cursor-dot");
-const cursorOutline = document.querySelector(".cursor-outline");
-
-window.addEventListener("mousemove", function (e) {
-    const posX = e.clientX;
-    const posY = e.clientY;
-
-    // Nokta anlık takip eder
-    cursorDot.style.left = `${posX}px`;
-    cursorDot.style.top = `${posY}px`;
-
-    // Halka yumuşak bir gecikmeyle (animate metoduyla) takip eder
-    cursorOutline.animate({
-        left: `${posX}px`,
-        top: `${posY}px`
-    }, { duration: 500, fill: "forwards" });
-});
-
-// ETKİLEŞİM: Linklere gelince imleç büyüsün
-const links = document.querySelectorAll('a, button, .project-card, .play-btn');
-
-links.forEach(link => {
-    link.addEventListener("mouseenter", () => {
-        cursorOutline.style.width = "70px";
-        cursorOutline.style.height = "70px";
-        cursorOutline.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
-        cursorOutline.style.border = "1px solid #fff";
-    });
-    
-    link.addEventListener("mouseleave", () => {
-        cursorOutline.style.width = "40px";
-        cursorOutline.style.height = "40px";
-        cursorOutline.style.backgroundColor = "transparent";
-        cursorOutline.style.border = "1px solid rgba(255, 255, 255, 0.4)";
-    });
-});
-</script>
     </style>
 </head>
 <body>
@@ -465,5 +427,43 @@ links.forEach(link => {
         cursorOutline.style.border = "1px solid rgba(255, 255, 255, 0.4)";
     });
 });
+<script>
+const cursorDot = document.querySelector(".cursor-dot");
+const cursorOutline = document.querySelector(".cursor-outline");
+
+window.addEventListener("mousemove", function (e) {
+    const posX = e.clientX;
+    const posY = e.clientY;
+
+    // Nokta anlık takip eder
+    cursorDot.style.left = `${posX}px`;
+    cursorDot.style.top = `${posY}px`;
+
+    // Halka yumuşak bir gecikmeyle (animate metoduyla) takip eder
+    cursorOutline.animate({
+        left: `${posX}px`,
+        top: `${posY}px`
+    }, { duration: 500, fill: "forwards" });
+});
+
+// ETKİLEŞİM: Linklere gelince imleç büyüsün
+const links = document.querySelectorAll('a, button, .project-card, .play-btn');
+
+links.forEach(link => {
+    link.addEventListener("mouseenter", () => {
+        cursorOutline.style.width = "70px";
+        cursorOutline.style.height = "70px";
+        cursorOutline.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+        cursorOutline.style.border = "1px solid #fff";
+    });
+    
+    link.addEventListener("mouseleave", () => {
+        cursorOutline.style.width = "40px";
+        cursorOutline.style.height = "40px";
+        cursorOutline.style.backgroundColor = "transparent";
+        cursorOutline.style.border = "1px solid rgba(255, 255, 255, 0.4)";
+    });
+});
+</script>
 </body>
 </html>
