@@ -538,103 +538,59 @@ section#projects {
         .stat-item:last-child .stat-number::after { content: ''; } 
         .stat-label { color: #888; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* --- İLETİŞİM KONTEYNERI (HİZALAMA) --- */
-section#contact {
-    padding: 100px 5% !important; /* Projeler ve Vizyon ile aynı hiza */
-}
+        /* Footer & Form */
+        .about-container { display: flex; justify-content: space-between; align-items: center; gap: 50px; }
+        .about-text { font-size: 2rem; line-height: 1.4; max-width: 800px; color: #fff; }
+        .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+        .contact-left { display: flex; flex-direction: column; justify-content: space-between; }
+        .footer-tiger-img { width: 100%; max-width: 350px; margin-top: 40px; opacity: 0.9; filter: grayscale(20%) contrast(1.1); transition: all 0.5s ease; }
+        .footer-tiger-img:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.02); }
+        form { display: flex; flex-direction: column; gap: 30px; }
+        .form-group { position: relative; }
+        input, textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid #444; padding: 15px 0; color: #fff; font-family: 'Inter', sans-serif; font-size: 16px; outline: none; transition: 0.3s; }
+        input:focus, textarea:focus { border-bottom: 1px solid #fff; }
+        label { position: absolute; top: 15px; left: 0; color: #666; pointer-events: none; transition: 0.3s; font-size: 14px; }
+        input:focus ~ label, input:valid ~ label, textarea:focus ~ label, textarea:valid ~ label { top: -10px; font-size: 12px; color: #fff; }
+        button { background: #fff; color: #000; border: none; padding: 15px 40px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; cursor: pointer; align-self: flex-start; margin-top: 20px; transition: 0.3s; }
+        button:hover { background: #ccc; letter-spacing: 1px; }
+        footer { padding: 50px; border-top: 1px solid #222; display: flex; justify-content: space-between; font-size: 14px; color: #555; }
+        .social-link { color: #fff; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 5px; transition: 0.3s; }
+        .social-link:hover { border-bottom: 1px solid #fff; opacity: 0.8; }
+        .highlight { color: #888; }
+footer {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            padding: 30px 5%;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 80px;
+        }
 
-.contact-container { 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; /* Sol: Tiger | Sağ: Form */
-    gap: 80px; 
-    align-items: start;
-}
+        .social-links-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
 
-/* --- FORM YAPISI: BAŞLIK ÜSTTE, BOŞLUK ALTTA (KESİN DÜZEN) --- */
-form { 
-    display: flex; 
-    flex-direction: column; 
-    gap: 45px; /* Her giriş grubu arası ferah boşluk */
-}
+        .social-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 13px;
+            line-height: 1;
+        }
 
-.form-group { 
-    display: flex;
-    flex-direction: column; /* Başlığı üste, alanı alta zorunlu kılar */
-    gap: 15px; /* Başlık ile giriş alanı arasındaki mesafe */
-}
-
-.form-group label { 
-    position: relative; /* Uçma efektini tamamen sildik, başlık hep üstte */
-    color: rgba(255, 255, 255, 0.4); 
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 2.5px;
-    font-weight: 500;
-}
-
-/* Ad Soyad ve E-posta Girişleri */
-input { 
-    width: 100%; 
-    background: transparent; 
-    border: none; 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
-    padding: 12px 0; 
-    color: #fff; 
-    font-family: 'Inter', sans-serif;
-    font-size: 16px; 
-    outline: none; 
-}
-
-/* Proje Detayları: Genişletilmiş Alan */
-textarea {
-    width: 100%;
-    min-height: 160px; 
-    background: rgba(255, 255, 255, 0.02); /* Çok hafif, modern bir doku */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 15px;
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    outline: none;
-    resize: none; /* Boyutun kullanıcı tarafından bozulmasını engeller */
-}
-
-input:focus, textarea:focus { 
-    border-color: #c6a87c; /* Fokus olunca senin bronz/gold tonun */
-}
-
-/* --- PREMIUM GOLD GÖNDER BUTONU --- */
-button { 
-    background: #fff; 
-    color: #000; 
-    border: 1px solid #fff; 
-    padding: 20px 0; 
-    width: 100%; 
-    font-family: 'Space Grotesk', sans-serif; 
-    font-weight: 700; 
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    cursor: pointer; 
-    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1); 
-}
-
-button:hover { 
-    /* Derinliği olan premium metalik gold geçişi */
-    background: linear-gradient(135deg, #c6a87c 0%, #a68a5a 100%); 
-    border-color: #c6a87c;
-    color: #fff;
-    letter-spacing: 6px;
-    box-shadow: 0 10px 30px rgba(198, 168, 124, 0.2);
-}
-
-/* Sol Taraftaki Kaplan Görseli */
-.footer-tiger-img { 
-    width: 100%; 
-    max-width: 550px; 
-    opacity: 0.95; 
-    filter: grayscale(100%) contrast(1.1); 
-    transition: all 0.6s ease; 
-}
+        .footer-text {
+            margin: 0;
+            padding: 0;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+        }
 /* --- FOOTER ANA YAPI --- */
 .site-footer {
     width: 100%;
