@@ -323,66 +323,14 @@ h1 {
     .hero-content p { font-size: 10px; letter-spacing: 3px; }
 }
 
-        /* --- PROJELER BÖLÜMÜ --- */
-section#projects { 
-    padding: 100px 5%; /* Sabit 50px yerine % kullanarak her ekranda denge sağladık */
-}
-
-.section-title { 
-    font-size: 13px; 
-    color: #666; 
-    letter-spacing: 3px; 
-    margin-bottom: 50px; 
-    display: block; 
-    border-bottom: 1px solid rgba(255,255,255,0.1); 
-    padding-bottom: 12px;
-}
-
-/* Projelerin Dizilimi */
-.portfolio-grid { 
-    display: grid; 
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 30px; /* Görseller arası boşluğu biraz artırarak ferahlık kattık */
-    align-items: start; 
-}
-
-/* Proje Kartı Tasarımı */
-.project-card { 
-    position: relative; 
-    height: 550px; /* Daha yüksek görseller mimari detayları daha iyi gösterir */
-    overflow: hidden; 
-    cursor: none; /* Özel imlecin çalışması için burayı 'none' yaptık */
-    background: #000;
-}
-
-/* Görsel Geçiş Ayarları */
-.project-img, .gallery-img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    filter: grayscale(100%) brightness(0.8); /* Başlangıçta biraz daha karanlık, daha dramatik */
-    transition: 
-        transform 1s cubic-bezier(0.25, 1, 0.5, 1), 
-        filter 0.6s ease;
-}
-
-/* Üzerine Gelince (Hover) Oluşan Değişim */
-.project-card:hover .project-img, 
-.project-card:hover .gallery-img, 
-.project-card.active .project-img { 
-    filter: grayscale(0%) brightness(1); /* Renklenir ve aydınlanır */
-    transform: scale(1.08); /* Biraz daha belirgin bir büyüme */
-}
-
-/* Mobilde Görseller Hep Renkli Olsun (Çünkü mobilde hover yoktur) */
-@media (max-width: 768px) {
-    .portfolio-grid { grid-template-columns: 1fr; }
-    .project-card { height: 400px; }
-    .project-img, .gallery-img { filter: grayscale(0%) brightness(1); }
-}
+        /* --- PROJELER --- */
+        section { padding: 100px 50px; }
+        .section-title { font-size: 14px; color: #888; letter-spacing: 2px; margin-bottom: 40px; display: block; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; }
+        .project-card { position: relative; height: 500px; overflow: hidden; cursor: default; background: #000; }
+        
+        .project-img, .gallery-img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; filter: grayscale(100%); transition: transform 0.8s ease, filter 0.5s ease, opacity 0.8s ease; }
+        .project-card:hover .project-img, .project-card:hover .gallery-img, .project-card.active .project-img, .project-card.active .gallery-img { filter: grayscale(0%); transform: scale(1.05); }
 
         /* --- SLAYT ANİMASYONLARI --- */
         .img-1 { z-index: 3; opacity: 1; } .img-2 { z-index: 2; opacity: 0; } .img-3 { z-index: 1; opacity: 0; }
