@@ -647,7 +647,8 @@ footer {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: rgba(255, 255, 255, 0.5);
+    /* İstatistiklerdeki o ağır gold rengini buraya da verdik */
+    color: #C6A87C; 
     text-decoration: none;
     font-size: 14px;
     letter-spacing: 0.5px;
@@ -655,10 +656,15 @@ footer {
 }
 
 .footer-social-item:hover {
-    color: #fff;
-    transform: translateY(-3px); /* Hover etkisini belirginleştirdik */
+    /* Üzerine gelince daha parlak bir gold olsun */
+    color: #E6BE8A; 
+    transform: translateY(-3px);
 }
 
+/* İkonların (SVG) rengini de otomatik gold yapar */
+.footer-social-item svg {
+    fill: currentColor;
+}
 /* --- COPYRIGHT YAZISI --- */
 .footer-copyright {
     color: rgba(255, 255, 255, 0.3);
