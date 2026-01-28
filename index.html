@@ -12,7 +12,12 @@
 
     <meta property="og:title" content="BG STUDIO | Mimari Görselleştirme & Tasarım">
     <meta property="og:description" content="Projelerinizin sunumunda çözüm ortağınız olalım. Yüksek kaliteli 3D görselleştirme ihtiyaçlarınız için görüşme talep edin.">
+    
     <meta property="og:image" content="https://bgstudio.com.tr/logo.webp">
+    <meta property="og:image:type" content="image/webp">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="1080">
+    
     <meta property="og:url" content="https://bgstudio.com.tr">
     <meta property="og:type" content="website">
 
@@ -21,6 +26,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QMPP71M8CN"></script>
     <script>
@@ -31,30 +38,100 @@
     </script>
 
     <style>
+.social-links-wrapper {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap; /* Mobilde sığmazsa alt alta geçer */
+    gap: 20px; /* İkonlar arası boşluk */
+    justify-content: flex-start;
+}
+
+.social-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.social-item:hover {
+    color: #fff;
+    transform: translateY(-2px); /* Mikro etkileşim: Hafif yukarı zıplama */
+}
+
+.social-text {
+    letter-spacing: 0.5px;
+}
         /* --- TEMEL AYARLAR --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        body { background-color: #050505; color: #e0e0e0; font-family: 'Inter', sans-serif; overflow-x: hidden; cursor: none !important; }
+        body { background-color: #050505; color: #e0e0e0; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         h1, h2, h3, .nav-link { font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; }
-        a, button { cursor: none !important; }
 
-        /* --- MODERN İMLEÇ (CURSOR) --- */
-        .cursor-dot { width: 8px; height: 8px; background: #fff; position: fixed; pointer-events: none; z-index: 10000; border-radius: 50%; transform: translate(-50%, -50%); }
-        .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(255, 255, 255, 0.5); position: fixed; pointer-events: none; z-index: 9999; border-radius: 50%; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, background 0.3s; }
-
-        /* --- NAVİGASYON --- */
-        nav { position: fixed; top: 0; left: 0; width: 100%; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 9999; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        /* --- MENÜ (GÜNCELLENDİ) --- */
+        nav { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            padding: 20px 50px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            z-index: 9999; 
+            background: rgba(0,0,0,0.8); 
+            backdrop-filter: blur(10px); 
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
         .logo-text { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; letter-spacing: 2px; }
+        
         .nav-links { display: flex; gap: 40px; }
-        .nav-link { color: #fff; text-decoration: none; font-size: 14px; letter-spacing: 1px; opacity: 0.8; transition: 0.3s; position: relative; }
+        .nav-link { color: #fff; text-decoration: none; font-size: 14px; letter-spacing: 1px; opacity: 0.8; transition: 0.3s; position: relative; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
         .nav-link:hover { opacity: 1; }
         .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 1px; background: #fff; transition: 0.3s; }
         .nav-link:hover::after { width: 100%; }
+
+        /* HAMBURGER MENÜ İKONU (Masaüstünde Gizli) */
         .menu-toggle { display: none; font-size: 28px; cursor: pointer; color: #fff; }
+
+        /* --- MOBİL MENÜ AYARLARI --- */
+        @media (max-width: 768px) {
+            nav { padding: 15px 20px; } /* Mobilde padding azalt */
+            
+            .menu-toggle { display: block; } /* İkonu göster */
+            
+            .nav-links {
+                display: none; /* Başlangıçta gizle */
+                position: absolute;
+                top: 100%; /* Nav'ın hemen altına */
+                left: 0;
+                width: 100%;
+                background-color: #000; /* Siyah zemin */
+                flex-direction: column;
+                align-items: center;
+                gap: 25px;
+                padding: 30px 0;
+                border-bottom: 1px solid #333;
+            }
+            
+            /* JS ile 'active' sınıfı eklenince açılacak */
+            .nav-links.active { display: flex; }
+            
+            .nav-link { font-size: 18px; } /* Mobilde yazılar biraz daha büyük */
+        }
+
+        /* --- ANİMASYONLAR --- */
+        .hidden { opacity: 0; filter: blur(5px); transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out, filter 0.8s ease-out; }
+        .show { opacity: 1; filter: blur(0); transform: translateY(0); }
+        .hidden:not(.show) { transition-duration: 0s; }
 
         /* --- HERO --- */
         .hero { position: relative; height: 100vh; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; background-color: #000; }
-        .video-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; object-fit: cover; z-index: 1; filter: grayscale(100%) contrast(1.2) brightness(0.9); }
+        .video-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; width: auto; height: auto; object-fit: cover; z-index: 1; filter: grayscale(100%) contrast(1.2) brightness(0.9); }
         .hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); z-index: 2; }
         .hero-content { position: relative; z-index: 10; text-align: center; }
         h1 { font-size: 9vw; line-height: 0.85; letter-spacing: -3px; color: #fff; text-shadow: 0 10px 40px rgba(0,0,0,0.9); margin-bottom: 20px; }
@@ -63,60 +140,176 @@
         section { padding: 100px 50px; }
         .section-title { font-size: 14px; color: #888; letter-spacing: 2px; margin-bottom: 40px; display: block; border-bottom: 1px solid #333; padding-bottom: 10px; }
         .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; }
-        .project-card { position: relative; height: 500px; overflow: hidden; background: #000; }
-        .project-img, .gallery-img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; filter: grayscale(100%); transition: transform 0.8s ease, filter 0.5s ease; }
-        .project-card:hover .project-img, .project-card:hover .gallery-img, .project-card.active .project-img { filter: grayscale(0%); transform: scale(1.05); }
+        .project-card { position: relative; height: 500px; overflow: hidden; cursor: default; background: #000; }
+        
+        .project-img, .gallery-img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; filter: grayscale(100%); transition: transform 0.8s ease, filter 0.5s ease, opacity 0.8s ease; }
+        .project-card:hover .project-img, .project-card:hover .gallery-img, .project-card.active .project-img, .project-card.active .gallery-img { filter: grayscale(0%); transform: scale(1.05); }
 
-        /* Galeriler & Video Kontrolleri */
+        /* --- SLAYT ANİMASYONLARI --- */
         .img-1 { z-index: 3; opacity: 1; } .img-2 { z-index: 2; opacity: 0; } .img-3 { z-index: 1; opacity: 0; }
+        @keyframes cycleThreeImg1 { 0% { opacity: 1; } 30% { opacity: 1; } 33.33% { opacity: 0; } 96.66% { opacity: 0; } 100% { opacity: 1; } }
+        @keyframes cycleThreeImg2 { 0% { opacity: 0; } 30% { opacity: 0; } 33.33% { opacity: 1; } 63.33% { opacity: 1; } 66.66% { opacity: 0; } 100% { opacity: 0; } }
+        @keyframes cycleThreeImg3 { 0% { opacity: 0; } 63.33% { opacity: 0; } 66.66% { opacity: 1; } 96.66% { opacity: 1; } 100% { opacity: 0; } }
         .slideshow-3 .img-1 { animation: cycleThreeImg1 9s infinite; } .slideshow-3 .img-2 { animation: cycleThreeImg2 9s infinite; } .slideshow-3 .img-3 { animation: cycleThreeImg3 9s infinite; }
+        @keyframes cycleTwoImg1 { 0% { opacity: 1; } 45% { opacity: 1; } 50% { opacity: 0; } 95% { opacity: 0; } 100% { opacity: 1; } }
+        @keyframes cycleTwoImg2 { 0% { opacity: 0; } 45% { opacity: 0; } 50% { opacity: 1; } 95% { opacity: 1; } 100% { opacity: 0; } }
         .slideshow-2 .img-1 { animation: cycleTwoImg1 6s infinite; } .slideshow-2 .img-2 { animation: cycleTwoImg2 6s infinite; }
-        @keyframes cycleThreeImg1 { 0%, 30%, 100% { opacity: 1; } 33%, 96% { opacity: 0; } }
-        @keyframes cycleThreeImg2 { 0%, 30%, 66%, 100% { opacity: 0; } 33%, 63% { opacity: 1; } }
-        @keyframes cycleThreeImg3 { 0%, 63%, 100% { opacity: 0; } 66%, 96% { opacity: 1; } }
-        @keyframes cycleTwoImg1 { 0%, 45%, 100% { opacity: 1; } 50%, 95% { opacity: 0; } }
-        @keyframes cycleTwoImg2 { 0%, 45%, 100% { opacity: 0; } 50%, 95% { opacity: 1; } }
 
-        .project-card.playing .project-static { opacity: 0; } 
-        .project-card.playing .project-video { opacity: 1; filter: grayscale(0%); }
-        .play-btn { position: absolute; top: 20px; right: 20px; width: 50px; height: 50px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); border-radius: 50%; display: flex; justify-content: center; align-items: center; z-index: 20; }
+        /* Video Kontrol */
+        .project-static { z-index: 2; opacity: 1; } .project-video { z-index: 1; opacity: 0; }
+        .project-card.playing .project-static { opacity: 0; } .project-card.playing .project-video { opacity: 1; filter: grayscale(0%); }
 
-        /* --- İSTATİSTİKLER --- */
-        #stats { display: flex; justify-content: space-around; align-items: center; padding: 80px 20px; background: #080808; border-top: 1px solid #222; text-align: center; }
-        .stat-number { font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; font-weight: 700; color: #fff; }
-        .stat-number::after { content: '+'; font-size: 2rem; color: #c6a87c; vertical-align: super; }
-
-        /* --- FOOTER (EN GÜNCEL) --- */
-        .site-footer { width: 100%; border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 60px 5% 40px; }
-        .footer-container { max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 30px; }
-        .footer-social-group { display: flex; justify-content: center; align-items: center; gap: 40px; }
-        .footer-social-item { display: flex; align-items: center; gap: 10px; color: rgba(255, 255, 255, 0.5); text-decoration: none; font-size: 14px; transition: 0.4s; }
-        .footer-social-item:hover { color: #fff; transform: translateY(-3px); }
-        .footer-copyright { color: rgba(255, 255, 255, 0.3); font-size: 12px; text-align: center; line-height: 1.6; }
-
-        /* --- MOBİL --- */
+        /* Mobil */
         @media (max-width: 768px) {
             .portfolio-grid { grid-template-columns: 1fr; }
-            .menu-toggle { display: block; }
-            .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #000; flex-direction: column; align-items: center; padding: 30px 0; }
-            .nav-links.active { display: flex; }
-            h1 { font-size: 15vw; }
+            .project-img, .gallery-img { filter: grayscale(0%) !important; }
+            h1 { font-size: 15vw; margin-bottom: 20px; }
             section { padding: 50px 20px; }
-            .footer-social-group { gap: 20px; }
+            .about-container, .contact-container { grid-template-columns: 1fr; flex-direction: column; }
+            #stats { flex-direction: column; gap: 50px; }
         }
 
-        /* Animasyonlar */
-        .hidden { opacity: 0; filter: blur(5px); transform: translateY(30px); transition: 0.8s ease-out; }
-        .show { opacity: 1; filter: blur(0); transform: translateY(0); }
+        /* Kart Detayları */
+        .play-btn, .gallery-indicator { position: absolute; top: 20px; right: 20px; width: 50px; height: 50px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 50%; display: flex; justify-content: center; align-items: center; z-index: 20; }
+        .card-overlay { position: absolute; bottom: 30px; left: 30px; pointer-events: none; z-index: 5; width: 85%; }
+        .project-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 70%; background: linear-gradient(to top, rgba(0,0,0,0.95), transparent); pointer-events: none; z-index: 3; }
+        .card-overlay h3 { font-size: 2rem; color: #fff; margin: 5px 0 0; line-height: 1; }
+        .project-subtitle { display: block; font-size: 1.1rem; color: #bbb; font-weight: 300; margin: 5px 0 10px; letter-spacing: 1px; }
+        .project-desc { color: #ddd; font-size: 0.95rem; line-height: 1.5; margin-top: 0; max-width: 100%; opacity: 0; max-height: 0; transform: translateY(20px); transition: all 0.5s ease; overflow: hidden; }
+        .project-card:hover .project-desc, .project-card.active .project-desc { opacity: 1; max-height: 400px; transform: translateY(0); margin-top: 15px; }
+
+        /* İstatistikler */
+        #stats { display: flex; justify-content: space-around; align-items: center; padding: 80px 20px; background: #080808; border-top: 1px solid #222; border-bottom: 1px solid #222; text-align: center; }
+        .stat-item { display: flex; flex-direction: column; align-items: center; gap: 15px; transition: transform 0.3s; }
+        .stat-item:hover { transform: translateY(-10px); }
+        .stat-icon svg { width: 50px; height: 50px; fill: #c6a87c; filter: drop-shadow(0 0 10px rgba(198, 168, 124, 0.3)); }
+        .stat-number { font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; font-weight: 700; color: #fff; line-height: 1; }
+        .stat-number::after { content: '+'; font-size: 2rem; color: #c6a87c; vertical-align: super; margin-left: 5px; }
+        .stat-item:last-child .stat-number::after { content: ''; } 
+        .stat-label { color: #888; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* Footer & Form */
+        .about-container { display: flex; justify-content: space-between; align-items: center; gap: 50px; }
+        .about-text { font-size: 2rem; line-height: 1.4; max-width: 800px; color: #fff; }
+        .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+        .contact-left { display: flex; flex-direction: column; justify-content: space-between; }
+        .footer-tiger-img { width: 100%; max-width: 350px; margin-top: 40px; opacity: 0.9; filter: grayscale(20%) contrast(1.1); transition: all 0.5s ease; }
+        .footer-tiger-img:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.02); }
+        form { display: flex; flex-direction: column; gap: 30px; }
+        .form-group { position: relative; }
+        input, textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid #444; padding: 15px 0; color: #fff; font-family: 'Inter', sans-serif; font-size: 16px; outline: none; transition: 0.3s; }
+        input:focus, textarea:focus { border-bottom: 1px solid #fff; }
+        label { position: absolute; top: 15px; left: 0; color: #666; pointer-events: none; transition: 0.3s; font-size: 14px; }
+        input:focus ~ label, input:valid ~ label, textarea:focus ~ label, textarea:valid ~ label { top: -10px; font-size: 12px; color: #fff; }
+        button { background: #fff; color: #000; border: none; padding: 15px 40px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; cursor: pointer; align-self: flex-start; margin-top: 20px; transition: 0.3s; }
+        button:hover { background: #ccc; letter-spacing: 1px; }
+        footer { padding: 50px; border-top: 1px solid #222; display: flex; justify-content: space-between; font-size: 14px; color: #555; }
+        .social-link { color: #fff; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 5px; transition: 0.3s; }
+        .social-link:hover { border-bottom: 1px solid #fff; opacity: 0.8; }
+        .highlight { color: #888; }
+footer {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            padding: 30px 5%;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 80px;
+        }
+
+        .social-links-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .social-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 13px;
+            line-height: 1;
+        }
+
+        .footer-text {
+            margin: 0;
+            padding: 0;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+        }
+/* --- FOOTER ANA YAPI --- */
+.site-footer {
+    width: 100%;
+    background-color: #050505;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 60px 5% 40px; /* Üstten geniş boşluk bıraktık */
+}
+
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column; /* Mobilde ve masaüstünde dikey düzen için */
+    align-items: center;    /* Her şeyi ortalar */
+    gap: 25px;              /* İkonlar ve yazı arasındaki dikey boşluk */
+}
+
+/* --- SOSYAL İKONLAR GRUBU --- */
+.footer-social-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px; /* İki ikon arasındaki yatay boşluk */
+}
+
+.footer-social-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    transition: all 0.4s ease;
+}
+
+.footer-social-item:hover {
+    color: #fff;
+    transform: translateY(-3px); /* Hover etkisini belirginleştirdik */
+}
+
+/* --- COPYRIGHT YAZISI --- */
+.footer-copyright {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    text-align: center;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* --- MOBİL İÇİN EKSTRA DOKUNUŞ --- */
+@media (max-width: 768px) {
+    .footer-social-group {
+        gap: 25px; /* Mobilde ikonlar biraz daha yakın olsun */
+    }
+    .footer-copyright {
+        font-size: 11px;
+        max-width: 280px; /* Yazı mobilde iki satıra şık bölünür */
+    }
+}
     </style>
 </head>
 <body>
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
-
     <nav>
         <a href="#" class="logo-text">BG STUDIO</a>
+        
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        
         <div class="nav-links" id="navLinks">
             <a href="#projects" class="nav-link" onclick="toggleMenu()">PROJELER</a>
             <a href="#about" class="nav-link" onclick="toggleMenu()">STÜDYO</a>
@@ -139,78 +332,185 @@
                 <div class="play-btn" onclick="toggleVideo('project1'); event.stopPropagation();">
                     <div class="play-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
                 </div>
-                <img src="proje1.webp" alt="Alpine Refuge" class="project-img project-static">
+                <img src="proje1.webp" alt="Alpine Refuge" class="project-img project-static" fetchpriority="high">
                 <video class="project-img project-video" loop muted playsinline preload="none"><source src="proje1.mp4" type="video/mp4"></video>
                 <div class="card-overlay">
+                    <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">01 — KONUT / KIRSAL TASARIM</span>
                     <h3>ALPINE REFUGE</h3>
-                    <p class="project-desc">Vahşi doğanın kalbinde kurgulanan sürdürülebilir bir sığınak projesi.</p>
+                    <span class="project-subtitle">DAĞ EVİ</span>
+                    <p class="project-desc">Vahşi doğanın kalbinde, topoğrafyayla yarışmak yerine ona tamamen eklemlenen, doğal taş ve ahşap dokuların modern bir yorumuyla kurgulanan sürdürülebilir bir sığınak projesi. Sert iklim koşullarına dayanıklı formuyla kullanıcıya güvenli bir liman sunarken, geniş cam yüzeyleriyle doğayı iç mekana davet ediyor.</p>
                 </div>
             </div>
+
+            <div class="project-card hidden slideshow-3">
+                <div class="gallery-indicator"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/></svg></div>
+                <img src="proje2-1.webp" alt="Petshop Exterior" class="gallery-img img-1">
+                <img src="proje2-2.webp" alt="Petshop Interior" class="gallery-img img-2">
+                <img src="proje2-3.webp" alt="Petshop Details" class="gallery-img img-3">
+                <div class="card-overlay">
+                    <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">02 — PETSHOP / İÇ MEKAN TASARIMI</span>
+                    <h3>ŞANSLI PATİLER</h3>
+                    <p class="project-desc">Kuşadası'nda hayata geçen bu petshop projesi, şeffaf cam cephesiyle sokağa açılan davetkar bir atmosfer sunuyor. Standart mağaza algısını kıran tasarımda; doğal ahşap dokular ve biofilik öğeler sıcak bir ortam yaratırken, modern sergileme üniteleri deneyimi güçlendiriyor.</p>
+                </div>
             </div>
+
+             <div class="project-card hidden" style="height: 800px;">
+                <img src="proje3.webp" alt="Modern Hallway" class="project-img">
+                <div class="card-overlay">
+                    <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">03 — KONUT / İÇ MEKAN TASARIMI</span>
+                    <h3>REFLECTIVE WARMTH</h3>
+                    <span class="project-subtitle">YANSIMALARIN SICAKLIĞI</span>
+                    <p class="project-desc">Fonksiyonelliğin minimalist estetikle buluştuğu bu koridor tasarımı, dikey hatlar ve gizli aydınlatmalarla mekan derinliğini artırırken, brütalist beton dokusunu sıcak ahşap detaylarla dengeleyerek kullanıcıya dingin bir geçiş alanı vadediyor.</p>
+                </div>
+            </div>
+
+            <div class="project-card hidden">
+                <img src="proje4.webp" alt="Social Campus" class="project-img">
+                <div class="card-overlay">
+                    <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">04 — EĞİTİM / KAMPÜS TASARIMI</span>
+                    <h3>SOCIAL CAMPUS</h3>
+                    <span class="project-subtitle">SOSYAL KAMPÜS</span>
+                    <p class="project-desc">Sosyal etkileşimi ve kolektif çalışmayı odağına alan bu dinamik kampüs tasarımı, modüler kütle hareketleri ve geniş kamusal meydanları ile öğrencilere yaşayan bir öğrenme ortamı sunuyor. Tasarım, eğitim yapılarını klasik sınırlarından çıkarıp kentin bir parçası haline getirmeyi hedefliyor.</p>
+                </div>
+            </div>
+
+            <div class="project-card hidden" style="height: 800px;">
+                <img src="proje5.webp" alt="Minimalist Living" class="project-img">
+                <div class="card-overlay">
+                    <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">05 — KONUT / KONSEPT TASARIM</span>
+                    <h3>SCULPTURAL LIVING</h3>
+                    <span class="project-subtitle">HEYKELSİ YAŞAM ALANI</span>
+                    <p class="project-desc">Doğal mermer dokularının yumuşak tekstillerle ve organik formlarla buluştuğu bu iç mekan çalışmasında, brütalist tasarım dili heykelsi bir zarafete bürünüyor. Her bir mobilya ve detay, mekanı sadece bir konut değil, yaşayan bir sanat eseri olarak kurguluyor.</p>
+                </div>
+            </div>
+
+            <div class="project-card hidden slideshow-2">
+                <div class="gallery-indicator"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/></svg></div>
+                <img src="proje6-1.webp" alt="Piano Room" class="gallery-img img-1">
+                <img src="proje6-2.webp" alt="Geometric Wall" class="gallery-img img-2">
+                <div class="card-overlay">
+                    <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">06 — İÇ MEKAN</span>
+                    <h3>RHYTHM & CONTRAST</h3>
+                    <span class="project-subtitle">RİTİM VE KONTRAST</span>
+                    <p class="project-desc">Müziğin ritmini mimari formlara ve geometrik yüzey hareketlerine tercüme eden bu deneysel iç mekan çalışması, akustik performansı görsel bir şölene dönüştürüyor. Siyah ve beyazın keskin zıtlığı, sesin mekandaki yayılımını simgeleyen parametrik duvar tasarımlarıyla hayat buluyor.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <footer class="site-footer">
-        <div class="footer-container">
-            <div class="footer-social-group">
-                <a href="https://www.instagram.com/bgstudio.arch/" target="_blank" class="footer-social-item">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    <span>bgstudio.arch</span>
-                </a>
-                <a href="https://t.me/bgstudio_arch" target="_blank" class="footer-social-item">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.26.26-.534.26l.195-2.795 5.084-4.59c.22-.194-.048-.303-.342-.108L6.438 13.01l-2.708-.845c-.59-.186-.6-.59.124-.874l10.58-4.074c.49-.18.914.113.76.994z"/></svg>
-                    <span>bgstudio_arch</span>
-                </a>
-            </div>
-            <p class="footer-copyright">
-                BG STUDIO © 2026. Tüm hakları saklıdır. | Mimar Berkant Gökbel tarafından tasarlanmıştır.
+    <section id="about" style="position: relative; overflow: hidden;">
+        <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.4; filter: grayscale(100%) contrast(1.2);">
+            <source src="vizyon.mp4" type="video/mp4">
+        </video>
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, #050505 0%, rgba(0,0,0,0.5) 50%, #050505 100%); z-index: 1;"></div>
+        <span class="section-title hidden" style="position: relative; z-index: 2;">VİZYON</span>
+        <div class="about-container hidden" style="position: relative; z-index: 2;">
+            <p class="about-text">
+                "Her yapı, bulunduğu coğrafyayla konuşan bir hikayedir. 
+                <br><br>
+                Mimarlık eğitimim boyunca ve profesyonel üretimlerimde; <span style="color:#fff; font-weight:bold;">mekansal hafıza</span>, sürdürülebilirlik ve dijital görselleştirme üzerine odaklanıyorum. 
+                AYDIN merkezli çalışmalarımda, brütalist estetiği modern ihtiyaçlarla harmanlayarak, sadece izlenen değil, <span class="highlight">yaşanan mekanlar</span> kurguluyorum."
             </p>
         </div>
-    </footer>
+    </section>
+    
+    <section id="stats" class="hidden">
+        <div class="stat-item">
+            <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 3.5L18.5 20h-13L12 5.5z"/></svg></div>
+            <div class="stat-number" data-target="4">0</div>
+            <div class="stat-label">YIL TASARIM TUTKUSU</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg></div>
+            <div class="stat-number" data-target="30">0</div>
+            <div class="stat-label">TAMAMLANMIŞ PROJE</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z"/></svg></div>
+            <div class="stat-number" data-target="100">0</div>
+            <div class="stat-label">% MÜŞTERİ MEMNUNİYETİ</div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <span class="section-title hidden">BİRLİKTE ÇALIŞALIM</span>
+        <div class="contact-container hidden">
+            <div class="contact-left">
+                <div style="font-size: 1.5rem; color: #888;">
+                    <p>Projeleriniz için iletişime geçin.</p>
+                    <p style="color: #fff; margin-top: 10px;">bgstudio.arch@gmail.com</p> 
+                    <p style="margin-top: 20px; font-size: 14px;">Kuşadası, AYDIN</p>
+                    <div style="margin-top: 30px; display: flex; gap: 20px;"> 
+                    </div>
+                </div>
+                <img src="tiger.webp" alt="BG Studio Lion Logo" class="footer-tiger-img">
+            </div>
+            
+            <form action="https://formsubmit.co/bgstudio.arch@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="Yeni Proje Başvurusu - BG STUDIO">
+                <input type="hidden" name="_next" value="https://bgarchstudio.github.io/bg-studio/">
+                <input type="hidden" name="_captcha" value="false">
+                <div class="form-group"><input type="text" name="name" required><label>Adınız Soyadınız</label></div>
+                <div class="form-group"><input type="email" name="email" required><label>E-posta Adresiniz</label></div>
+                <div class="form-group"><textarea rows="4" name="message" required></textarea><label>Proje Detayları</label></div>
+                <button type="submit">GÖNDER →</button>
+            </form>
+        </div>
+    </section>
+    
+   <footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-social-group">
+            <a href="https://www.instagram.com/bgstudio.arch/" target="_blank" class="footer-social-item">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                <span>bgstudio.arch</span>
+            </a>
+            <a href="https://t.me/bgstudio_arch" target="_blank" class="footer-social-item">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.26.26-.534.26l.195-2.795 5.084-4.59c.22-.194-.048-.303-.342-.108L6.438 13.01l-2.708-.845c-.59-.186-.6-.59.124-.874l10.58-4.074c.49-.18.914.113.76.994z"/></svg>
+                <span>bgstudio_arch</span>
+            </a>
+        </div>
+        <p class="footer-copyright">
+            BG STUDIO © 2026. Tüm hakları saklıdır. | Mimar Berkant Gökbel tarafından tasarlanmıştır.
+        </p>
+    </div>
+</footer>
 
     <script>
-        // İMLEÇ (CURSOR) HAREKETİ
-        const dot = document.querySelector(".cursor-dot");
-        const outline = document.querySelector(".cursor-outline");
-        window.addEventListener("mousemove", (e) => {
-            dot.style.left = e.clientX + "px";
-            dot.style.top = e.clientY + "px";
-            outline.animate({ left: e.clientX + "px", top: e.clientY + "px" }, { duration: 500, fill: "forwards" });
-        });
-
-        // MOBİL MENÜ
-        function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
-
-        // SCROLL ANİMASYONLARI
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
-
-        // İSTATİSTİK SAYACI
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    document.querySelectorAll('.stat-number').forEach(counter => {
-                        const target = +counter.getAttribute('data-target');
-                        const update = () => {
-                            const count = +counter.innerText;
-                            if (count < target) { counter.innerText = count + 1; setTimeout(update, 50); }
-                            else counter.innerText = target;
-                        }; update();
-                    });
-                    statsObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-        statsObserver.observe(document.querySelector('#stats'));
-
-        // VİDEO TOGGLE
-        function toggleVideo(cardId) {
-            const card = document.getElementById(cardId);
-            const video = card.querySelector('.project-video');
-            if (card.classList.contains('playing')) { video.pause(); card.classList.remove('playing'); }
-            else { video.play(); card.classList.add('playing'); }
+        // MOBİL MENÜ KONTROLÜ
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
         }
+
+        // Hero & Scroll
+        const heroObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { const heroContent = document.querySelector('.hero-content'); const heroVideo = document.querySelector('.video-bg'); if (entry.isIntersecting) { heroContent.classList.add('show'); if(heroVideo) { heroVideo.currentTime = 0; heroVideo.play(); } } else { heroContent.classList.remove('show'); } }); }, { threshold: 0.1 }); 
+        heroObserver.observe(document.querySelector('.hero'));
+        const standardObserver = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('show'); } }); });
+        document.querySelectorAll('.hidden:not(.hero-content)').forEach((el) => standardObserver.observe(el));
+
+        // İstatistik Animasyon
+        const statsSection = document.querySelector('#stats');
+        const statsObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const counters = document.querySelectorAll('.stat-number'); counters.forEach(counter => { const updateCount = () => { const target = +counter.getAttribute('data-target'); const count = +counter.innerText; let speed = 50; if(target < 10) speed = 300; else if(target > 50) speed = 20; const inc = 1; if (count < target) { counter.innerText = count + inc; setTimeout(updateCount, speed); } else { counter.innerText = target; } }; updateCount(); }); statsObserver.unobserve(entry.target); } }); }, { threshold: 0.5 });
+        statsObserver.observe(statsSection);
+
+        // Video & Mobil
+        function toggleVideo(cardId) {
+    const card = document.getElementById(cardId);
+    const video = card.querySelector('.project-video');
+    const path = card.querySelector('.play-icon path');
+
+    if (card.classList.contains('playing')) {
+        video.pause();
+        card.classList.remove('playing');
+        path.setAttribute('d', 'M8 5v14l11-7z'); // play
+    } else {
+        video.play();
+        card.classList.add('playing');
+        path.setAttribute('d', 'M6 19h4V5H6v14zm8-14v14h4V5h-4z'); // pause
+    }
+}
+
     </script>
 </body>
 </html>
