@@ -528,15 +528,81 @@ section#projects {
     .project-desc { font-size: 0.85rem; }
     .play-btn { width: 40px; height: 40px; }
 }
-        /* İstatistikler */
-        #stats { display: flex; justify-content: space-around; align-items: center; padding: 80px 20px; background: #080808; border-top: 1px solid #222; border-bottom: 1px solid #222; text-align: center; }
-        .stat-item { display: flex; flex-direction: column; align-items: center; gap: 15px; transition: transform 0.3s; }
-        .stat-item:hover { transform: translateY(-10px); }
-        .stat-icon svg { width: 50px; height: 50px; fill: #c6a87c; filter: drop-shadow(0 0 10px rgba(198, 168, 124, 0.3)); }
-        .stat-number { font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; font-weight: 700; color: #fff; line-height: 1; }
-        .stat-number::after { content: '+'; font-size: 2rem; color: #c6a87c; vertical-align: super; margin-left: 5px; }
-        .stat-item:last-child .stat-number::after { content: ''; } 
-        .stat-label { color: #888; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; }
+        /* --- İSTATİSTİKLER (STATS) SEKSİYONU --- */
+#stats { 
+    display: flex; 
+    justify-content: space-around; 
+    align-items: center; 
+    padding: 100px 5%; /* Daha ferah bir görünüm için padding artırıldı */
+    background: #050505; /* Arka planı genel siteyle tam eşledik */
+    border-top: 1px solid rgba(255,255,255,0.05); 
+    border-bottom: 1px solid rgba(255,255,255,0.05); 
+    text-align: center; 
+}
+
+.stat-item { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 15px; 
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Daha yumuşak zıplama efekti */
+}
+
+.stat-item:hover { 
+    transform: translateY(-12px); 
+}
+
+.stat-icon svg { 
+    width: 45px; 
+    height: 45px; 
+    fill: #c6a87c; 
+    filter: drop-shadow(0 0 15px rgba(198, 168, 124, 0.2)); 
+    margin-bottom: 5px;
+}
+
+.stat-number { 
+    font-family: 'Space Grotesk', sans-serif; 
+    font-size: 4rem; /* Rakamlar bir tık daha büyütüldü */
+    font-weight: 700; 
+    color: #fff; 
+    line-height: 1; 
+}
+
+/* Sayıların yanındaki profesyonel "+" işareti */
+.stat-number::after { 
+    content: '+'; 
+    font-size: 1.8rem; 
+    color: #c6a87c; 
+    vertical-align: super; 
+    margin-left: 5px; 
+    font-weight: 400;
+}
+
+/* %100 Memnuniyet kısmında "+" olmasın kuralı */
+.stat-item:last-child .stat-number::after { 
+    content: ''; 
+} 
+
+.stat-label { 
+    color: #888; 
+    font-size: 11px; /* Mimari estetik için yazı hafif küçültüldü */
+    letter-spacing: 3px; 
+    text-transform: uppercase; 
+    font-weight: 500;
+}
+
+/* --- MOBİL UYUM (SENİN İSTEDİĞİN DİKEY DÜZEN) --- */
+@media (max-width: 768px) {
+    #stats { 
+        flex-direction: column; /* Mobilde alt alta dizer */
+        gap: 70px; /* Bloklar arası dikey mesafe */
+        padding: 80px 20px;
+    }
+    
+    .stat-number {
+        font-size: 3.2rem;
+    }
+}
 
         /* Footer & Form */
         .about-container { display: flex; justify-content: space-between; align-items: center; gap: 50px; }
