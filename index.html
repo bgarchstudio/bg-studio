@@ -323,38 +323,94 @@ h1 {
     .hero-content p { font-size: 10px; letter-spacing: 3px; }
 }
 
-        /* --- PROJELER --- */
-        section { padding: 100px 50px; }
-        .section-title { font-size: 14px; color: #888; letter-spacing: 2px; margin-bottom: 40px; display: block; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; }
-        .project-card { position: relative; height: 500px; overflow: hidden; cursor: default; background: #000; }
-        
-        .project-img, .gallery-img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; filter: grayscale(100%); transition: transform 0.8s ease, filter 0.5s ease, opacity 0.8s ease; }
-        .project-card:hover .project-img, .project-card:hover .gallery-img, .project-card.active .project-img, .project-card.active .gallery-img { filter: grayscale(0%); transform: scale(1.05); }
+       /* --- PROJELER BÖLÜMÜ --- */
+section#projects { 
+    padding: 120px 5%; /* Daha ferah bir mimari yaklaşım */
+}
 
-        /* --- SLAYT ANİMASYONLARI --- */
-        .img-1 { z-index: 3; opacity: 1; } .img-2 { z-index: 2; opacity: 0; } .img-3 { z-index: 1; opacity: 0; }
-        @keyframes cycleThreeImg1 { 0% { opacity: 1; } 30% { opacity: 1; } 33.33% { opacity: 0; } 96.66% { opacity: 0; } 100% { opacity: 1; } }
-        @keyframes cycleThreeImg2 { 0% { opacity: 0; } 30% { opacity: 0; } 33.33% { opacity: 1; } 63.33% { opacity: 1; } 66.66% { opacity: 0; } 100% { opacity: 0; } }
-        @keyframes cycleThreeImg3 { 0% { opacity: 0; } 63.33% { opacity: 0; } 66.66% { opacity: 1; } 96.66% { opacity: 1; } 100% { opacity: 0; } }
-        .slideshow-3 .img-1 { animation: cycleThreeImg1 9s infinite; } .slideshow-3 .img-2 { animation: cycleThreeImg2 9s infinite; } .slideshow-3 .img-3 { animation: cycleThreeImg3 9s infinite; }
-        @keyframes cycleTwoImg1 { 0% { opacity: 1; } 45% { opacity: 1; } 50% { opacity: 0; } 95% { opacity: 0; } 100% { opacity: 1; } }
-        @keyframes cycleTwoImg2 { 0% { opacity: 0; } 45% { opacity: 0; } 50% { opacity: 1; } 95% { opacity: 1; } 100% { opacity: 0; } }
-        .slideshow-2 .img-1 { animation: cycleTwoImg1 6s infinite; } .slideshow-2 .img-2 { animation: cycleTwoImg2 6s infinite; }
+.section-title { 
+    font-size: 12px; 
+    color: #666; 
+    letter-spacing: 4px; /* Daha modern, geniş harf arası */
+    margin-bottom: 60px; 
+    display: block; 
+    border-bottom: 1px solid rgba(255,255,255,0.1); 
+    padding-bottom: 15px;
+    font-weight: 500;
+}
 
-        /* Video Kontrol */
-        .project-static { z-index: 2; opacity: 1; } .project-video { z-index: 1; opacity: 0; }
-        .project-card.playing .project-static { opacity: 0; } .project-card.playing .project-video { opacity: 1; filter: grayscale(0%); }
+.portfolio-grid { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 40px; /* Projeler birbirine nefes aldırsın */
+    align-items: start; 
+}
 
-        /* Mobil */
-        @media (max-width: 768px) {
-            .portfolio-grid { grid-template-columns: 1fr; }
-            .project-img, .gallery-img { filter: grayscale(0%) !important; }
-            h1 { font-size: 15vw; margin-bottom: 20px; }
-            section { padding: 50px 20px; }
-            .about-container, .contact-container { grid-template-columns: 1fr; flex-direction: column; }
-            #stats { flex-direction: column; gap: 50px; }
-        }
+.project-card { 
+    position: relative; 
+    height: 550px; 
+    overflow: hidden; 
+    background: #000;
+    transition: transform 0.4s ease;
+}
+
+/* --- GÖRSEL VE GEÇİŞ EFEKTLERİ --- */
+.project-img, .gallery-img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    filter: grayscale(100%) brightness(0.85); 
+    /* Daha akıcı bir sinematik geçiş için süreyi artırdık */
+    transition: 
+        transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), 
+        filter 0.8s ease, 
+        opacity 0.8s ease; 
+}
+
+.project-card:hover .project-img, 
+.project-card:hover .gallery-img { 
+    filter: grayscale(0%) brightness(1); 
+    transform: scale(1.1); /* Hafif daha güçlü bir odaklanma */
+}
+
+/* --- SLAYT ANİMASYONLARI (İYİLEŞTİRİLDİ) --- */
+/* Opacity geçişlerini yumuşatarak göz yormayan bir akış sağladık */
+@keyframes cycleThree {
+    0%, 30%, 100% { opacity: 1; filter: blur(0); }
+    33%, 96% { opacity: 0; filter: blur(5px); }
+}
+
+@keyframes cycleTwo {
+    0%, 45%, 100% { opacity: 1; }
+    50%, 95% { opacity: 0; }
+}
+
+.slideshow-3 .img-1 { animation: cycleThree 9s infinite; }
+.slideshow-3 .img-2 { animation: cycleThree 9s infinite 3s; } /* 3'er saniye arayla pürüzsüz geçiş */
+.slideshow-3 .img-3 { animation: cycleThree 9s infinite 6s; }
+
+.slideshow-2 .img-1 { animation: cycleTwo 6s infinite; }
+.slideshow-2 .img-2 { animation: cycleTwo 6s infinite 3s; }
+
+/* --- VİDEO KONTROL (PÜRÜZSÜZ GEÇİŞ) --- */
+.project-static { z-index: 2; opacity: 1; transition: opacity 0.5s ease; }
+.project-video { z-index: 1; opacity: 0; transition: opacity 0.5s ease; }
+
+.project-card.playing .project-static { opacity: 0; }
+.project-card.playing .project-video { opacity: 1; filter: grayscale(0%); }
+
+/* --- MOBİL OPTİMİZASYONU --- */
+@media (max-width: 768px) {
+    .portfolio-grid { grid-template-columns: 1fr; gap: 25px; }
+    .project-card { height: 450px; }
+    .project-img, .gallery-img { filter: grayscale(0%) brightness(1) !important; }
+    
+    h1 { font-size: 12vw; letter-spacing: -1px; }
+    section { padding: 80px 20px; }
+}
 
         /* Kart Detayları */
         .play-btn, .gallery-indicator { position: absolute; top: 20px; right: 20px; width: 50px; height: 50px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 50%; display: flex; justify-content: center; align-items: center; z-index: 20; }
