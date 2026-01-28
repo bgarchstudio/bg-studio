@@ -604,39 +604,141 @@ section#projects {
     }
 }
 
-        /* Footer & Form */
-        .about-container { display: flex; justify-content: space-between; align-items: center; gap: 50px; }
-        .about-text { font-size: 2rem; line-height: 1.4; max-width: 800px; color: #fff; }
-        .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
-        .contact-left { display: flex; flex-direction: column; justify-content: space-between; }
-        .footer-tiger-img { width: 100%; max-width: 350px; margin-top: 40px; opacity: 0.9; filter: grayscale(20%) contrast(1.1); transition: all 0.5s ease; }
-        .footer-tiger-img:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.02); }
-        form { display: flex; flex-direction: column; gap: 30px; }
-        .form-group { position: relative; }
-        input, textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid #444; padding: 15px 0; color: #fff; font-family: 'Inter', sans-serif; font-size: 16px; outline: none; transition: 0.3s; }
-        input:focus, textarea:focus { border-bottom: 1px solid #fff; }
-        label { position: absolute; top: 15px; left: 0; color: #666; pointer-events: none; transition: 0.3s; font-size: 14px; }
-        input:focus ~ label, input:valid ~ label, textarea:focus ~ label, textarea:valid ~ label { top: -10px; font-size: 12px; color: #fff; }
-        button { background: #fff; color: #000; border: none; padding: 15px 40px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; cursor: pointer; align-self: flex-start; margin-top: 20px; transition: 0.3s; }
-        button:hover { background: #ccc; letter-spacing: 1px; }
-        footer { padding: 50px; border-top: 1px solid #222; display: flex; justify-content: space-between; font-size: 14px; color: #555; }
-        .social-link { color: #fff; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 5px; transition: 0.3s; }
-        .social-link:hover { border-bottom: 1px solid #fff; opacity: 0.8; }
-        .highlight { color: #888; }
-footer {
-            display: flex;
-            justify-content: space-between; 
-            align-items: center;
-            padding: 30px 5%;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            min-height: 80px;
-        }
+        /* --- FOOTER & İLETİŞİM FORMU --- */
+.about-container { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    gap: 50px; 
+    padding: 80px 0;
+}
 
-        .social-links-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
+.about-text { 
+    font-size: 2rem; 
+    line-height: 1.4; 
+    max-width: 800px; 
+    color: #fff; 
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.contact-container { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 80px; /* Daha ferah bir iletişim alanı */
+    padding-bottom: 80px;
+}
+
+.contact-left { 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+}
+
+.footer-tiger-img { 
+    width: 100%; 
+    max-width: 320px; 
+    opacity: 0.8; 
+    filter: grayscale(100%); 
+    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); 
+}
+
+.footer-tiger-img:hover { 
+    filter: grayscale(0%); 
+    opacity: 1; 
+    transform: translateY(-5px); 
+}
+
+/* FORM ELEMENTLERİ */
+form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 35px; 
+}
+
+.form-group { position: relative; }
+
+input, textarea { 
+    width: 100%; 
+    background: transparent; 
+    border: none; 
+    border-bottom: 1px solid rgba(255,255,255,0.2); 
+    padding: 12px 0; 
+    color: #fff; 
+    font-family: 'Inter', sans-serif; 
+    font-size: 16px; 
+    outline: none; 
+    transition: 0.4s; 
+}
+
+input:focus, textarea:focus { 
+    border-bottom: 1px solid #fff; 
+}
+
+label { 
+    position: absolute; 
+    top: 12px; 
+    left: 0; 
+    color: #666; 
+    pointer-events: none; 
+    transition: 0.3s ease; 
+    font-size: 14px; 
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Input doluysa veya odaktaysa etiketi yukarı taşı */
+input:focus ~ label, 
+input:valid ~ label, 
+textarea:focus ~ label, 
+textarea:valid ~ label { 
+    top: -15px; 
+    font-size: 10px; 
+    color: #fff; 
+    letter-spacing: 2px;
+}
+
+button { 
+    background: #fff; 
+    color: #000; 
+    border: none; 
+    padding: 18px 50px; 
+    font-family: 'Space Grotesk', sans-serif; 
+    font-weight: 700; 
+    text-transform: uppercase;
+    cursor: pointer; 
+    align-self: flex-start; 
+    transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); 
+}
+
+button:hover { 
+    background: #c6a87c; /* Senin o altın/bronz tonun */
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* EN ALT BİLGİ (FOOTER) */
+footer {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 40px 5%;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    min-height: 100px;
+}
+
+.social-links-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.footer-text {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
 
         .social-item {
             display: flex;
