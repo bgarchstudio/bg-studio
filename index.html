@@ -578,8 +578,29 @@ section#projects {
         input:focus, textarea:focus { border-bottom: 1px solid #fff; }
         label { position: absolute; top: 15px; left: 0; color: #666; pointer-events: none; transition: 0.3s; font-size: 14px; }
         input:focus ~ label, input:valid ~ label, textarea:focus ~ label, textarea:valid ~ label { top: -10px; font-size: 12px; color: #fff; }
-        button { background: #fff; color: #000; border: none; padding: 15px 40px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; cursor: pointer; align-self: flex-start; margin-top: 20px; transition: 0.3s; }
-        button:hover { background: #ccc; letter-spacing: 1px; }
+        button { 
+    background: transparent; /* İçini boşalttık */
+    color: #C6A87C; /* Yazı rengini gold yaptık */
+    border: 1px solid #C6A87C; /* Gold çerçeve ekledik */
+    padding: 15px 50px; 
+    font-family: 'Space Grotesk', sans-serif; 
+    font-weight: 700; 
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer; 
+    align-self: flex-start; 
+    margin-top: 20px; 
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+    position: relative;
+    overflow: hidden;
+}
+
+button:hover { 
+    background: #C6A87C; /* Üzerine gelince içi gold dolsun */
+    color: #000; /* Yazı siyah olsun ki okunsun */
+    letter-spacing: 4px; /* Hafif genişleme efekti */
+    box-shadow: 0 0 20px rgba(198, 168, 124, 0.3); /* Hafif parlama */
+}
         footer { padding: 50px; border-top: 1px solid #222; display: flex; justify-content: space-between; font-size: 14px; color: #555; }
         .social-link { color: #fff; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 5px; transition: 0.3s; }
         .social-link:hover { border-bottom: 1px solid #fff; opacity: 0.8; }
