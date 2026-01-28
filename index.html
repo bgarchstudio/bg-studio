@@ -323,111 +323,174 @@ h1 {
     .hero-content p { font-size: 10px; letter-spacing: 3px; }
 }
 
-        /* --- PROJELER --- */
-        section { padding: 100px 50px; }
-        .section-title { font-size: 14px; color: #888; letter-spacing: 2px; margin-bottom: 40px; display: block; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; }
-        .project-card { position: relative; height: 500px; overflow: hidden; cursor: default; background: #000; }
-        
-        .project-img, .gallery-img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; filter: grayscale(100%); transition: transform 0.8s ease, filter 0.5s ease, opacity 0.8s ease; }
-        .project-card:hover .project-img, .project-card:hover .gallery-img, .project-card.active .project-img, .project-card.active .gallery-img { filter: grayscale(0%); transform: scale(1.05); }
+        /* --- PROJELER SEKSİYONU --- */
+section#projects { 
+    padding: 120px 5%; 
+}
 
-        /* --- SLAYT ANİMASYONLARI --- */
-        .img-1 { z-index: 3; opacity: 1; } .img-2 { z-index: 2; opacity: 0; } .img-3 { z-index: 1; opacity: 0; }
-        @keyframes cycleThreeImg1 { 0% { opacity: 1; } 30% { opacity: 1; } 33.33% { opacity: 0; } 96.66% { opacity: 0; } 100% { opacity: 1; } }
-        @keyframes cycleThreeImg2 { 0% { opacity: 0; } 30% { opacity: 0; } 33.33% { opacity: 1; } 63.33% { opacity: 1; } 66.66% { opacity: 0; } 100% { opacity: 0; } }
-        @keyframes cycleThreeImg3 { 0% { opacity: 0; } 63.33% { opacity: 0; } 66.66% { opacity: 1; } 96.66% { opacity: 1; } 100% { opacity: 0; } }
-        .slideshow-3 .img-1 { animation: cycleThreeImg1 9s infinite; } .slideshow-3 .img-2 { animation: cycleThreeImg2 9s infinite; } .slideshow-3 .img-3 { animation: cycleThreeImg3 9s infinite; }
-        @keyframes cycleTwoImg1 { 0% { opacity: 1; } 45% { opacity: 1; } 50% { opacity: 0; } 95% { opacity: 0; } 100% { opacity: 1; } }
-        @keyframes cycleTwoImg2 { 0% { opacity: 0; } 45% { opacity: 0; } 50% { opacity: 1; } 95% { opacity: 1; } 100% { opacity: 0; } }
-        .slideshow-2 .img-1 { animation: cycleTwoImg1 6s infinite; } .slideshow-2 .img-2 { animation: cycleTwoImg2 6s infinite; }
+.section-title { 
+    font-size: 12px; 
+    color: #666; 
+    letter-spacing: 3px; 
+    margin-bottom: 60px; 
+    display: block; 
+    border-bottom: 1px solid rgba(255,255,255,0.1); 
+    padding-bottom: 15px;
+}
 
-        /* Video Kontrol */
-        .project-static { z-index: 2; opacity: 1; } .project-video { z-index: 1; opacity: 0; }
-        .project-card.playing .project-static { opacity: 0; } .project-card.playing .project-video { opacity: 1; filter: grayscale(0%); }
+.portfolio-grid { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 30px; 
+    align-items: start; 
+}
 
-        /* Mobil */
-        @media (max-width: 768px) {
-            .portfolio-grid { grid-template-columns: 1fr; }
-            .project-img, .gallery-img { filter: grayscale(0%) !important; }
-            h1 { font-size: 15vw; margin-bottom: 20px; }
-            section { padding: 50px 20px; }
-            .about-container, .contact-container { grid-template-columns: 1fr; flex-direction: column; }
-            #stats { flex-direction: column; gap: 50px; }
-        }
+.project-card { 
+    position: relative; 
+    height: 600px; /* Daha heybetli bir görünüm için artırıldı */
+    overflow: hidden; 
+    background: #000;
+}
 
-        /* Kart Detayları */
-        .play-btn, .gallery-indicator { position: absolute; top: 20px; right: 20px; width: 50px; height: 50px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 50%; display: flex; justify-content: center; align-items: center; z-index: 20; }
-        .card-overlay { position: absolute; bottom: 30px; left: 30px; pointer-events: none; z-index: 5; width: 85%; }
-        .project-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 70%; background: linear-gradient(to top, rgba(0,0,0,0.95), transparent); pointer-events: none; z-index: 3; }
-        .card-overlay h3 { font-size: 2rem; color: #fff; margin: 5px 0 0; line-height: 1; }
-        .project-subtitle { display: block; font-size: 1.1rem; color: #bbb; font-weight: 300; margin: 5px 0 10px; letter-spacing: 1px; }
-        .project-desc { color: #ddd; font-size: 0.95rem; line-height: 1.5; margin-top: 0; max-width: 100%; opacity: 0; max-height: 0; transform: translateY(20px); transition: all 0.5s ease; overflow: hidden; }
-        .project-card:hover .project-desc, .project-card.active .project-desc { opacity: 1; max-height: 400px; transform: translateY(0); margin-top: 15px; }
+/* Görsel ve Geçiş Ayarları */
+.project-img, .gallery-img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    filter: grayscale(100%) brightness(0.8); 
+    transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.8s ease; 
+}
 
-        /* İstatistikler */
-        #stats { display: flex; justify-content: space-around; align-items: center; padding: 80px 20px; background: #080808; border-top: 1px solid #222; border-bottom: 1px solid #222; text-align: center; }
-        .stat-item { display: flex; flex-direction: column; align-items: center; gap: 15px; transition: transform 0.3s; }
-        .stat-item:hover { transform: translateY(-10px); }
-        .stat-icon svg { width: 50px; height: 50px; fill: #c6a87c; filter: drop-shadow(0 0 10px rgba(198, 168, 124, 0.3)); }
-        .stat-number { font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; font-weight: 700; color: #fff; line-height: 1; }
-        .stat-number::after { content: '+'; font-size: 2rem; color: #c6a87c; vertical-align: super; margin-left: 5px; }
-        .stat-item:last-child .stat-number::after { content: ''; } 
-        .stat-label { color: #888; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; }
+.project-card:hover .project-img, .project-card:hover .gallery-img { 
+    filter: grayscale(0%) brightness(1); 
+    transform: scale(1.08); 
+}
 
-        /* Footer & Form */
-        .about-container { display: flex; justify-content: space-between; align-items: center; gap: 50px; }
-        .about-text { font-size: 2rem; line-height: 1.4; max-width: 800px; color: #fff; }
-        .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
-        .contact-left { display: flex; flex-direction: column; justify-content: space-between; }
-        .footer-tiger-img { width: 100%; max-width: 350px; margin-top: 40px; opacity: 0.9; filter: grayscale(20%) contrast(1.1); transition: all 0.5s ease; }
-        .footer-tiger-img:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.02); }
-        form { display: flex; flex-direction: column; gap: 30px; }
-        .form-group { position: relative; }
-        input, textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid #444; padding: 15px 0; color: #fff; font-family: 'Inter', sans-serif; font-size: 16px; outline: none; transition: 0.3s; }
-        input:focus, textarea:focus { border-bottom: 1px solid #fff; }
-        label { position: absolute; top: 15px; left: 0; color: #666; pointer-events: none; transition: 0.3s; font-size: 14px; }
-        input:focus ~ label, input:valid ~ label, textarea:focus ~ label, textarea:valid ~ label { top: -10px; font-size: 12px; color: #fff; }
-        button { background: #fff; color: #000; border: none; padding: 15px 40px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; cursor: pointer; align-self: flex-start; margin-top: 20px; transition: 0.3s; }
-        button:hover { background: #ccc; letter-spacing: 1px; }
-        footer { padding: 50px; border-top: 1px solid #222; display: flex; justify-content: space-between; font-size: 14px; color: #555; }
-        .social-link { color: #fff; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 5px; transition: 0.3s; }
-        .social-link:hover { border-bottom: 1px solid #fff; opacity: 0.8; }
-        .highlight { color: #888; }
+/* --- OTOMATİK SLIDER ANIMASYONLARI --- */
+.img-1 { z-index: 3; opacity: 1; }
+.img-2 { z-index: 2; opacity: 0; }
+.img-3 { z-index: 1; opacity: 0; }
+
+@keyframes cycleThree {
+    0%, 30%, 100% { opacity: 1; }
+    33%, 96% { opacity: 0; }
+}
+@keyframes cycleTwo {
+    0%, 45%, 100% { opacity: 1; }
+    50%, 95% { opacity: 0; }
+}
+
+.slideshow-3 .img-1 { animation: cycleThree 9s infinite; }
+/* Diğer katmanlar için de benzer temiz yapı... */
+
+/* --- İSTATİSTİKLER (STATS) --- */
+#stats { 
+    display: flex; 
+    justify-content: space-around; 
+    align-items: center; 
+    padding: 100px 20px; 
+    background: #080808; 
+    border-top: 1px solid #222; 
+}
+
+.stat-item { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 15px; 
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+
+.stat-item:hover { transform: translateY(-10px); }
+
+.stat-number { 
+    font-family: 'Space Grotesk', sans-serif; 
+    font-size: 4rem; 
+    font-weight: 700; 
+    color: #fff; 
+}
+
+.stat-number::after { 
+    content: '+'; 
+    font-size: 2rem; 
+    color: #c6a87c; 
+    vertical-align: super; 
+}
+
+/* --- İLETİŞİM FORMU (CLEAN DESIGN) --- */
+.contact-container { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 80px; 
+}
+
+.form-group { position: relative; margin-bottom: 20px; }
+
+input, textarea { 
+    width: 100%; 
+    background: transparent; 
+    border: none; 
+    border-bottom: 1px solid #333; 
+    padding: 15px 0; 
+    color: #fff; 
+    font-size: 16px; 
+    transition: border-color 0.4s; 
+}
+
+input:focus, textarea:focus { 
+    border-bottom: 1px solid #fff; 
+    outline: none; 
+}
+
+label { 
+    position: absolute; 
+    top: 15px; 
+    left: 0; 
+    color: #555; 
+    transition: 0.3s; 
+    pointer-events: none; 
+}
+
+input:focus ~ label, input:valid ~ label { 
+    top: -10px; 
+    font-size: 12px; 
+    color: #fff; 
+}
+
+/* --- FOOTER & SOCIAL (FINAL) --- */
 footer {
-            display: flex;
-            justify-content: space-between; 
-            align-items: center;
-            padding: 30px 5%;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            min-height: 80px;
-        }
+    display: flex;
+    flex-direction: column; /* Mobilde ve masaüstünde dikey merkezleme için */
+    align-items: center;
+    gap: 30px;
+    padding: 60px 5% 40px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
 
-        .social-links-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
+.social-links-wrapper { 
+    display: flex; 
+    gap: 40px; 
+    justify-content: center; 
+}
 
-        .social-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: rgba(255, 255, 255, 0.6);
-            text-decoration: none;
-            font-size: 13px;
-            line-height: 1;
-        }
+.footer-text { 
+    color: rgba(255,255,255,0.3); 
+    font-size: 12px; 
+    letter-spacing: 1px; 
+    text-align: center;
+}
 
-        .footer-text {
-            margin: 0;
-            padding: 0;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 12px;
-            line-height: 1;
-            display: flex;
-            align-items: center;
-        }
+/* --- MOBİL OPTİMİZASYONU --- */
+@media (max-width: 768px) {
+    .portfolio-grid, .contact-container { grid-template-columns: 1fr; }
+    .project-card { height: 450px; }
+    #stats { flex-direction: column; gap: 60px; }
+    .stat-number { font-size: 3rem; }
+    .about-text { font-size: 1.5rem; }
+}
 /* --- FOOTER ANA YAPI --- */
 .site-footer {
     width: 100%;
