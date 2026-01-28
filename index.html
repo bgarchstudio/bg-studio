@@ -548,14 +548,12 @@ section#projects {
         .contact-left { display: flex; flex-direction: column; justify-content: space-between; }
         .footer-tiger-img { 
     width: 100%; 
-    max-width: 100%; /* Sınırı kaldırdık, alanı doldurmasını sağladık */
-    height: auto;
-    display: block;
+    max-width: 100%; /* 350px sınırını kaldırdık */
+    height: auto; 
     margin-top: 40px; 
-    opacity: 0.9; 
-    filter: grayscale(20%) contrast(1.1); 
+    opacity: 1; /* Daha canlı olması için opaklığı artırdık */
+    filter: contrast(1.2); /* Siyah-beyaz dengesini güçlendirdik */
     transition: all 0.5s ease; 
-    object-fit: contain; /* Görselin bozulmadan sığmasını sağlar */
 }
         .footer-tiger-img:hover { 
     filter: grayscale(0%); 
