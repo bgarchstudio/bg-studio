@@ -71,69 +71,183 @@
     letter-spacing: 0.7px;    /* Mimari estetik için harf arası boşluk */
 }
 
-        /* --- TEMEL AYARLAR --- */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { background-color: #050505; color: #e0e0e0; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        h1, h2, h3, .nav-link { font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; }
+/* --- TEMEL AYARLAR --- */
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
 
-        /* --- MENÜ (GÜNCELLENDİ) --- */
-        nav { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            padding: 20px 50px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            z-index: 9999; 
-            background: rgba(0,0,0,0.8); 
-            backdrop-filter: blur(10px); 
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
+html { 
+    scroll-behavior: smooth; 
+}
+
+body { 
+    background-color: #050505; 
+    color: #e0e0e0; 
+    font-family: 'Inter', sans-serif; 
+    overflow-x: hidden; 
+    line-height: 1.6; /* Okunabilirliği artırır */
+}
+
+h1, h2, h3, .nav-link { 
+    font-family: 'Space Grotesk', sans-serif; 
+    text-transform: uppercase; 
+}
+
+/* --- MENÜ (NAVIGASYON) --- */
+nav { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    padding: 20px 5%; /* Sabit px yerine % kullanarak her ekrana uyum sağlar */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    z-index: 9999; 
+    background: rgba(0,0,0,0.85); /* Hafif daha koyu, daha okunabilir */
+    backdrop-filter: blur(12px);  /* Arkadaki içeriği daha şık bulanıklaştırır */
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s ease;
+}
+
+.logo-text { 
+    font-family: 'Space Grotesk', sans-serif; 
+    font-weight: 700; 
+    font-size: 24px; 
+    color: #fff; 
+    text-decoration: none; 
+    letter-spacing: 2px; 
+    transition: opacity 0.3s;
+}
+
+.logo-text:hover {
+    opacity: 0.8;
+}
+
+.nav-links { 
+    display: flex; 
+    gap: 40px; 
+    align-items: center; 
+}
+
+.nav-link { 
+    color: #fff; 
+    text-decoration: none; 
+    font-size: 13px; /* Mimari estetik için biraz küçültüldü */
+    letter-spacing: 1.5px; 
+    opacity: 0.7; 
+    transition: 0.3s; 
+    position: relative; 
+}
+
+.nav-link:hover { 
+    opacity: 1; 
+}
+
+/* Link Alt Çizgi Animasyonu */
+.nav-link::after { 
+    content: ''; 
+    position: absolute; 
+    bottom: -6px; 
+    left: 0; 
+    width: 0%; 
+    height: 1px; 
+    background: #fff; 
+    transition: width 0.3s ease; 
+}
+
+.nav-link:hover::after { 
+    width: 100%; 
+}
+
+       /* HAMBURGER MENÜ İKONU (Masaüstünde Gizli) */
+.menu-toggle { 
+    display: none; 
+    font-size: 28px; 
+    cursor: pointer; 
+    color: #fff; 
+    transition: transform 0.3s ease;
+}
+
+.menu-toggle:active {
+    transform: scale(0.9); /* Dokunulduğunda hafif küçülme efekti */
+}
+
+/* --- MOBİL MENÜ AYARLARI --- */
+@media (max-width: 768px) {
+    nav { 
+        padding: 15px 5% !important; /* Mobilde kenar paylarını eşitledik */
+    }
+    
+    .menu-toggle { 
+        display: block; 
+    }
+    
+    .nav-links {
+        display: flex; /* Flex kalsın, biz görünürlüğü kontrol edeceğiz */
+        position: absolute;
+        top: 100%; 
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.95); /* Arkası hafif şeffaf siyah */
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        padding: 40px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         
-        .logo-text { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 24px; color: #fff; text-decoration: none; letter-spacing: 2px; }
-        
-        .nav-links { display: flex; gap: 40px; }
-        .nav-link { color: #fff; text-decoration: none; font-size: 14px; letter-spacing: 1px; opacity: 0.8; transition: 0.3s; position: relative; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-        .nav-link:hover { opacity: 1; }
-        .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 1px; background: #fff; transition: 0.3s; }
-        .nav-link:hover::after { width: 100%; }
+        /* Geçiş Efekti Ayarları */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: none; /* Kapalıyken tıklanmasın */
+    }
+    
+    /* JS ile 'active' sınıfı eklenince açılacak modern animasyon */
+    .nav-links.active { 
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+    
+    .nav-link { 
+        font-size: 16px; 
+        font-weight: 500;
+        letter-spacing: 2px;
+    }
+}
 
-        /* HAMBURGER MENÜ İKONU (Masaüstünde Gizli) */
-        .menu-toggle { display: none; font-size: 28px; cursor: pointer; color: #fff; }
+        /* --- ANİMASYONLAR (SCROLL REVEAL) --- */
+.hidden { 
+    opacity: 0; 
+    filter: blur(10px); /* Blur miktarını biraz artırarak daha derin bir giriş sağladık */
+    transform: translateY(40px); /* Giriş mesafesini biraz artırdık */
+    
+    /* Transition Ayarları: Daha profesyonel ve akıcı bir hız eğrisi (cubic-bezier) ekledik */
+    transition: 
+        opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), 
+        transform 1s cubic-bezier(0.2, 0.8, 0.2, 1), 
+        filter 1s cubic-bezier(0.2, 0.8, 0.2, 1); 
+    
+    will-change: opacity, transform, filter; /* Tarayıcı performansını optimize eder */
+}
 
-        /* --- MOBİL MENÜ AYARLARI --- */
-        @media (max-width: 768px) {
-            nav { padding: 15px 20px; } /* Mobilde padding azalt */
-            
-            .menu-toggle { display: block; } /* İkonu göster */
-            
-            .nav-links {
-                display: none; /* Başlangıçta gizle */
-                position: absolute;
-                top: 100%; /* Nav'ın hemen altına */
-                left: 0;
-                width: 100%;
-                background-color: #000; /* Siyah zemin */
-                flex-direction: column;
-                align-items: center;
-                gap: 25px;
-                padding: 30px 0;
-                border-bottom: 1px solid #333;
-            }
-            
-            /* JS ile 'active' sınıfı eklenince açılacak */
-            .nav-links.active { display: flex; }
-            
-            .nav-link { font-size: 18px; } /* Mobilde yazılar biraz daha büyük */
-        }
+/* Eleman görünür olduğunda uygulanacak stil */
+.show { 
+    opacity: 1; 
+    filter: blur(0); 
+    transform: translateY(0); 
+}
 
-        /* --- ANİMASYONLAR --- */
-        .hidden { opacity: 0; filter: blur(5px); transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out, filter 0.8s ease-out; }
-        .show { opacity: 1; filter: blur(0); transform: translateY(0); }
-        .hidden:not(.show) { transition-duration: 0s; }
+/* Sayfa ilk yüklendiğinde veya hızlı kaydırmada takılmayı önler */
+.hidden:not(.show) { 
+    transition-duration: 0.2s; 
+}
 
         /* --- HERO --- */
         .hero { position: relative; height: 100vh; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; background-color: #000; }
