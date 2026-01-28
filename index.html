@@ -538,34 +538,35 @@ section#projects {
         .stat-item:last-child .stat-number::after { content: ''; } 
         .stat-label { color: #888; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* --- VİZYON SEKSİYONU (SOLA HİZALI & VİDEO GEÇİŞLİ) --- */
+        /* --- VİZYON SEKSİYONU (KESİN SOL HİZALAMA & VİDEO GEÇİŞİ) --- */
 section#vision {
     position: relative;
-    /* Başlıkların yukarıdaki projelerle aynı hizada olması için %5 padding */
-    padding: 120px 5% 0 5%; 
+    /* Projeler ve İletişim ile milimetrik eşleşen %5 boşluk */
+    padding: 120px 5% 0 5% !important; 
     overflow: hidden;
 }
 
-/* Arka plan videosunun istatistiklere transparan geçişi (Masking) */
+/* Arka plan videosunun istatistiklere transparan süzülmesi */
 section#vision video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 125%; /* İstatistiklerin altına kadar uzanması için */
+    height: 140%; /* Videoyu istatistiklerin altına kadar akıtır */
     object-fit: cover;
     z-index: -1;
-    /* Videonun alt kısmını yumuşatarak transparanlaştırır */
-    mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+    /* İstatistiklerin arkasında transparanlaşan maske */
+    mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
 }
 
 .about-container { 
     display: flex; 
     flex-direction: column; 
-    align-items: flex-start; /* Sola tam hizalama */
+    align-items: flex-start; /* Sola tam yaslama */
+    padding: 0 !important;
+    margin: 0 !important;
     gap: 40px; 
-    text-align: left;
 }
 
 .about-text { 
@@ -573,45 +574,51 @@ section#vision video {
     line-height: 1.35; 
     max-width: 950px; 
     color: #fff; 
+    /* Metnin ilk harfini projelerin sol kenarıyla eşitledik */
+    padding: 0 !important;
+    margin: 40px 0 0 0 !important; 
+    text-align: left;
 }
 
-/* "yaşanan mekanlar" vurgusu için gri ton */
+/* "yaşanan mekanlar" gri vurgu detayı */
 .highlight { 
     color: #888; 
 }
 
-/* --- İSTATİSTİKLER (VİDEO GEÇİŞİ ÜZERİNDE) --- */
+/* --- İSTATİSTİKLER (VİDEO ÜZERİNDE ŞIK DURUŞ) --- */
 #stats { 
     position: relative;
     z-index: 2;
-    background: transparent; /* Arkadaki videonun süzülmesi için */
-    padding: 100px 5%;
+    background: transparent; /* Videonun süzülmesi için transparan */
+    padding: 120px 5%;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
-/* --- İLETİŞİM & TIGER ALANI --- */
+/* --- İLETİŞİM & TIGER (TAM DOYGUNLUK) --- */
 section#contact {
-    padding: 100px 5%;
+    padding: 100px 5% 120px 5% !important;
+}
+
+/* Başlık hizasını projelerle eşitledik */
+section#contact .section-title {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    width: 100%;
 }
 
 .contact-container { 
     display: grid; 
     grid-template-columns: 1fr 1fr; 
     gap: 80px; 
+    padding: 0 !important;
 }
 
-.contact-left { 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: flex-start;
-}
-
-/* Tiger görselinin alanı doygun doldurması için ölçüler */
+/* Kaplan görselini o boşluğu dolduracak şekilde doygunlaştırdık */
 .footer-tiger-img { 
     width: 100%; 
-    max-width: 550px; /* Görsel artık daha görkemli */
+    max-width: 580px; /* Daha görkemli ve doygun */
     margin-top: 50px; 
     opacity: 0.95; 
     filter: grayscale(100%) contrast(1.1); 
@@ -624,69 +631,43 @@ section#contact {
     transform: scale(1.05) translateY(-5px); 
 }
 
-/* --- FORM ELEMENTLERİ: ÇİZGİ VE YAZI DÜZELTME --- */
+/* --- FORM ALANLARI: ÇİZGİ HATASI KESİN ÇÖZÜM --- */
 form { 
     display: flex; 
     flex-direction: column; 
     gap: 35px; 
 }
 
-.form-group { position: relative; }
-
 input, textarea { 
     width: 100%; 
     background: transparent; 
     border: none; 
-    border-bottom: 1px solid rgba(255,255,255,0.2); 
-    /* DÜZELTME: Yazının alt çizgiyi kesmemesi için padding ayarı */
-    padding: 15px 0 10px 0; 
+    border-bottom: 1px solid rgba(255,255,255,0.2) !important; 
+    padding: 15px 0 10px 0 !important; /* Yazı çizgiye binmez */
     color: #fff; 
-    font-family: 'Inter', sans-serif; 
-    font-size: 16px; 
     outline: none; 
-    transition: 0.3s; 
 }
 
-input:focus, textarea:focus { 
-    border-bottom: 1px solid #fff; 
-}
-
-label { 
-    position: absolute; 
-    top: 15px; 
-    left: 0; 
-    color: #666; 
-    pointer-events: none; 
-    transition: 0.3s ease; 
-}
-
-/* Odaklanınca etiketi yukarı taşıyan animasyon */
 input:focus ~ label, 
-input:valid ~ label, 
-textarea:focus ~ label, 
-textarea:valid ~ label { 
-    top: -15px; 
-    font-size: 11px; 
-    color: #fff; 
+input:valid ~ label { 
+    top: -15px !important;
+    font-size: 11px;
+    color: #fff;
 }
 
 button { 
     background: #fff; 
     color: #000; 
-    border: none; 
     padding: 18px 55px; 
     font-family: 'Space Grotesk', sans-serif; 
     font-weight: 700; 
     cursor: pointer; 
-    align-self: flex-start; 
-    margin-top: 20px; 
     transition: 0.4s; 
 }
 
 button:hover { 
-    background: #c6a87c; /* Kurumsal bronz/altın tonu */
+    background: #c6a87c; /* Kurumsal bronz tonu */
     color: #fff;
-    transform: translateY(-3px);
 }
 
 /* --- FOOTER: ALT BİLGİ --- */
@@ -695,32 +676,8 @@ footer {
     justify-content: space-between; 
     align-items: center;
     padding: 40px 5%;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
-
-.social-links-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-.social-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: rgba(255, 255, 255, 0.6);
-    text-decoration: none;
-    font-size: 13px;
-    transition: 0.3s;
-}
-
-.social-item:hover { color: #fff; }
-
-.footer-text {
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 12px;
-}
-
 /* --- FOOTER ANA YAPI --- */
 .site-footer {
     width: 100%;
