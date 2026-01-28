@@ -638,8 +638,17 @@ footer {
 /* --- SOSYAL İKONLAR GRUBU --- */
 @media (max-width: 768px) {
     .footer-social-group {
-        gap: 20px; /* Mobilde ikonları birbirine yaklaştır ki sığsın */
-        flex-wrap: wrap; /* Çok dar ekranlarda ikonlar güvenle alt satıra geçer */
+        gap: 20px; /* Boşluğu daraltarak yan yana sığdırıyoruz */
+        flex-direction: row; /* Mobilde de yan yana kalmaya devam etsin */
+    }
+
+    .footer-social-item {
+        font-size: 12px; /* Yazıları biraz küçülterek yer açıyoruz */
+    }
+
+    .footer-social-item svg {
+        width: 16px; /* İkonları hafif küçültüyoruz */
+        height: 16px;
     }
 }
 
