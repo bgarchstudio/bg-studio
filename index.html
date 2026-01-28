@@ -636,23 +636,38 @@ footer {
 }
 
 /* --- SOSYAL İKONLAR GRUBU --- */
-.footer-social-group {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 40px; /* İki ikon arasındaki yatay boşluk */
+@media (max-width: 768px) {
+    .footer-social-group {
+        gap: 20px; /* Mobilde ikonları birbirine yaklaştır ki sığsın */
+        flex-wrap: wrap; /* Çok dar ekranlarda ikonlar güvenle alt satıra geçer */
+    }
 }
 
 .footer-social-item {
     display: flex;
     align-items: center;
     gap: 10px;
-    /* İstatistiklerdeki o ağır gold rengini buraya da verdik */
+    /* İstatistiklerde kullandığımız o ağır gold tonu */
     color: #C6A87C; 
     text-decoration: none;
     font-size: 14px;
     letter-spacing: 0.5px;
     transition: all 0.4s ease;
+}
+
+/* İkonların (SVG) rengini de otomatik gold yapar */
+.footer-social-item svg {
+    fill: #C6A87C;
+    transition: all 0.4s ease;
+}
+
+.footer-social-item:hover {
+    color: #fff; /* Üzerine gelince beyaza parlasın */
+}
+
+.footer-social-item:hover svg {
+    fill: #fff;
+    transform: translateY(-3px);
 }
 
 .footer-social-item:hover {
