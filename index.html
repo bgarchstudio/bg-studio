@@ -538,9 +538,49 @@ section#projects {
         .stat-item:last-child .stat-number::after { content: ''; } 
         .stat-label { color: #888; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* --- İLETİŞİM KONTEYNERI (HİZALAMA) --- */
+        /* --- VİZYON SEKSİYONU (ÜSTTEN VE ALTTAN GEÇİŞLİ) --- */
+section#vision {
+    position: relative;
+    padding: 120px 5% !important; /* Projeler ve İletişim ile milimetrik hiza */
+    background: #000;
+    overflow: hidden;
+}
+
+section#vision video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    /* Sinematik Geçiş: Projelerden gelirken ve Stats'a geçerken kararma */
+    mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+
+.about-container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.about-text { 
+    font-size: 2.4rem; 
+    line-height: 1.4; 
+    max-width: 900px; 
+    color: #fff; 
+    text-align: left;
+    margin: 40px 0 0 0 !important;
+}
+
+.highlight { color: #888; } /* Yaşanan mekanlar vurgusu */
+
+/* --- İLETİŞİM KONTEYNERI --- */
 section#contact {
-    padding: 100px 5% !important; /* Projeler ve Vizyon ile aynı hiza */
+    padding: 100px 5% !important;
 }
 
 .contact-container { 
@@ -550,23 +590,21 @@ section#contact {
     align-items: start;
 }
 
-/* Sol Kısım: Tiger ve Bilgiler */
 .contact-left { 
     display: flex; 
     flex-direction: column; 
-    gap: 20px;
+    gap: 30px;
 }
 
 .footer-tiger-img { 
     width: 100%; 
-    max-width: 550px; 
-    margin-top: 30px; 
+    max-width: 550px; /* Alanı doygun dolduran kaplan görseli */
     opacity: 0.95; 
     filter: grayscale(100%) contrast(1.1); 
     transition: all 0.6s ease; 
 }
 
-/* --- FORM YAPISI: BAŞLIKLAR ÜSTTE --- */
+/* --- FORM YAPISI: BAŞLIK ÜSTTE, ALAN ALTTA --- */
 form { 
     display: flex; 
     flex-direction: column; 
@@ -575,19 +613,18 @@ form {
 
 .form-group { 
     display: flex;
-    flex-direction: column; /* Başlık üstte, alan altta */
+    flex-direction: column; /* Başlığı üste, alanı alta kilitler */
     gap: 12px;
 }
 
 .form-group label { 
+    position: relative; /* Absolute uçma efekti iptal, sabit başlık düzeni */
     color: rgba(255, 255, 255, 0.4); 
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin: 0;
 }
 
-/* Tek Satırlık Inputlar (Ad Soyad ve E-posta) */
 input { 
     width: 100%; 
     background: transparent; 
@@ -599,11 +636,10 @@ input {
     outline: none; 
 }
 
-/* Proje Detayları: Genişletilmiş Alan */
 textarea {
     width: 100%;
-    min-height: 180px; /* Detaylar için büyük ve doygun alan */
-    background: transparent;
+    min-height: 160px; /* Proje detayları için geniş alan */
+    background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.15);
     padding: 15px;
     color: #fff;
@@ -611,106 +647,67 @@ textarea {
     font-size: 15px;
     outline: none;
     resize: none;
-    transition: 0.3s;
 }
 
 input:focus, textarea:focus { 
-    border-color: #c6a87c; /* Fokus olunca senin bronz/gold rengin */
+    border-color: #c6a87c; 
 }
 
-/* --- GÖNDER BUTONU: GOLD GEÇİŞİ --- */
+/* --- PREMIUM GOLD GÖNDER BUTONU --- */
 button { 
     background: #fff; 
     color: #000; 
     border: 1px solid #fff; 
-    padding: 18px 0; 
+    padding: 20px 0; 
     width: 100%; 
     font-family: 'Space Grotesk', sans-serif; 
     font-weight: 700; 
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     cursor: pointer; 
-    transition: all 0.4s ease; 
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1); 
 }
 
 button:hover { 
-    background: #c6a87c; /* İstediğin Gold tonu */
+    /* Metalik Premium Gold Gradient */
+    background: linear-gradient(135deg, #c6a87c 0%, #a68a5a 100%); 
     border-color: #c6a87c;
     color: #fff;
-    letter-spacing: 5px;
+    letter-spacing: 6px;
+    box-shadow: 0 10px 30px rgba(198, 168, 124, 0.2);
 }
 
 /* --- FOOTER ALT BİLGİ --- */
 footer {
-    padding: 40px 5%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; 
     align-items: center;
+    padding: 40px 5%;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
-/* --- VİZYON SEKSİYONU (ÜSTTEN VE ALTTAN GEÇİŞLİ) --- */
-section#vision {
-    position: relative;
-    /* Projelerle aynı hizada olması için milimetrik %5 boşluk */
-    padding: 120px 5% !important; 
-    overflow: hidden;
-    background: #000; /* Temel arka plan siyah */
+    min-height: 80px;
 }
 
-/* Arka plan videosunun hem yukarı hem aşağı yumuşak geçişi */
-section#vision video {
-    position: absolute;
-    top: -10%; /* Üstteki kararmayı projelerle birleştirmek için hafif yukarı aldık */
-    left: 0;
-    width: 100%;
-    height: 120%; /* Videoyu her iki yöne sündürdük */
-    object-fit: cover;
-    z-index: 1;
-    
-    /* HEM ÜSTTEN HEM ALTTAN KARARMA EFEKTİ (MASKING) */
-    mask-image: linear-gradient(
-        to bottom, 
-        transparent 0%, 
-        black 20%, 
-        black 80%, 
-        transparent 100%
-    );
-    -webkit-mask-image: linear-gradient(
-        to bottom, 
-        transparent 0%, 
-        black 20%, 
-        black 80%, 
-        transparent 100%
-    );
+.social-links-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 25px;
 }
 
-.about-container { 
-    position: relative;
-    z-index: 2; /* Metnin videonun üzerinde kalması için */
-    display: flex; 
-    flex-direction: column; 
-    align-items: flex-start;
-    gap: 40px; 
+.social-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 13px;
+    transition: 0.3s;
 }
 
-.about-text { 
-    font-size: 2.4rem; 
-    line-height: 1.4; 
-    max-width: 950px; 
-    color: #fff; 
-    text-align: left;
-    margin: 40px 0 0 0 !important;
-}
+.social-item:hover { color: #fff; }
 
-.highlight { color: #888; } /* Yaşanan mekanlar vurgusu */
-
-/* --- İSTATİSTİKLER (VİDEONUN KARARDIĞI YERDE BAŞLAR) --- */
-#stats { 
-    position: relative;
-    z-index: 2;
-    background: #000; /* Video burada tamamen karardığı için siyah zemin devralır */
-    padding: 100px 5%;
-    border-top: 1px solid rgba(255,255,255,0.05);
+.footer-text {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 12px;
 }
 /* --- FOOTER ANA YAPI --- */
 .site-footer {
