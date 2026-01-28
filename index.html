@@ -538,28 +538,29 @@ section#projects {
         .stat-item:last-child .stat-number::after { content: ''; } 
         .stat-label { color: #888; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* --- İLETİŞİM & FORM ALANI (SAĞLI SOLLU DÜZEN) --- */
+        /* --- İLETİŞİM & FORM ALANI (TAM HİZALAMA) --- */
 section#contact {
-    padding: 100px 5% !important; /* Projelerle aynı hizaya sabitlendi */
+    padding: 100px 5% !important; /* Projeler ve Vizyon ile aynı hiza */
 }
 
 .contact-container { 
     display: grid; 
-    grid-template-columns: 1fr 1fr; /* Sol: Tiger & Bilgi | Sağ: Form */
+    grid-template-columns: 1fr 1fr; 
     gap: 80px; 
     align-items: start;
 }
 
+/* Sol Kısım: Tiger ve Bilgiler */
 .contact-left { 
     display: flex; 
     flex-direction: column; 
-    gap: 30px;
+    gap: 20px;
 }
 
-/* Tiger Görseli Optimizasyonu */
 .footer-tiger-img { 
     width: 100%; 
-    max-width: 500px; 
+    max-width: 550px; /* Görsel alanı doygun doldurur */
+    margin-top: 30px; 
     opacity: 0.95; 
     filter: grayscale(100%) contrast(1.1); 
     transition: all 0.6s ease; 
@@ -569,68 +570,81 @@ section#contact {
 form { 
     display: flex; 
     flex-direction: column; 
-    gap: 40px; 
+    gap: 35px; 
 }
 
 .form-group { 
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .form-group label { 
-    color: rgba(255, 255, 255, 0.5); 
-    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4); 
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
 
-input, textarea { 
+input { 
     width: 100%; 
     background: transparent; 
     border: none; 
     border-bottom: 1px solid rgba(255, 255, 255, 0.15); 
-    padding: 10px 0; /* Mobilde çizgi üzerine binme sorunu bu boşlukla çözüldü */
+    padding: 10px 0; /* Tek satırlık temiz alan */
     color: #fff; 
     font-size: 16px; 
     outline: none; 
 }
 
-input:focus, textarea:focus { 
-    border-bottom: 1px solid #fff; 
+/* Proje Detayları: Genişletilmiş Alan */
+textarea {
+    width: 100%;
+    min-height: 150px; /* Detaylar için büyük alan */
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 15px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    outline: none;
+    resize: none;
+    transition: 0.3s;
 }
 
-/* --- GÖNDER BUTONU DÜZELTMESİ --- */
+input:focus, textarea:focus { 
+    border-color: #c6a87c; /* Fokus olunca gold/bronz detay */
+}
+
+/* --- GÖNDER BUTONU: GOLD EFEKTİ --- */
 button { 
     background: #fff; 
     color: #000; 
     border: 1px solid #fff; 
-    padding: 18px 0; /* İç boşluk dengelendi */
-    width: 100%; /* Form genişliğine tam oturan profesyonel buton */
+    padding: 18px 0; 
+    width: 100%; 
     font-family: 'Space Grotesk', sans-serif; 
     font-weight: 700; 
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     cursor: pointer; 
-    transition: all 0.4s ease; 
-    margin-top: 10px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
 }
 
 button:hover { 
-    background: transparent; 
+    background: #c6a87c; /* İstediğin Gold/Bronz tonu */
+    border-color: #c6a87c;
     color: #fff;
-    letter-spacing: 5px; /* Hover'da mimari bir genişleme efekti */
+    letter-spacing: 4px;
 }
 
-/* Mobilde her şeyin alt alta gelmesi için */
-@media (max-width: 768px) {
-    .contact-container {
-        grid-template-columns: 1fr;
-        gap: 60px;
-    }
-    button {
-        padding: 15px 0;
-    }
+/* --- FOOTER: ALT BİLGİ --- */
+footer {
+    padding: 40px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 /* --- FOOTER ANA YAPI --- */
 .site-footer {
