@@ -528,128 +528,91 @@ section#projects {
     .project-desc { font-size: 0.85rem; }
     .play-btn { width: 40px; height: 40px; }
 }
-        /* --- İSTATİSTİKLER (STATS) SEKSİYONU --- */
-#stats { 
-    display: flex; 
-    justify-content: space-around; 
-    align-items: center; 
-    padding: 100px 5%; /* Daha ferah bir görünüm için padding artırıldı */
-    background: #050505; /* Arka planı genel siteyle tam eşledik */
-    border-top: 1px solid rgba(255,255,255,0.05); 
-    border-bottom: 1px solid rgba(255,255,255,0.05); 
-    text-align: center; 
+        /* İstatistikler */
+        #stats { display: flex; justify-content: space-around; align-items: center; padding: 80px 20px; background: #080808; border-top: 1px solid #222; border-bottom: 1px solid #222; text-align: center; }
+        .stat-item { display: flex; flex-direction: column; align-items: center; gap: 15px; transition: transform 0.3s; }
+        .stat-item:hover { transform: translateY(-10px); }
+        .stat-icon svg { width: 50px; height: 50px; fill: #c6a87c; filter: drop-shadow(0 0 10px rgba(198, 168, 124, 0.3)); }
+        .stat-number { font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; font-weight: 700; color: #fff; line-height: 1; }
+        .stat-number::after { content: '+'; font-size: 2rem; color: #c6a87c; vertical-align: super; margin-left: 5px; }
+        .stat-item:last-child .stat-number::after { content: ''; } 
+        .stat-label { color: #888; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* --- VİZYON SEKSİYONU (HİZALANMIŞ & DÜZELTİLMİŞ) --- */
+section#vision {
+    padding: 120px 5%; /* Projelerle aynı dikey hizaya çekildi */
 }
 
-.stat-item { 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    gap: 15px; 
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Daha yumuşak zıplama efekti */
+/* Köşeye kaçan başlığı metnin tam üzerine, projelerle aynı hizaya çektik */
+section#vision .section-title {
+    margin-left: 0;
+    margin-bottom: 60px;
+    width: 100%;
 }
 
-.stat-item:hover { 
-    transform: translateY(-12px); 
-}
-
-.stat-icon svg { 
-    width: 45px; 
-    height: 45px; 
-    fill: #c6a87c; 
-    filter: drop-shadow(0 0 15px rgba(198, 168, 124, 0.2)); 
-    margin-bottom: 5px;
-}
-
-.stat-number { 
-    font-family: 'Space Grotesk', sans-serif; 
-    font-size: 4rem; /* Rakamlar bir tık daha büyütüldü */
-    font-weight: 700; 
-    color: #fff; 
-    line-height: 1; 
-}
-
-/* Sayıların yanındaki profesyonel "+" işareti */
-.stat-number::after { 
-    content: '+'; 
-    font-size: 1.8rem; 
-    color: #c6a87c; 
-    vertical-align: super; 
-    margin-left: 5px; 
-    font-weight: 400;
-}
-
-/* %100 Memnuniyet kısmında "+" olmasın kuralı */
-.stat-item:last-child .stat-number::after { 
-    content: ''; 
-} 
-
-.stat-label { 
-    color: #888; 
-    font-size: 11px; /* Mimari estetik için yazı hafif küçültüldü */
-    letter-spacing: 3px; 
-    text-transform: uppercase; 
-    font-weight: 500;
-}
-
-/* --- MOBİL UYUM (SENİN İSTEDİĞİN DİKEY DÜZEN) --- */
-@media (max-width: 768px) {
-    #stats { 
-        flex-direction: column; /* Mobilde alt alta dizer */
-        gap: 70px; /* Bloklar arası dikey mesafe */
-        padding: 80px 20px;
-    }
-    
-    .stat-number {
-        font-size: 3.2rem;
-    }
-}
-
-        /* --- VİZYON SEKSİYONU --- */
 .about-container { 
     display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    gap: 60px; 
-    padding: 120px 5%; /* Projelerle tam hizalanma */
+    flex-direction: column; 
+    gap: 40px; 
 }
 
 .about-text { 
-    font-size: 2.4rem; /* Metin boyutu büyütüldü */
+    font-size: 2.4rem; /* Vizyon yazısı büyütüldü */
     line-height: 1.35; 
-    max-width: 900px; 
+    max-width: 950px; 
     color: #fff; 
     font-family: 'Inter', sans-serif;
 }
 
-/* Gri Vurgu (Highlight) Ayarı */
+/* "yaşanan mekanlar" için gri vurgu (Highlight) */
 .highlight { 
-    color: #888; /* İstediğin gri tonu */
+    color: #888; 
 }
 
-/* --- İLETİŞİM KONTEYNERI --- */
+/* --- İLETİŞİM KONTEYNERI (BİRLİKTE ÇALIŞALIM) --- */
+section#contact {
+    padding: 100px 5% 120px 5%; /* Sola yapışıklığı gideren %5 padding */
+}
+
+section#contact .section-title {
+    margin-left: 0;
+    margin-bottom: 60px;
+    width: 100%;
+}
+
 .contact-container { 
     display: grid; 
     grid-template-columns: 1fr 1fr; 
     gap: 80px; 
-    padding: 0 5% 100px 5%; /* Hizalama sağlandı */
+    padding: 0; 
 }
 
 .contact-left { 
     display: flex; 
     flex-direction: column; 
-    justify-content: space-between; 
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
+/* TIGER GÖRSELİ: Boşluğu dolduracak şekilde büyütüldü ve doygunlaştırıldı */
 .footer-tiger-img { 
     width: 100%; 
-    max-width: 380px; 
-    margin-top: 40px; 
+    max-width: 500px; /* Görsel artık daha baskın ve doygun */
+    margin-top: 60px; 
     opacity: 0.9; 
+    display: block;
+    object-fit: contain;
     filter: grayscale(100%) contrast(1.1); 
-    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); 
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); 
 }
 
-/* --- FORM ALANLARI: Çizgi ve Yazı Çakışması Giderildi --- */
+.footer-tiger-img:hover { 
+    filter: grayscale(0%); 
+    opacity: 1; 
+    transform: scale(1.05) translateY(-5px); 
+}
+
+/* --- FORM ALANLARI: Çizgi Sorunu ve Etiketler --- */
 form { 
     display: flex; 
     flex-direction: column; 
@@ -662,8 +625,8 @@ input, textarea {
     width: 100%; 
     background: transparent; 
     border: none; 
-    border-bottom: 1px solid #444; 
-    padding: 15px 0 10px 0; /* Yazının çizgiye binmesini engeller */
+    border-bottom: 1px solid rgba(255,255,255,0.2); 
+    padding: 15px 0 10px 0; /* Çizgi ve yazı çakışmasını önleyen kritik boşluk */
     color: #fff; 
     font-family: 'Inter', sans-serif; 
     font-size: 16px; 
@@ -685,7 +648,7 @@ label {
     font-size: 14px; 
 }
 
-/* Etiket Animasyonu */
+/* Yazı yazıldığında etiketi yukarı taşıyan animasyon */
 input:focus ~ label, 
 input:valid ~ label, 
 textarea:focus ~ label, 
@@ -709,7 +672,7 @@ button {
 }
 
 button:hover { 
-    background: #c6a87c; /* Kurumsal bronz/altın rengin */
+    background: #c6a87c; /* Senin kurumsal bronz tonun */
     color: #fff;
     transform: translateY(-3px);
 }
@@ -720,8 +683,7 @@ footer {
     justify-content: space-between; 
     align-items: center;
     padding: 40px 5%;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    min-height: 80px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .social-links-wrapper {
@@ -733,7 +695,7 @@ footer {
 .social-item {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     color: rgba(255, 255, 255, 0.6);
     text-decoration: none;
     font-size: 13px;
@@ -746,11 +708,10 @@ footer {
 }
 
 .footer-text {
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.3);
     font-size: 12px;
-    display: flex;
-    align-items: center;
 }
+
 /* --- FOOTER ANA YAPI --- */
 .site-footer {
     width: 100%;
