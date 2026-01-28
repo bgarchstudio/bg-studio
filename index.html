@@ -38,33 +38,39 @@
 </head>
 
     <style>
+/* SOSYAL MEDYA KAPSAYICISI */
 .social-links-wrapper {
-    margin-top: 15px;
-    display: flex;
-    flex-wrap: wrap; /* Mobilde sığmazsa alt alta geçer */
-    gap: 20px; /* İkonlar arası boşluk */
-    justify-content: flex-start;
+    margin-top: 25px;         /* Üstteki elemanlarla mesafe */
+    display: flex;            /* Elemanları yan yana dizer */
+    flex-wrap: wrap;          /* Mobilde sığmazsa alt satıra geçer */
+    gap: 30px;                /* İkonlar arasındaki yatay boşluk (Geliştirildi) */
+    justify-content: center;  /* İŞTE GÜNCELLEME: Her şeyi yatayda TAM MERKEZLER */
+    align-items: center;      /* Her şeyi dikeyde TAM MERKEZLER */
 }
 
+/* SOSYAL MEDYA LİNKLERİ */
 .social-item {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    color: rgba(255, 255, 255, 0.7);
-    text-decoration: none;
+    align-items: center;      /* İkon ve metni kendi içinde hizalar */
+    gap: 10px;                /* İkon ve yazı arasındaki mesafe */
+    color: rgba(255, 255, 255, 0.6); /* Daha soft, kurumsal bir beyaz */
+    text-decoration: none;    /* Alt çizgiyi kaldırır */
     font-family: 'Inter', sans-serif;
     font-size: 0.9rem;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease; /* Hareketin yumuşaklığı */
 }
 
+/* ÜZERİNE GELİNDİĞİNDE (HOVER) */
 .social-item:hover {
-    color: #fff;
-    transform: translateY(-2px); /* Mikro etkileşim: Hafif yukarı zıplama */
+    color: #fff;              /* Tam beyaza döner */
+    transform: translateY(-3px); /* Mikro etkileşim: 3px yukarı zıplar */
 }
 
+/* YAZI AYARI */
 .social-text {
-    letter-spacing: 0.5px;
+    letter-spacing: 0.7px;    /* Mimari estetik için harf arası boşluk */
 }
+
         /* --- TEMEL AYARLAR --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
