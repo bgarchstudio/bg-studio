@@ -604,7 +604,7 @@ section#projects {
     }
 }
 
-        /* --- FOOTER & İLETİŞİM FORMU --- */
+        /* --- FOOTER & İLETİŞİM FORMU (KESİN ÇÖZÜM) --- */
 .about-container { 
     display: flex; 
     justify-content: space-between; 
@@ -618,37 +618,37 @@ section#projects {
     line-height: 1.4; 
     max-width: 800px; 
     color: #fff; 
-    font-family: 'Space Grotesk', sans-serif;
 }
 
 .contact-container { 
     display: grid; 
     grid-template-columns: 1fr 1fr; 
-    gap: 80px; /* Daha ferah bir iletişim alanı */
+    gap: 60px; 
     padding-bottom: 80px;
 }
 
 .contact-left { 
     display: flex; 
     flex-direction: column; 
-    justify-content: center; 
+    justify-content: space-between; 
 }
 
 .footer-tiger-img { 
     width: 100%; 
-    max-width: 320px; 
-    opacity: 0.8; 
-    filter: grayscale(100%); 
-    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); 
+    max-width: 350px; 
+    margin-top: 40px; 
+    opacity: 0.9; 
+    filter: grayscale(20%) contrast(1.1); 
+    transition: all 0.5s ease; 
 }
 
 .footer-tiger-img:hover { 
     filter: grayscale(0%); 
     opacity: 1; 
-    transform: translateY(-5px); 
+    transform: scale(1.02); 
 }
 
-/* FORM ELEMENTLERİ */
+/* FORM ELEMENTLERİ - HATA DÜZELTİLMİŞ KISIM */
 form { 
     display: flex; 
     flex-direction: column; 
@@ -661,13 +661,14 @@ input, textarea {
     width: 100%; 
     background: transparent; 
     border: none; 
-    border-bottom: 1px solid rgba(255,255,255,0.2); 
-    padding: 12px 0; 
+    border-bottom: 1px solid #444; 
+    /* DÜZELTME: Yazının çizgiye binmesini engelleyen alt boşluk */
+    padding: 15px 0 10px 0; 
     color: #fff; 
     font-family: 'Inter', sans-serif; 
     font-size: 16px; 
     outline: none; 
-    transition: 0.4s; 
+    transition: 0.3s; 
 }
 
 input:focus, textarea:focus { 
@@ -676,69 +677,80 @@ input:focus, textarea:focus {
 
 label { 
     position: absolute; 
-    top: 12px; 
+    /* DÜZELTME: Başlangıç pozisyonu çizgiyle çakışmayacak şekilde ayarlandı */
+    top: 15px; 
     left: 0; 
     color: #666; 
     pointer-events: none; 
     transition: 0.3s ease; 
     font-size: 14px; 
-    text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
-/* Input doluysa veya odaktaysa etiketi yukarı taşı */
+/* Yazı yazıldığında etiketi yukarı taşıyan animasyon */
 input:focus ~ label, 
 input:valid ~ label, 
 textarea:focus ~ label, 
 textarea:valid ~ label { 
+    /* DÜZELTME: Yazı ile arasında mesafe kalması için top değeri güncellendi */
     top: -15px; 
-    font-size: 10px; 
+    font-size: 12px; 
     color: #fff; 
-    letter-spacing: 2px;
 }
 
 button { 
     background: #fff; 
     color: #000; 
     border: none; 
-    padding: 18px 50px; 
+    padding: 15px 50px; 
     font-family: 'Space Grotesk', sans-serif; 
     font-weight: 700; 
-    text-transform: uppercase;
     cursor: pointer; 
     align-self: flex-start; 
-    transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); 
+    margin-top: 20px; 
+    transition: 0.3s; 
 }
 
 button:hover { 
-    background: #c6a87c; /* Senin o altın/bronz tonun */
-    color: #fff;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    background: #ccc; 
+    letter-spacing: 1px; 
 }
 
-/* EN ALT BİLGİ (FOOTER) */
+/* EN ALT BİLGİ VE SOSYAL LİNKLER */
 footer {
     display: flex;
     justify-content: space-between; 
     align-items: center;
-    padding: 40px 5%;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    min-height: 100px;
+    padding: 30px 5%;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 80px;
 }
 
 .social-links-wrapper {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 25px;
 }
 
 .footer-text {
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 11px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 12px;
+    line-height: 1;
 }
+
+.social-link { 
+    color: #fff; 
+    text-decoration: none; 
+    border-bottom: 1px solid #444; 
+    padding-bottom: 5px; 
+    transition: 0.3s; 
+}
+
+.social-link:hover { 
+    border-bottom: 1px solid #fff; 
+    opacity: 0.8; 
+}
+
+.highlight { color: #888; }
 
         .social-item {
             display: flex;
