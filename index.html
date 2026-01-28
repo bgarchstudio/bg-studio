@@ -538,74 +538,129 @@ section#projects {
         .stat-item:last-child .stat-number::after { content: ''; } 
         .stat-label { color: #888; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* Footer & Form */
-        .about-container { display: flex; justify-content: space-between; align-items: center; gap: 50px; }
-        .about-text { font-size: 2rem; line-height: 1.4; max-width: 800px; color: #fff; }
-        .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
-        .contact-left { display: flex; flex-direction: column; justify-content: space-between; }
-        .footer-tiger-img { width: 100%; max-width: 350px; margin-top: 40px; opacity: 0.9; filter: grayscale(20%) contrast(1.1); transition: all 0.5s ease; }
-        .footer-tiger-img:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.02); }
-        form { display: flex; flex-direction: column; gap: 30px; }
-        .form-group { position: relative; }
-        input, textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid #444; padding: 15px 0; color: #fff; font-family: 'Inter', sans-serif; font-size: 16px; outline: none; transition: 0.3s; }
-        input:focus, textarea:focus { border-bottom: 1px solid #fff; }
-        label { position: absolute; top: 15px; left: 0; color: #666; pointer-events: none; transition: 0.3s; font-size: 14px; }
-        input:focus ~ label, input:valid ~ label, textarea:focus ~ label, textarea:valid ~ label { top: -10px; font-size: 12px; color: #fff; }
-        button { background: #fff; color: #000; border: none; padding: 15px 40px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; cursor: pointer; align-self: flex-start; margin-top: 20px; transition: 0.3s; }
-        button:hover { background: #ccc; letter-spacing: 1px; }
-        footer { padding: 50px; border-top: 1px solid #222; display: flex; justify-content: space-between; font-size: 14px; color: #555; }
-        .social-link { color: #fff; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 5px; transition: 0.3s; }
-        .social-link:hover { border-bottom: 1px solid #fff; opacity: 0.8; }
-        .highlight { color: #888; }
-footer {
-            display: flex;
-            justify-content: space-between; 
-            align-items: center;
-            padding: 30px 5%;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            min-height: 80px;
-        }
-
-        .social-links-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-
-        .social-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: rgba(255, 255, 255, 0.6);
-            text-decoration: none;
-            font-size: 13px;
-            line-height: 1;
-        }
-
-        .footer-text {
-            margin: 0;
-            padding: 0;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 12px;
-            line-height: 1;
-            display: flex;
-            align-items: center;
-        }
-/* --- FOOTER ANA YAPI --- */
-.site-footer {
-    width: 100%;
-    background-color: #050505;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 60px 5% 40px; /* Üstten geniş boşluk bıraktık */
+        /* --- VİZYON SEKSİYONU (SAYFAYA HİZALI) --- */
+section#vision {
+    padding: 120px 5% !important; /* Projelerle aynı %5 boşluk */
+    background: #000;
 }
 
-.footer-container {
-    max-width: 1400px;
-    margin: 0 auto;
+.about-text { 
+    font-size: 2.4rem; 
+    line-height: 1.4; 
+    max-width: 900px; 
+    color: #fff; 
+    text-align: left;
+    margin: 40px 0 0 0 !important;
+}
+
+/* --- İLETİŞİM KONTEYNERI (SAĞLI SOLLU DÜZEN) --- */
+section#contact {
+    padding: 100px 5% !important;
+}
+
+.contact-container { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; /* Sol: Tiger | Sağ: Form */
+    gap: 80px; 
+    align-items: start;
+}
+
+/* --- FORM YAPISI: BAŞLIK ÜSTTE, ALAN ALTTA --- */
+form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 40px; 
+}
+
+.form-group { 
     display: flex;
-    flex-direction: column; /* Mobilde ve masaüstünde dikey düzen için */
-    align-items: center;    /* Her şeyi ortalar */
-    gap: 25px;              /* İkonlar ve yazı arasındaki dikey boşluk */
+    flex-direction: column; /* Başlık üste, alan alta zorunlu */
+    gap: 12px;
+}
+
+.form-group label { 
+    position: relative; /* Uçma efektini sildik, başlık sabit üstte */
+    color: rgba(255, 255, 255, 0.4); 
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+input, textarea { 
+    width: 100%; 
+    background: transparent; 
+    border: none; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15); 
+    padding: 15px 0 10px 0; /* Mobilde harflerin kesilmemesi için kritik boşluk */
+    color: #fff; 
+    font-family: 'Inter', sans-serif; 
+    font-size: 16px; 
+    outline: none; 
+}
+
+textarea {
+    min-height: 150px;
+    resize: none;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 15px;
+}
+
+input:focus, textarea:focus { 
+    border-color: #fff; /* Odaklanınca çizgi beyazlaşır */
+}
+
+/* --- GÖNDER BUTONU: PREMIUM GOLD --- */
+button { 
+    background: #fff; 
+    color: #000; 
+    border: none; 
+    padding: 20px 0; 
+    width: 100%; 
+    font-family: 'Space Grotesk', sans-serif; 
+    font-weight: 700; 
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    cursor: pointer; 
+    transition: all 0.5s ease; 
+}
+
+button:hover { 
+    background: #c6a87c; /* Senin Gold/Bronz tonun */
+    color: #fff;
+    letter-spacing: 5px;
+}
+
+/* --- TIGER GÖRSELİ (ALANI DOLDURUR) --- */
+.footer-tiger-img { 
+    width: 100%; 
+    max-width: 500px; 
+    opacity: 0.95; 
+    filter: grayscale(100%) contrast(1.1); 
+    transition: all 0.5s ease; 
+}
+
+/* --- FOOTER ANA YAPI --- */
+footer {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 40px 5%;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background-color: #050505;
+}
+
+.social-links-wrapper {
+    display: flex;
+    gap: 25px;
+}
+
+.social-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 13px;
 }
 
 /* --- SOSYAL İKONLAR GRUBU --- */
