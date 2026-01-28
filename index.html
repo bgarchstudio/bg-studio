@@ -532,7 +532,7 @@ section#projects {
     .play-btn { width: 40px; height: 40px; }
 }
         /* İstatistikler */
-        #stats { display: flex; justify-content: space-around; align-items: center; padding: 80px 5%; background: #080808; ... }
+        #stats { display: flex; justify-content: space-around; align-items: center; padding: 80px 20px; background: #080808; border-top: 1px solid #222; border-bottom: 1px solid #222; text-align: center; }
         .stat-item { display: flex; flex-direction: column; align-items: center; gap: 15px; transition: transform 0.3s; }
         .stat-item:hover { transform: translateY(-10px); }
         .stat-icon svg { width: 50px; height: 50px; fill: #c6a87c; filter: drop-shadow(0 0 10px rgba(198, 168, 124, 0.3)); }
@@ -751,21 +751,30 @@ footer {
         </div>
     </section>
 
-    <section id="about" style="position: relative; overflow: hidden;">
-        <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.4; filter: grayscale(100%) contrast(1.2);">
-            <source src="vizyon.mp4" type="video/mp4">
-        </video>
-        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, #050505 0%, rgba(0,0,0,0.5) 50%, #050505 100%); z-index: 1;"></div>
-        <span class="section-title hidden" style="position: relative; z-index: 2;">VİZYON</span>
-        <div class="about-container hidden" style="position: relative; z-index: 2;">
-            <p class="about-text">
-                "Her yapı, bulunduğu coğrafyayla konuşan bir hikayedir. 
-                <br><br>
-                Mimarlık eğitimim boyunca ve profesyonel üretimlerimde; <span style="color:#fff; font-weight:bold;">mekansal hafıza</span>, sürdürülebilirlik ve dijital görselleştirme üzerine odaklanıyorum. 
-                AYDIN merkezli çalışmalarımda, brütalist estetiği modern ihtiyaçlarla harmanlayarak, sadece izlenen değil, <span class="highlight">yaşanan mekanlar</span> kurguluyorum."
-            </p>
+    <div class="video-section-wrapper" style="position: relative; overflow: hidden;">
+    
+    <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.4; filter: grayscale(100%) contrast(1.2);">
+        <source src="vizyon.mp4" type="video/mp4">
+    </video>
+    
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, #050505 0%, rgba(0,0,0,0.3) 50%, #050505 100%); z-index: 1;"></div>
+
+    <section id="about" style="position: relative; z-index: 2; padding: 100px 5%;">
+        <span class="section-title hidden">VİZYON</span>
+        <div class="about-container hidden">
+            <p class="about-text">"Her yapı, bulunduğu coğrafyayla konuşan bir hikayedir..."</p>
         </div>
     </section>
+
+    <section id="stats" class="hidden" style="position: relative; z-index: 2; padding: 80px 5%; background: transparent;">
+        <div class="stat-item">
+            <div class="stat-icon"><svg>...</svg></div>
+            <div class="stat-number" data-target="4">0</div>
+            <div class="stat-label">YIL TASARIM TUTKUSU</div>
+        </div>
+        </section>
+
+</div>
     
     <section id="stats" class="hidden" style="position: relative; overflow: hidden;">
     <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.4; filter: grayscale(100%) contrast(1.2);">
