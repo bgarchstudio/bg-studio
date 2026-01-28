@@ -596,16 +596,25 @@ footer {
     width: 100%;
     background-color: #050505;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 60px 5% 40px; /* Üstten geniş boşluk bıraktık */
+    
+    /* ÖNEMLİ: Eğer projelerin soldan %5 boşlukla başlıyorsa burayı da %5 yap. 
+       Eğer %5 az geliyorsa bu rakamı %8 veya %10 yaparak projelerinle tam hizala. */
+    padding: 60px 5% 40px; 
 }
 
 .footer-container {
     max-width: 1400px;
-    margin: 0 auto;
+    /* margin: 0 auto; yerine bunu yazıyoruz: */
+    margin-left: 5%; /* Projelerin soldan ne kadar içerideyse burayı o yap (Genelde %5'tir) */
+    margin-right: auto; 
+    
     display: flex;
-    flex-direction: column; /* Mobilde ve masaüstünde dikey düzen için */
-    align-items: center;    /* Her şeyi ortalar */
-    gap: 25px;              /* İkonlar ve yazı arasındaki dikey boşluk */
+    flex-direction: column; 
+    
+    /* align-items: center; yerine bunu yazıyoruz (Sola hizalar ama margin-left kadar boşluk bırakır): */
+    align-items: flex-start; 
+    
+    gap: 25px;
 }
 
 /* --- SOSYAL İKONLAR GRUBU --- */
