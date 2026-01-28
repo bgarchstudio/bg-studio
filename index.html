@@ -538,7 +538,7 @@ section#projects {
         .stat-item:last-child .stat-number::after { content: ''; } 
         .stat-label { color: #888; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* --- İLETİŞİM & FORM ALANI (TAM HİZALAMA) --- */
+        /* --- İLETİŞİM KONTEYNERI (HİZALAMA) --- */
 section#contact {
     padding: 100px 5% !important; /* Projeler ve Vizyon ile aynı hiza */
 }
@@ -559,24 +559,24 @@ section#contact {
 
 .footer-tiger-img { 
     width: 100%; 
-    max-width: 550px; /* Görsel alanı doygun doldurur */
+    max-width: 550px; 
     margin-top: 30px; 
     opacity: 0.95; 
     filter: grayscale(100%) contrast(1.1); 
     transition: all 0.6s ease; 
 }
 
-/* --- FORM YAPISI: BAŞLIK ÜSTTE, ALAN ALTTA --- */
+/* --- FORM YAPISI: BAŞLIKLAR ÜSTTE --- */
 form { 
     display: flex; 
     flex-direction: column; 
-    gap: 35px; 
+    gap: 40px; 
 }
 
 .form-group { 
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: column; /* Başlık üstte, alan altta */
+    gap: 12px;
 }
 
 .form-group label { 
@@ -584,14 +584,16 @@ form {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 2px;
+    margin: 0;
 }
 
+/* Tek Satırlık Inputlar (Ad Soyad ve E-posta) */
 input { 
     width: 100%; 
     background: transparent; 
     border: none; 
     border-bottom: 1px solid rgba(255, 255, 255, 0.15); 
-    padding: 10px 0; /* Tek satırlık temiz alan */
+    padding: 10px 0; 
     color: #fff; 
     font-size: 16px; 
     outline: none; 
@@ -600,7 +602,7 @@ input {
 /* Proje Detayları: Genişletilmiş Alan */
 textarea {
     width: 100%;
-    min-height: 150px; /* Detaylar için büyük alan */
+    min-height: 180px; /* Detaylar için büyük ve doygun alan */
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.15);
     padding: 15px;
@@ -613,10 +615,10 @@ textarea {
 }
 
 input:focus, textarea:focus { 
-    border-color: #c6a87c; /* Fokus olunca gold/bronz detay */
+    border-color: #c6a87c; /* Fokus olunca senin bronz/gold rengin */
 }
 
-/* --- GÖNDER BUTONU: GOLD EFEKTİ --- */
+/* --- GÖNDER BUTONU: GOLD GEÇİŞİ --- */
 button { 
     background: #fff; 
     color: #000; 
@@ -628,17 +630,17 @@ button {
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: pointer; 
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+    transition: all 0.4s ease; 
 }
 
 button:hover { 
-    background: #c6a87c; /* İstediğin Gold/Bronz tonu */
+    background: #c6a87c; /* İstediğin Gold tonu */
     border-color: #c6a87c;
     color: #fff;
-    letter-spacing: 4px;
+    letter-spacing: 5px;
 }
 
-/* --- FOOTER: ALT BİLGİ --- */
+/* --- FOOTER ALT BİLGİ --- */
 footer {
     padding: 40px 5%;
     display: flex;
