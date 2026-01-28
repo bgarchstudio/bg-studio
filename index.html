@@ -435,15 +435,99 @@ section#projects {
     }
 }
 
-        /* Kart Detayları */
-        .play-btn, .gallery-indicator { position: absolute; top: 20px; right: 20px; width: 50px; height: 50px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 50%; display: flex; justify-content: center; align-items: center; z-index: 20; }
-        .card-overlay { position: absolute; bottom: 30px; left: 30px; pointer-events: none; z-index: 5; width: 85%; }
-        .project-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 70%; background: linear-gradient(to top, rgba(0,0,0,0.95), transparent); pointer-events: none; z-index: 3; }
-        .card-overlay h3 { font-size: 2rem; color: #fff; margin: 5px 0 0; line-height: 1; }
-        .project-subtitle { display: block; font-size: 1.1rem; color: #bbb; font-weight: 300; margin: 5px 0 10px; letter-spacing: 1px; }
-        .project-desc { color: #ddd; font-size: 0.95rem; line-height: 1.5; margin-top: 0; max-width: 100%; opacity: 0; max-height: 0; transform: translateY(20px); transition: all 0.5s ease; overflow: hidden; }
-        .project-card:hover .project-desc, .project-card.active .project-desc { opacity: 1; max-height: 400px; transform: translateY(0); margin-top: 15px; }
+        /* --- KART DETAYLARI VE ETKİLEŞİM --- */
+.play-btn, .gallery-indicator { 
+    position: absolute; 
+    top: 20px; 
+    right: 20px; 
+    width: 50px; 
+    height: 50px; 
+    background: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(10px); /* Blur miktarını artırarak daha şık bir cam efekti verdik */
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    border-radius: 50%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 20; 
+    transition: all 0.3s ease;
+}
 
+/* Butona basılma hissi */
+.play-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.card-overlay { 
+    position: absolute; 
+    bottom: 35px; /* Biraz daha yukarı aldık */
+    left: 30px; 
+    pointer-events: none; 
+    z-index: 5; 
+    width: 85%; 
+}
+
+/* Yazıların altındaki gölge derinliği */
+.project-card::after { 
+    content: ''; 
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 60%; /* %70'den %60'a çekerek görseli daha az kapattık */
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%); 
+    pointer-events: none; 
+    z-index: 3; 
+}
+
+.card-overlay h3 { 
+    font-size: 2.2rem; /* Hafif büyütüldü */
+    font-weight: 700;
+    color: #fff; 
+    margin: 5px 0; 
+    line-height: 1.1; 
+    letter-spacing: -1px;
+}
+
+.project-subtitle { 
+    display: block; 
+    font-size: 0.9rem; /* Mimari estetik için biraz küçültüldü */
+    color: rgba(255,255,255,0.6); 
+    font-weight: 400; 
+    margin-bottom: 8px; 
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.project-desc { 
+    color: rgba(255,255,255,0.8); 
+    font-size: 0.9rem; 
+    line-height: 1.6; 
+    max-width: 90%; 
+    opacity: 0; 
+    max-height: 0; 
+    transform: translateY(15px); 
+    /* Daha akıcı sinematik geçiş */
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); 
+    overflow: hidden; 
+}
+
+/* Açıklama metni görünür olduğunda */
+.project-card:hover .project-desc, 
+.project-card.active .project-desc { 
+    opacity: 1; 
+    max-height: 300px; 
+    transform: translateY(0); 
+    margin-top: 20px; 
+}
+
+/* MOBİL AYAR: Mobilde açıklamalar her zaman görünür olabilir veya alan daraltılabilir */
+@media (max-width: 768px) {
+    .card-overlay h3 { font-size: 1.6rem; }
+    .project-desc { font-size: 0.85rem; }
+    .play-btn { width: 40px; height: 40px; }
+}
         /* İstatistikler */
         #stats { display: flex; justify-content: space-around; align-items: center; padding: 80px 20px; background: #080808; border-top: 1px solid #222; border-bottom: 1px solid #222; text-align: center; }
         .stat-item { display: flex; flex-direction: column; align-items: center; gap: 15px; transition: transform 0.3s; }
