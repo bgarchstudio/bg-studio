@@ -866,14 +866,26 @@ footer {
             </div>
             
             <form action="https://formsubmit.co/bgstudio.arch@gmail.com" method="POST">
-                <input type="hidden" name="_subject" value="Yeni Proje Başvurusu - BG STUDIO">
-                <input type="hidden" name="_next" value="https://bgarchstudio.github.io/bg-studio/">
-                <input type="hidden" name="_captcha" value="false">
-                <div class="form-group"><input type="text" name="name" required><label>Adınız Soyadınız</label></div>
-                <div class="form-group"><input type="email" name="email" required><label>E-posta Adresiniz</label></div>
-                <div class="form-group"><textarea rows="4" name="message" required></textarea><label>Proje Detayları</label></div>
-                <button type="submit">GÖNDER →</button>
-            </form>
+    
+    <input type="hidden" name="_subject" value="BG Architecture Sitesinden Yeni Mesaj!">
+    
+    <input type="hidden" name="_captcha" value="false">
+
+    <div class="form-group">
+        <input type="text" name="ad_soyad" placeholder="Adınız Soyadınız" required>
+    </div>
+
+    <div class="form-group">
+        <input type="email" name="email" placeholder="E-posta Adresiniz" required>
+    </div>
+
+    <div class="form-group">
+        <textarea name="mesaj" rows="5" placeholder="Proje Detayları" required></textarea>
+    </div>
+
+    <button type="submit">GÖNDER</button>
+
+</form>
         </div>
     </section>
     
