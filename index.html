@@ -43,6 +43,38 @@
             if (chatBox) chatBox.classList.toggle('active');
         }
 
+
+        function setWhatsappQuickMessage(type) {
+            const messageInput = document.getElementById('whatsappMessage');
+            if (!messageInput) return;
+
+            const messages = {
+                villa: 'Merhaba, BG Studio üzerinden ulaşıyorum. Villa projem için mimari tasarım / 3D görselleştirme teklifi almak istiyorum.',
+                interior: 'Merhaba, BG Studio üzerinden ulaşıyorum. İç mekan render hizmeti hakkında bilgi almak istiyorum.',
+                animation: 'Merhaba, BG Studio üzerinden ulaşıyorum. 3D mimari animasyon hizmetiniz hakkında bilgi almak istiyorum.',
+                visualization: 'Merhaba, BG Studio üzerinden ulaşıyorum. Mevcut projemi fotogerçekçi şekilde görselleştirmek istiyorum.'
+            };
+
+            messageInput.value = messages[type] || 'Merhaba, BG Studio üzerinden ulaşıyorum. Projem hakkında bilgi almak istiyorum.';
+            messageInput.focus();
+        }
+
+
+        function setWhatsappQuickMessage(type) {
+            const messageInput = document.getElementById('whatsappMessage');
+            if (!messageInput) return;
+
+            const messages = {
+                villa: 'Merhaba, BG Studio üzerinden ulaşıyorum. Villa projem için mimari tasarım / 3D görselleştirme teklifi almak istiyorum.',
+                interior: 'Merhaba, BG Studio üzerinden ulaşıyorum. İç mekan render hizmeti hakkında bilgi almak istiyorum.',
+                animation: 'Merhaba, BG Studio üzerinden ulaşıyorum. 3D mimari animasyon hizmetiniz hakkında bilgi almak istiyorum.',
+                visualization: 'Merhaba, BG Studio üzerinden ulaşıyorum. Mevcut projemi fotogerçekçi şekilde görselleştirmek istiyorum.'
+            };
+
+            messageInput.value = messages[type] || 'Merhaba, BG Studio üzerinden ulaşıyorum. Projem hakkında bilgi almak istiyorum.';
+            messageInput.focus();
+        }
+
         function sendWhatsappMessage() {
             const whatsappNumber = "905050364573";
             const messageInput = document.getElementById('whatsappMessage');
@@ -782,6 +814,26 @@ footer {
     border-color: rgba(255, 90, 90, 0.65);
 }
 
+
+
+@media (max-width: 768px) {
+    .whatsapp-chat-body {
+        max-height: 62vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .whatsapp-quick-options {
+        gap: 8px;
+        margin-bottom: 14px;
+    }
+
+    .whatsapp-quick-option {
+        padding: 9px 11px;
+        font-size: 11.5px;
+    }
+}
+
 button:disabled {
     opacity: 0.65;
     cursor: not-allowed;
@@ -906,6 +958,49 @@ button:disabled {
     font-size: 14px;
     line-height: 1.55;
     margin-bottom: 16px;
+}
+
+
+
+.whatsapp-quick-options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 9px;
+    margin: 14px 0 16px;
+}
+
+.whatsapp-quick-option {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(198, 168, 124, 0.28);
+    background: rgba(255,255,255,0.045);
+    color: rgba(255,255,255,0.82);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    line-height: 1.35;
+    letter-spacing: 0.2px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin: 0;
+}
+
+.whatsapp-quick-option:hover {
+    background: rgba(198, 168, 124, 0.14);
+    border-color: rgba(198, 168, 124, 0.58);
+    color: #fff;
+    transform: translateY(-1px);
+    letter-spacing: 0.2px;
+}
+
+.whatsapp-quick-label {
+    display: block;
+    color: rgba(255,255,255,0.48);
+    font-size: 11px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin: 2px 0 9px;
 }
 
 #whatsappMessage {
@@ -1495,6 +1590,14 @@ body {
                 <div class="whatsapp-message">
                     Merhaba 👋<br>
                     Mimari proje, iç mimarlık veya 3D render hizmeti için mesajınızı bırakabilirsiniz.
+                </div>
+
+                <span class="whatsapp-quick-label">Hızlı seçenekler</span>
+                <div class="whatsapp-quick-options" aria-label="WhatsApp hızlı mesaj seçenekleri">
+                    <button type="button" class="whatsapp-quick-option" onclick="setWhatsappQuickMessage('villa')">Villa projem için teklif almak istiyorum</button>
+                    <button type="button" class="whatsapp-quick-option" onclick="setWhatsappQuickMessage('interior')">İç mekan render hizmeti almak istiyorum</button>
+                    <button type="button" class="whatsapp-quick-option" onclick="setWhatsappQuickMessage('animation')">3D animasyon hakkında bilgi almak istiyorum</button>
+                    <button type="button" class="whatsapp-quick-option" onclick="setWhatsappQuickMessage('visualization')">Mevcut projemi görselleştirmek istiyorum</button>
                 </div>
 
                 <textarea id="whatsappMessage" placeholder="Mesajınızı yazın...">Merhaba, BG Studio üzerinden ulaşıyorum. Projem hakkında bilgi almak istiyorum.</textarea>
