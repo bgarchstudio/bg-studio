@@ -114,22 +114,41 @@
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap"
       onload="this.onload=null;this.rel='stylesheet'"
     >
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap"
       >
     </noscript>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QMPP71M8CN"></script>
     <script>
+      // Google Analytics PageSpeed dostu gecikmeli yükleme
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-QMPP71M8CN');
+
+      function loadGoogleAnalytics() {
+          if (window.__bgStudioGaLoaded) return;
+          window.__bgStudioGaLoaded = true;
+
+          const gaScript = document.createElement('script');
+          gaScript.async = true;
+          gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-QMPP71M8CN';
+          document.head.appendChild(gaScript);
+
+          gtag('js', new Date());
+          gtag('config', 'G-QMPP71M8CN');
+      }
+
+      window.addEventListener('load', () => {
+          setTimeout(loadGoogleAnalytics, 6500);
+      }, { once: true });
+
+      ['click', 'touchstart', 'scroll', 'keydown'].forEach((eventName) => {
+          window.addEventListener(eventName, loadGoogleAnalytics, { once: true, passive: true });
+      });
 
         // WhatsApp chat penceresi
         function toggleWhatsappChat() {
