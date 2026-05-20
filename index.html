@@ -1113,6 +1113,28 @@ body {
         line-height: 1.55;
     }
 
+
+    /* Mobilde açıklamalar sadece dokununca açılsın; tekrar dokununca kapansın */
+    .project-card:hover .project-desc {
+        opacity: 0;
+        max-height: 0;
+        transform: translateY(15px);
+        margin-top: 0;
+    }
+
+    .project-card.active .project-desc {
+        opacity: 1;
+        max-height: 320px;
+        transform: translateY(0);
+        margin-top: 16px;
+    }
+
+    .project-card.active .project-img,
+    .project-card.active .gallery-img {
+        filter: grayscale(0%);
+        transform: scale(1.04);
+    }
+
     .about-container,
     .contact-container {
         width: 100%;
@@ -1583,6 +1605,38 @@ body {
             }
         }
 
+
+
+
+        // Mobil proje kartları: dokununca açıklamayı aç, tekrar dokununca kapat
+        const mobileProjectCards = document.querySelectorAll('.project-card');
+
+        function isMobileViewport() {
+            return window.matchMedia('(max-width: 768px)').matches;
+        }
+
+        mobileProjectCards.forEach((card) => {
+            card.addEventListener('click', function (event) {
+                if (!isMobileViewport()) return;
+
+                // Video oynatma butonuna basıldıysa kart açıklamasını aç/kapatma
+                if (event.target.closest('.play-btn')) return;
+
+                const isAlreadyActive = card.classList.contains('active');
+
+                mobileProjectCards.forEach((otherCard) => {
+                    if (otherCard !== card) otherCard.classList.remove('active');
+                });
+
+                card.classList.toggle('active', !isAlreadyActive);
+            });
+        });
+
+        window.addEventListener('resize', function () {
+            if (!isMobileViewport()) {
+                mobileProjectCards.forEach((card) => card.classList.remove('active'));
+            }
+        });
 
         // İletişim formu: sayfadan çıkmadan gönder ve kısa bildirim göster
         const contactForm = document.getElementById('contactForm');
