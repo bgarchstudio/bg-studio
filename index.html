@@ -721,6 +721,52 @@ footer {
         max-width: 280px; /* Yazı mobilde iki satıra şık bölünür */
     }
 }
+
+/* --- FORM BİLDİRİMİ / TOAST --- */
+.form-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 35px;
+    transform: translate(-50%, 30px);
+    min-width: 280px;
+    max-width: calc(100% - 40px);
+    padding: 16px 22px;
+    border: 1px solid rgba(198, 168, 124, 0.45);
+    border-radius: 14px;
+    background: rgba(5, 5, 5, 0.92);
+    color: #fff;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(14px);
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease;
+    text-align: center;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+}
+
+.form-toast.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+.form-toast.success {
+    border-color: rgba(198, 168, 124, 0.7);
+}
+
+.form-toast.error {
+    border-color: rgba(255, 90, 90, 0.65);
+}
+
+button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    letter-spacing: 2px;
+}
+
     </style>
 </head>
 <body>
@@ -865,11 +911,10 @@ footer {
                 <img src="tiger.webp" alt="BG Studio Lion Logo" class="footer-tiger-img">
             </div>
             
-            <form action="https://api.web3forms.com/submit" method="POST">
+            <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
     <input type="hidden" name="access_key" value="d1031bef-cd4e-4609-a9e8-0d534a157a57">
     <input type="hidden" name="subject" value="BG Studio Sitesinden Yeni Mesaj">
     <input type="hidden" name="from_name" value="BG Studio Web Sitesi">
-    <input type="hidden" name="redirect" value="https://bgstudio.com.tr/#contact">
     <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
 
     <div class="form-group">
@@ -890,6 +935,8 @@ footer {
         </div>
     </section>
     
+    <div id="formToast" class="form-toast" role="status" aria-live="polite"></div>
+
    <footer class="site-footer">
     <div class="footer-container">
         <div class="footer-social-group">
@@ -986,6 +1033,63 @@ footer {
                 card.classList.add('playing');
                 path.setAttribute('d', 'M6 19h4V5H6v14zm8-14v14h4V5h-4z'); // pause
             }
+        }
+
+
+        // İletişim formu: sayfadan çıkmadan gönder ve kısa bildirim göster
+        const contactForm = document.getElementById('contactForm');
+        const formToast = document.getElementById('formToast');
+
+        function showFormToast(message, type = 'success') {
+            if (!formToast) return;
+            formToast.textContent = message;
+            formToast.className = `form-toast show ${type}`;
+
+            clearTimeout(window.formToastTimer);
+            window.formToastTimer = setTimeout(() => {
+                formToast.classList.remove('show');
+            }, 4000);
+        }
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', async function (event) {
+                event.preventDefault();
+
+                const submitButton = contactForm.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton ? submitButton.textContent : '';
+
+                if (submitButton) {
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'GÖNDERİLİYOR...';
+                }
+
+                try {
+                    const formData = new FormData(contactForm);
+                    const response = await fetch(contactForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    const result = await response.json().catch(() => ({}));
+
+                    if (response.ok && (result.success === true || result.message)) {
+                        contactForm.reset();
+                        showFormToast('Mesajınız başarıyla gönderildi. En kısa sürede dönüş yapacağız.', 'success');
+                    } else {
+                        showFormToast('Mesaj gönderilemedi. Lütfen biraz sonra tekrar deneyin.', 'error');
+                    }
+                } catch (error) {
+                    showFormToast('Bağlantı hatası oluştu. Lütfen tekrar deneyin.', 'error');
+                } finally {
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
+                    }
+                }
+            });
         }
 
     </script>
