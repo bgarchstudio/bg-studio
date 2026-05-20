@@ -208,6 +208,11 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
 @media(max-width:1024px){.why-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:768px){section#why-bgstudio{padding:70px 20px}.why-intro{margin:0 0 32px;font-size:1.24rem;max-width:100%}.why-grid{grid-template-columns:1fr;padding:0;gap:14px}.why-card{min-height:auto;padding:26px 22px}.service-line-icon{width:42px;height:42px;margin:-2px 0 18px}.project-card:hover .project-img,.project-card:hover .gallery-img{transform:none}.project-card.active .project-img,.project-card.active .gallery-img{transform:scale(1.018)}}
 
+
+.whatsapp-brand-logo{width:44px;height:44px;min-width:44px;border-radius:50%;object-fit:cover;border:1px solid rgba(198,168,124,.55);background:#fff;box-shadow:0 0 18px rgba(198,168,124,.16)}
+.whatsapp-brand-head{display:flex;align-items:center;gap:12px}
+.whatsapp-trust-note{margin:-4px 0 12px;color:rgba(255,255,255,.48);font-size:11px;letter-spacing:.5px;text-align:center}
+
 </style>
 </head>
 <body>
@@ -490,9 +495,11 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
 
         <div class="whatsapp-chat-box" id="whatsappChatBox">
             <div class="whatsapp-chat-header">
-                <div>
-                    <strong>BG Studio</strong>
-                    <span>WhatsApp üzerinden hızlı iletişim</span>
+                <div class="whatsapp-brand-head">
+                    <img src="logo.webp" alt="BG Studio logo" class="whatsapp-brand-logo" width="44" height="44">
+                    <div>
+                        <strong>BG Studio</strong>
+                    </div>
                 </div>
                 <button class="whatsapp-chat-close" onclick="toggleWhatsappChat()" aria-label="WhatsApp penceresini kapat">×</button>
             </div>
@@ -510,8 +517,8 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <button type="button" class="whatsapp-quick-option" onclick="setWhatsappQuickMessage('animation')">3D animasyon hakkında bilgi almak istiyorum</button>
                     <button type="button" class="whatsapp-quick-option" onclick="setWhatsappQuickMessage('visualization')">Mevcut projemi görselleştirmek istiyorum</button>
                 </div>
-            <div class="whatsapp-trust-note">Ortalama yanıt süresi: aynı gün içinde</div>
-            <textarea id="whatsappMessage" placeholder="Mesajınızı yazın...">Merhaba, BG Studio üzerinden ulaşıyorum. Projem hakkında bilgi almak istiyorum.</textarea>
+                <div class="whatsapp-trust-note">Ortalama yanıt süresi: aynı gün içinde</div>
+                <textarea id="whatsappMessage" placeholder="Mesajınızı yazın...">Merhaba, BG Studio üzerinden ulaşıyorum. Projem hakkında bilgi almak istiyorum.</textarea>
 
                 <button class="whatsapp-send-btn" onclick="sendWhatsappMessage()">
                     WhatsApp’ta Gönder
