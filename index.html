@@ -1555,29 +1555,44 @@ body {
         const standardObserver = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('show'); } }); });
         document.querySelectorAll('.hidden:not(.hero-content)').forEach((el) => standardObserver.observe(el));
 
-        // İstatistik Animasyon
+        // İstatistik Animasyon - tüm sayılar aynı anda başlar ve aynı anda final değerine ulaşır
         const statsSection = document.querySelector('#stats');
         if (statsSection) {
             const statsObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const counters = document.querySelectorAll('.stat-number');
+                        const animationDuration = 1800; // tüm istatistiklerin ortak bitiş süresi
+                        const startTime = performance.now();
+
                         counters.forEach(counter => {
-                            const updateCount = () => {
-                                const target = Number(counter.getAttribute('data-target')) || 0;
-                                const count = Number(counter.innerText) || 0;
-                                let speed = 50;
-                                if (target < 10) speed = 300;
-                                else if (target > 50) speed = 20;
-                                if (count < target) {
-                                    counter.innerText = count + 1;
-                                    setTimeout(updateCount, speed);
-                                } else {
-                                    counter.innerText = target;
-                                }
-                            };
-                            updateCount();
+                            counter.innerText = '0';
                         });
+
+                        const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+                        const animateCounters = (currentTime) => {
+                            const elapsed = currentTime - startTime;
+                            const progress = Math.min(elapsed / animationDuration, 1);
+                            const easedProgress = easeOutCubic(progress);
+
+                            counters.forEach(counter => {
+                                const target = Number(counter.getAttribute('data-target')) || 0;
+                                const value = Math.round(target * easedProgress);
+                                counter.innerText = value;
+                            });
+
+                            if (progress < 1) {
+                                requestAnimationFrame(animateCounters);
+                            } else {
+                                counters.forEach(counter => {
+                                    const target = Number(counter.getAttribute('data-target')) || 0;
+                                    counter.innerText = target;
+                                });
+                            }
+                        };
+
+                        requestAnimationFrame(animateCounters);
                         statsObserver.unobserve(entry.target);
                     }
                 });
