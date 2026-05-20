@@ -21,13 +21,11 @@
     <meta property="og:image:height" content="1080">
     <meta property="og:url" content="https://bgstudio.com.tr">
     <meta property="og:type" content="website">
-
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -39,8 +37,6 @@
       gtag('js', new Date());
       gtag('config', 'G-QMPP71M8CN');
     </script>
-</head>
-
     <style>
 /* SOSYAL MEDYA KAPSAYICISI */
 .social-links-wrapper {
@@ -536,7 +532,7 @@ section#projects {
     .play-btn { width: 40px; height: 40px; }
 }
         /* İstatistikler */
-        #stats { display: flex; justify-content: space-around; align-items: center; padding: 80px 5%; background: #080808; ... }
+        #stats { display: flex; justify-content: space-around; align-items: center; padding: 80px 5%; background: #080808; }
         .stat-item { display: flex; flex-direction: column; align-items: center; gap: 15px; transition: transform 0.3s; }
         .stat-item:hover { transform: translateY(-10px); }
         .stat-icon svg { 
@@ -915,36 +911,81 @@ footer {
         // MOBİL MENÜ KONTROLÜ
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
+            if (navLinks) navLinks.classList.toggle('active');
         }
 
         // Hero & Scroll
-        const heroObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { const heroContent = document.querySelector('.hero-content'); const heroVideo = document.querySelector('.video-bg'); if (entry.isIntersecting) { heroContent.classList.add('show'); if(heroVideo) { heroVideo.currentTime = 0; heroVideo.play(); } } else { heroContent.classList.remove('show'); } }); }, { threshold: 0.1 }); 
-        heroObserver.observe(document.querySelector('.hero'));
+        const heroContent = document.querySelector('.hero-content');
+        const heroVideo = document.querySelector('.video-bg');
+        const heroEl = document.querySelector('.hero');
+        if (heroEl && heroContent) {
+            const heroObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        heroContent.classList.add('show');
+                        if (heroVideo) {
+                            heroVideo.currentTime = 0;
+                            heroVideo.play().catch(() => {});
+                        }
+                    } else {
+                        heroContent.classList.remove('show');
+                    }
+                });
+            }, { threshold: 0.1 });
+            heroObserver.observe(heroEl);
+        }
         const standardObserver = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('show'); } }); });
         document.querySelectorAll('.hidden:not(.hero-content)').forEach((el) => standardObserver.observe(el));
 
         // İstatistik Animasyon
         const statsSection = document.querySelector('#stats');
-        const statsObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const counters = document.querySelectorAll('.stat-number'); counters.forEach(counter => { const updateCount = () => { const target = +counter.getAttribute('data-target'); const count = +counter.innerText; let speed = 50; if(target < 10) speed = 300; else if(target > 50) speed = 20; const inc = 1; if (count < target) { counter.innerText = count + inc; setTimeout(updateCount, speed); } else { counter.innerText = target; } }; updateCount(); }); statsObserver.unobserve(entry.target); } }); }, { threshold: 0.5 });
-        statsObserver.observe(statsSection);
+        if (statsSection) {
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counters = document.querySelectorAll('.stat-number');
+                        counters.forEach(counter => {
+                            const updateCount = () => {
+                                const target = Number(counter.getAttribute('data-target')) || 0;
+                                const count = Number(counter.innerText) || 0;
+                                let speed = 50;
+                                if (target < 10) speed = 300;
+                                else if (target > 50) speed = 20;
+                                if (count < target) {
+                                    counter.innerText = count + 1;
+                                    setTimeout(updateCount, speed);
+                                } else {
+                                    counter.innerText = target;
+                                }
+                            };
+                            updateCount();
+                        });
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            statsObserver.observe(statsSection);
+        }
 
         // Video & Mobil
         function toggleVideo(cardId) {
-    const card = document.getElementById(cardId);
-    const video = card.querySelector('.project-video');
-    const path = card.querySelector('.play-icon path');
+            const card = document.getElementById(cardId);
+            if (!card) return;
 
-    if (card.classList.contains('playing')) {
-        video.pause();
-        card.classList.remove('playing');
-        path.setAttribute('d', 'M8 5v14l11-7z'); // play
-    } else {
-        video.play();
-        card.classList.add('playing');
-        path.setAttribute('d', 'M6 19h4V5H6v14zm8-14v14h4V5h-4z'); // pause
-    }
-}
+            const video = card.querySelector('.project-video');
+            const path = card.querySelector('.play-icon path');
+            if (!video || !path) return;
+
+            if (card.classList.contains('playing')) {
+                video.pause();
+                card.classList.remove('playing');
+                path.setAttribute('d', 'M8 5v14l11-7z'); // play
+            } else {
+                video.play().catch(() => {});
+                card.classList.add('playing');
+                path.setAttribute('d', 'M6 19h4V5H6v14zm8-14v14h4V5h-4z'); // pause
+            }
+        }
 
     </script>
 </body>
