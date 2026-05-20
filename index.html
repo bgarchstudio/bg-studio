@@ -1868,24 +1868,6 @@ body {
     }
 }
 
-    
-
-/* --- GÜVENLİ PAGESPEED İYİLEŞTİRMELERİ --- */
-@media (max-width: 768px) {
-    .hidden {
-        filter: none;
-        transform: translateY(24px);
-    }
-
-    .show {
-        filter: none;
-    }
-
-    .video-bg {
-        filter: grayscale(100%) contrast(1.04) brightness(0.62);
-    }
-}
-
     </style>
 </head>
 <body>
@@ -1904,7 +1886,7 @@ body {
     </nav>
 
     <header class="hero">
-        <video class="video-bg" autoplay loop muted playsinline preload="metadata"><source src="animasyon.mp4" type="video/mp4"></video>
+        <video class="video-bg" autoplay loop muted playsinline><source src="animasyon.mp4" type="video/mp4"></video>
         <div class="hero-content hidden">
             <h1>BG<br>STUDIO</h1>
             <p style="letter-spacing: 5px; margin-top: 10px; font-weight: 300;">KUŞADASI MİMARİ TASARIM & 3D GÖRSELLEŞTİRME</p>
@@ -1918,7 +1900,7 @@ body {
                 <div class="play-btn" onclick="toggleVideo('project1'); event.stopPropagation();">
                     <div class="play-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
                 </div>
-                <img src="proje1.webp" alt="Kuşadası ve Aydın için dağ evi villa mimari görselleştirme ve 3D dış mekan render" class="project-img project-static" fetchpriority="high" decoding="async">
+                <img src="proje1.webp" alt="Kuşadası ve Aydın için dağ evi villa mimari görselleştirme ve 3D dış mekan render" class="project-img project-static" fetchpriority="high">
                 <video class="project-img project-video" loop muted playsinline preload="none"><source src="proje1.mp4" type="video/mp4"></video>
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">01 — KONUT / KIRSAL TASARIM</span>
@@ -1930,9 +1912,9 @@ body {
 
             <div class="project-card hidden slideshow-3">
                 <div class="gallery-indicator"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/></svg></div>
-                <img src="proje2-1.webp" alt="Kuşadası petshop dış cephe tasarımı ve mimari görselleştirme" class="gallery-img img-1" decoding="async" loading="lazy">
-                <img src="proje2-2.webp" alt="Petshop iç mekan tasarımı ve fotogerçekçi render" class="gallery-img img-2" decoding="async" loading="lazy">
-                <img src="proje2-3.webp" alt="Ticari mekan detay render ve iç mimarlık sunumu" class="gallery-img img-3" decoding="async" loading="lazy">
+                <img src="proje2-1.webp" alt="Kuşadası petshop dış cephe tasarımı ve mimari görselleştirme" class="gallery-img img-1">
+                <img src="proje2-2.webp" alt="Petshop iç mekan tasarımı ve fotogerçekçi render" class="gallery-img img-2">
+                <img src="proje2-3.webp" alt="Ticari mekan detay render ve iç mimarlık sunumu" class="gallery-img img-3">
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">02 — PETSHOP / İÇ MEKAN TASARIMI</span>
                     <h3>ŞANSLI PATİLER</h3>
@@ -1941,7 +1923,7 @@ body {
             </div>
 
              <div class="project-card hidden" style="height: 800px;">
-                <img src="proje3.webp" alt="Modern konut koridor iç mimarlık render tasarımı" class="project-img" decoding="async" loading="lazy">
+                <img src="proje3.webp" alt="Modern konut koridor iç mimarlık render tasarımı" class="project-img">
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">03 — KONUT / İÇ MEKAN TASARIMI</span>
                     <h3>REFLECTIVE WARMTH</h3>
@@ -1951,7 +1933,7 @@ body {
             </div>
 
             <div class="project-card hidden">
-                <img src="proje4.webp" alt="Aydın sosyal kampüs mimari proje görselleştirme" class="project-img" decoding="async" loading="lazy">
+                <img src="proje4.webp" alt="Aydın sosyal kampüs mimari proje görselleştirme" class="project-img">
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">04 — EĞİTİM / KAMPÜS TASARIMI</span>
                     <h3>SOCIAL CAMPUS</h3>
@@ -1961,7 +1943,7 @@ body {
             </div>
 
             <div class="project-card hidden" style="height: 800px;">
-                <img src="proje5.webp" alt="Modern iç mekan tasarımı ve villa render görselleştirme" class="project-img" decoding="async" loading="lazy">
+                <img src="proje5.webp" alt="Modern iç mekan tasarımı ve villa render görselleştirme" class="project-img">
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">05 — KONUT / KONSEPT TASARIM</span>
                     <h3>SCULPTURAL LIVING</h3>
@@ -1972,8 +1954,8 @@ body {
 
             <div class="project-card hidden slideshow-2">
                 <div class="gallery-indicator"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/></svg></div>
-                <img src="proje6-1.webp" alt="Piyano odası iç mekan render ve 3D görselleştirme" class="gallery-img img-1" decoding="async" loading="lazy">
-                <img src="proje6-2.webp" alt="Geometrik duvar tasarımı iç mimarlık render" class="gallery-img img-2" decoding="async" loading="lazy">
+                <img src="proje6-1.webp" alt="Piyano odası iç mekan render ve 3D görselleştirme" class="gallery-img img-1">
+                <img src="proje6-2.webp" alt="Geometrik duvar tasarımı iç mimarlık render" class="gallery-img img-2">
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">06 — İÇ MEKAN</span>
                     <h3>RHYTHM & CONTRAST</h3>
@@ -2044,8 +2026,8 @@ body {
     </section>
 
     <section id="about" style="position: relative; overflow: hidden;">
-        <video class="lazy-video" autoplay loop muted playsinline preload="none" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.4; filter: grayscale(100%) contrast(1.2);">
-            <source data-src="vizyon.mp4" type="video/mp4">
+        <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.4; filter: grayscale(100%) contrast(1.2);">
+            <source src="vizyon.mp4" type="video/mp4">
         </video>
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, #050505 0%, rgba(0,0,0,0.5) 50%, #050505 100%); z-index: 1;"></div>
         <h2 class="section-title hidden" style="position: relative; z-index: 2;">VİZYON</h2>
@@ -2089,7 +2071,7 @@ body {
                     <div style="margin-top: 30px; display: flex; gap: 20px;"> 
                     </div>
                 </div>
-                <img src="tiger.webp" alt="BG Studio mimarlık ve 3D render stüdyosu marka görseli" class="footer-tiger-img" decoding="async" loading="lazy">
+                <img src="tiger.webp" alt="BG Studio mimarlık ve 3D render stüdyosu marka görseli" class="footer-tiger-img">
             </div>
             
             <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
@@ -2416,28 +2398,6 @@ body {
 
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
-        }
-
-    
-
-        // PageSpeed: Vizyon videosunu sadece bölüme yaklaşınca yükle
-        const lazyVideos = document.querySelectorAll('video.lazy-video');
-        if (lazyVideos.length) {
-            const lazyVideoObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting) return;
-                    const video = entry.target;
-                    video.querySelectorAll('source[data-src]').forEach(source => {
-                        source.src = source.dataset.src;
-                        source.removeAttribute('data-src');
-                    });
-                    video.load();
-                    video.play().catch(() => {});
-                    observer.unobserve(video);
-                });
-            }, { rootMargin: '300px 0px' });
-
-            lazyVideos.forEach(video => lazyVideoObserver.observe(video));
         }
 
     </script>
