@@ -201,6 +201,19 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
 @media (min-width:769px){#projects .project-card:nth-child(2n){margin-top:80px}}
 @media (max-width:768px){#projects .project-card,#projects .project-card[style]{height:min(128vw,680px)!important;min-height:470px!important}#projects .project-subtitle{font-size:.72rem}}
 
+
+/* --- PROJE VİTRİNİ: ETKİLEŞİMLİ 3'LÜ SLAYT SİSTEMİ --- */
+.slideshow-3 .gallery-img{animation:none!important;opacity:0!important;transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .8s ease,filter .5s ease}
+.slideshow-3 .gallery-img.is-active{opacity:1!important;z-index:4}
+.project-dots{position:absolute;top:20px;right:20px;z-index:22;display:flex;align-items:center;gap:7px;padding:10px 11px;border-radius:999px;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:background .25s ease,border-color .25s ease,transform .25s ease}
+.project-dots:hover{background:rgba(0,0,0,.42);border-color:rgba(198,168,124,.32)}
+.project-dot{width:7px;height:7px;min-width:7px;border-radius:50%;border:0!important;padding:0!important;margin:0!important;background:rgba(255,255,255,.42)!important;box-shadow:none!important;cursor:pointer;letter-spacing:normal!important;transition:width .3s ease,background .3s ease,opacity .3s ease,transform .3s ease}
+.project-dot.is-active{width:21px;border-radius:999px;background:#C6A87C!important;opacity:1}
+.project-dot:hover{transform:scale(1.08);background:#E6BE8A!important}
+.project-card{cursor:pointer}
+.project-card.carousel-playing .project-dots{border-color:rgba(198,168,124,.42)}
+@media(max-width:768px){.project-dots{top:16px;right:16px;padding:9px 10px;gap:6px}.project-dot{width:6px;height:6px;min-width:6px}.project-dot.is-active{width:18px}.project-card{cursor:default}}
+
 </style>
 </head>
 <body>
@@ -230,8 +243,12 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
         <h2 class="section-title hidden">SEÇİLİ PROJELER</h2>
         <div class="portfolio-grid">
             <article class="project-card hidden slideshow-3" style="height: 800px;">
-                <div class="gallery-indicator" aria-label="3 render görseli"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/></svg></div>
-                <img src="coastal-residence-01.webp" width="1122" height="1402" alt="Deniz manzaralı lüks villa dış cephe ve havuz mimari görselleştirme" class="gallery-img img-1" decoding="async" fetchpriority="high">
+                <div class="project-dots" aria-label="Proje görselleri">
+                    <button type="button" class="project-dot is-active" aria-label="1. render"></button>
+                    <button type="button" class="project-dot" aria-label="2. render"></button>
+                    <button type="button" class="project-dot" aria-label="3. render"></button>
+                </div>
+<img src="coastal-residence-01.webp" width="1122" height="1402" alt="Deniz manzaralı lüks villa dış cephe ve havuz mimari görselleştirme" class="gallery-img img-1 is-active" decoding="async" fetchpriority="high">
                 <img src="coastal-residence-02.webp" width="1122" height="1402" alt="Gün batımında sonsuz havuzlu modern sahil villası 3D render" class="gallery-img img-2" decoding="async" loading="lazy">
                 <img src="coastal-residence-03.webp" width="1122" height="1402" alt="Deniz manzaralı modern villa iç yaşam alanı render" class="gallery-img img-3" decoding="async" loading="lazy">
                 <div class="card-overlay">
@@ -243,8 +260,12 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
             </article>
 
             <article class="project-card hidden slideshow-3" style="height: 800px;">
-                <div class="gallery-indicator" aria-label="3 render görseli"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/></svg></div>
-                <img src="marina-interior-01.webp" width="1122" height="1402" alt="Marina manzaralı lüks konut iç mekân yaşam alanı render" class="gallery-img img-1" decoding="async" loading="lazy">
+                <div class="project-dots" aria-label="Proje görselleri">
+                    <button type="button" class="project-dot is-active" aria-label="1. render"></button>
+                    <button type="button" class="project-dot" aria-label="2. render"></button>
+                    <button type="button" class="project-dot" aria-label="3. render"></button>
+                </div>
+<img src="marina-interior-01.webp" width="1122" height="1402" alt="Marina manzaralı lüks konut iç mekân yaşam alanı render" class="gallery-img img-1 is-active" decoding="async" loading="lazy">
                 <img src="marina-interior-02.webp" width="1122" height="1402" alt="Marina manzaralı mutfak ve yemek alanı iç mekân tasarımı" class="gallery-img img-2" decoding="async" loading="lazy">
                 <img src="marina-interior-03.webp" width="1122" height="1402" alt="Lüks yatak odası marina manzarası 3D iç mekân render" class="gallery-img img-3" decoding="async" loading="lazy">
                 <div class="card-overlay">
@@ -256,8 +277,12 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
             </article>
 
             <article class="project-card hidden slideshow-3" style="height: 800px;">
-                <div class="gallery-indicator" aria-label="3 render görseli"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/></svg></div>
-                <img src="modern-clinic-01.webp" width="1122" height="1402" alt="Modern klinik dış cephe mimari tasarım ve 3D görselleştirme" class="gallery-img img-1" decoding="async" loading="lazy">
+                <div class="project-dots" aria-label="Proje görselleri">
+                    <button type="button" class="project-dot is-active" aria-label="1. render"></button>
+                    <button type="button" class="project-dot" aria-label="2. render"></button>
+                    <button type="button" class="project-dot" aria-label="3. render"></button>
+                </div>
+<img src="modern-clinic-01.webp" width="1122" height="1402" alt="Modern klinik dış cephe mimari tasarım ve 3D görselleştirme" class="gallery-img img-1 is-active" decoding="async" loading="lazy">
                 <img src="modern-clinic-02.webp" width="1122" height="1402" alt="Modern klinik lobi ve karşılama alanı iç mekân render" class="gallery-img img-2" decoding="async" loading="lazy">
                 <img src="modern-clinic-03.webp" width="1122" height="1402" alt="Modern klinik koridoru ve tedavi alanı 3D render" class="gallery-img img-3" decoding="async" loading="lazy">
                 <div class="card-overlay">
@@ -269,8 +294,12 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
             </article>
 
             <article class="project-card hidden slideshow-3" style="height: 800px;">
-                <div class="gallery-indicator" aria-label="3 render görseli"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/></svg></div>
-                <img src="alpine-stone-house-01.webp" width="1122" height="1402" alt="Alp dağları manzaralı taş ve ahşap lüks dağ evi dış cephe render" class="gallery-img img-1" decoding="async" loading="lazy">
+                <div class="project-dots" aria-label="Proje görselleri">
+                    <button type="button" class="project-dot is-active" aria-label="1. render"></button>
+                    <button type="button" class="project-dot" aria-label="2. render"></button>
+                    <button type="button" class="project-dot" aria-label="3. render"></button>
+                </div>
+<img src="alpine-stone-house-01.webp" width="1122" height="1402" alt="Alp dağları manzaralı taş ve ahşap lüks dağ evi dış cephe render" class="gallery-img img-1 is-active" decoding="async" loading="lazy">
                 <img src="alpine-stone-house-02.webp" width="1122" height="1402" alt="Şömineli taş dağ evi iç mekân ve yüksek tavan render" class="gallery-img img-2" decoding="async" loading="lazy">
                 <img src="alpine-stone-house-03.webp" width="1122" height="1402" alt="Akşam ışığında lüks taş dağ evi dış mekân görselleştirme" class="gallery-img img-3" decoding="async" loading="lazy">
                 <div class="card-overlay">
@@ -282,8 +311,12 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
             </article>
 
             <article class="project-card hidden slideshow-3" style="height: 800px;">
-                <div class="gallery-indicator" aria-label="3 render görseli"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/></svg></div>
-                <img src="marina-bistro-01.webp" width="1122" height="1402" alt="Marina manzaralı bistro restoran dış cephe ve teras render" class="gallery-img img-1" decoding="async" loading="lazy">
+                <div class="project-dots" aria-label="Proje görselleri">
+                    <button type="button" class="project-dot is-active" aria-label="1. render"></button>
+                    <button type="button" class="project-dot" aria-label="2. render"></button>
+                    <button type="button" class="project-dot" aria-label="3. render"></button>
+                </div>
+<img src="marina-bistro-01.webp" width="1122" height="1402" alt="Marina manzaralı bistro restoran dış cephe ve teras render" class="gallery-img img-1 is-active" decoding="async" loading="lazy">
                 <img src="marina-bistro-02.webp" width="1122" height="1402" alt="Liman manzaralı sıcak atmosferli restoran iç mekân tasarımı" class="gallery-img img-2" decoding="async" loading="lazy">
                 <img src="marina-bistro-03.webp" width="1122" height="1402" alt="Marina bistro teras ve waterfront dining 3D görselleştirme" class="gallery-img img-3" decoding="async" loading="lazy">
                 <div class="card-overlay">
@@ -295,8 +328,12 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
             </article>
 
             <article class="project-card hidden slideshow-3" style="height: 800px;">
-                <div class="gallery-indicator" aria-label="3 render görseli"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/></svg></div>
-                <img src="stone-courtyard-house-01.webp" width="1122" height="1402" alt="Akdeniz taş villa giriş cephesi ve avlulu konut mimari render" class="gallery-img img-1" decoding="async" loading="lazy">
+                <div class="project-dots" aria-label="Proje görselleri">
+                    <button type="button" class="project-dot is-active" aria-label="1. render"></button>
+                    <button type="button" class="project-dot" aria-label="2. render"></button>
+                    <button type="button" class="project-dot" aria-label="3. render"></button>
+                </div>
+<img src="stone-courtyard-house-01.webp" width="1122" height="1402" alt="Akdeniz taş villa giriş cephesi ve avlulu konut mimari render" class="gallery-img img-1 is-active" decoding="async" loading="lazy">
                 <img src="stone-courtyard-house-02.webp" width="1122" height="1402" alt="Taş avlulu villa iç yaşam alanı ve havuz manzarası render" class="gallery-img img-2" decoding="async" loading="lazy">
                 <img src="stone-courtyard-house-03.webp" width="1122" height="1402" alt="Gün batımında Akdeniz taş villa avlu ve havuz görselleştirme" class="gallery-img img-3" decoding="async" loading="lazy">
                 <div class="card-overlay">
@@ -717,6 +754,136 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                         mobileProjectCards.forEach((card) => card.classList.remove('active'));
                     });
                 }
+            }, 160);
+        }, { passive: true });
+
+
+        // Proje vitrini: masaüstünde hover ile, mobilde ekrana girince slayt başlar.
+        const mobileProjectCards = document.querySelectorAll('.project-card');
+        const isMobileViewport = () => window.matchMedia('(max-width: 768px)').matches;
+        const projectSlideTimers = new WeakMap();
+
+        function setProjectSlide(card, index) {
+            const slides = Array.from(card.querySelectorAll('.gallery-img'));
+            const dots = Array.from(card.querySelectorAll('.project-dot'));
+            if (!slides.length) return;
+
+            const total = slides.length;
+            const safeIndex = ((index % total) + total) % total;
+
+            card.dataset.slideIndex = String(safeIndex);
+
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('is-active', i === safeIndex);
+            });
+
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('is-active', i === safeIndex);
+                dot.setAttribute('aria-current', i === safeIndex ? 'true' : 'false');
+            });
+        }
+
+        function nextProjectSlide(card) {
+            const slides = card.querySelectorAll('.gallery-img');
+            if (!slides.length) return;
+            const current = Number(card.dataset.slideIndex || 0);
+            setProjectSlide(card, current + 1);
+        }
+
+        function startProjectSlides(card) {
+            if (!card || projectSlideTimers.has(card)) return;
+            if (card.querySelectorAll('.gallery-img').length < 2) return;
+
+            card.classList.add('carousel-playing');
+            const timer = window.setInterval(() => nextProjectSlide(card), 3000);
+            projectSlideTimers.set(card, timer);
+        }
+
+        function stopProjectSlides(card) {
+            const timer = projectSlideTimers.get(card);
+            if (timer) {
+                window.clearInterval(timer);
+                projectSlideTimers.delete(card);
+            }
+            if (card) card.classList.remove('carousel-playing');
+        }
+
+        scheduleBgStudioIdle(() => {
+            mobileProjectCards.forEach((card) => {
+                const slides = card.querySelectorAll('.gallery-img');
+                if (slides.length) setProjectSlide(card, 0);
+
+                card.querySelectorAll('.project-dot').forEach((dot, index) => {
+                    dot.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        setProjectSlide(card, index);
+                    });
+                });
+
+                // Masaüstü: sadece imleç kartın üstüne gelince o projenin renderları 3 saniyede bir değişir.
+                card.addEventListener('mouseenter', () => {
+                    if (!isMobileViewport()) startProjectSlides(card);
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    if (!isMobileViewport()) stopProjectSlides(card);
+                });
+
+                // Masaüstü ve mobil: kartın boş alanına tıklayınca sıradaki rendera geç.
+                card.addEventListener('click', function (event) {
+                    if (event.target.closest('.play-btn') || event.target.closest('.project-dot')) return;
+
+                    if (isMobileViewport()) {
+                        const isAlreadyActive = card.classList.contains('active');
+
+                        mobileProjectCards.forEach((otherCard) => {
+                            if (otherCard !== card) otherCard.classList.remove('active');
+                        });
+
+                        card.classList.toggle('active', !isAlreadyActive);
+                    }
+
+                    nextProjectSlide(card);
+                });
+            });
+
+            // Mobil: ekrana giren proje slayt halinde oynar, ekrandan çıkan durur.
+            if ('IntersectionObserver' in window) {
+                const mobileCarouselObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        const card = entry.target;
+                        if (!isMobileViewport()) {
+                            stopProjectSlides(card);
+                            return;
+                        }
+
+                        if (entry.isIntersecting) {
+                            startProjectSlides(card);
+                        } else {
+                            stopProjectSlides(card);
+                        }
+                    });
+                }, { threshold: 0.55 });
+
+                mobileProjectCards.forEach((card) => {
+                    if (card.querySelectorAll('.gallery-img').length > 1) {
+                        mobileCarouselObserver.observe(card);
+                    }
+                });
+            }
+        });
+
+        let resizeCleanupTimer = null;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeCleanupTimer);
+            resizeCleanupTimer = setTimeout(() => {
+                window.requestAnimationFrame(() => {
+                    mobileProjectCards.forEach((card) => {
+                        stopProjectSlides(card);
+                        if (!isMobileViewport()) card.classList.remove('active');
+                    });
+                });
             }, 160);
         }, { passive: true });
 
