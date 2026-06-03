@@ -266,6 +266,44 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     .project-dot.is-active{width:18px!important}
 }
 
+
+/* --- SOFT RENDER GEÇİŞİ: DAHA SİNEMATİK VE YUMUŞAK --- */
+#projects .project-card.slideshow-3 .gallery-img{
+    transition:
+        opacity 1.45s cubic-bezier(.22,1,.36,1),
+        transform 2.2s cubic-bezier(.22,1,.36,1),
+        filter 1.2s ease!important;
+}
+#projects .project-card.slideshow-3 .gallery-img.is-active{
+    transform:scale(1.015);
+}
+#projects .project-card:hover .gallery-img.is-active{
+    transform:scale(1.035);
+}
+.project-dot{
+    transition:
+        width .45s cubic-bezier(.22,1,.36,1),
+        background .45s ease,
+        transform .45s ease!important;
+}
+.project-dots{
+    transition:
+        background .45s ease,
+        border-color .45s ease,
+        opacity .45s ease!important;
+}
+@media(max-width:768px){
+    #projects .project-card.slideshow-3 .gallery-img{
+        transition:
+            opacity 1.25s cubic-bezier(.22,1,.36,1),
+            transform 1.8s cubic-bezier(.22,1,.36,1),
+            filter 1s ease!important;
+    }
+    #projects .project-card.slideshow-3 .gallery-img.is-active{
+        transform:scale(1.01);
+    }
+}
+
 </style>
 </head>
 <body>
@@ -808,7 +846,7 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
             if (card.querySelectorAll('.gallery-img').length < 2) return;
 
             card.classList.add('carousel-playing');
-            const timer = window.setInterval(() => nextProjectSlide(card), 3000);
+            const timer = window.setInterval(() => nextProjectSlide(card), 4200);
             projectSlideTimers.set(card, timer);
         }
 
