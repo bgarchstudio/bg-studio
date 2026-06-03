@@ -668,195 +668,122 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
 }
 
 
-
-/* --- HARD FIX: TÜM BÖLÜMLER TEK SOL/SAĞ RAYA KİLİTLENDİ --- */
-:root{
-    --rail-left: 4.75vw;
-    --rail-right: 4.75vw;
-}
-
-/* Ana bölümlerin kendi paddingleri sıfırlanır; hizayı içerideki elemanlar alır */
+/* --- DÜZELTME: BÖLÜM BAŞLIKLARI VE AÇIKLAMA HİZASI --- */
 #projects,
-#services,
-#process,
-#why,
-#studio,
-#contact,
 .quality-standard,
-.trust-statement{
-    padding-left:0!important;
-    padding-right:0!important;
-    box-sizing:border-box!important;
+#services{
+    padding-left:7%!important;
+    padding-right:7%!important;
 }
-
-/* Bölüm başlıkları aynı sarı referans çizgisine oturur */
-#projects > .section-title,
-#services > .section-title,
-#process > .section-title,
-#why > .section-title,
-#studio > .section-title,
-#contact > .section-title,
-.quality-standard > .section-title{
-    display:block!important;
-    width:auto!important;
-    max-width:none!important;
-    margin-left:var(--rail-left)!important;
-    margin-right:var(--rail-right)!important;
-    padding-left:0!important;
-    padding-right:0!important;
-    box-sizing:border-box!important;
-}
-
-/* Başlık çizgileri de aynı sağ bitişe kadar uzar */
-#projects > .section-title::after,
-#services > .section-title::after,
-#process > .section-title::after,
-#why > .section-title::after,
-#studio > .section-title::after,
-#contact > .section-title::after,
-.quality-standard > .section-title::after{
-    left:0!important;
-    right:0!important;
+#projects .section-title,
+.quality-standard .section-title,
+#services .section-title{
+    max-width:1180px!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
     width:100%!important;
 }
-
-/* Başlık altı açıklama metinleri aynı sol raya oturur */
-.projects-intro,
-#services > .services-intro,
-#process > p,
-#why > p,
-#studio > p,
-#contact > p,
-.process-intro,
-.why-intro,
-.studio-intro{
-    width:auto!important;
-    max-width:none!important;
-    margin-left:var(--rail-left)!important;
-    margin-right:var(--rail-right)!important;
-    padding-left:0!important;
-    padding-right:0!important;
-    box-sizing:border-box!important;
+#projects .section-title{
+    margin-bottom:22px!important;
+}
+.projects-intro{
+    max-width:1180px!important;
+    width:100%!important;
+    margin:0 auto 70px!important;
+    padding-left:22px!important;
     text-align:left!important;
-}
-
-/* Açıklama metinlerinde sadece okunabilirlik için içerik genişliği; başlangıç noktası ASLA değişmez */
-#services > .services-intro{
-    max-width:1180px!important;
-    font-size:clamp(1.55rem,2.15vw,2.65rem)!important;
-    line-height:1.42!important;
-}
-
-#process > p,
-#why > p,
-.process-intro,
-.why-intro{
-    max-width:1180px!important;
-}
-
-/* Kart gridleri aynı sol/sağ ray arasında başlar ve biter */
-#projects > .portfolio-grid,
-#services > .services-grid,
-#process > .process-grid,
-#why > .why-grid,
-#why > .reasons-grid,
-#why > .features-grid,
-#studio > .studio-grid,
-.quality-standard > .quality-grid{
-    width:auto!important;
-    max-width:none!important;
-    margin-left:var(--rail-left)!important;
-    margin-right:var(--rail-right)!important;
-    padding-left:0!important;
-    padding-right:0!important;
     box-sizing:border-box!important;
 }
-
-/* Bazı eski kurallar kartları ortalıyordu; hepsini iptal */
-#process .process-grid,
-#why .why-grid,
-#why .reasons-grid,
-#why .features-grid,
-#services .services-grid,
-#projects .portfolio-grid,
-.quality-grid{
-    margin-left:var(--rail-left)!important;
-    margin-right:var(--rail-right)!important;
-}
-
-/* Hizmet kartları geniş alana yayılsın */
-@media(min-width:981px){
-    #services > .services-grid{
-        display:grid!important;
-        grid-template-columns:repeat(4,minmax(0,1fr))!important;
-        gap:18px!important;
-    }
-}
-
-/* Çalışma süreci ve Neden BG Studio gridleri de aynı genişlikte */
-@media(min-width:981px){
-    #process > .process-grid{
-        display:grid!important;
-        grid-template-columns:repeat(4,minmax(0,1fr))!important;
-        gap:18px!important;
-    }
-    #why > .why-grid,
-    #why > .reasons-grid,
-    #why > .features-grid{
-        display:grid!important;
-        grid-template-columns:repeat(3,minmax(0,1fr))!important;
-        gap:18px!important;
-    }
-}
-
-/* Kalite başlığı ortada kalsın ama grid rayı bozmasın */
-.quality-heading-block{
+.quality-grid,
+.services-grid{
+    max-width:1180px!important;
     margin-left:auto!important;
     margin-right:auto!important;
 }
-
-/* Mobilde de aynı mantık, sadece ray küçülür */
+.quality-standard{
+    padding-top:110px!important;
+    padding-bottom:110px!important;
+}
 @media(max-width:768px){
-    :root{
-        --rail-left:7%;
-        --rail-right:7%;
+    #projects,
+    .quality-standard,
+    #services{
+        padding-left:7%!important;
+        padding-right:7%!important;
     }
-    #services > .services-grid,
-    #process > .process-grid,
-    #why > .why-grid,
-    #why > .reasons-grid,
-    #why > .features-grid,
-    #projects > .portfolio-grid,
-    .quality-standard > .quality-grid{
-        grid-template-columns:1fr!important;
+    #projects .section-title,
+    .quality-standard .section-title,
+    #services .section-title{
+        max-width:100%!important;
+    }
+    .projects-intro{
+        max-width:100%!important;
+        margin:0 auto 42px!important;
+        padding-left:16px!important;
     }
 }
 
 
-/* --- MOBİL HÜZME IŞIK: EKRANA GİRİNCE OTOMATİK OYNAR --- */
+/* --- BG STUDIO KALİTE STANDARDI: ORTALI PREMIUM BAŞLIK + HÜZME IŞIK ANİMASYONU --- */
+.quality-heading-block{
+    max-width:860px;
+    margin:0 auto 58px;
+    text-align:center;
+}
+.quality-kicker{
+    display:inline-flex;
+    align-items:center;
+    gap:14px;
+    color:#C6A87C;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    margin-bottom:18px;
+}
+.quality-kicker::before,
+.quality-kicker::after{
+    content:'';
+    width:34px;
+    height:1px;
+    background:rgba(198,168,124,.55);
+}
+.quality-heading-block h2{
+    margin:0;
+    color:#fff;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(2.4rem,5vw,6.2rem);
+    line-height:.9;
+    letter-spacing:-2.8px;
+    text-transform:uppercase;
+}
+.quality-heading-block p{
+    max-width:620px;
+    margin:22px auto 0;
+    color:rgba(255,255,255,.58);
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.04rem,1.35vw,1.35rem);
+    line-height:1.55;
+}
+
+/* Hüzme ışık efekti: süreç bölümündeki premium parıltıya yakın, daha kontrollü */
 .quality-card,
 .why-card,
 .reason-card,
 .why-item,
-.value-card,
-.process-card,
-.service-card{
-    position:relative!important;
-    overflow:hidden!important;
+.value-card{
     isolation:isolate;
 }
-
 .quality-card::after,
 .why-card::after,
 .reason-card::after,
 .why-item::after,
-.value-card::after,
-.process-card::after,
-.service-card::after{
+.value-card::after{
     content:'';
     position:absolute;
     inset:-2px;
-    z-index:1;
+    z-index:-1;
     background:
         linear-gradient(115deg,
             transparent 0%,
@@ -870,48 +797,410 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     opacity:0;
     pointer-events:none;
 }
-
-.quality-card > *,
-.why-card > *,
-.reason-card > *,
-.why-item > *,
-.value-card > *,
-.process-card > *,
-.service-card > *{
-    position:relative;
-    z-index:2;
+.quality-card:hover::after,
+.why-card:hover::after,
+.reason-card:hover::after,
+.why-item:hover::after,
+.value-card:hover::after{
+    animation:bgstudioLightBeam 1.55s cubic-bezier(.22,1,.36,1) forwards;
 }
-
-/* Masaüstünde hover ile oynar */
-@media(min-width:769px){
-    .quality-card:hover::after,
-    .why-card:hover::after,
-    .reason-card:hover::after,
-    .why-item:hover::after,
-    .value-card:hover::after,
-    .process-card:hover::after,
-    .service-card:hover::after{
-        animation:bgstudioLightBeam 1.55s cubic-bezier(.22,1,.36,1) forwards;
-    }
+.quality-card:hover,
+.why-card:hover,
+.reason-card:hover,
+.why-item:hover,
+.value-card:hover{
+    border-color:rgba(198,168,124,.28)!important;
+    transform:translateY(-4px);
+    transition:border-color .35s ease,transform .35s ease,background .35s ease;
 }
-
-/* Mobilde kart ekrana girince otomatik oynar */
-@media(max-width:768px){
-    .quality-card.beam-inview::after,
-    .why-card.beam-inview::after,
-    .reason-card.beam-inview::after,
-    .why-item.beam-inview::after,
-    .value-card.beam-inview::after,
-    .process-card.beam-inview::after,
-    .service-card.beam-inview::after{
-        animation:bgstudioLightBeam 1.45s cubic-bezier(.22,1,.36,1) forwards;
-    }
+.quality-card,
+.why-card,
+.reason-card,
+.why-item,
+.value-card{
+    transition:border-color .35s ease,transform .35s ease,background .35s ease;
 }
-
 @keyframes bgstudioLightBeam{
     0%{transform:translateX(-135%) skewX(-12deg);opacity:0}
     18%{opacity:1}
     100%{transform:translateX(135%) skewX(-12deg);opacity:0}
+}
+
+/* Kalite kartları biraz daha merkezî ve üçlü okumaya uygun */
+.quality-standard{
+    position:relative;
+    overflow:hidden;
+}
+.quality-standard::before{
+    content:'';
+    position:absolute;
+    left:50%;
+    top:90px;
+    width:620px;
+    height:620px;
+    transform:translateX(-50%);
+    background:radial-gradient(circle,rgba(198,168,124,.075),transparent 62%);
+    pointer-events:none;
+    opacity:.75;
+}
+.quality-grid{
+    position:relative;
+    z-index:2;
+}
+@media(max-width:768px){
+    .quality-heading-block{
+        margin:0 auto 40px;
+    }
+    .quality-kicker{
+        font-size:10px;
+        letter-spacing:2.4px;
+    }
+    .quality-kicker::before,
+    .quality-kicker::after{
+        width:24px;
+    }
+    .quality-heading-block h2{
+        font-size:clamp(2.3rem,12vw,4.3rem);
+        letter-spacing:-1.8px;
+    }
+    .quality-heading-block p{
+        font-size:1.02rem;
+        margin-top:18px;
+    }
+}
+
+
+
+/* --- FINAL DÜZELTME V2: SOL HİZA, HİZMET METNİ GENİŞLİĞİ, TEMİZ VİZYON GEÇİŞİ --- */
+
+/* Tüm ana bölüm başlıkları aynı sol hatta */
+#services,
+#process,
+#why,
+#studio,
+#contact,
+.quality-standard{
+    padding-left:7%!important;
+    padding-right:7%!important;
+}
+
+#services .section-title,
+#process .section-title,
+#why .section-title,
+#studio .section-title,
+#contact .section-title,
+.quality-standard .section-title{
+    max-width:none!important;
+    width:100%!important;
+    margin-left:0!important;
+    margin-right:0!important;
+}
+
+/* Hizmetler metni Neden BG Studio gibi geniş ve yatay aksa otursun */
+#services{
+    padding-top:120px!important;
+    padding-bottom:125px!important;
+}
+
+#services .section-title{
+    margin-bottom:42px!important;
+}
+
+#services .services-intro{
+    max-width:1180px!important;
+    width:100%!important;
+    margin:0 0 64px 0!important;
+    text-align:left!important;
+    font-family:'Cormorant Garamond',serif!important;
+    font-size:clamp(1.55rem,2.15vw,2.65rem)!important;
+    line-height:1.42!important;
+    color:rgba(255,255,255,.72)!important;
+}
+
+/* Hizmet kartları başlıkla aynı container hissinde */
+#services .services-grid{
+    max-width:none!important;
+    width:100%!important;
+    margin:0!important;
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:18px!important;
+}
+
+#services .service-card{
+    min-height:360px!important;
+    padding:34px 28px!important;
+}
+
+#services .service-card h3{
+    font-size:clamp(1.25rem,1.7vw,2rem)!important;
+    line-height:1.05!important;
+}
+
+#services .service-card p{
+    font-size:.92rem!important;
+    line-height:1.72!important;
+}
+
+/* Vizyon videosu geçişi: katmanlı izleri kaldır, tek ve temiz fade kullan */
+.quote-section::after,
+.vision-section::after,
+#vision::after,
+.stats-section::before,
+#stats::before{
+    display:none!important;
+    content:none!important;
+}
+
+.quote-section,
+.vision-section,
+#vision{
+    position:relative;
+    background:#050505!important;
+    overflow:hidden;
+}
+
+/* Vizyon bölümünün altına tek parça, banding yapmayan koyu geçiş */
+.quote-section{
+    -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 76%,rgba(0,0,0,.84) 86%,rgba(0,0,0,.42) 94%,transparent 100%);
+    mask-image:linear-gradient(to bottom,#000 0%,#000 76%,rgba(0,0,0,.84) 86%,rgba(0,0,0,.42) 94%,transparent 100%);
+}
+
+.stats-section,
+#stats{
+    margin-top:-110px!important;
+    padding-top:190px!important;
+    background:#050505!important;
+}
+
+/* İstatistikler sonrası Birlikte Çalışalım'a da daha yumuşak akış */
+#contact{
+    background:#050505!important;
+}
+
+/* Proje kartı CTA: tek buton düzeni korunur */
+.project-detail-btn{
+    display:none!important;
+}
+
+.project-card-actions{
+    gap:0!important;
+}
+
+.project-whatsapp-btn{
+    min-width:220px!important;
+    text-align:center!important;
+}
+
+/* Kalite/Neden BG Studio hüzme efekti için taşma ve stacking */
+.quality-card,
+.why-card,
+.reason-card,
+.why-item,
+.value-card{
+    position:relative!important;
+    overflow:hidden!important;
+}
+
+@media(max-width:980px){
+    #services .services-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    }
+}
+
+@media(max-width:768px){
+    #services,
+    #process,
+    #why,
+    #studio,
+    #contact,
+    .quality-standard{
+        padding-left:7%!important;
+        padding-right:7%!important;
+    }
+
+    #services{
+        padding-top:82px!important;
+        padding-bottom:86px!important;
+    }
+
+    #services .services-intro{
+        max-width:100%!important;
+        margin-bottom:34px!important;
+        font-size:clamp(1.35rem,7vw,2rem)!important;
+        line-height:1.38!important;
+    }
+
+    #services .services-grid{
+        grid-template-columns:1fr!important;
+        gap:14px!important;
+    }
+
+    #services .service-card{
+        min-height:auto!important;
+    }
+
+    .quote-section{
+        -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 80%,rgba(0,0,0,.55) 94%,transparent 100%);
+        mask-image:linear-gradient(to bottom,#000 0%,#000 80%,rgba(0,0,0,.55) 94%,transparent 100%);
+    }
+
+    .stats-section,
+    #stats{
+        margin-top:-70px!important;
+        padding-top:130px!important;
+    }
+
+    .project-whatsapp-btn{
+        min-width:0!important;
+        width:auto!important;
+    }
+}
+
+
+/* --- FINAL RAIL ALIGNMENT: TÜM ANA BÖLÜMLER AYNI DİKEY HİZADA --- */
+:root{
+    --bg-rail-x:7%;
+    --bg-rail-max:none;
+}
+
+/* Ana bölümlerin sol/sağ başlangıç ve bitiş hizası */
+#projects,
+#services,
+#process,
+#why,
+#studio,
+#contact,
+.quality-standard,
+.trust-statement{
+    padding-left:var(--bg-rail-x)!important;
+    padding-right:var(--bg-rail-x)!important;
+    box-sizing:border-box!important;
+}
+
+/* Bölüm başlıkları: SEÇİLİ PROJELER / HİZMETLER / ÇALIŞMA SÜRECİ / NEDEN BG STUDIO / VİZYON / BİRLİKTE ÇALIŞALIM */
+#projects .section-title,
+#services .section-title,
+#process .section-title,
+#why .section-title,
+#studio .section-title,
+#contact .section-title,
+.quality-standard .section-title{
+    width:100%!important;
+    max-width:var(--bg-rail-max)!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    padding-left:0!important;
+    padding-right:0!important;
+    box-sizing:border-box!important;
+}
+
+/* Başlık altı çizgilerinin de aynı rayda bitmesi için */
+.section-title::after{
+    left:0!important;
+    right:0!important;
+    width:100%!important;
+}
+
+/* Proje vitrini: başlık, açıklama ve kartlar aynı rayda */
+#projects .portfolio-grid{
+    width:100%!important;
+    max-width:var(--bg-rail-max)!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    box-sizing:border-box!important;
+}
+
+.projects-intro{
+    width:100%!important;
+    max-width:var(--bg-rail-max)!important;
+    margin:0 0 70px 0!important;
+    padding-left:22px!important;
+    box-sizing:border-box!important;
+    text-align:left!important;
+}
+
+/* Hizmetler: açıklama ve kartlar da aynı rayda başlasın/bitsin */
+#services .services-intro{
+    width:100%!important;
+    max-width:var(--bg-rail-max)!important;
+    margin:0 0 64px 0!important;
+    text-align:left!important;
+    box-sizing:border-box!important;
+}
+
+#services .services-grid{
+    width:100%!important;
+    max-width:var(--bg-rail-max)!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    box-sizing:border-box!important;
+}
+
+/* Süreç ve Neden BG Studio kartları aynı rayda */
+#process .process-grid,
+#why .why-grid,
+#why .reasons-grid,
+#why .features-grid,
+#studio .studio-grid,
+.quality-grid{
+    width:100%!important;
+    max-width:var(--bg-rail-max)!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    box-sizing:border-box!important;
+}
+
+/* Süreç/Neden açıklama paragrafları da başlık hizasına otursun */
+#process > p,
+#why > p,
+#studio > p,
+.process-intro,
+.why-intro,
+.studio-intro{
+    margin-left:0!important;
+    margin-right:0!important;
+    max-width:1180px!important;
+    text-align:left!important;
+}
+
+/* Kalite standardı başlığı ortalı kalabilir ama bölüm rayı içinde merkezlensin */
+.quality-heading-block{
+    margin-left:auto!important;
+    margin-right:auto!important;
+}
+
+/* Hizmet kartlarını geniş yay; sağ bitiş diğer gridlerle aynı olsun */
+@media(min-width:981px){
+    #services .services-grid{
+        grid-template-columns:repeat(4,minmax(0,1fr))!important;
+        gap:18px!important;
+    }
+    #services .service-card{
+        min-height:330px!important;
+    }
+}
+
+/* Küçük ekranlarda aynı ray korunur */
+@media(max-width:768px){
+    :root{
+        --bg-rail-x:7%;
+    }
+    #projects,
+    #services,
+    #process,
+    #why,
+    #studio,
+    #contact,
+    .quality-standard,
+    .trust-statement{
+        padding-left:var(--bg-rail-x)!important;
+        padding-right:var(--bg-rail-x)!important;
+    }
+    .projects-intro{
+        padding-left:16px!important;
+        margin-bottom:42px!important;
+    }
 }
 
 </style>
@@ -1665,38 +1954,6 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                 });
             }, 160);
         }, { passive: true });
-
-
-        // Mobilde hüzme ışık: kart ekrana girince ilk gösterimde otomatik oynar
-        scheduleBgStudioIdle(() => {
-            const beamCards = document.querySelectorAll('.quality-card, .why-card, .reason-card, .why-item, .value-card, .process-card, .service-card');
-
-            if (!beamCards.length) return;
-
-            const playBeam = (card) => {
-                card.classList.remove('beam-inview');
-                void card.offsetWidth;
-                card.classList.add('beam-inview');
-            };
-
-            if ('IntersectionObserver' in window) {
-                const beamObserver = new IntersectionObserver((entries) => {
-                    entries.forEach((entry) => {
-                        if (!window.matchMedia('(max-width: 768px)').matches) return;
-                        if (!entry.isIntersecting) return;
-
-                        playBeam(entry.target);
-                        beamObserver.unobserve(entry.target);
-                    });
-                }, {
-                    threshold: 0.42,
-                    rootMargin: '0px 0px -8% 0px'
-                });
-
-                beamCards.forEach((card) => beamObserver.observe(card));
-            }
-        });
-
 
         // İletişim formu: sayfadan çıkmadan gönder ve kısa bildirim göster
         const contactForm = document.getElementById('contactForm');
