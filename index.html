@@ -1205,6 +1205,100 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     }
 }
 
+/* --- VIZYON VIDEO FADE: SADECE ARKA PLAN VIDEO GECISI --- */
+#about{
+    position:relative!important;
+    overflow:hidden!important;
+    background:#050505!important;
+}
+
+#about video{
+    opacity:.4!important;
+    filter:grayscale(100%) contrast(1.16) brightness(.74)!important;
+    -webkit-mask-image:linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0,0,0,.36) 7%,
+        #000 18%,
+        #000 76%,
+        rgba(0,0,0,.36) 91%,
+        transparent 100%
+    )!important;
+    mask-image:linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0,0,0,.36) 7%,
+        #000 18%,
+        #000 76%,
+        rgba(0,0,0,.36) 91%,
+        transparent 100%
+    )!important;
+    -webkit-mask-size:100% 100%!important;
+    mask-size:100% 100%!important;
+}
+
+#about > div[style*="linear-gradient"]{
+    background:linear-gradient(
+        to bottom,
+        #050505 0%,
+        rgba(5,5,5,.76) 9%,
+        rgba(5,5,5,.44) 19%,
+        rgba(5,5,5,.44) 76%,
+        rgba(5,5,5,.76) 91%,
+        #050505 100%
+    )!important;
+}
+
+#about::before,
+#about::after{
+    display:none!important;
+    content:none!important;
+}
+
+#about > h2,
+#about > .about-container{
+    position:relative!important;
+    z-index:2!important;
+}
+
+#stats{
+    position:relative!important;
+    z-index:2!important;
+    margin-top:0!important;
+    padding-top:80px!important;
+    background:#050505!important;
+}
+
+@media(max-width:768px){
+    #about video{
+        opacity:.38!important;
+        filter:grayscale(100%) contrast(1.12) brightness(.68)!important;
+        -webkit-mask-image:linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(0,0,0,.34) 8%,
+            #000 20%,
+            #000 74%,
+            rgba(0,0,0,.34) 90%,
+            transparent 100%
+        )!important;
+        mask-image:linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(0,0,0,.34) 8%,
+            #000 20%,
+            #000 74%,
+            rgba(0,0,0,.34) 90%,
+            transparent 100%
+        )!important;
+    }
+
+    #stats{
+        margin-top:0!important;
+        padding-top:70px!important;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -1225,7 +1319,7 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     <header class="hero">
         <video class="video-bg" autoplay loop muted playsinline preload="metadata"><source src="animasyon.mp4" type="video/mp4"></video>
         <div class="hero-content hidden hero-brand-content">
-            <h1>BG<br>STUDIO</h1>
+            <h1 aria-label="BG STUDIO Mimari Tasarım ve 3D Görselleştirme"><span aria-hidden="true">BG<br>STUDIO</span><span class="sr-only">BG STUDIO Mimari Tasarım ve 3D Görselleştirme</span></h1>
             <p class="hero-brand-subtitle">MİMARİ TASARIM, UYGULAMA PROJESİ & GÖRSELLEŞTİRME</p>
             <p class="hero-brand-description">Kuşadası ve Aydın çevresinde konut, villa, iç mekân ve ticari alan projeleri için; tasarım kararlarını, teknik çizimleri ve fotogerçekçi sunumları bütüncül bir mimari yaklaşımla bir araya getiriyoruz.</p>
             <div class="hero-actions">
