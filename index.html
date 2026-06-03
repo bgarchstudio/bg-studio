@@ -722,42 +722,6 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
             });
         }
 
-        // Mobil proje kartları: dokununca açıklamayı aç, tekrar dokununca kapat
-        const mobileProjectCards = document.querySelectorAll('.project-card');
-        const isMobileViewport = () => window.matchMedia('(max-width: 768px)').matches;
-
-        scheduleBgStudioIdle(() => {
-            mobileProjectCards.forEach((card) => {
-                card.addEventListener('click', function (event) {
-                    if (!isMobileViewport()) return;
-                    if (event.target.closest('.play-btn')) return;
-
-                    window.requestAnimationFrame(() => {
-                        const isAlreadyActive = card.classList.contains('active');
-
-                        mobileProjectCards.forEach((otherCard) => {
-                            if (otherCard !== card) otherCard.classList.remove('active');
-                        });
-
-                        card.classList.toggle('active', !isAlreadyActive);
-                    });
-                }, { passive: true });
-            });
-        });
-
-        let resizeCleanupTimer = null;
-        window.addEventListener('resize', function () {
-            clearTimeout(resizeCleanupTimer);
-            resizeCleanupTimer = setTimeout(() => {
-                if (!isMobileViewport()) {
-                    window.requestAnimationFrame(() => {
-                        mobileProjectCards.forEach((card) => card.classList.remove('active'));
-                    });
-                }
-            }, 160);
-        }, { passive: true });
-
-
         // Proje vitrini: masaüstünde hover ile, mobilde ekrana girince slayt başlar.
         const mobileProjectCards = document.querySelectorAll('.project-card');
         const isMobileViewport = () => window.matchMedia('(max-width: 768px)').matches;
