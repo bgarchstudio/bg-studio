@@ -870,97 +870,129 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
 }
 
 
-/* --- FINAL DÜZELTME: HİZMETLER HİZASI, VİZYON GEÇİŞİ VE TEK CTA --- */
 
-/* Hizmetler: Çalışma Süreci ve Neden BG Studio bölümleriyle aynı ana okuma hizası */
-#services{
-    padding:120px 7% 125px!important;
+/* --- FINAL DÜZELTME V2: SOL HİZA, HİZMET METNİ GENİŞLİĞİ, TEMİZ VİZYON GEÇİŞİ --- */
+
+/* Tüm ana bölüm başlıkları aynı sol hatta */
+#services,
+#process,
+#why,
+#studio,
+#contact,
+.quality-standard{
+    padding-left:7%!important;
+    padding-right:7%!important;
 }
-#services .section-title{
-    max-width:100%!important;
+
+#services .section-title,
+#process .section-title,
+#why .section-title,
+#studio .section-title,
+#contact .section-title,
+.quality-standard .section-title{
+    max-width:none!important;
+    width:100%!important;
     margin-left:0!important;
     margin-right:0!important;
-    width:100%!important;
+}
+
+/* Hizmetler metni Neden BG Studio gibi geniş ve yatay aksa otursun */
+#services{
+    padding-top:120px!important;
+    padding-bottom:125px!important;
+}
+
+#services .section-title{
     margin-bottom:42px!important;
 }
+
 #services .services-intro{
-    max-width:560px!important;
+    max-width:1180px!important;
+    width:100%!important;
     margin:0 0 64px 0!important;
     text-align:left!important;
+    font-family:'Cormorant Garamond',serif!important;
+    font-size:clamp(1.55rem,2.15vw,2.65rem)!important;
+    line-height:1.42!important;
+    color:rgba(255,255,255,.72)!important;
 }
+
+/* Hizmet kartları başlıkla aynı container hissinde */
 #services .services-grid{
-    max-width:100%!important;
+    max-width:none!important;
     width:100%!important;
     margin:0!important;
     display:grid!important;
     grid-template-columns:repeat(4,minmax(0,1fr))!important;
     gap:18px!important;
 }
+
 #services .service-card{
     min-height:360px!important;
     padding:34px 28px!important;
 }
+
 #services .service-card h3{
     font-size:clamp(1.25rem,1.7vw,2rem)!important;
     line-height:1.05!important;
 }
+
 #services .service-card p{
     font-size:.92rem!important;
     line-height:1.72!important;
 }
 
-/* Proje kartı CTA: tek ve net buton */
-.project-card-actions{
-    gap:0!important;
+/* Vizyon videosu geçişi: katmanlı izleri kaldır, tek ve temiz fade kullan */
+.quote-section::after,
+.vision-section::after,
+#vision::after,
+.stats-section::before,
+#stats::before{
+    display:none!important;
+    content:none!important;
 }
+
+.quote-section,
+.vision-section,
+#vision{
+    position:relative;
+    background:#050505!important;
+    overflow:hidden;
+}
+
+/* Vizyon bölümünün altına tek parça, banding yapmayan koyu geçiş */
+.quote-section{
+    -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 76%,rgba(0,0,0,.84) 86%,rgba(0,0,0,.42) 94%,transparent 100%);
+    mask-image:linear-gradient(to bottom,#000 0%,#000 76%,rgba(0,0,0,.84) 86%,rgba(0,0,0,.42) 94%,transparent 100%);
+}
+
+.stats-section,
+#stats{
+    margin-top:-110px!important;
+    padding-top:190px!important;
+    background:#050505!important;
+}
+
+/* İstatistikler sonrası Birlikte Çalışalım'a da daha yumuşak akış */
+#contact{
+    background:#050505!important;
+}
+
+/* Proje kartı CTA: tek buton düzeni korunur */
 .project-detail-btn{
     display:none!important;
 }
+
+.project-card-actions{
+    gap:0!important;
+}
+
 .project-whatsapp-btn{
     min-width:220px!important;
     text-align:center!important;
 }
 
-/* Vizyon / istatistik geçişi: keskin siyah blok yerine yumuşak fade */
-.quote-section,
-.vision-section,
-#vision{
-    position:relative;
-    overflow:hidden;
-}
-.quote-section::after,
-.vision-section::after,
-#vision::after{
-    content:'';
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:-1px;
-    height:180px;
-    background:linear-gradient(180deg,rgba(0,0,0,0),#050505 72%,#050505 100%);
-    pointer-events:none;
-    z-index:2;
-}
-.stats-section,
-#stats{
-    position:relative;
-    margin-top:-70px!important;
-    padding-top:150px!important;
-    background:linear-gradient(180deg,#050505 0%,#030303 42%,#050505 100%)!important;
-}
-.stats-section::before,
-#stats::before{
-    content:'';
-    position:absolute;
-    left:0;
-    right:0;
-    top:-120px;
-    height:160px;
-    background:linear-gradient(180deg,rgba(0,0,0,0),#050505 68%,#050505 100%);
-    pointer-events:none;
-}
-
-/* Kalite kartları ve Neden BG Studio hüzme efekti için stacking düzeltmesi */
+/* Kalite/Neden BG Studio hüzme efekti için taşma ve stacking */
 .quality-card,
 .why-card,
 .reason-card,
@@ -975,34 +1007,53 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
         grid-template-columns:repeat(2,minmax(0,1fr))!important;
     }
 }
+
 @media(max-width:768px){
-    #services{
-        padding:82px 7% 86px!important;
+    #services,
+    #process,
+    #why,
+    #studio,
+    #contact,
+    .quality-standard{
+        padding-left:7%!important;
+        padding-right:7%!important;
     }
+
+    #services{
+        padding-top:82px!important;
+        padding-bottom:86px!important;
+    }
+
     #services .services-intro{
         max-width:100%!important;
         margin-bottom:34px!important;
+        font-size:clamp(1.35rem,7vw,2rem)!important;
+        line-height:1.38!important;
     }
+
     #services .services-grid{
         grid-template-columns:1fr!important;
         gap:14px!important;
     }
+
     #services .service-card{
         min-height:auto!important;
     }
+
+    .quote-section{
+        -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 80%,rgba(0,0,0,.55) 94%,transparent 100%);
+        mask-image:linear-gradient(to bottom,#000 0%,#000 80%,rgba(0,0,0,.55) 94%,transparent 100%);
+    }
+
+    .stats-section,
+    #stats{
+        margin-top:-70px!important;
+        padding-top:130px!important;
+    }
+
     .project-whatsapp-btn{
         min-width:0!important;
         width:auto!important;
-    }
-    .quote-section::after,
-    .vision-section::after,
-    #vision::after{
-        height:120px;
-    }
-    .stats-section,
-    #stats{
-        margin-top:-45px!important;
-        padding-top:110px!important;
     }
 }
 
