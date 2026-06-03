@@ -858,6 +858,78 @@ body.modal-open{
     }
 }
 
+
+/* --- DÜZELTME: PROJE VİTRİNİ YERLEŞİMİ, BUTON HİZASI VE TIKLANABİLİRLİK --- */
+#projects{
+    padding-top:110px;
+}
+#projects .section-title{
+    margin-bottom:18px!important;
+}
+.projects-intro{
+    max-width:820px!important;
+    margin:0 0 70px 0!important;
+    text-align:left!important;
+    color:rgba(255,255,255,.58)!important;
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.05rem,1.25vw,1.32rem)!important;
+    line-height:1.55!important;
+    border-left:1px solid rgba(198,168,124,.42);
+    padding-left:22px;
+}
+.project-card-actions{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    gap:12px!important;
+    flex-wrap:wrap!important;
+    margin-top:20px!important;
+    position:relative;
+    z-index:30!important;
+    pointer-events:auto!important;
+}
+.project-detail-btn,
+.project-whatsapp-btn{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    min-height:42px!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+    pointer-events:auto!important;
+    position:relative;
+    z-index:31!important;
+}
+.project-card .card-overlay{
+    pointer-events:none;
+}
+.project-card .project-card-actions,
+.project-card .project-card-actions *{
+    pointer-events:auto;
+}
+.project-card .gallery-img{
+    pointer-events:auto;
+}
+@media(max-width:768px){
+    #projects{
+        padding-top:78px;
+    }
+    .projects-intro{
+        margin:0 0 42px 0!important;
+        padding-left:16px;
+        font-size:1.02rem!important;
+        text-align:left!important;
+    }
+    .project-card-actions{
+        gap:9px!important;
+        margin-top:16px!important;
+    }
+    .project-detail-btn{
+        width:auto!important;
+        min-width:128px!important;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -1437,6 +1509,96 @@ body.modal-open{
         }
 
 
+
+        // Proje detay modalı + tam ekran galeri
+        const projectModal = document.getElementById('projectModal');
+        const projectModalImage = document.getElementById('projectModalImage');
+        const projectModalDots = document.getElementById('projectModalDots');
+        const projectModalTitle = document.getElementById('projectModalTitle');
+        const projectModalTr = document.getElementById('projectModalTr');
+        const projectModalType = document.getElementById('projectModalType');
+        const projectModalProjectType = document.getElementById('projectModalProjectType');
+        const projectModalService = document.getElementById('projectModalService');
+        const projectModalScope = document.getElementById('projectModalScope');
+        const projectModalWhatsapp = document.getElementById('projectModalWhatsapp');
+
+        let activeModalCard = null;
+        let activeModalImages = [];
+        let activeModalIndex = 0;
+        let modalTouchStartX = 0;
+        let modalTouchStartY = 0;
+
+        function buildWhatsappUrl(message) {
+            return 'https://wa.me/905050364573?text=' + encodeURIComponent(message || 'Merhaba, bu tarz bir proje için teklif almak istiyorum.');
+        }
+
+        function setModalImage(index) {
+            if (!activeModalImages.length || !projectModalImage) return;
+
+            activeModalIndex = ((index % activeModalImages.length) + activeModalImages.length) % activeModalImages.length;
+            const img = activeModalImages[activeModalIndex];
+
+            projectModalImage.src = img.getAttribute('src');
+            projectModalImage.alt = img.getAttribute('alt') || '';
+
+            if (projectModalDots) {
+                projectModalDots.querySelectorAll('.modal-gallery-dot').forEach((dot, i) => {
+                    dot.classList.toggle('is-active', i === activeModalIndex);
+                    dot.setAttribute('aria-current', i === activeModalIndex ? 'true' : 'false');
+                });
+            }
+        }
+
+        function openProjectModal(card) {
+            if (!projectModal || !card) return;
+
+            activeModalCard = card;
+            activeModalImages = Array.from(card.querySelectorAll('.gallery-img'));
+            activeModalIndex = Number(card.dataset.slideIndex || 0);
+
+            const title = card.dataset.projectTitle || card.querySelector('h3')?.textContent || '';
+            const tr = card.dataset.projectTr || card.querySelector('.project-title-tr')?.textContent || '';
+            const type = card.dataset.projectType || '';
+            const service = card.dataset.projectService || '';
+            const scope = card.dataset.projectScope || '';
+            const waMessage = card.dataset.projectWa || '';
+
+            if (projectModalTitle) projectModalTitle.textContent = title;
+            if (projectModalTr) projectModalTr.textContent = tr;
+            if (projectModalType) projectModalType.textContent = type;
+            if (projectModalProjectType) projectModalProjectType.textContent = type;
+            if (projectModalService) projectModalService.textContent = service;
+            if (projectModalScope) projectModalScope.textContent = scope;
+            if (projectModalWhatsapp) projectModalWhatsapp.href = buildWhatsappUrl(waMessage);
+
+            if (projectModalDots) {
+                projectModalDots.innerHTML = '';
+                activeModalImages.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.type = 'button';
+                    dot.className = 'modal-gallery-dot';
+                    dot.setAttribute('aria-label', (i + 1) + '. görsel');
+                    dot.addEventListener('click', () => setModalImage(i));
+                    projectModalDots.appendChild(dot);
+                });
+            }
+
+            setModalImage(activeModalIndex);
+            projectModal.classList.add('is-open');
+            projectModal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+        }
+
+        function closeProjectModal() {
+            if (!projectModal) return;
+
+            projectModal.classList.remove('is-open');
+            projectModal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+            activeModalCard = null;
+        }
+
+
         // Proje vitrini: kullanıcı tıklayınca geçer; masaüstünde hover, mobilde ekrana girince otomatik oynar.
         const mobileProjectCards = document.querySelectorAll('#projects .project-card');
         const isMobileViewport = () => window.matchMedia('(max-width: 768px)').matches;
@@ -1611,103 +1773,7 @@ body.modal-open{
                 });
             }, 160);
         }, { passive: true });
-
-
-        // Proje detay modalı + tam ekran galeri
-        const projectModal = document.getElementById('projectModal');
-        const projectModalImage = document.getElementById('projectModalImage');
-        const projectModalDots = document.getElementById('projectModalDots');
-        const projectModalTitle = document.getElementById('projectModalTitle');
-        const projectModalTr = document.getElementById('projectModalTr');
-        const projectModalType = document.getElementById('projectModalType');
-        const projectModalProjectType = document.getElementById('projectModalProjectType');
-        const projectModalService = document.getElementById('projectModalService');
-        const projectModalScope = document.getElementById('projectModalScope');
-        const projectModalWhatsapp = document.getElementById('projectModalWhatsapp');
-
-        let activeModalCard = null;
-        let activeModalImages = [];
-        let activeModalIndex = 0;
-        let modalTouchStartX = 0;
-        let modalTouchStartY = 0;
-
-        function buildWhatsappUrl(message) {
-            return 'https://wa.me/905050364573?text=' + encodeURIComponent(message || 'Merhaba, bu tarz bir proje için teklif almak istiyorum.');
-        }
-
-        function setModalImage(index) {
-            if (!activeModalImages.length || !projectModalImage) return;
-            activeModalIndex = ((index % activeModalImages.length) + activeModalImages.length) % activeModalImages.length;
-
-            const img = activeModalImages[activeModalIndex];
-            projectModalImage.src = img.getAttribute('src');
-            projectModalImage.alt = img.getAttribute('alt') || '';
-
-            if (projectModalDots) {
-                projectModalDots.querySelectorAll('.modal-gallery-dot').forEach((dot, i) => {
-                    dot.classList.toggle('is-active', i === activeModalIndex);
-                    dot.setAttribute('aria-current', i === activeModalIndex ? 'true' : 'false');
-                });
-            }
-        }
-
-        function openProjectModal(card) {
-            if (!projectModal || !card) return;
-
-            activeModalCard = card;
-            activeModalImages = Array.from(card.querySelectorAll('.gallery-img'));
-            activeModalIndex = Number(card.dataset.slideIndex || 0);
-
-            const title = card.dataset.projectTitle || card.querySelector('h3')?.textContent || '';
-            const tr = card.dataset.projectTr || card.querySelector('.project-title-tr')?.textContent || '';
-            const type = card.dataset.projectType || '';
-            const service = card.dataset.projectService || '';
-            const scope = card.dataset.projectScope || '';
-            const waMessage = card.dataset.projectWa || '';
-
-            projectModalTitle.textContent = title;
-            projectModalTr.textContent = tr;
-            projectModalType.textContent = type;
-            projectModalProjectType.textContent = type;
-            projectModalService.textContent = service;
-            projectModalScope.textContent = scope;
-            projectModalWhatsapp.href = buildWhatsappUrl(waMessage);
-
-            if (projectModalDots) {
-                projectModalDots.innerHTML = '';
-                activeModalImages.forEach((_, i) => {
-                    const dot = document.createElement('button');
-                    dot.type = 'button';
-                    dot.className = 'modal-gallery-dot';
-                    dot.setAttribute('aria-label', (i + 1) + '. görsel');
-                    dot.addEventListener('click', () => setModalImage(i));
-                    projectModalDots.appendChild(dot);
-                });
-            }
-
-            setModalImage(activeModalIndex);
-
-            projectModal.classList.add('is-open');
-            projectModal.setAttribute('aria-hidden', 'false');
-            document.body.classList.add('modal-open');
-        }
-
-        function closeProjectModal() {
-            if (!projectModal) return;
-            projectModal.classList.remove('is-open');
-            projectModal.setAttribute('aria-hidden', 'true');
-            document.body.classList.remove('modal-open');
-            activeModalCard = null;
-        }
-
-        scheduleBgStudioIdle(() => {
-            document.querySelectorAll('.project-detail-btn').forEach((button) => {
-                button.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    openProjectModal(button.closest('.project-card'));
-                });
-            });
+});
 
             document.querySelectorAll('#projects .gallery-img').forEach((img) => {
                 img.addEventListener('dblclick', (event) => {
@@ -1751,6 +1817,52 @@ body.modal-open{
                 if (event.key === 'ArrowLeft') setModalImage(activeModalIndex - 1);
             });
         });
+
+
+        scheduleBgStudioIdle(() => {
+            document.querySelectorAll('.project-detail-btn').forEach((button) => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    openProjectModal(button.closest('.project-card'));
+                });
+            });
+
+            document.querySelectorAll('[data-close-modal]').forEach((item) => {
+                item.addEventListener('click', closeProjectModal);
+            });
+
+            document.querySelector('.modal-prev')?.addEventListener('click', () => setModalImage(activeModalIndex - 1));
+            document.querySelector('.modal-next')?.addEventListener('click', () => setModalImage(activeModalIndex + 1));
+
+            projectModal?.addEventListener('touchstart', (event) => {
+                if (!event.touches || event.touches.length !== 1) return;
+                modalTouchStartX = event.touches[0].clientX;
+                modalTouchStartY = event.touches[0].clientY;
+            }, { passive: true });
+
+            projectModal?.addEventListener('touchend', (event) => {
+                const touch = event.changedTouches && event.changedTouches[0];
+                if (!touch) return;
+
+                const deltaX = touch.clientX - modalTouchStartX;
+                const deltaY = touch.clientY - modalTouchStartY;
+
+                if (Math.abs(deltaX) > 46 && Math.abs(deltaX) > Math.abs(deltaY) * 1.25) {
+                    if (deltaX < 0) setModalImage(activeModalIndex + 1);
+                    else setModalImage(activeModalIndex - 1);
+                }
+            }, { passive: true });
+
+            document.addEventListener('keydown', (event) => {
+                if (!projectModal?.classList.contains('is-open')) return;
+
+                if (event.key === 'Escape') closeProjectModal();
+                if (event.key === 'ArrowRight') setModalImage(activeModalIndex + 1);
+                if (event.key === 'ArrowLeft') setModalImage(activeModalIndex - 1);
+            });
+        });
+
 
         // İletişim formu: sayfadan çıkmadan gönder ve kısa bildirim göster
         const contactForm = document.getElementById('contactForm');
