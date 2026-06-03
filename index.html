@@ -1057,6 +1057,152 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     }
 }
 
+
+/* --- FINAL RAIL ALIGNMENT: TÜM ANA BÖLÜMLER AYNI DİKEY HİZADA --- */
+:root{
+    --bg-rail-x:7%;
+    --bg-rail-max:none;
+}
+
+/* Ana bölümlerin sol/sağ başlangıç ve bitiş hizası */
+#projects,
+#services,
+#process,
+#why,
+#studio,
+#contact,
+.quality-standard,
+.trust-statement{
+    padding-left:var(--bg-rail-x)!important;
+    padding-right:var(--bg-rail-x)!important;
+    box-sizing:border-box!important;
+}
+
+/* Bölüm başlıkları: SEÇİLİ PROJELER / HİZMETLER / ÇALIŞMA SÜRECİ / NEDEN BG STUDIO / VİZYON / BİRLİKTE ÇALIŞALIM */
+#projects .section-title,
+#services .section-title,
+#process .section-title,
+#why .section-title,
+#studio .section-title,
+#contact .section-title,
+.quality-standard .section-title{
+    width:100%!important;
+    max-width:var(--bg-rail-max)!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    padding-left:0!important;
+    padding-right:0!important;
+    box-sizing:border-box!important;
+}
+
+/* Başlık altı çizgilerinin de aynı rayda bitmesi için */
+.section-title::after{
+    left:0!important;
+    right:0!important;
+    width:100%!important;
+}
+
+/* Proje vitrini: başlık, açıklama ve kartlar aynı rayda */
+#projects .portfolio-grid{
+    width:100%!important;
+    max-width:var(--bg-rail-max)!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    box-sizing:border-box!important;
+}
+
+.projects-intro{
+    width:100%!important;
+    max-width:var(--bg-rail-max)!important;
+    margin:0 0 70px 0!important;
+    padding-left:22px!important;
+    box-sizing:border-box!important;
+    text-align:left!important;
+}
+
+/* Hizmetler: açıklama ve kartlar da aynı rayda başlasın/bitsin */
+#services .services-intro{
+    width:100%!important;
+    max-width:var(--bg-rail-max)!important;
+    margin:0 0 64px 0!important;
+    text-align:left!important;
+    box-sizing:border-box!important;
+}
+
+#services .services-grid{
+    width:100%!important;
+    max-width:var(--bg-rail-max)!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    box-sizing:border-box!important;
+}
+
+/* Süreç ve Neden BG Studio kartları aynı rayda */
+#process .process-grid,
+#why .why-grid,
+#why .reasons-grid,
+#why .features-grid,
+#studio .studio-grid,
+.quality-grid{
+    width:100%!important;
+    max-width:var(--bg-rail-max)!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    box-sizing:border-box!important;
+}
+
+/* Süreç/Neden açıklama paragrafları da başlık hizasına otursun */
+#process > p,
+#why > p,
+#studio > p,
+.process-intro,
+.why-intro,
+.studio-intro{
+    margin-left:0!important;
+    margin-right:0!important;
+    max-width:1180px!important;
+    text-align:left!important;
+}
+
+/* Kalite standardı başlığı ortalı kalabilir ama bölüm rayı içinde merkezlensin */
+.quality-heading-block{
+    margin-left:auto!important;
+    margin-right:auto!important;
+}
+
+/* Hizmet kartlarını geniş yay; sağ bitiş diğer gridlerle aynı olsun */
+@media(min-width:981px){
+    #services .services-grid{
+        grid-template-columns:repeat(4,minmax(0,1fr))!important;
+        gap:18px!important;
+    }
+    #services .service-card{
+        min-height:330px!important;
+    }
+}
+
+/* Küçük ekranlarda aynı ray korunur */
+@media(max-width:768px){
+    :root{
+        --bg-rail-x:7%;
+    }
+    #projects,
+    #services,
+    #process,
+    #why,
+    #studio,
+    #contact,
+    .quality-standard,
+    .trust-statement{
+        padding-left:var(--bg-rail-x)!important;
+        padding-right:var(--bg-rail-x)!important;
+    }
+    .projects-intro{
+        padding-left:16px!important;
+        margin-bottom:42px!important;
+    }
+}
+
 </style>
 </head>
 <body>
