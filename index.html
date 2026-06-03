@@ -1410,7 +1410,7 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     </nav>
 
     <header class="hero">
-        <video class="video-bg" autoplay loop muted playsinline preload="metadata"><source src="animasyon.mp4" type="video/mp4"></video>
+        <video class="video-bg" autoplay loop muted playsinline webkit-playsinline preload="auto" poster="logo.webp"><source src="animasyon.mp4" type="video/mp4"></video>
         <div class="hero-content hidden hero-brand-content">
             <h1 aria-label="BG STUDIO Mimari Tasarım ve 3D Görselleştirme"><span aria-hidden="true">BG<br>STUDIO</span><span class="sr-only">BG STUDIO Mimari Tasarım ve 3D Görselleştirme</span></h1>
             <p class="hero-brand-subtitle">MİMARİ TASARIM, UYGULAMA PROJESİ & GÖRSELLEŞTİRME</p>
@@ -1720,7 +1720,7 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <div style="margin-top: 30px; display: flex; gap: 20px;"> 
                     </div>
                 </div>
-                <img src="tiger.webp" alt="BG Studio mimarlık ve 3D render stüdyosu marka görseli" class="footer-tiger-img" width="2048" height="1081" loading="lazy" decoding="async">
+                <img src="tiger.webp" alt="BG Studio mimarlık ve 3D render stüdyosu marka görseli" class="footer-tiger-img" width="2048" height="1081" loading="eager" decoding="async" fetchpriority="low">
             </div>
             
             <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
@@ -1865,15 +1865,40 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
         const heroContent = document.querySelector('.hero-content');
         const heroVideo = document.querySelector('.video-bg');
         const heroEl = document.querySelector('.hero');
+        const playHeroVideoSafely = () => {
+            if (!heroVideo || document.hidden) return;
+
+            heroVideo.muted = true;
+            heroVideo.defaultMuted = true;
+            heroVideo.autoplay = true;
+            heroVideo.playsInline = true;
+            heroVideo.setAttribute('muted', '');
+            heroVideo.setAttribute('playsinline', '');
+            heroVideo.setAttribute('webkit-playsinline', '');
+
+            const playAttempt = heroVideo.play();
+            if (playAttempt && typeof playAttempt.catch === 'function') {
+                playAttempt.catch(() => {});
+            }
+        };
+
+        if (heroVideo) {
+            playHeroVideoSafely();
+            heroVideo.addEventListener('loadedmetadata', playHeroVideoSafely, { once: true });
+            heroVideo.addEventListener('canplay', playHeroVideoSafely, { once: true });
+            window.addEventListener('pageshow', playHeroVideoSafely, { passive: true });
+            window.addEventListener('touchstart', playHeroVideoSafely, { once: true, passive: true });
+            window.addEventListener('pointerdown', playHeroVideoSafely, { once: true, passive: true });
+            document.addEventListener('visibilitychange', playHeroVideoSafely, { passive: true });
+        }
+
         if (heroEl && heroContent) {
             const heroObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     window.requestAnimationFrame(() => {
                         if (entry.isIntersecting) {
                             heroContent.classList.add('show');
-                            if (heroVideo && heroVideo.paused) {
-                                heroVideo.play().catch(() => {});
-                            }
+                            playHeroVideoSafely();
                         } else {
                             heroContent.classList.remove('show');
                         }
