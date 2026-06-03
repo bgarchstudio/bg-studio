@@ -198,7 +198,7 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
 #projects .gallery-indicator{opacity:.82}
 #projects .project-subtitle{color:rgba(198,168,124,.82);font-size:.78rem;letter-spacing:1.7px;text-transform:uppercase}
 #projects .card-overlay h3{max-width:92%}
-@media (min-width:769px){#projects .project-card:nth-child(2n){margin-top:80px}}
+
 @media (max-width:768px){#projects .project-card,#projects .project-card[style]{height:min(128vw,680px)!important;min-height:470px!important}#projects .project-subtitle{font-size:.72rem}}
 
 
@@ -360,6 +360,17 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
         display:block;
     }
     .project-card.active .mobile-swipe-hint{opacity:.35}
+}
+
+
+/* --- PROJE VİTRİNİ: MASAÜSTÜ HİZALAMA DÜZELTMESİ --- */
+@media (min-width:769px){
+    #projects .project-card:nth-child(2n){
+        margin-top:0!important;
+    }
+    #projects .portfolio-grid{
+        align-items:start;
+    }
 }
 
 </style>
