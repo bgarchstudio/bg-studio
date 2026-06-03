@@ -1151,6 +1151,60 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     }
 }
 
+@media(max-width:768px){
+    .project-card.mobile-auto-active .project-img,
+    .project-card.mobile-auto-active .gallery-img{
+        filter:grayscale(0%)!important;
+        transform:scale(1.018)!important;
+    }
+
+    .project-card.mobile-auto-active .card-overlay::before{
+        transform:scaleX(1)!important;
+        opacity:1!important;
+    }
+
+    .project-card.mobile-auto-active .project-desc{
+        opacity:1!important;
+        max-height:320px!important;
+        transform:translateY(0)!important;
+        margin-top:16px!important;
+    }
+
+    .service-card.mobile-auto-active,
+    .process-card.mobile-auto-active{
+        transform:translateY(-8px)!important;
+        border-color:rgba(198,168,124,.55)!important;
+        background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.02))!important;
+    }
+
+    .service-card.mobile-auto-active::before,
+    .process-card.mobile-auto-active::before{
+        opacity:1!important;
+    }
+
+    .service-card.mobile-auto-active .service-line-icon{
+        opacity:1!important;
+        transform:translateY(-2px)!important;
+    }
+
+    .quality-card.mobile-auto-active::after,
+    .why-card.mobile-auto-active::after,
+    .reason-card.mobile-auto-active::after,
+    .why-item.mobile-auto-active::after,
+    .value-card.mobile-auto-active::after{
+        animation:bgstudioLightBeam 1.55s cubic-bezier(.22,1,.36,1) forwards!important;
+    }
+
+    .quality-card.mobile-auto-active,
+    .why-card.mobile-auto-active,
+    .reason-card.mobile-auto-active,
+    .why-item.mobile-auto-active,
+    .value-card.mobile-auto-active{
+        border-color:rgba(198,168,124,.28)!important;
+        transform:translateY(-4px)!important;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -1890,6 +1944,42 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
             }
         });
 
+        // Mobil: hover/tap efektlerini kart ekrana ilk girdiğinde otomatik oynat.
+        scheduleBgStudioIdle(() => {
+            if (!('IntersectionObserver' in window)) return;
+
+            const mobileAutoCards = document.querySelectorAll(
+                '.project-card, .service-card, .process-card, .quality-card, .why-card, .reason-card, .why-item, .value-card'
+            );
+
+            const playMobileAutoEffect = (card) => {
+                if (!isMobileViewport() || card.dataset.mobileAutoPlayed === 'true') return false;
+
+                card.dataset.mobileAutoPlayed = 'true';
+                card.classList.add('mobile-auto-active');
+
+                window.setTimeout(() => {
+                    card.classList.remove('mobile-auto-active');
+                }, card.classList.contains('project-card') ? 2600 : 1750);
+
+                return true;
+            };
+
+            const mobileAutoObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    if (playMobileAutoEffect(entry.target)) {
+                        mobileAutoObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.42,
+                rootMargin: '0px 0px -12% 0px'
+            });
+
+            mobileAutoCards.forEach((card) => mobileAutoObserver.observe(card));
+        });
+
         let resizeCleanupTimer = null;
         window.addEventListener('resize', function () {
             clearTimeout(resizeCleanupTimer);
@@ -1897,7 +1987,10 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                 window.requestAnimationFrame(() => {
                     mobileProjectCards.forEach((card) => {
                         stopProjectSlides(card);
-                        if (!isMobileViewport()) card.classList.remove('active');
+                        if (!isMobileViewport()) {
+                            card.classList.remove('active');
+                            card.classList.remove('mobile-auto-active');
+                        }
                     });
                 });
             }, 160);
