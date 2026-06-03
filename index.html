@@ -869,6 +869,143 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     }
 }
 
+
+/* --- FINAL DÜZELTME: HİZMETLER HİZASI, VİZYON GEÇİŞİ VE TEK CTA --- */
+
+/* Hizmetler: Çalışma Süreci ve Neden BG Studio bölümleriyle aynı ana okuma hizası */
+#services{
+    padding:120px 7% 125px!important;
+}
+#services .section-title{
+    max-width:100%!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    width:100%!important;
+    margin-bottom:42px!important;
+}
+#services .services-intro{
+    max-width:560px!important;
+    margin:0 0 64px 0!important;
+    text-align:left!important;
+}
+#services .services-grid{
+    max-width:100%!important;
+    width:100%!important;
+    margin:0!important;
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:18px!important;
+}
+#services .service-card{
+    min-height:360px!important;
+    padding:34px 28px!important;
+}
+#services .service-card h3{
+    font-size:clamp(1.25rem,1.7vw,2rem)!important;
+    line-height:1.05!important;
+}
+#services .service-card p{
+    font-size:.92rem!important;
+    line-height:1.72!important;
+}
+
+/* Proje kartı CTA: tek ve net buton */
+.project-card-actions{
+    gap:0!important;
+}
+.project-detail-btn{
+    display:none!important;
+}
+.project-whatsapp-btn{
+    min-width:220px!important;
+    text-align:center!important;
+}
+
+/* Vizyon / istatistik geçişi: keskin siyah blok yerine yumuşak fade */
+.quote-section,
+.vision-section,
+#vision{
+    position:relative;
+    overflow:hidden;
+}
+.quote-section::after,
+.vision-section::after,
+#vision::after{
+    content:'';
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:-1px;
+    height:180px;
+    background:linear-gradient(180deg,rgba(0,0,0,0),#050505 72%,#050505 100%);
+    pointer-events:none;
+    z-index:2;
+}
+.stats-section,
+#stats{
+    position:relative;
+    margin-top:-70px!important;
+    padding-top:150px!important;
+    background:linear-gradient(180deg,#050505 0%,#030303 42%,#050505 100%)!important;
+}
+.stats-section::before,
+#stats::before{
+    content:'';
+    position:absolute;
+    left:0;
+    right:0;
+    top:-120px;
+    height:160px;
+    background:linear-gradient(180deg,rgba(0,0,0,0),#050505 68%,#050505 100%);
+    pointer-events:none;
+}
+
+/* Kalite kartları ve Neden BG Studio hüzme efekti için stacking düzeltmesi */
+.quality-card,
+.why-card,
+.reason-card,
+.why-item,
+.value-card{
+    position:relative!important;
+    overflow:hidden!important;
+}
+
+@media(max-width:980px){
+    #services .services-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    }
+}
+@media(max-width:768px){
+    #services{
+        padding:82px 7% 86px!important;
+    }
+    #services .services-intro{
+        max-width:100%!important;
+        margin-bottom:34px!important;
+    }
+    #services .services-grid{
+        grid-template-columns:1fr!important;
+        gap:14px!important;
+    }
+    #services .service-card{
+        min-height:auto!important;
+    }
+    .project-whatsapp-btn{
+        min-width:0!important;
+        width:auto!important;
+    }
+    .quote-section::after,
+    .vision-section::after,
+    #vision::after{
+        height:120px;
+    }
+    .stats-section,
+    #stats{
+        margin-top:-45px!important;
+        padding-top:110px!important;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -922,8 +1059,7 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <span class="project-subtitle">Mimari Tasarım & 3D Görselleştirme</span>
                     <p class="project-desc">Denizle kurduğu güçlü ilişki, modern cephe dili ve açık yaşam kurgusuyla öne çıkan lüks villa konsepti. Geniş cam yüzeyler, gün batımı atmosferi ve havuz çevresi yaşam alanlarıyla güçlü bir satış sunumu dili oluşturur.</p>
                     <div class="project-card-actions">
-                        <a class="project-detail-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20COASTAL%20RESIDENCE%20/%20Deniz%20Manzaral%C4%B1%20L%C3%BCks%20Villa%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20L%C3%BCks%20villa.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20uygulama%20projesi%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." aria-label="Proje detaylarını gör" target="_blank" rel="noopener">Detayları Gör</a>
-                        <a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20COASTAL%20RESIDENCE%20/%20Deniz%20Manzaral%C4%B1%20L%C3%BCks%20Villa%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20L%C3%BCks%20villa.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20uygulama%20projesi%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
+<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20COASTAL%20RESIDENCE%20/%20Deniz%20Manzaral%C4%B1%20L%C3%BCks%20Villa%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20L%C3%BCks%20villa.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20uygulama%20projesi%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
                     </div>
                 </div>
             </article>
@@ -945,8 +1081,7 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <span class="project-subtitle">Mekân Tasarımı & 3D Render</span>
                     <p class="project-desc">Sıcak malzeme paleti ve marina manzarasıyla zenginleşen rafine iç mekân kurgusu. Yaşam alanı, mutfak ve yatak odasında kontrollü ışık, ahşap dokular ve sakin lüks dili bir arada ele alındı.</p>
                     <div class="project-card-actions">
-                        <a class="project-detail-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20MARINA%20INTERIOR%20/%20Marina%20Manzaral%C4%B1%20Konut%20%C4%B0%C3%A7%20Mek%C3%A2n%C4%B1%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Konut%20i%C3%A7%20mek%C3%A2n%C4%B1.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20i%C3%A7%20mek%C3%A2n%20kurgusu%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." aria-label="Proje detaylarını gör" target="_blank" rel="noopener">Detayları Gör</a>
-                        <a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20MARINA%20INTERIOR%20/%20Marina%20Manzaral%C4%B1%20Konut%20%C4%B0%C3%A7%20Mek%C3%A2n%C4%B1%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Konut%20i%C3%A7%20mek%C3%A2n%C4%B1.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20i%C3%A7%20mek%C3%A2n%20kurgusu%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
+<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20MARINA%20INTERIOR%20/%20Marina%20Manzaral%C4%B1%20Konut%20%C4%B0%C3%A7%20Mek%C3%A2n%C4%B1%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Konut%20i%C3%A7%20mek%C3%A2n%C4%B1.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20i%C3%A7%20mek%C3%A2n%20kurgusu%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
                     </div>
                 </div>
             </article>
@@ -968,8 +1103,7 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <span class="project-subtitle">Mimari Tasarım & İç Mekân Görselleştirme</span>
                     <p class="project-desc">Temiz çizgiler, dengeli ışık kullanımı ve güven veren mekân kurgusuyla öne çıkan modern klinik tasarımı. Dış cepheden lobiye ve tedavi alanlarına kadar bütüncül, kurumsal ve sakin bir atmosfer hedeflendi.</p>
                     <div class="project-card-actions">
-                        <a class="project-detail-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20MODERN%20CLINIC%20/%20Modern%20Klinik%20Tasar%C4%B1m%C4%B1%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Klinik%20/%20sa%C4%9Fl%C4%B1k%20yap%C4%B1s%C4%B1.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20uygulama%20projesi%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." aria-label="Proje detaylarını gör" target="_blank" rel="noopener">Detayları Gör</a>
-                        <a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20MODERN%20CLINIC%20/%20Modern%20Klinik%20Tasar%C4%B1m%C4%B1%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Klinik%20/%20sa%C4%9Fl%C4%B1k%20yap%C4%B1s%C4%B1.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20uygulama%20projesi%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
+<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20MODERN%20CLINIC%20/%20Modern%20Klinik%20Tasar%C4%B1m%C4%B1%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Klinik%20/%20sa%C4%9Fl%C4%B1k%20yap%C4%B1s%C4%B1.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20uygulama%20projesi%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
                     </div>
                 </div>
             </article>
@@ -991,8 +1125,7 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <span class="project-subtitle">Mimari Konsept & 3D Görselleştirme</span>
                     <p class="project-desc">Taş, ahşap ve manzara dengesini öne çıkaran; doğayla bütünleşen çağdaş dağ evi tasarımı. Güçlü kütle dili, doğal malzeme kullanımı ve şömine çevresinde şekillenen iç mekân atmosferiyle sıcak bir sığınak etkisi kurar.</p>
                     <div class="project-card-actions">
-                        <a class="project-detail-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20ALPINE%20STONE%20HOUSE%20/%20Ta%C5%9F%20ve%20Ah%C5%9Fap%20Da%C4%9F%20Evi%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Konut%20/%20da%C4%9F%20evi.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." aria-label="Proje detaylarını gör" target="_blank" rel="noopener">Detayları Gör</a>
-                        <a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20ALPINE%20STONE%20HOUSE%20/%20Ta%C5%9F%20ve%20Ah%C5%9Fap%20Da%C4%9F%20Evi%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Konut%20/%20da%C4%9F%20evi.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
+<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20ALPINE%20STONE%20HOUSE%20/%20Ta%C5%9F%20ve%20Ah%C5%9Fap%20Da%C4%9F%20Evi%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Konut%20/%20da%C4%9F%20evi.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
                     </div>
                 </div>
             </article>
@@ -1014,8 +1147,7 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <span class="project-subtitle">Mimari Tasarım & Ticari Mekân Render</span>
                     <p class="project-desc">Sahil atmosferini çağdaş detaylarla birleştiren, güçlü ambiyansa sahip ticari mekân tasarımı. Teras, iç mekân ve marina cephesi; marka algısını yükselten sıcak ışık, doğal dokular ve davetkâr oturma düzenleriyle kurgulandı.</p>
                     <div class="project-card-actions">
-                        <a class="project-detail-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20MARINA%20BISTRO%20/%20Marina%20Restoran%20%26%20Bistro%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Ticari%20mek%C3%A2n%20/%20restoran.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20i%C3%A7%20mek%C3%A2n%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." aria-label="Proje detaylarını gör" target="_blank" rel="noopener">Detayları Gör</a>
-                        <a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20MARINA%20BISTRO%20/%20Marina%20Restoran%20%26%20Bistro%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Ticari%20mek%C3%A2n%20/%20restoran.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20i%C3%A7%20mek%C3%A2n%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
+<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20MARINA%20BISTRO%20/%20Marina%20Restoran%20%26%20Bistro%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Ticari%20mek%C3%A2n%20/%20restoran.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20i%C3%A7%20mek%C3%A2n%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
                     </div>
                 </div>
             </article>
@@ -1037,8 +1169,7 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <span class="project-subtitle">Mimari Tasarım & Atmosfer Render</span>
                     <p class="project-desc">Taş doku, avlu yaşamı ve sıcak ışık kurgusuyla Akdeniz karakterini modern konforla birleştiren villa konsepti. İç-dış mekân sürekliliği, avlu merkezli yaşam ve doğal peyzaj dili projenin ana omurgasını oluşturur.</p>
                     <div class="project-card-actions">
-                        <a class="project-detail-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20STONE%20COURTYARD%20HOUSE%20/%20Avlulu%20Ta%C5%9F%20Villa%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Avlulu%20villa.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20uygulama%20projesi%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." aria-label="Proje detaylarını gör" target="_blank" rel="noopener">Detayları Gör</a>
-                        <a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20STONE%20COURTYARD%20HOUSE%20/%20Avlulu%20Ta%C5%9F%20Villa%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Avlulu%20villa.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20uygulama%20projesi%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
+<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20STONE%20COURTYARD%20HOUSE%20/%20Avlulu%20Ta%C5%9F%20Villa%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Avlulu%20villa.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20uygulama%20projesi%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
                     </div>
                 </div>
             </article>
