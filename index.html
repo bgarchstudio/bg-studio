@@ -495,6 +495,369 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     }
 }
 
+
+/* --- PROJE SUNUMU: INTRO, MODAL, GÜVEN BANDI, KALİTE STANDARDI --- */
+.projects-intro{
+    max-width:760px;
+    margin:-68px auto 64px;
+    text-align:center;
+    color:rgba(255,255,255,.66);
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.08rem,1.35vw,1.38rem);
+    line-height:1.55;
+}
+.project-card-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:18px;
+    transform:translateY(8px);
+    opacity:0;
+    transition:opacity .45s ease,transform .45s ease;
+}
+.project-card:hover .project-card-actions,
+.project-card.active .project-card-actions{
+    opacity:1;
+    transform:translateY(0);
+}
+.project-detail-btn,
+.project-whatsapp-btn{
+    border:1px solid rgba(198,168,124,.52);
+    background:rgba(0,0,0,.24);
+    color:#fff;
+    text-decoration:none;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.35px;
+    text-transform:uppercase;
+    padding:10px 13px;
+    cursor:pointer;
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    transition:background .35s ease,color .35s ease,border-color .35s ease,transform .35s ease;
+}
+.project-detail-btn:hover,
+.project-whatsapp-btn:hover{
+    background:#C6A87C;
+    color:#050505;
+    border-color:#E6BE8A;
+    transform:translateY(-2px);
+}
+.trust-statement{
+    padding:100px 7% 88px;
+    background:#030303;
+    border-top:1px solid rgba(255,255,255,.06);
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+.trust-statement p{
+    max-width:1160px;
+    margin:0 auto;
+    color:#fff;
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(2rem,4.5vw,5.8rem);
+    font-weight:500;
+    line-height:1.02;
+    letter-spacing:-1.8px;
+    text-align:center;
+}
+.quality-standard{
+    padding:110px 7%;
+    background:#050505;
+}
+.quality-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+    max-width:1180px;
+    margin:0 auto;
+}
+.quality-card{
+    position:relative;
+    padding:34px 30px 32px;
+    min-height:240px;
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.016));
+    border:1px solid rgba(255,255,255,.075);
+    overflow:hidden;
+}
+.quality-card::before{
+    content:'';
+    position:absolute;
+    left:30px;
+    right:30px;
+    top:0;
+    height:1px;
+    background:linear-gradient(90deg,transparent,rgba(198,168,124,.78),transparent);
+}
+.quality-card span{
+    color:#C6A87C;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:2px;
+}
+.quality-card h3{
+    margin:46px 0 16px;
+    color:#fff;
+    font-size:clamp(1.35rem,2vw,2.3rem);
+}
+.quality-card p{
+    color:rgba(255,255,255,.64);
+    line-height:1.7;
+    font-size:.95rem;
+}
+.project-modal{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .35s ease;
+}
+.project-modal.is-open{
+    opacity:1;
+    pointer-events:auto;
+}
+.project-modal-backdrop{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+}
+.project-modal-panel{
+    position:relative;
+    z-index:2;
+    width:min(1180px,96vw);
+    max-height:90vh;
+    display:grid;
+    grid-template-columns:minmax(0,1.18fr) minmax(340px,.82fr);
+    background:#080808;
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 40px 120px rgba(0,0,0,.72);
+    overflow:hidden;
+    transform:translateY(18px) scale(.98);
+    transition:transform .38s cubic-bezier(.22,1,.36,1);
+}
+.project-modal.is-open .project-modal-panel{
+    transform:translateY(0) scale(1);
+}
+.project-modal-close{
+    position:absolute;
+    top:14px;
+    right:14px;
+    z-index:6;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(0,0,0,.35);
+    color:#fff;
+    font-size:28px;
+    line-height:1;
+    cursor:pointer;
+    backdrop-filter:blur(10px);
+}
+.project-modal-media{
+    position:relative;
+    min-height:620px;
+    background:#000;
+    overflow:hidden;
+}
+.project-modal-media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    filter:contrast(1.02);
+}
+.modal-gallery-nav{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:5;
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(0,0,0,.32);
+    color:#fff;
+    font-size:34px;
+    line-height:1;
+    cursor:pointer;
+    backdrop-filter:blur(10px);
+    transition:background .25s ease,border-color .25s ease;
+}
+.modal-gallery-nav:hover{
+    background:rgba(198,168,124,.2);
+    border-color:rgba(198,168,124,.55);
+}
+.modal-prev{left:18px}
+.modal-next{right:18px}
+.modal-gallery-dots{
+    position:absolute;
+    left:50%;
+    bottom:20px;
+    transform:translateX(-50%);
+    display:flex;
+    gap:8px;
+    padding:10px 12px;
+    border-radius:999px;
+    background:rgba(0,0,0,.35);
+    border:1px solid rgba(255,255,255,.12);
+    backdrop-filter:blur(10px);
+}
+.modal-gallery-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    border:0;
+    padding:0;
+    background:rgba(255,255,255,.45);
+    cursor:pointer;
+    transition:width .3s ease,background .3s ease;
+}
+.modal-gallery-dot.is-active{
+    width:22px;
+    border-radius:999px;
+    background:#C6A87C;
+}
+.project-modal-content{
+    padding:64px 46px 46px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+.modal-kicker{
+    color:#C6A87C;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    margin-bottom:18px;
+}
+.project-modal-content h3{
+    color:#fff;
+    font-size:clamp(2.2rem,3.6vw,4.4rem);
+    line-height:.92;
+    margin:0;
+}
+.modal-title-tr{
+    display:block;
+    color:rgba(255,255,255,.78);
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.55rem;
+    margin:14px 0 34px;
+}
+.project-modal-list{
+    display:grid;
+    gap:18px;
+    margin:0 0 34px;
+}
+.project-modal-list div{
+    padding-top:18px;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+.project-modal-list dt{
+    color:rgba(198,168,124,.86);
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.8px;
+    text-transform:uppercase;
+    margin-bottom:8px;
+}
+.project-modal-list dd{
+    margin:0;
+    color:rgba(255,255,255,.78);
+    line-height:1.55;
+}
+.modal-whatsapp{
+    align-self:flex-start;
+    padding:15px 18px;
+    border:1px solid rgba(37,211,102,.62);
+    color:#fff;
+    text-decoration:none;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1.4px;
+    text-transform:uppercase;
+    transition:background .3s ease,color .3s ease,transform .3s ease;
+}
+.modal-whatsapp:hover{
+    background:#25D366;
+    color:#031107;
+    transform:translateY(-2px);
+}
+body.modal-open{
+    overflow:hidden;
+}
+@media(max-width:900px){
+    .project-modal-panel{
+        grid-template-columns:1fr;
+        overflow:auto;
+    }
+    .project-modal-media{
+        min-height:52vh;
+    }
+    .project-modal-content{
+        padding:34px 24px 28px;
+    }
+    .quality-grid{
+        grid-template-columns:1fr;
+    }
+    .trust-statement{
+        padding:76px 7% 70px;
+    }
+}
+@media(max-width:768px){
+    .projects-intro{
+        margin:-42px auto 42px;
+        padding:0 18px;
+        font-size:1.05rem;
+    }
+    .project-card-actions{
+        opacity:1;
+        transform:none;
+        gap:8px;
+        margin-top:14px;
+    }
+    .project-detail-btn,
+    .project-whatsapp-btn{
+        font-size:9px;
+        padding:9px 10px;
+    }
+    .project-whatsapp-btn{
+        display:none;
+    }
+    .project-modal{
+        padding:12px;
+    }
+    .project-modal-media{
+        min-height:48vh;
+    }
+    .modal-gallery-nav{
+        width:40px;
+        height:40px;
+        font-size:28px;
+    }
+    .project-modal-content h3{
+        font-size:2.2rem;
+    }
+    .modal-title-tr{
+        font-size:1.25rem;
+    }
+    .quality-card{
+        min-height:auto;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -527,8 +890,11 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
 
     <section id="projects">
         <h2 class="section-title hidden">SEÇİLİ PROJELER</h2>
-        <div class="portfolio-grid">
-            <article class="project-card hidden slideshow-3" style="height: 800px;">
+                <p class="projects-intro hidden">
+            Villa, iç mekân, ticari alan ve sağlık yapıları için hazırlanmış; mimari tasarım, uygulama projesi ve fotogerçekçi görselleştirme seçkisi.
+        </p>
+<div class="portfolio-grid">
+            <article class="project-card hidden slideshow-3" style="height: 800px;" data-project-index="0" data-project-title="COASTAL RESIDENCE" data-project-tr="Deniz Manzaralı Lüks Villa" data-project-type="Lüks Villa" data-project-service="Mimari Tasarım &amp; 3D Görselleştirme" data-project-scope="Dış cephe, iç mekân, havuz çevresi ve atmosfer renderları" data-project-wa="Merhaba, Coastal Residence tarzında lüks villa projesi için teklif almak istiyorum.">
                 <div class="project-dots" aria-label="Proje görselleri">
                     <button type="button" class="project-dot is-active" aria-label="1. render" aria-current="true"></button>
                     <button type="button" class="project-dot" aria-label="2. render" aria-current="false"></button>
@@ -544,10 +910,14 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <span class="project-title-tr">Deniz Manzaralı Lüks Villa</span>
                     <span class="project-subtitle">Mimari Tasarım & 3D Görselleştirme</span>
                     <p class="project-desc">Denizle kurduğu güçlü ilişki, modern cephe dili ve açık yaşam kurgusuyla öne çıkan lüks villa konsepti. Geniş cam yüzeyler, gün batımı atmosferi ve havuz çevresi yaşam alanlarıyla güçlü bir satış sunumu dili oluşturur.</p>
+                    <div class="project-card-actions">
+                        <button type="button" class="project-detail-btn">Detayları Gör</button>
+                        <a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20bu%20tarz%20bir%20proje%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
+                    </div>
                 </div>
             </article>
 
-            <article class="project-card hidden slideshow-3" style="height: 800px;">
+            <article class="project-card hidden slideshow-3" style="height: 800px;" data-project-index="1" data-project-title="MARINA INTERIOR" data-project-tr="Marina Manzaralı Konut İç Mekânı" data-project-type="Konut İç Mekânı" data-project-service="Mimarlık &amp; 3D Görselleştirme" data-project-scope="Yaşam alanı, mutfak, yatak odası, malzeme ve ışık atmosferi" data-project-wa="Merhaba, Marina Interior tarzında iç mekân projesi için teklif almak istiyorum.">
                 <div class="project-dots" aria-label="Proje görselleri">
                     <button type="button" class="project-dot is-active" aria-label="1. render" aria-current="true"></button>
                     <button type="button" class="project-dot" aria-label="2. render" aria-current="false"></button>
@@ -563,10 +933,14 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <span class="project-title-tr">Marina Manzaralı Konut İç Mekânı</span>
                     <span class="project-subtitle">Mekân Tasarımı & 3D Render</span>
                     <p class="project-desc">Sıcak malzeme paleti ve marina manzarasıyla zenginleşen rafine iç mekân kurgusu. Yaşam alanı, mutfak ve yatak odasında kontrollü ışık, ahşap dokular ve sakin lüks dili bir arada ele alındı.</p>
+                    <div class="project-card-actions">
+                        <button type="button" class="project-detail-btn">Detayları Gör</button>
+                        <a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20bu%20tarz%20bir%20proje%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
+                    </div>
                 </div>
             </article>
 
-            <article class="project-card hidden slideshow-3" style="height: 800px;">
+            <article class="project-card hidden slideshow-3" style="height: 800px;" data-project-index="2" data-project-title="MODERN CLINIC" data-project-tr="Modern Klinik Tasarımı" data-project-type="Sağlık Yapısı / Klinik" data-project-service="Mimari Tasarım, Uygulama Projesi &amp; 3D Görselleştirme" data-project-scope="Dış cephe, karşılama alanı, koridor, tedavi alanı ve kurumsal atmosfer" data-project-wa="Merhaba, Modern Clinic tarzında klinik projesi için teklif almak istiyorum.">
                 <div class="project-dots" aria-label="Proje görselleri">
                     <button type="button" class="project-dot is-active" aria-label="1. render" aria-current="true"></button>
                     <button type="button" class="project-dot" aria-label="2. render" aria-current="false"></button>
@@ -582,10 +956,14 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <span class="project-title-tr">Modern Klinik Tasarımı</span>
                     <span class="project-subtitle">Mimari Tasarım & İç Mekân Görselleştirme</span>
                     <p class="project-desc">Temiz çizgiler, dengeli ışık kullanımı ve güven veren mekân kurgusuyla öne çıkan modern klinik tasarımı. Dış cepheden lobiye ve tedavi alanlarına kadar bütüncül, kurumsal ve sakin bir atmosfer hedeflendi.</p>
+                    <div class="project-card-actions">
+                        <button type="button" class="project-detail-btn">Detayları Gör</button>
+                        <a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20bu%20tarz%20bir%20proje%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
+                    </div>
                 </div>
             </article>
 
-            <article class="project-card hidden slideshow-3" style="height: 800px;">
+            <article class="project-card hidden slideshow-3" style="height: 800px;" data-project-index="3" data-project-title="ALPINE STONE HOUSE" data-project-tr="Taş ve Ahşap Dağ Evi" data-project-type="Dağ Evi / Konut" data-project-service="Mimari Konsept &amp; 3D Görselleştirme" data-project-scope="Dış cephe, şömineli yaşam alanı, doğal malzeme ve peyzaj atmosferi" data-project-wa="Merhaba, Alpine Stone House tarzında konut projesi için teklif almak istiyorum.">
                 <div class="project-dots" aria-label="Proje görselleri">
                     <button type="button" class="project-dot is-active" aria-label="1. render" aria-current="true"></button>
                     <button type="button" class="project-dot" aria-label="2. render" aria-current="false"></button>
@@ -601,10 +979,14 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <span class="project-title-tr">Taş ve Ahşap Dağ Evi</span>
                     <span class="project-subtitle">Mimari Konsept & 3D Görselleştirme</span>
                     <p class="project-desc">Taş, ahşap ve manzara dengesini öne çıkaran; doğayla bütünleşen çağdaş dağ evi tasarımı. Güçlü kütle dili, doğal malzeme kullanımı ve şömine çevresinde şekillenen iç mekân atmosferiyle sıcak bir sığınak etkisi kurar.</p>
+                    <div class="project-card-actions">
+                        <button type="button" class="project-detail-btn">Detayları Gör</button>
+                        <a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20bu%20tarz%20bir%20proje%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
+                    </div>
                 </div>
             </article>
 
-            <article class="project-card hidden slideshow-3" style="height: 800px;">
+            <article class="project-card hidden slideshow-3" style="height: 800px;" data-project-index="4" data-project-title="MARINA BISTRO" data-project-tr="Marina Restoran &amp; Bistro" data-project-type="Ticari Mekân / Restoran" data-project-service="Mimari Tasarım, İç Mekân &amp; 3D Görselleştirme" data-project-scope="Cephe, teras, restoran iç mekânı, marka atmosferi ve satış sunumu" data-project-wa="Merhaba, Marina Bistro tarzında ticari mekân projesi için teklif almak istiyorum.">
                 <div class="project-dots" aria-label="Proje görselleri">
                     <button type="button" class="project-dot is-active" aria-label="1. render" aria-current="true"></button>
                     <button type="button" class="project-dot" aria-label="2. render" aria-current="false"></button>
@@ -620,10 +1002,14 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <span class="project-title-tr">Marina Restoran & Bistro</span>
                     <span class="project-subtitle">Mimari Tasarım & Ticari Mekân Render</span>
                     <p class="project-desc">Sahil atmosferini çağdaş detaylarla birleştiren, güçlü ambiyansa sahip ticari mekân tasarımı. Teras, iç mekân ve marina cephesi; marka algısını yükselten sıcak ışık, doğal dokular ve davetkâr oturma düzenleriyle kurgulandı.</p>
+                    <div class="project-card-actions">
+                        <button type="button" class="project-detail-btn">Detayları Gör</button>
+                        <a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20bu%20tarz%20bir%20proje%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
+                    </div>
                 </div>
             </article>
 
-            <article class="project-card hidden slideshow-3" style="height: 800px;">
+            <article class="project-card hidden slideshow-3" style="height: 800px;" data-project-index="5" data-project-title="STONE COURTYARD HOUSE" data-project-tr="Avlulu Taş Villa" data-project-type="Akdeniz Konutu / Avlulu Villa" data-project-service="Mimari Tasarım &amp; Atmosfer Render" data-project-scope="Avlu, dış cephe, havuz çevresi, iç-dış mekân ilişkisi ve peyzaj kurgusu" data-project-wa="Merhaba, Stone Courtyard House tarzında villa projesi için teklif almak istiyorum.">
                 <div class="project-dots" aria-label="Proje görselleri">
                     <button type="button" class="project-dot is-active" aria-label="1. render" aria-current="true"></button>
                     <button type="button" class="project-dot" aria-label="2. render" aria-current="false"></button>
@@ -639,7 +1025,37 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <span class="project-title-tr">Avlulu Taş Villa</span>
                     <span class="project-subtitle">Mimari Tasarım & Atmosfer Render</span>
                     <p class="project-desc">Taş doku, avlu yaşamı ve sıcak ışık kurgusuyla Akdeniz karakterini modern konforla birleştiren villa konsepti. İç-dış mekân sürekliliği, avlu merkezli yaşam ve doğal peyzaj dili projenin ana omurgasını oluşturur.</p>
+                    <div class="project-card-actions">
+                        <button type="button" class="project-detail-btn">Detayları Gör</button>
+                        <a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20bu%20tarz%20bir%20proje%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener">Bu tarz proje için teklif al</a>
+                    </div>
                 </div>
+            </article>
+        </div>
+    </section>
+
+
+    <section class="trust-statement hidden" aria-label="BG Studio yaklaşımı">
+        <p>Projelerinizi yalnızca görselleştirmiyoruz; satışa, sunuma ve yatırıma hazır bir mimari hikâyeye dönüştürüyoruz.</p>
+    </section>
+
+    <section class="quality-standard" aria-label="BG Studio kalite standardı">
+        <h2 class="section-title hidden">BG STUDIO KALİTE STANDARDI</h2>
+        <div class="quality-grid">
+            <article class="quality-card hidden">
+                <span>01</span>
+                <h3>Fotogerçekçi Işık</h3>
+                <p>Malzeme ve atmosfer kararları gerçekçi render diliyle sunulur.</p>
+            </article>
+            <article class="quality-card hidden">
+                <span>02</span>
+                <h3>Mimari Kompozisyon</h3>
+                <p>Her kare yalnızca görsel değil, projeyi anlatan bir sunum aracıdır.</p>
+            </article>
+            <article class="quality-card hidden">
+                <span>03</span>
+                <h3>Satışa Hazır Sunum</h3>
+                <p>Görseller sosyal medya, portfolyo ve müşteri sunumları için optimize edilir.</p>
             </article>
         </div>
     </section>
@@ -1088,10 +1504,10 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     if (!isMobileViewport()) stopProjectSlides(card);
                 });
 
-                // Masaüstü: kartın boş alanına tıklayınca sıradaki rendera geçer.
+                // Masaüstü: kartın boş alanına tıklayınca detay modalı açılır.
                 // Mobil: dokunma yalnızca açıklamayı aç/kapatır; render değişimi sağa/sola kaydırma ile olur.
                 card.addEventListener('click', (event) => {
-                    if (event.target.closest('.project-dot') || event.target.closest('.play-btn')) return;
+                    if (event.target.closest('.project-dot') || event.target.closest('.play-btn') || event.target.closest('.project-whatsapp-btn') || event.target.closest('.project-detail-btn')) return;
 
                     if (isMobileViewport()) {
                         const isAlreadyActive = card.classList.contains('active');
@@ -1104,7 +1520,7 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                         return;
                     }
 
-                    nextProjectSlide(card);
+                    openProjectModal(card);
                 });
 
                 // Mobil swipe: sağa/sola kaydırarak proje renderları arasında gezinme
@@ -1195,6 +1611,146 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                 });
             }, 160);
         }, { passive: true });
+
+
+        // Proje detay modalı + tam ekran galeri
+        const projectModal = document.getElementById('projectModal');
+        const projectModalImage = document.getElementById('projectModalImage');
+        const projectModalDots = document.getElementById('projectModalDots');
+        const projectModalTitle = document.getElementById('projectModalTitle');
+        const projectModalTr = document.getElementById('projectModalTr');
+        const projectModalType = document.getElementById('projectModalType');
+        const projectModalProjectType = document.getElementById('projectModalProjectType');
+        const projectModalService = document.getElementById('projectModalService');
+        const projectModalScope = document.getElementById('projectModalScope');
+        const projectModalWhatsapp = document.getElementById('projectModalWhatsapp');
+
+        let activeModalCard = null;
+        let activeModalImages = [];
+        let activeModalIndex = 0;
+        let modalTouchStartX = 0;
+        let modalTouchStartY = 0;
+
+        function buildWhatsappUrl(message) {
+            return 'https://wa.me/905050364573?text=' + encodeURIComponent(message || 'Merhaba, bu tarz bir proje için teklif almak istiyorum.');
+        }
+
+        function setModalImage(index) {
+            if (!activeModalImages.length || !projectModalImage) return;
+            activeModalIndex = ((index % activeModalImages.length) + activeModalImages.length) % activeModalImages.length;
+
+            const img = activeModalImages[activeModalIndex];
+            projectModalImage.src = img.getAttribute('src');
+            projectModalImage.alt = img.getAttribute('alt') || '';
+
+            if (projectModalDots) {
+                projectModalDots.querySelectorAll('.modal-gallery-dot').forEach((dot, i) => {
+                    dot.classList.toggle('is-active', i === activeModalIndex);
+                    dot.setAttribute('aria-current', i === activeModalIndex ? 'true' : 'false');
+                });
+            }
+        }
+
+        function openProjectModal(card) {
+            if (!projectModal || !card) return;
+
+            activeModalCard = card;
+            activeModalImages = Array.from(card.querySelectorAll('.gallery-img'));
+            activeModalIndex = Number(card.dataset.slideIndex || 0);
+
+            const title = card.dataset.projectTitle || card.querySelector('h3')?.textContent || '';
+            const tr = card.dataset.projectTr || card.querySelector('.project-title-tr')?.textContent || '';
+            const type = card.dataset.projectType || '';
+            const service = card.dataset.projectService || '';
+            const scope = card.dataset.projectScope || '';
+            const waMessage = card.dataset.projectWa || '';
+
+            projectModalTitle.textContent = title;
+            projectModalTr.textContent = tr;
+            projectModalType.textContent = type;
+            projectModalProjectType.textContent = type;
+            projectModalService.textContent = service;
+            projectModalScope.textContent = scope;
+            projectModalWhatsapp.href = buildWhatsappUrl(waMessage);
+
+            if (projectModalDots) {
+                projectModalDots.innerHTML = '';
+                activeModalImages.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.type = 'button';
+                    dot.className = 'modal-gallery-dot';
+                    dot.setAttribute('aria-label', (i + 1) + '. görsel');
+                    dot.addEventListener('click', () => setModalImage(i));
+                    projectModalDots.appendChild(dot);
+                });
+            }
+
+            setModalImage(activeModalIndex);
+
+            projectModal.classList.add('is-open');
+            projectModal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+        }
+
+        function closeProjectModal() {
+            if (!projectModal) return;
+            projectModal.classList.remove('is-open');
+            projectModal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+            activeModalCard = null;
+        }
+
+        scheduleBgStudioIdle(() => {
+            document.querySelectorAll('.project-detail-btn').forEach((button) => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    openProjectModal(button.closest('.project-card'));
+                });
+            });
+
+            document.querySelectorAll('#projects .gallery-img').forEach((img) => {
+                img.addEventListener('dblclick', (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    openProjectModal(img.closest('.project-card'));
+                });
+            });
+
+            document.querySelectorAll('[data-close-modal]').forEach((item) => {
+                item.addEventListener('click', closeProjectModal);
+            });
+
+            document.querySelector('.modal-prev')?.addEventListener('click', () => setModalImage(activeModalIndex - 1));
+            document.querySelector('.modal-next')?.addEventListener('click', () => setModalImage(activeModalIndex + 1));
+
+            projectModal?.addEventListener('touchstart', (event) => {
+                if (!event.touches || event.touches.length !== 1) return;
+                modalTouchStartX = event.touches[0].clientX;
+                modalTouchStartY = event.touches[0].clientY;
+            }, { passive: true });
+
+            projectModal?.addEventListener('touchend', (event) => {
+                const touch = event.changedTouches && event.changedTouches[0];
+                if (!touch) return;
+
+                const deltaX = touch.clientX - modalTouchStartX;
+                const deltaY = touch.clientY - modalTouchStartY;
+
+                if (Math.abs(deltaX) > 46 && Math.abs(deltaX) > Math.abs(deltaY) * 1.25) {
+                    if (deltaX < 0) setModalImage(activeModalIndex + 1);
+                    else setModalImage(activeModalIndex - 1);
+                }
+            }, { passive: true });
+
+            document.addEventListener('keydown', (event) => {
+                if (!projectModal?.classList.contains('is-open')) return;
+
+                if (event.key === 'Escape') closeProjectModal();
+                if (event.key === 'ArrowRight') setModalImage(activeModalIndex + 1);
+                if (event.key === 'ArrowLeft') setModalImage(activeModalIndex - 1);
+            });
+        });
 
         // İletişim formu: sayfadan çıkmadan gönder ve kısa bildirim göster
         const contactForm = document.getElementById('contactForm');
@@ -1311,5 +1867,30 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
             window.open(whatsappUrl, '_blank', 'noopener');
         }
     </script>
+
+    <div class="project-modal" id="projectModal" aria-hidden="true">
+        <div class="project-modal-backdrop" data-close-modal></div>
+        <div class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+            <button type="button" class="project-modal-close" data-close-modal aria-label="Kapat">×</button>
+            <div class="project-modal-media">
+                <button type="button" class="modal-gallery-nav modal-prev" aria-label="Önceki görsel">‹</button>
+                <img id="projectModalImage" src="" alt="">
+                <button type="button" class="modal-gallery-nav modal-next" aria-label="Sonraki görsel">›</button>
+                <div class="modal-gallery-dots" id="projectModalDots"></div>
+            </div>
+            <div class="project-modal-content">
+                <span class="modal-kicker" id="projectModalType"></span>
+                <h3 id="projectModalTitle"></h3>
+                <span class="modal-title-tr" id="projectModalTr"></span>
+                <dl class="project-modal-list">
+                    <div><dt>Proje Türü</dt><dd id="projectModalProjectType"></dd></div>
+                    <div><dt>Hizmet</dt><dd id="projectModalService"></dd></div>
+                    <div><dt>Kapsam</dt><dd id="projectModalScope"></dd></div>
+                </dl>
+                <a id="projectModalWhatsapp" class="modal-whatsapp" href="#" target="_blank" rel="noopener">WhatsApp’tan Bu Tarz Proje İçin Teklif Al</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
