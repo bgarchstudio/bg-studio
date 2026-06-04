@@ -37,7 +37,8 @@
     <link rel="icon" type="image/png" sizes="96x96" href="https://bgstudio.com.tr/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="192x192" href="https://bgstudio.com.tr/favicon-192x192.png">
     <link rel="apple-touch-icon" sizes="180x180" href="https://bgstudio.com.tr/apple-touch-icon.png">
-    <link rel="preload" as="video" href="animasyon.mp4" type="video/mp4" fetchpriority="high">
+    <link rel="preload" as="video" href="head-city-mobile.mp4" type="video/mp4" media="(max-width: 768px)" fetchpriority="high">
+    <link rel="preload" as="video" href="head-city-desktop.mp4" type="video/mp4" media="(min-width: 769px)" fetchpriority="high">
 
     <script type="application/ld+json">
 {
@@ -1421,7 +1422,10 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     </nav>
 
     <header class="hero">
-        <video class="video-bg" autoplay loop muted playsinline webkit-playsinline preload="auto"><source src="animasyon.mp4" type="video/mp4"></video>
+        <video class="video-bg" autoplay loop muted playsinline webkit-playsinline preload="auto">
+            <source src="head-city-mobile.mp4" type="video/mp4" media="(max-width: 768px)">
+            <source src="head-city-desktop.mp4" type="video/mp4">
+        </video>
         <div class="hero-content hidden hero-brand-content">
             <h1 aria-label="BG STUDIO Mimari Tasarım ve 3D Görselleştirme"><span aria-hidden="true">BG<br>STUDIO</span><span class="sr-only">BG STUDIO Mimari Tasarım ve 3D Görselleştirme</span></h1>
             <p class="hero-brand-subtitle">MİMARİ TASARIM, UYGULAMA PROJESİ & GÖRSELLEŞTİRME</p>
