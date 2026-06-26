@@ -37,8 +37,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-    <link rel="preload" as="video" href="head-city-mobile.mp4" type="video/mp4" media="(max-width: 768px)" fetchpriority="high">
-    <link rel="preload" as="video" href="head-city-desktop.mp4" type="video/mp4" media="(min-width: 769px)" fetchpriority="high">
+    <link rel="preload" as="image" href="hero-poster.webp" type="image/webp" fetchpriority="high">
 
     <script type="application/ld+json">
 {
@@ -1393,9 +1392,9 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     }
 }
 
-/* Hero videosu hazir olana kadar poster/logo gostermeden siyah zeminde bekler. */
+/* Hero ilk boyada hafif posterle acilir; video kaynaklari sonradan baglanir. */
 .hero .video-bg{
-    opacity:0!important;
+    opacity:1!important;
     background:#000!important;
     transition:opacity .35s ease!important;
 }
@@ -1422,11 +1421,11 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     </nav>
 
     <header class="hero">
-        <video class="video-bg" autoplay loop muted playsinline webkit-playsinline preload="auto">
-            <source src="head-city-mobile.mp4" type="video/mp4" media="(max-width: 768px)">
-            <source src="head-city-desktop.mp4" type="video/mp4">
+        <video class="video-bg" loop muted playsinline webkit-playsinline preload="none" poster="hero-poster.webp" aria-hidden="true">
+            <source data-src="head-city-mobile.mp4" type="video/mp4" media="(max-width: 768px)">
+            <source data-src="head-city-desktop.mp4" type="video/mp4">
         </video>
-        <div class="hero-content hidden hero-brand-content">
+        <div class="hero-content hero-brand-content">
             <h1 aria-label="BG STUDIO Mimari Tasarım ve 3D Görselleştirme"><span aria-hidden="true">BG<br>STUDIO</span><span class="sr-only">BG STUDIO Mimari Tasarım ve 3D Görselleştirme</span></h1>
             <p class="hero-brand-subtitle">MİMARİ TASARIM, UYGULAMA PROJESİ & GÖRSELLEŞTİRME</p>
             <p class="hero-brand-description">Kuşadası merkezli olarak Ege Bölgesi genelinde konut, villa, iç mekân ve ticari alan projeleri için; tasarım kararlarını, teknik çizimleri ve fotogerçekçi sunumları bütüncül bir mimari yaklaşımla bir araya getiriyoruz.</p>
@@ -1450,9 +1449,9 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <button type="button" class="project-dot" aria-label="3. render" aria-current="false"></button>
                 </div>
                 <div class="mobile-swipe-hint">Kaydır</div>
-                <img src="coastal-residence-01.webp" width="1122" height="1402" alt="Deniz manzaralı lüks villa dış cephe ve havuz mimari görselleştirme" class="gallery-img img-1 is-active" decoding="async" loading="lazy" fetchpriority="low">
-                <img src="coastal-residence-02.webp" width="1122" height="1402" alt="Gün batımında sonsuz havuzlu modern sahil villası 3D render" class="gallery-img img-2" decoding="async" loading="lazy">
-                <img src="coastal-residence-03.webp" width="1122" height="1402" alt="Deniz manzaralı modern villa iç yaşam alanı render" class="gallery-img img-3" decoding="async" loading="lazy">
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="coastal-residence-01-560.webp 560w, coastal-residence-01-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="coastal-residence-01.webp" width="1122" height="1402" alt="Deniz manzaralı lüks villa dış cephe ve havuz mimari görselleştirme" class="gallery-img img-1 is-active" decoding="async" loading="lazy" fetchpriority="low"></picture>
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="coastal-residence-02-560.webp 560w, coastal-residence-02-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="coastal-residence-02.webp" width="1122" height="1402" alt="Gün batımında sonsuz havuzlu modern sahil villası 3D render" class="gallery-img img-2" decoding="async" loading="lazy"></picture>
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="coastal-residence-03-560.webp 560w, coastal-residence-03-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="coastal-residence-03.webp" width="1122" height="1402" alt="Deniz manzaralı modern villa iç yaşam alanı render" class="gallery-img img-3" decoding="async" loading="lazy"></picture>
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">01 — LÜKS VİLLA / SAHİL KONUTU</span>
                     <h3>COASTAL RESIDENCE</h3>
@@ -1472,9 +1471,9 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <button type="button" class="project-dot" aria-label="3. render" aria-current="false"></button>
                 </div>
                 <div class="mobile-swipe-hint">Kaydır</div>
-                <img src="marina-interior-01.webp" width="1122" height="1402" alt="Marina manzaralı lüks konut iç mekân yaşam alanı render" class="gallery-img img-1 is-active" decoding="async" loading="lazy">
-                <img src="marina-interior-02.webp" width="1122" height="1402" alt="Marina manzaralı mutfak ve yemek alanı iç mekân tasarımı" class="gallery-img img-2" decoding="async" loading="lazy">
-                <img src="marina-interior-03.webp" width="1122" height="1402" alt="Lüks yatak odası marina manzarası 3D iç mekân render" class="gallery-img img-3" decoding="async" loading="lazy">
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="marina-interior-01-560.webp 560w, marina-interior-01-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="marina-interior-01.webp" width="1122" height="1402" alt="Marina manzaralı lüks konut iç mekân yaşam alanı render" class="gallery-img img-1 is-active" decoding="async" loading="lazy"></picture>
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="marina-interior-02-560.webp 560w, marina-interior-02-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="marina-interior-02.webp" width="1122" height="1402" alt="Marina manzaralı mutfak ve yemek alanı iç mekân tasarımı" class="gallery-img img-2" decoding="async" loading="lazy"></picture>
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="marina-interior-03-560.webp 560w, marina-interior-03-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="marina-interior-03.webp" width="1122" height="1402" alt="Lüks yatak odası marina manzarası 3D iç mekân render" class="gallery-img img-3" decoding="async" loading="lazy"></picture>
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">02 — KONUT / İÇ MEKÂN</span>
                     <h3>MARINA INTERIOR</h3>
@@ -1494,9 +1493,9 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <button type="button" class="project-dot" aria-label="3. render" aria-current="false"></button>
                 </div>
                 <div class="mobile-swipe-hint">Kaydır</div>
-                <img src="modern-clinic-01.webp" width="1122" height="1402" alt="Modern klinik dış cephe mimari tasarım ve 3D görselleştirme" class="gallery-img img-1 is-active" decoding="async" loading="lazy">
-                <img src="modern-clinic-02.webp" width="1122" height="1402" alt="Modern klinik lobi ve karşılama alanı iç mekân render" class="gallery-img img-2" decoding="async" loading="lazy">
-                <img src="modern-clinic-03.webp" width="1122" height="1402" alt="Modern klinik koridoru ve tedavi alanı 3D render" class="gallery-img img-3" decoding="async" loading="lazy">
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="modern-clinic-01-560.webp 560w, modern-clinic-01-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="modern-clinic-01.webp" width="1122" height="1402" alt="Modern klinik dış cephe mimari tasarım ve 3D görselleştirme" class="gallery-img img-1 is-active" decoding="async" loading="lazy"></picture>
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="modern-clinic-02-560.webp 560w, modern-clinic-02-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="modern-clinic-02.webp" width="1122" height="1402" alt="Modern klinik lobi ve karşılama alanı iç mekân render" class="gallery-img img-2" decoding="async" loading="lazy"></picture>
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="modern-clinic-03-560.webp 560w, modern-clinic-03-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="modern-clinic-03.webp" width="1122" height="1402" alt="Modern klinik koridoru ve tedavi alanı 3D render" class="gallery-img img-3" decoding="async" loading="lazy"></picture>
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">03 — SAĞLIK YAPISI / KLİNİK</span>
                     <h3>MODERN CLINIC</h3>
@@ -1516,9 +1515,9 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <button type="button" class="project-dot" aria-label="3. render" aria-current="false"></button>
                 </div>
                 <div class="mobile-swipe-hint">Kaydır</div>
-                <img src="alpine-stone-house-01.webp" width="1122" height="1402" alt="Alp dağları manzaralı taş ve ahşap lüks dağ evi dış cephe render" class="gallery-img img-1 is-active" decoding="async" loading="lazy">
-                <img src="alpine-stone-house-02.webp" width="1122" height="1402" alt="Şömineli taş dağ evi iç mekân ve yüksek tavan render" class="gallery-img img-2" decoding="async" loading="lazy">
-                <img src="alpine-stone-house-03.webp" width="1122" height="1402" alt="Akşam ışığında lüks taş dağ evi dış mekân görselleştirme" class="gallery-img img-3" decoding="async" loading="lazy">
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="alpine-stone-house-01-560.webp 560w, alpine-stone-house-01-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="alpine-stone-house-01.webp" width="1122" height="1402" alt="Alp dağları manzaralı taş ve ahşap lüks dağ evi dış cephe render" class="gallery-img img-1 is-active" decoding="async" loading="lazy"></picture>
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="alpine-stone-house-02-560.webp 560w, alpine-stone-house-02-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="alpine-stone-house-02.webp" width="1122" height="1402" alt="Şömineli taş dağ evi iç mekân ve yüksek tavan render" class="gallery-img img-2" decoding="async" loading="lazy"></picture>
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="alpine-stone-house-03-560.webp 560w, alpine-stone-house-03-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="alpine-stone-house-03.webp" width="1122" height="1402" alt="Akşam ışığında lüks taş dağ evi dış mekân görselleştirme" class="gallery-img img-3" decoding="async" loading="lazy"></picture>
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">04 — DAĞ EVİ / KONUT</span>
                     <h3>ALPINE STONE HOUSE</h3>
@@ -1538,9 +1537,9 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <button type="button" class="project-dot" aria-label="3. render" aria-current="false"></button>
                 </div>
                 <div class="mobile-swipe-hint">Kaydır</div>
-                <img src="marina-bistro-01.webp" width="1122" height="1402" alt="Marina manzaralı bistro restoran dış cephe ve teras render" class="gallery-img img-1 is-active" decoding="async" loading="lazy">
-                <img src="marina-bistro-02.webp" width="1122" height="1402" alt="Liman manzaralı sıcak atmosferli restoran iç mekân tasarımı" class="gallery-img img-2" decoding="async" loading="lazy">
-                <img src="marina-bistro-03.webp" width="1122" height="1402" alt="Marina bistro teras ve waterfront dining 3D görselleştirme" class="gallery-img img-3" decoding="async" loading="lazy">
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="marina-bistro-01-560.webp 560w, marina-bistro-01-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="marina-bistro-01.webp" width="1122" height="1402" alt="Marina manzaralı bistro restoran dış cephe ve teras render" class="gallery-img img-1 is-active" decoding="async" loading="lazy"></picture>
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="marina-bistro-02-560.webp 560w, marina-bistro-02-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="marina-bistro-02.webp" width="1122" height="1402" alt="Liman manzaralı sıcak atmosferli restoran iç mekân tasarımı" class="gallery-img img-2" decoding="async" loading="lazy"></picture>
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="marina-bistro-03-560.webp 560w, marina-bistro-03-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="marina-bistro-03.webp" width="1122" height="1402" alt="Marina bistro teras ve waterfront dining 3D görselleştirme" class="gallery-img img-3" decoding="async" loading="lazy"></picture>
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">05 — TİCARİ MEKÂN / RESTORAN</span>
                     <h3>MARINA BISTRO</h3>
@@ -1560,9 +1559,9 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <button type="button" class="project-dot" aria-label="3. render" aria-current="false"></button>
                 </div>
                 <div class="mobile-swipe-hint">Kaydır</div>
-                <img src="stone-courtyard-house-01.webp" width="1122" height="1402" alt="Akdeniz taş villa giriş cephesi ve avlulu konut mimari render" class="gallery-img img-1 is-active" decoding="async" loading="lazy">
-                <img src="stone-courtyard-house-02.webp" width="1122" height="1402" alt="Taş avlulu villa iç yaşam alanı ve havuz manzarası render" class="gallery-img img-2" decoding="async" loading="lazy">
-                <img src="stone-courtyard-house-03.webp" width="1122" height="1402" alt="Gün batımında Akdeniz taş villa avlu ve havuz görselleştirme" class="gallery-img img-3" decoding="async" loading="lazy">
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="stone-courtyard-house-01-560.webp 560w, stone-courtyard-house-01-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="stone-courtyard-house-01.webp" width="1122" height="1402" alt="Akdeniz taş villa giriş cephesi ve avlulu konut mimari render" class="gallery-img img-1 is-active" decoding="async" loading="lazy"></picture>
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="stone-courtyard-house-02-560.webp 560w, stone-courtyard-house-02-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="stone-courtyard-house-02.webp" width="1122" height="1402" alt="Taş avlulu villa iç yaşam alanı ve havuz manzarası render" class="gallery-img img-2" decoding="async" loading="lazy"></picture>
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="stone-courtyard-house-03-560.webp 560w, stone-courtyard-house-03-736.webp 736w" sizes="(max-width: 420px) calc(100vw - 32px), calc(100vw - 36px)"><img src="stone-courtyard-house-03.webp" width="1122" height="1402" alt="Gün batımında Akdeniz taş villa avlu ve havuz görselleştirme" class="gallery-img img-3" decoding="async" loading="lazy"></picture>
                 <div class="card-overlay">
                     <span style="color:#aaa; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">06 — AKDENİZ KONUTU / AVLULU VİLLA</span>
                     <h3>STONE COURTYARD HOUSE</h3>
@@ -1735,7 +1734,7 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     <div style="margin-top: 30px; display: flex; gap: 20px;"> 
                     </div>
                 </div>
-                <img src="tiger.webp" alt="BG Studio mimarlık ve 3D render stüdyosu marka görseli" class="footer-tiger-img" width="2048" height="1081" loading="lazy" decoding="async" fetchpriority="low">
+                <picture><source media="(max-width: 768px)" type="image/webp" srcset="tiger-736.webp"><img src="tiger-1200.webp" alt="BG Studio mimarlık ve 3D render stüdyosu marka görseli" class="footer-tiger-img" width="1200" height="634" loading="lazy" decoding="async" fetchpriority="low"></picture>
             </div>
             
             <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
@@ -1794,7 +1793,7 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
         <div class="whatsapp-chat-box" id="whatsappChatBox">
             <div class="whatsapp-chat-header">
                 <div class="whatsapp-brand-head">
-                    <img src="logo.webp" alt="BG Studio logo" class="whatsapp-brand-logo" width="44" height="44">
+                    <img src="logo-96.webp" alt="BG Studio logo" class="whatsapp-brand-logo" width="44" height="44">
                     <div>
                         <strong>BG Studio</strong>
                     </div>
@@ -1876,16 +1875,29 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
             });
         }
 
-        // Hero: ilk ekranda sadece gerekli işlem yapılır, video başa sarılmaz.
+        // Hero videosu ilk boya/LCP sonrasına bırakılır; kaynaklar gerektiğinde bağlanır.
         const heroContent = document.querySelector('.hero-content');
         const heroVideo = document.querySelector('.video-bg');
         const heroEl = document.querySelector('.hero');
         const markHeroVideoReady = () => {
             if (heroVideo) heroVideo.classList.add('is-ready');
         };
+        let heroVideoLoadStarted = false;
+        const loadHeroVideoSources = () => {
+            if (!heroVideo || heroVideoLoadStarted) return;
+            heroVideoLoadStarted = true;
+
+            heroVideo.querySelectorAll('source[data-src]').forEach((source) => {
+                source.src = source.dataset.src;
+                source.removeAttribute('data-src');
+            });
+
+            heroVideo.load();
+        };
         const playHeroVideoSafely = () => {
             if (!heroVideo || document.hidden) return;
 
+            loadHeroVideoSources();
             heroVideo.muted = true;
             heroVideo.defaultMuted = true;
             heroVideo.autoplay = true;
@@ -1901,15 +1913,24 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                 markHeroVideoReady();
             }
         };
+        let heroVideoTimer = 0;
+        const scheduleHeroVideo = () => {
+            if (!heroVideo || heroVideoLoadStarted || heroVideoTimer) return;
+            heroVideoTimer = window.setTimeout(() => {
+                heroVideoTimer = 0;
+                playHeroVideoSafely();
+            }, 1400);
+        };
 
         if (heroVideo) {
-            playHeroVideoSafely();
             heroVideo.addEventListener('playing', markHeroVideoReady, { once: true });
             heroVideo.addEventListener('loadeddata', () => {
                 if (!heroVideo.paused) markHeroVideoReady();
             }, { once: true });
             heroVideo.addEventListener('canplay', playHeroVideoSafely, { once: true });
-            window.addEventListener('pageshow', playHeroVideoSafely, { passive: true });
+            if (document.readyState === 'complete') scheduleHeroVideo();
+            else window.addEventListener('load', scheduleHeroVideo, { once: true, passive: true });
+            window.addEventListener('pageshow', scheduleHeroVideo, { passive: true });
             window.addEventListener('touchstart', playHeroVideoSafely, { once: true, passive: true });
             window.addEventListener('pointerdown', playHeroVideoSafely, { once: true, passive: true });
             document.addEventListener('visibilitychange', playHeroVideoSafely, { passive: true });
@@ -1953,7 +1974,6 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
                     window.requestAnimationFrame(() => {
                         if (entry.isIntersecting) {
                             heroContent.classList.add('show');
-                            playHeroVideoSafely();
                         } else {
                             heroContent.classList.remove('show');
                         }
