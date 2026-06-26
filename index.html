@@ -37,7 +37,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-    <link rel="preload" as="image" href="hero-poster.webp" type="image/webp" fetchpriority="high">
+    <link rel="preload" as="image" href="hero-poster-mobile.webp" type="image/webp" media="(max-width: 768px)" fetchpriority="high">
+    <link rel="preload" as="image" href="hero-poster-desktop.webp" type="image/webp" media="(min-width: 769px)" fetchpriority="high">
 
     <script type="application/ld+json">
 {
@@ -1392,15 +1393,35 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     }
 }
 
-/* Hero ilk boyada hafif posterle acilir; video kaynaklari sonradan baglanir. */
-.hero .video-bg{
-    opacity:1!important;
-    background:#000!important;
-    transition:opacity .35s ease!important;
+/* Hero ilk boyada videonun ilk karesiyle acilir; video hazir olunca yumusakca hareketlenir. */
+.hero-poster{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    opacity:1;
+    pointer-events:none;
+    transition:opacity .9s cubic-bezier(.22,1,.36,1);
 }
 
-.hero .video-bg.is-ready{
+.hero-poster img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:grayscale(100%) contrast(1.1) brightness(.7);
+}
+
+.hero .video-bg{
+    opacity:0!important;
+    background:#000!important;
+    transition:opacity .9s cubic-bezier(.22,1,.36,1)!important;
+}
+
+.hero.video-ready .video-bg{
     opacity:1!important;
+}
+
+.hero.video-ready .hero-poster{
+    opacity:0;
 }
 
 </style>
@@ -1421,10 +1442,11 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     </nav>
 
     <header class="hero">
-        <video class="video-bg" loop muted playsinline webkit-playsinline preload="none" poster="hero-poster.webp" aria-hidden="true">
-            <source data-src="head-city-mobile.mp4" type="video/mp4" media="(max-width: 768px)">
-            <source data-src="head-city-desktop.mp4" type="video/mp4">
-        </video>
+        <picture class="hero-poster" aria-hidden="true">
+            <source media="(max-width: 768px)" type="image/webp" srcset="hero-poster-mobile.webp">
+            <img src="hero-poster-desktop.webp" alt="" width="1280" height="720" fetchpriority="high" decoding="async">
+        </picture>
+        <video class="video-bg" loop muted playsinline webkit-playsinline preload="none" data-mobile-src="head-city-mobile.mp4" data-desktop-src="head-city-desktop.mp4" aria-hidden="true"></video>
         <div class="hero-content hero-brand-content">
             <h1 aria-label="BG STUDIO Mimari Tasarım ve 3D Görselleştirme"><span aria-hidden="true">BG<br>STUDIO</span><span class="sr-only">BG STUDIO Mimari Tasarım ve 3D Görselleştirme</span></h1>
             <p class="hero-brand-subtitle">MİMARİ TASARIM, UYGULAMA PROJESİ & GÖRSELLEŞTİRME</p>
@@ -1881,16 +1903,15 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
         const heroEl = document.querySelector('.hero');
         const markHeroVideoReady = () => {
             if (heroVideo) heroVideo.classList.add('is-ready');
+            if (heroEl) heroEl.classList.add('video-ready');
         };
         let heroVideoLoadStarted = false;
         const loadHeroVideoSources = () => {
             if (!heroVideo || heroVideoLoadStarted) return;
             heroVideoLoadStarted = true;
 
-            heroVideo.querySelectorAll('source[data-src]').forEach((source) => {
-                source.src = source.dataset.src;
-                source.removeAttribute('data-src');
-            });
+            const isMobileHero = window.matchMedia('(max-width: 768px)').matches;
+            heroVideo.src = isMobileHero ? heroVideo.dataset.mobileSrc : heroVideo.dataset.desktopSrc;
 
             heroVideo.load();
         };
