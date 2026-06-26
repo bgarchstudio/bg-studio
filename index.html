@@ -1443,6 +1443,8 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     opacity:0;
 }
 
+.project-type-field{border:0;padding:0;margin:0}.project-type-title{display:block;position:static;margin:0 0 14px;color:rgba(255,255,255,.72);font-size:16px;pointer-events:auto}.project-type-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 18px}.project-type-option{position:relative;top:auto;left:auto;display:block;color:inherit;font-size:inherit;pointer-events:auto;transition:none}.project-type-option input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.project-type-card{min-height:68px;display:flex;align-items:center;gap:18px;padding:17px 20px;border:1px solid rgba(198,168,124,.35);border-radius:4px;background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.01));color:rgba(255,255,255,.68);font-family:'Inter',sans-serif;font-size:16px;line-height:1.2;transition:background .3s ease,border-color .3s ease,color .3s ease,box-shadow .3s ease,transform .3s ease}.project-type-card svg{width:31px;height:31px;min-width:31px;fill:none;stroke:currentColor;stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round;color:rgba(198,168,124,.72);transition:color .3s ease,transform .3s ease}.project-type-option:hover .project-type-card{border-color:rgba(198,168,124,.68);color:#fff;transform:translateY(-2px);background:linear-gradient(145deg,rgba(198,168,124,.12),rgba(255,255,255,.018))}.project-type-option input:focus-visible+.project-type-card{outline:2px solid rgba(230,190,138,.6);outline-offset:3px}.project-type-option input:checked+.project-type-card{border-color:rgba(230,190,138,.9);background:linear-gradient(135deg,rgba(198,168,124,.9),rgba(230,190,138,.6));color:#fff;box-shadow:inset 0 0 22px rgba(255,255,255,.08),0 12px 30px rgba(0,0,0,.34),0 0 22px rgba(198,168,124,.16)}.project-type-option input:checked+.project-type-card svg{color:#fff;transform:translateY(-1px)}.project-message-group{display:flex;flex-direction:column;gap:14px}.project-message-title{position:static;color:rgba(255,255,255,.72);font-size:16px;pointer-events:auto}.project-message-group textarea{min-height:150px;padding:18px;border:1px solid rgba(198,168,124,.35);border-radius:4px;background:rgba(255,255,255,.012);resize:vertical}.project-message-group textarea:focus{border-color:rgba(230,190,138,.82)}@media (max-width:768px){.project-type-grid{grid-template-columns:1fr;gap:12px}.project-type-card{min-height:62px;padding:15px 18px;font-size:15px}.project-message-group textarea{min-height:135px}}
+@media (min-width:769px){#contact{padding-bottom:86px!important}#contact .contact-left{height:100%}#contact .contact-left picture{display:block;margin-top:auto}#contact .footer-tiger-img{display:block}#contactForm button[type="submit"]{margin-top:-14px}}
 </style>
 </head>
 <body>
@@ -1794,9 +1796,57 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
         <input type="email" id="emailAdresi" name="email" placeholder="E-posta Adresiniz" autocomplete="email" required>
     </div>
 
-    <div class="form-group">
-        <label class="sr-only" for="projeMesaji">Proje Detayları</label>
-        <textarea id="projeMesaji" name="mesaj" rows="5" placeholder="Proje Detayları" required></textarea>
+    <fieldset class="project-type-field">
+        <legend class="project-type-title">Proje Türü</legend>
+        <div class="project-type-grid">
+            <label class="project-type-option">
+                <input type="radio" name="proje_turu" value="Konut / Villa" checked required>
+                <span class="project-type-card">
+                    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 23.5 24 9l17 14.5"/><path d="M12 22v17h24V22"/><path d="M20 39V27h8v12"/></svg>
+                    <span>Konut / Villa</span>
+                </span>
+            </label>
+            <label class="project-type-option">
+                <input type="radio" name="proje_turu" value="İç Mekan">
+                <span class="project-type-card">
+                    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 31h17v8H9z"/><path d="M13 31v-8c0-3 2-5 5-5h3c3 0 5 2 5 5v8"/><path d="M32 19h10"/><path d="M37 19v20"/><path d="M34 39h6"/><path d="M34 13h6l2 6h-10z"/></svg>
+                    <span>İç Mekan</span>
+                </span>
+            </label>
+            <label class="project-type-option">
+                <input type="radio" name="proje_turu" value="Ticari Mekan">
+                <span class="project-type-card">
+                    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 18h28l-2-8H12z"/><path d="M12 18v21h24V18"/><path d="M8 18h32"/><path d="M16 39V28h8v11"/><path d="M29 28h5"/><path d="M29 34h5"/><path d="M12 18c0 4 6 4 6 0"/><path d="M18 18c0 4 6 4 6 0"/><path d="M24 18c0 4 6 4 6 0"/><path d="M30 18c0 4 6 4 6 0"/></svg>
+                    <span>Ticari Mekan</span>
+                </span>
+            </label>
+            <label class="project-type-option">
+                <input type="radio" name="proje_turu" value="Klinik / Ofis">
+                <span class="project-type-card">
+                    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M13 39V13h22v26"/><path d="M9 39h30"/><path d="M20 39v-8h8v8"/><path d="M19 20h2"/><path d="M27 20h2"/><path d="M19 26h2"/><path d="M27 26h2"/><path d="M22 13v-4h4v4"/></svg>
+                    <span>Klinik / Ofis</span>
+                </span>
+            </label>
+            <label class="project-type-option">
+                <input type="radio" name="proje_turu" value="3D Render">
+                <span class="project-type-card">
+                    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 7 39 15.5v17L24 41 9 32.5v-17z"/><path d="M24 24 39 15.5"/><path d="M24 24 9 15.5"/><path d="M24 24v17"/></svg>
+                    <span>3D Render</span>
+                </span>
+            </label>
+            <label class="project-type-option">
+                <input type="radio" name="proje_turu" value="Uygulama Projesi">
+                <span class="project-type-card">
+                    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M11 11h26v26H11z"/><path d="M18 31h12"/><path d="M18 17h5"/><path d="M25 17h5"/><path d="M18 24h4"/><path d="M27 24h4"/><path d="m23 29 6-6"/><path d="m19 23 4-4"/></svg>
+                    <span>Uygulama Projesi</span>
+                </span>
+            </label>
+        </div>
+    </fieldset>
+
+    <div class="form-group project-message-group">
+        <label class="project-message-title" for="projeMesaji">Proje Detayları</label>
+        <textarea id="projeMesaji" name="mesaj" rows="5" placeholder="Projenizden kısaca bahsedin..." required></textarea>
     </div>
 
     <button type="submit">GÖNDER</button>
