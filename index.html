@@ -1487,19 +1487,18 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
 .project-type-card{position:relative;overflow:hidden;isolation:isolate}.project-type-card::before{content:'';position:absolute;left:20px;right:20px;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(198,168,124,.65),transparent);opacity:.42;transition:opacity .35s ease}.project-type-card::after{content:'';position:absolute;inset:-2px;z-index:-1;background:linear-gradient(115deg,transparent 0%,transparent 30%,rgba(198,168,124,.04) 38%,rgba(255,255,255,.13) 48%,rgba(198,168,124,.06) 57%,transparent 68%,transparent 100%);transform:translateX(-135%) skewX(-12deg);opacity:0;pointer-events:none}.project-type-option:hover .project-type-card::after,.project-type-option input:checked+.project-type-card::after{animation:bgstudioLightBeam 1.55s cubic-bezier(.22,1,.36,1) forwards}.project-type-option:hover .project-type-card::before,.project-type-option input:checked+.project-type-card::before{opacity:.78}.project-type-option:hover .project-type-card{border-color:rgba(198,168,124,.5);transform:translateY(-4px);background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.018))}.project-type-option input:checked+.project-type-card{background:linear-gradient(145deg,rgba(198,168,124,.72),rgba(230,190,138,.46));border-color:rgba(230,190,138,.86)}
 @media (min-width:769px){#contact{padding-bottom:86px!important}#contact .contact-left{justify-content:flex-start}#contact .contact-left picture{display:block;margin-top:-52px}#contact .footer-tiger-img{display:block;background:linear-gradient(115deg,transparent 0%,transparent 30%,rgba(198,168,124,.06) 38%,rgba(255,255,255,.18) 48%,rgba(198,168,124,.08) 57%,transparent 68%,transparent 100%),url("tiger-1200.webp");background-size:220% 100%,cover;background-position:-135% 0,center;background-blend-mode:screen;transition:background-position 1.55s cubic-bezier(.22,1,.36,1)}#contact .footer-tiger-img:hover{background-position:135% 0,center}#contactForm button[type="submit"]{margin-top:-14px}}
 .footer-profiles-title{
-    color:rgba(255,255,255,.48);
-    font-family:'Space Grotesk',sans-serif;
-    font-size:10px;
-    letter-spacing:2px;
-    text-align:center;
-    text-transform:uppercase;
+    display:none;
 }
 .footer-social-group{
+    order:3;
     max-width:1160px;
+    margin-top:6px;
     flex-wrap:wrap;
     column-gap:30px;
     row-gap:18px;
 }
+.footer-copyright{order:1}
+.footer-designer-line{order:2}
 .footer-social-item{
     flex:0 0 auto;
     font-size:12px;
