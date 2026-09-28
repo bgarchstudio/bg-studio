@@ -2345,6 +2345,353 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     .services-preview-link{transition:none!important}
 }
 
+
+/* ===== BG STUDIO V1.4 / PROCESS EDITORIAL ===== */
+#process.process-editorial{
+    --process-progress:0;
+    position:relative;
+    padding:132px 5% 148px!important;
+    background:#070707;
+    overflow:hidden;
+}
+#process.process-editorial::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    opacity:.28;
+    background:
+      linear-gradient(90deg,transparent calc(7% - 1px),rgba(255,255,255,.045) 7%,transparent calc(7% + 1px)),
+      linear-gradient(90deg,transparent calc(93% - 1px),rgba(255,255,255,.045) 93%,transparent calc(93% + 1px)),
+      linear-gradient(180deg,rgba(198,168,124,.025),transparent 28%,transparent 72%,rgba(198,168,124,.02));
+}
+.process-editorial-head{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:1180px;
+    margin:0 auto 78px;
+}
+.process-editorial-meta{
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    padding-bottom:16px;
+    border-bottom:1px solid rgba(255,255,255,.13);
+    color:rgba(255,255,255,.42);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:9px;
+    font-weight:650;
+    letter-spacing:2.2px;
+    text-transform:uppercase;
+}
+.process-editorial-meta span:first-child{color:#c6a87c}
+.process-editorial-title-row{
+    display:grid;
+    grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);
+    gap:72px;
+    align-items:end;
+    padding-top:34px;
+}
+.process-editorial-title{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    margin:0;
+    line-height:.82;
+    letter-spacing:-.055em;
+}
+.process-editorial-title span{
+    color:#fff;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(3.4rem,6vw,6.6rem);
+    font-weight:700;
+}
+.process-editorial-title em{
+    margin:.08em 0 0 .025em;
+    color:#d7ba91;
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(3.65rem,6.55vw,7.1rem);
+    font-weight:500;
+    font-style:italic;
+    letter-spacing:-.045em;
+    text-transform:none;
+}
+.process-editorial-intro{
+    margin:0 0 4px!important;
+    padding-left:23px;
+    border-left:1px solid rgba(198,168,124,.48);
+    color:rgba(255,255,255,.62)!important;
+    font-family:'Cormorant Garamond',serif!important;
+    font-size:clamp(1.18rem,1.65vw,1.55rem)!important;
+    font-weight:500!important;
+    line-height:1.52!important;
+}
+.process-editorial-body{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:1180px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:minmax(320px,.82fr) minmax(0,1.18fr);
+    gap:88px;
+    align-items:start;
+}
+.process-editorial-sticky{
+    position:sticky;
+    top:112px;
+    min-height:440px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+.process-stage{
+    max-width:420px;
+}
+.process-stage-index{
+    display:block;
+    margin-bottom:24px;
+    color:rgba(255,255,255,.34);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:9px;
+    font-weight:650;
+    letter-spacing:1.8px;
+}
+.process-stage-kicker{
+    display:block;
+    margin-bottom:13px;
+    color:#c6a87c;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:2.05px;
+}
+.process-stage h3{
+    margin:0;
+    color:#fff;
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(2.35rem,3.7vw,4.15rem);
+    font-weight:500;
+    line-height:.98;
+    letter-spacing:-.04em;
+    text-transform:none;
+}
+.process-stage p{
+    margin:24px 0 0;
+    color:rgba(255,255,255,.57);
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.06rem,1.35vw,1.25rem);
+    font-weight:500;
+    line-height:1.62;
+}
+.process-progress{
+    position:relative;
+    width:100%;
+    max-width:420px;
+    height:1px;
+    margin:58px 0 0;
+}
+.process-progress-track,
+.process-progress-fill{
+    position:absolute;
+    inset:0;
+    display:block;
+    height:1px;
+    transform-origin:left center;
+}
+.process-progress-track{background:rgba(255,255,255,.14)}
+.process-progress-fill{
+    background:#c6a87c;
+    transform:scaleX(var(--process-progress));
+    transition:transform .08s linear;
+}
+.process-editorial-caption{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    max-width:420px;
+    margin-top:26px;
+    color:rgba(255,255,255,.28);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:7px;
+    font-weight:650;
+    letter-spacing:1.55px;
+}
+.process-editorial-steps{
+    position:relative;
+    border-top:1px solid rgba(255,255,255,.13);
+}
+.process-editorial-steps::before{
+    content:'';
+    position:absolute;
+    left:31px;
+    top:0;
+    bottom:0;
+    width:1px;
+    background:linear-gradient(180deg,rgba(198,168,124,.18),rgba(255,255,255,.08) 48%,rgba(198,168,124,.18));
+}
+.process-step{
+    position:relative;
+    min-height:230px;
+    display:grid;
+    grid-template-columns:64px minmax(0,1fr) 22px;
+    gap:28px;
+    align-items:start;
+    padding:42px 4px 46px 0;
+    border-bottom:1px solid rgba(255,255,255,.13);
+    transition:background .45s ease,padding .45s cubic-bezier(.22,1,.36,1),border-color .35s ease;
+}
+.process-step:hover,
+.process-step.is-active{
+    padding-left:14px;
+    padding-right:12px;
+    background:linear-gradient(90deg,rgba(198,168,124,.065),transparent 72%);
+    border-bottom-color:rgba(198,168,124,.36);
+}
+.process-step-number{
+    position:relative;
+    z-index:2;
+    display:grid;
+    place-items:center;
+    width:34px;
+    height:34px;
+    margin-left:14px;
+    border:1px solid rgba(198,168,124,.34);
+    background:#070707;
+    color:rgba(198,168,124,.74);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:1px;
+    transition:border-color .35s ease,color .35s ease,background .35s ease;
+}
+.process-step.is-active .process-step-number,
+.process-step:hover .process-step-number{
+    border-color:#c6a87c;
+    background:rgba(198,168,124,.08);
+    color:#e0c49b;
+}
+.process-step-eyebrow{
+    display:block;
+    margin:2px 0 11px;
+    color:rgba(255,255,255,.28);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:7px;
+    font-weight:700;
+    letter-spacing:1.85px;
+}
+.process-step h3{
+    margin:0;
+    color:rgba(255,255,255,.74);
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.9rem,2.7vw,3rem);
+    font-weight:500;
+    line-height:1.02;
+    letter-spacing:-.03em;
+    text-transform:none;
+    transition:color .35s ease,transform .45s cubic-bezier(.22,1,.36,1);
+}
+.process-step p{
+    max-width:610px;
+    margin:16px 0 0;
+    color:rgba(255,255,255,.48);
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.04rem,1.25vw,1.17rem);
+    font-weight:500;
+    line-height:1.58;
+    transition:color .35s ease;
+}
+.process-step-mark{
+    width:18px;
+    height:18px;
+    margin-top:9px;
+    border-top:1px solid rgba(255,255,255,.25);
+    border-right:1px solid rgba(255,255,255,.25);
+    transform:rotate(45deg) translate(-5px,5px);
+    opacity:.2;
+    transition:opacity .35s ease,border-color .35s ease,transform .45s cubic-bezier(.22,1,.36,1);
+}
+.process-step.is-active h3,
+.process-step:hover h3{color:#fff;transform:translateX(3px)}
+.process-step.is-active p,
+.process-step:hover p{color:rgba(255,255,255,.63)}
+.process-step.is-active .process-step-mark,
+.process-step:hover .process-step-mark{
+    opacity:1;
+    border-color:#c6a87c;
+    transform:rotate(45deg) translate(0,0);
+}
+@media(max-width:980px){
+    .process-editorial-title-row{grid-template-columns:1fr;gap:28px}
+    .process-editorial-intro{max-width:700px}
+    .process-editorial-body{grid-template-columns:1fr;gap:44px}
+    .process-editorial-sticky{
+        position:relative;
+        top:auto;
+        min-height:0;
+        display:grid;
+        grid-template-columns:1fr;
+    }
+    .process-stage{max-width:720px}
+    .process-progress{max-width:none;margin-top:34px}
+    .process-editorial-caption{max-width:none}
+}
+@media(max-width:768px){
+    #process.process-editorial{padding:88px 20px 96px!important}
+    #process.process-editorial::before{display:none}
+    .process-editorial-head{margin-bottom:42px}
+    .process-editorial-meta{
+        gap:12px;
+        padding-bottom:13px;
+        font-size:7px;
+        letter-spacing:1.25px;
+    }
+    .process-editorial-title-row{padding-top:24px;gap:22px}
+    .process-editorial-title span{font-size:clamp(3rem,14vw,4.8rem)}
+    .process-editorial-title em{font-size:clamp(3.15rem,15vw,5rem)}
+    .process-editorial-intro{
+        margin:0!important;
+        padding-left:16px;
+        font-size:1.08rem!important;
+        line-height:1.46!important;
+    }
+    .process-editorial-body{gap:32px}
+    .process-stage h3{font-size:2.35rem}
+    .process-stage p{margin-top:17px;font-size:1.05rem}
+    .process-progress{margin-top:26px}
+    .process-editorial-caption{font-size:6.5px;letter-spacing:1.1px}
+    .process-editorial-steps::before{left:17px}
+    .process-step{
+        min-height:0;
+        grid-template-columns:36px minmax(0,1fr);
+        gap:14px;
+        padding:30px 2px 32px 0;
+    }
+    .process-step:hover,
+    .process-step.is-active{
+        padding-left:6px;
+        padding-right:4px;
+    }
+    .process-step-number{
+        width:28px;
+        height:28px;
+        margin-left:3px;
+        font-size:7px;
+    }
+    .process-step h3{font-size:1.75rem}
+    .process-step p{font-size:1.02rem}
+    .process-step-mark{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+    .process-progress-fill,
+    .process-step,
+    .process-step-number,
+    .process-step h3,
+    .process-step p,
+    .process-step-mark{transition:none!important}
+}
+
 </style>
 </head>
 <body>
@@ -2688,35 +3035,104 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
         </div>
     </section>
 
-    <section id="process">
-        <h2 class="section-title hidden">ÇALIŞMA SÜRECİ</h2>
-        <p class="process-intro hidden">
-            Her mimari proje ve 3D render çalışmasında süreci anlaşılır ve kontrollü ilerletiyoruz. Böylece tasarım kararları, görselleştirme aşamaları ve teslim süreci baştan sona net kalıyor.
-        </p>
-        <div class="process-grid">
-            <div class="process-card hidden">
-                <span class="process-number">01</span>
-                <h3>Ön Görüşme</h3>
-                <p>İhtiyaçlarınızı, proje kapsamını, beklentilerinizi ve teslim hedeflerini birlikte netleştiriyoruz.</p>
+    <section id="process" class="process-editorial">
+        <div class="process-editorial-head hidden">
+            <div class="process-editorial-meta">
+                <span>04 / PROCESS</span>
+                <span>FİKİRDEN TESLİME</span>
             </div>
-            <div class="process-card hidden">
-                <span class="process-number">02</span>
-                <h3>Konsept Tasarım</h3>
-                <p>Mekan dili, kütle yaklaşımı, malzeme kararları ve genel atmosfer için güçlü bir tasarım omurgası kuruyoruz.</p>
+
+            <div class="process-editorial-title-row">
+                <h2 class="process-editorial-title">
+                    <span>ÇALIŞMA</span>
+                    <em>Süreci</em>
+                </h2>
+
+                <p class="process-editorial-intro">
+                    Her projede tasarım kararlarını adım adım netleştiriyor; fikir, proje geliştirme,
+                    görselleştirme ve teslim aşamalarını kontrollü bir akış içinde yürütüyoruz.
+                </p>
             </div>
-            <div class="process-card hidden">
-                <span class="process-number">03</span>
-                <h3>3D Görselleştirme</h3>
-                <p>Tasarımı ışık, doku, malzeme ve kamera kararlarıyla fotogerçekçi renderlara dönüştürüyoruz.</p>
-            </div>
-            <div class="process-card hidden">
-                <span class="process-number">04</span>
-                <h3>Revize & Teslim</h3>
-                <p>Geri bildirimlere göre son düzenlemeleri yapıyor, projeyi sunuma hazır şekilde teslim ediyoruz.</p>
+        </div>
+
+        <div class="process-editorial-body">
+            <aside class="process-editorial-sticky hidden" aria-live="polite">
+                <div class="process-stage">
+                    <span class="process-stage-index" id="processStageIndex">01 / 04</span>
+                    <span class="process-stage-kicker" id="processStageKicker">ÖN GÖRÜŞME & İHTİYAÇ</span>
+                    <h3 id="processStageTitle">Projeyi doğru sorularla başlatıyoruz.</h3>
+                    <p id="processStageText">
+                        İhtiyaçları, proje kapsamını, kullanım senaryolarını ve teslim hedeflerini birlikte netleştiriyor;
+                        tasarım sürecinin temelini doğru veriler üzerine kuruyoruz.
+                    </p>
+                </div>
+
+                <div class="process-progress" aria-hidden="true">
+                    <span class="process-progress-track"></span>
+                    <span class="process-progress-fill"></span>
+                </div>
+
+                <div class="process-editorial-caption">
+                    <span>BG STUDIO ARCHITECTURE</span>
+                    <span>KUŞADASI · AYDIN</span>
+                </div>
+            </aside>
+
+            <div class="process-editorial-steps">
+                <article class="process-step is-active hidden" data-process-step="0">
+                    <span class="process-step-number">01</span>
+                    <div class="process-step-content">
+                        <span class="process-step-eyebrow">BRIEF</span>
+                        <h3>Ön Görüşme & İhtiyaç</h3>
+                        <p>
+                            İhtiyaçlarınızı, proje kapsamını, mevcut verileri, beklentileri ve teslim hedeflerini
+                            birlikte netleştiriyoruz.
+                        </p>
+                    </div>
+                    <span class="process-step-mark" aria-hidden="true"></span>
+                </article>
+
+                <article class="process-step hidden" data-process-step="1">
+                    <span class="process-step-number">02</span>
+                    <div class="process-step-content">
+                        <span class="process-step-eyebrow">CONCEPT</span>
+                        <h3>Konsept Tasarım</h3>
+                        <p>
+                            Mekân kurgusu, kütle yaklaşımı, oran, malzeme ve atmosfer kararlarıyla projeye
+                            güçlü ve tutarlı bir mimari omurga kazandırıyoruz.
+                        </p>
+                    </div>
+                    <span class="process-step-mark" aria-hidden="true"></span>
+                </article>
+
+                <article class="process-step hidden" data-process-step="2">
+                    <span class="process-step-number">03</span>
+                    <div class="process-step-content">
+                        <span class="process-step-eyebrow">DEVELOPMENT</span>
+                        <h3>Proje Geliştirme & Görselleştirme</h3>
+                        <p>
+                            Tasarım kararlarını plan, kesit, görünüş ve 3D model üzerinde geliştiriyor;
+                            ışık, doku ve malzemeyle projeyi fotogerçekçi görsellerle görünür hâle getiriyoruz.
+                        </p>
+                    </div>
+                    <span class="process-step-mark" aria-hidden="true"></span>
+                </article>
+
+                <article class="process-step hidden" data-process-step="3">
+                    <span class="process-step-number">04</span>
+                    <div class="process-step-content">
+                        <span class="process-step-eyebrow">DELIVERY</span>
+                        <h3>Uygulama Projesi & Teslim</h3>
+                        <p>
+                            Son geri bildirimleri işleyerek teknik çizim ve sunum dosyalarını tamamlıyor;
+                            projeyi anlaşılır, düzenli ve uygulanabilir bir teslim setine dönüştürüyoruz.
+                        </p>
+                    </div>
+                    <span class="process-step-mark" aria-hidden="true"></span>
+                </article>
             </div>
         </div>
     </section>
-
 
     <section id="why-bgstudio">
         <h2 class="section-title hidden">NEDEN BG STUDIO?</h2>
@@ -3604,6 +4020,103 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
         item.addEventListener('focus', () => activate(index));
         item.addEventListener('click', () => activate(index));
     });
+})();
+</script>
+
+
+<script>
+(function(){
+    const section = document.querySelector('#process.process-editorial');
+    const steps = Array.from(document.querySelectorAll('#process .process-step'));
+    if (!section || !steps.length) return;
+
+    const content = [
+        {
+            index:'01 / 04',
+            kicker:'ÖN GÖRÜŞME & İHTİYAÇ',
+            title:'Projeyi doğru sorularla başlatıyoruz.',
+            text:'İhtiyaçları, proje kapsamını, kullanım senaryolarını ve teslim hedeflerini birlikte netleştiriyor; tasarım sürecinin temelini doğru veriler üzerine kuruyoruz.'
+        },
+        {
+            index:'02 / 04',
+            kicker:'KONSEPT TASARIM',
+            title:'Mimari karakteri erken aşamada netleştiriyoruz.',
+            text:'Mekân kurgusu, kütle yaklaşımı, oran, malzeme ve atmosfer kararlarını birlikte geliştirerek projenin ana tasarım dilini oluşturuyoruz.'
+        },
+        {
+            index:'03 / 04',
+            kicker:'PROJE GELİŞTİRME & GÖRSELLEŞTİRME',
+            title:'Tasarımı çizim ve görselleştirmeyle olgunlaştırıyoruz.',
+            text:'Plan, kesit, görünüş ve 3D model üzerinde tasarım kararlarını geliştiriyor; ışık, malzeme ve doku kararlarını fotogerçekçi görsellerle test ediyoruz.'
+        },
+        {
+            index:'04 / 04',
+            kicker:'UYGULAMA PROJESİ & TESLİM',
+            title:'Projeyi uygulanabilir bir teslim setine dönüştürüyoruz.',
+            text:'Son geri bildirimleri işleyerek teknik çizim, detay ve sunum dosyalarını tamamlıyor; projeyi anlaşılır, düzenli ve uygulamaya hazır biçimde teslim ediyoruz.'
+        }
+    ];
+
+    const indexEl = document.getElementById('processStageIndex');
+    const kickerEl = document.getElementById('processStageKicker');
+    const titleEl = document.getElementById('processStageTitle');
+    const textEl = document.getElementById('processStageText');
+
+    let activeIndex = 0;
+    let ticking = false;
+
+    function activate(index){
+        if (index < 0 || index >= content.length || index === activeIndex) return;
+        activeIndex = index;
+        steps.forEach((step, i) => step.classList.toggle('is-active', i === index));
+
+        const data = content[index];
+        if (indexEl) indexEl.textContent = data.index;
+        if (kickerEl) kickerEl.textContent = data.kicker;
+        if (titleEl) titleEl.textContent = data.title;
+        if (textEl) textEl.textContent = data.text;
+    }
+
+    function updateProgress(){
+        ticking = false;
+        const rect = section.getBoundingClientRect();
+        const viewport = window.innerHeight || document.documentElement.clientHeight;
+        const start = viewport * 0.72;
+        const end = Math.max(viewport * 0.28, rect.height - viewport * 0.45);
+        const travelled = start - rect.top;
+        const progress = Math.max(0, Math.min(1, travelled / Math.max(1, end)));
+        section.style.setProperty('--process-progress', progress.toFixed(4));
+    }
+
+    function requestProgress(){
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(updateProgress);
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        const visible = entries
+            .filter(entry => entry.isIntersecting)
+            .sort((a,b) => Math.abs(a.boundingClientRect.top - window.innerHeight * .43) -
+                           Math.abs(b.boundingClientRect.top - window.innerHeight * .43));
+        if (!visible.length) return;
+        const index = Number(visible[0].target.dataset.processStep || 0);
+        activate(index);
+    }, {
+        rootMargin:'-26% 0px -48% 0px',
+        threshold:[0, .15, .35, .65]
+    });
+
+    steps.forEach((step, index) => {
+        observer.observe(step);
+        step.addEventListener('mouseenter', () => activate(index));
+        step.addEventListener('focusin', () => activate(index));
+        step.addEventListener('click', () => activate(index));
+    });
+
+    window.addEventListener('scroll', requestProgress, {passive:true});
+    window.addEventListener('resize', requestProgress, {passive:true});
+    updateProgress();
 })();
 </script>
 
