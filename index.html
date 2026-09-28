@@ -2692,6 +2692,378 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     .process-step-mark{transition:none!important}
 }
 
+
+/* ===== BG STUDIO V1.5 / STUDIO EDITORIAL ===== */
+#about.studio-editorial{
+    position:relative;
+    min-height:980px;
+    padding:136px 5% 126px!important;
+    background:#050505;
+    overflow:hidden;
+    isolation:isolate;
+}
+#about .studio-editorial-video{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-4;
+    opacity:.32;
+    filter:grayscale(100%) contrast(1.15) brightness(.72);
+    transform:scale(1.035);
+}
+.studio-editorial-overlay{
+    position:absolute;
+    inset:0;
+    z-index:-3;
+    background:
+      linear-gradient(90deg,#050505 0%,rgba(5,5,5,.93) 36%,rgba(5,5,5,.58) 67%,rgba(5,5,5,.72) 100%),
+      linear-gradient(180deg,#050505 0%,rgba(5,5,5,.22) 34%,rgba(5,5,5,.42) 72%,#050505 100%);
+}
+.studio-editorial-grid{
+    position:absolute;
+    inset:0;
+    z-index:-2;
+    opacity:.22;
+    pointer-events:none;
+    background:
+      linear-gradient(90deg,transparent calc(7% - 1px),rgba(255,255,255,.06) 7%,transparent calc(7% + 1px)),
+      linear-gradient(90deg,transparent calc(50% - 1px),rgba(255,255,255,.035) 50%,transparent calc(50% + 1px)),
+      linear-gradient(90deg,transparent calc(93% - 1px),rgba(255,255,255,.06) 93%,transparent calc(93% + 1px));
+}
+.studio-editorial-inner{
+    width:100%;
+    max-width:1180px;
+    margin:0 auto;
+}
+.studio-editorial-head{margin-bottom:86px}
+.studio-editorial-meta{
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    padding-bottom:16px;
+    border-bottom:1px solid rgba(255,255,255,.14);
+    color:rgba(255,255,255,.44);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:9px;
+    font-weight:650;
+    letter-spacing:2.2px;
+    text-transform:uppercase;
+}
+.studio-editorial-meta span:first-child{color:#c6a87c}
+.studio-editorial-title-row{
+    display:grid;
+    grid-template-columns:minmax(0,1.14fr) minmax(320px,.86fr);
+    gap:72px;
+    align-items:end;
+    padding-top:34px;
+}
+.studio-editorial-title{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    margin:0;
+    line-height:.82;
+    letter-spacing:-.055em;
+}
+.studio-editorial-title span{
+    color:#fff;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(3.25rem,5.8vw,6.3rem);
+    font-weight:700;
+}
+.studio-editorial-title em{
+    margin:.09em 0 0 .02em;
+    color:#d7ba91;
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(3.55rem,6.4vw,7rem);
+    font-weight:500;
+    font-style:italic;
+    letter-spacing:-.045em;
+    text-transform:none;
+}
+.studio-editorial-lead{
+    margin:0 0 4px!important;
+    padding-left:23px;
+    border-left:1px solid rgba(198,168,124,.48);
+    color:rgba(255,255,255,.64)!important;
+    font-family:'Cormorant Garamond',serif!important;
+    font-size:clamp(1.18rem,1.65vw,1.55rem)!important;
+    font-weight:500!important;
+    line-height:1.52!important;
+}
+.studio-editorial-content{
+    display:grid;
+    grid-template-columns:minmax(0,.95fr) minmax(390px,1.05fr);
+    gap:96px;
+    align-items:start;
+}
+.studio-story-kicker{
+    display:block;
+    margin-bottom:13px;
+    color:#c6a87c;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:2.1px;
+}
+.studio-editorial-story h3{
+    margin:0 0 26px;
+    color:#fff;
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(2.4rem,3.6vw,4.1rem);
+    font-weight:500;
+    line-height:.98;
+    letter-spacing:-.035em;
+    text-transform:none;
+}
+.studio-story-main,
+.studio-story-secondary{
+    max-width:540px;
+    margin:0;
+    color:rgba(255,255,255,.68);
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.08rem,1.35vw,1.28rem);
+    font-weight:500;
+    line-height:1.64;
+}
+.studio-story-secondary{
+    margin-top:20px;
+    color:rgba(255,255,255,.49);
+}
+.studio-editorial-link{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-top:31px;
+    padding-bottom:8px;
+    border-bottom:1px solid rgba(198,168,124,.43);
+    color:rgba(255,255,255,.8);
+    text-decoration:none;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:9px;
+    font-weight:650;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    transition:gap .35s ease,color .3s ease,border-color .3s ease;
+}
+.studio-editorial-link:hover{
+    gap:15px;
+    color:#fff;
+    border-color:#c6a87c;
+}
+.studio-editorial-principles{
+    border-top:1px solid rgba(255,255,255,.14);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+}
+.studio-principle{
+    display:grid;
+    grid-template-columns:48px minmax(0,1fr);
+    gap:22px;
+    padding:27px 2px 29px;
+    border-bottom:1px solid rgba(255,255,255,.14);
+    transition:padding .42s cubic-bezier(.22,1,.36,1),background .35s ease,border-color .35s ease;
+}
+.studio-principle:hover{
+    padding-left:12px;
+    padding-right:10px;
+    background:linear-gradient(90deg,rgba(198,168,124,.065),transparent 76%);
+    border-bottom-color:rgba(198,168,124,.38);
+}
+.studio-principle-number{
+    padding-top:3px;
+    color:rgba(198,168,124,.72);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:1.4px;
+}
+.studio-principle-label{
+    display:block;
+    margin-bottom:8px;
+    color:rgba(255,255,255,.3);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:7px;
+    font-weight:700;
+    letter-spacing:1.75px;
+}
+.studio-principle h4{
+    margin:0;
+    color:rgba(255,255,255,.82);
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.45rem,2vw,2.1rem);
+    font-weight:500;
+    line-height:1.03;
+}
+.studio-principle p{
+    max-width:520px;
+    margin:10px 0 0;
+    color:rgba(255,255,255,.46);
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.02rem;
+    font-weight:500;
+    line-height:1.54;
+}
+.studio-editorial-quote{
+    position:relative;
+    width:min(890px,86%);
+    margin:112px 0 0 auto;
+    padding:32px 0 8px 68px;
+    border-top:1px solid rgba(198,168,124,.35);
+}
+.studio-quote-mark{
+    position:absolute;
+    left:0;
+    top:20px;
+    color:rgba(198,168,124,.5);
+    font-family:'Cormorant Garamond',serif;
+    font-size:5.8rem;
+    line-height:1;
+}
+.studio-editorial-quote p{
+    margin:0!important;
+    color:rgba(255,255,255,.82)!important;
+    font-family:'Cormorant Garamond',serif!important;
+    font-size:clamp(2rem,3.7vw,4rem)!important;
+    font-weight:500!important;
+    line-height:1.08!important;
+    letter-spacing:-.03em;
+}
+.studio-editorial-quote em{
+    color:#d7ba91;
+    font-style:italic;
+}
+#stats.studio-stats{
+    width:100%;
+    padding:0 5% 122px!important;
+    background:#050505;
+    display:grid!important;
+    grid-template-columns:repeat(3,1fr);
+    gap:0!important;
+}
+#stats.studio-stats::before,
+#stats.studio-stats::after{display:none!important}
+.studio-stat-item{
+    min-height:210px;
+    padding:34px 34px 30px;
+    border-top:1px solid rgba(255,255,255,.14);
+    border-right:1px solid rgba(255,255,255,.10);
+    background:transparent;
+}
+.studio-stat-item:last-child{border-right:0}
+.studio-stat-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:18px;
+}
+.studio-stat-index{
+    padding-top:9px;
+    color:rgba(198,168,124,.6);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:1.5px;
+}
+#stats .studio-stat-number{
+    color:#fff!important;
+    font-family:'Space Grotesk',sans-serif!important;
+    font-size:clamp(3.4rem,5.4vw,6rem)!important;
+    font-weight:650!important;
+    line-height:.9!important;
+    letter-spacing:-.06em;
+}
+#stats .studio-stat-number::after{
+    content:attr(data-suffix);
+    display:inline-block;
+    margin-left:.04em;
+    color:#c6a87c;
+    font-size:.45em;
+    vertical-align:top;
+    transform:translateY(.12em);
+}
+#stats .studio-stat-label{
+    margin-top:58px!important;
+    color:rgba(255,255,255,.42)!important;
+    font-family:'Space Grotesk',sans-serif!important;
+    font-size:8px!important;
+    font-weight:650!important;
+    letter-spacing:1.7px!important;
+}
+@media(max-width:980px){
+    .studio-editorial-title-row{grid-template-columns:1fr;gap:28px}
+    .studio-editorial-lead{max-width:720px}
+    .studio-editorial-content{grid-template-columns:1fr;gap:58px}
+    .studio-editorial-story{max-width:720px}
+    .studio-editorial-principles{max-width:760px}
+    .studio-editorial-quote{width:100%;margin-top:76px}
+}
+@media(max-width:768px){
+    #about.studio-editorial{
+        min-height:0;
+        padding:88px 20px 82px!important;
+    }
+    #about .studio-editorial-video{
+        opacity:.22;
+        object-position:58% center;
+    }
+    .studio-editorial-overlay{
+        background:
+          linear-gradient(180deg,#050505 0%,rgba(5,5,5,.78) 28%,rgba(5,5,5,.68) 67%,#050505 100%);
+    }
+    .studio-editorial-grid{display:none}
+    .studio-editorial-head{margin-bottom:48px}
+    .studio-editorial-meta{
+        gap:12px;
+        padding-bottom:13px;
+        font-size:7px;
+        letter-spacing:1.25px;
+    }
+    .studio-editorial-title-row{padding-top:24px;gap:22px}
+    .studio-editorial-title span{font-size:clamp(3rem,13.5vw,4.7rem)}
+    .studio-editorial-title em{font-size:clamp(3.2rem,14.5vw,5rem)}
+    .studio-editorial-lead{
+        margin:0!important;
+        padding-left:16px;
+        font-size:1.08rem!important;
+        line-height:1.46!important;
+    }
+    .studio-editorial-content{gap:44px}
+    .studio-editorial-story h3{font-size:2.55rem;margin-bottom:20px}
+    .studio-story-main,
+    .studio-story-secondary{font-size:1.05rem}
+    .studio-principle{grid-template-columns:34px minmax(0,1fr);gap:12px;padding:23px 0 24px}
+    .studio-principle:hover{padding-left:6px;padding-right:4px}
+    .studio-principle h4{font-size:1.55rem}
+    .studio-principle p{font-size:.98rem}
+    .studio-editorial-quote{
+        width:100%;
+        margin-top:66px;
+        padding:25px 0 0 44px;
+    }
+    .studio-quote-mark{top:14px;font-size:4.3rem}
+    .studio-editorial-quote p{font-size:clamp(1.8rem,9vw,2.75rem)!important}
+    #stats.studio-stats{
+        padding:0 20px 92px!important;
+        grid-template-columns:1fr!important;
+    }
+    .studio-stat-item{
+        min-height:150px;
+        padding:26px 4px 24px;
+        border-right:0;
+        border-bottom:1px solid rgba(255,255,255,.1);
+    }
+    #stats .studio-stat-number{font-size:4.15rem!important}
+    #stats .studio-stat-label{margin-top:28px!important}
+}
+@media(prefers-reduced-motion:reduce){
+    .studio-editorial-link,
+    .studio-principle{transition:none!important}
+    #about .studio-editorial-video{transform:none!important}
+}
+
 </style>
 </head>
 <body>
@@ -3134,60 +3506,118 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
         </div>
     </section>
 
-    <section id="why-bgstudio">
-        <h2 class="section-title hidden">NEDEN BG STUDIO?</h2>
-        <p class="why-intro hidden">
-            Tasarım kararlarını yalnızca estetik üzerinden değil; sunum gücü, işlev ve uygulanabilirlik dengesiyle ele alıyoruz.
-        </p>
-        <div class="why-grid">
-            <div class="why-card hidden">
-                <span class="why-number">01</span>
-                <h3>Fotogerçekçi Sunum</h3>
-                <p>Projelerinizi müşteriye, yatırımcıya ve sosyal medyaya güçlü görsellerle anlatırız.</p>
+    <section id="about" class="studio-editorial">
+        <video class="vision-video studio-editorial-video" loop muted playsinline preload="none" aria-hidden="true">
+            <source data-src="vizyon.mp4" type="video/mp4">
+        </video>
+        <div class="studio-editorial-overlay" aria-hidden="true"></div>
+        <div class="studio-editorial-grid" aria-hidden="true"></div>
+
+        <div class="studio-editorial-inner">
+            <div class="studio-editorial-head hidden">
+                <div class="studio-editorial-meta">
+                    <span>05 / STUDIO</span>
+                    <span>KUŞADASI · AYDIN</span>
+                </div>
+
+                <div class="studio-editorial-title-row">
+                    <h2 class="studio-editorial-title">
+                        <span>BG STUDIO</span>
+                        <em>Architecture</em>
+                    </h2>
+                    <p class="studio-editorial-lead">
+                        Mekânı yalnızca biçim olarak değil; işlev, atmosfer, malzeme ve bulunduğu
+                        coğrafyayla kurduğu ilişki üzerinden ele alan bir mimarlık stüdyosu.
+                    </p>
+                </div>
             </div>
-            <div class="why-card hidden">
-                <span class="why-number">02</span>
-                <h3>Tasarım Odaklı Yaklaşım</h3>
-                <p>Yalnızca render değil, mekânın karakterini güçlendiren çözümler üretiriz.</p>
+
+            <div class="studio-editorial-content">
+                <div class="studio-editorial-story hidden">
+                    <span class="studio-story-kicker">KURUCU MİMAR</span>
+                    <h3>Berkant Gökbel</h3>
+
+                    <p class="studio-story-main">
+                        BG Studio, Kuşadası merkezli olarak mimari tasarım, uygulama projesi,
+                        iç mekân kurgusu ve 3D görselleştirme süreçlerini tek bir tasarım dili
+                        içerisinde geliştirmek amacıyla kuruldu.
+                    </p>
+
+                    <p class="studio-story-secondary">
+                        Her projede estetik kararları uygulanabilirlikten ayırmadan; bulunduğu yer,
+                        kullanıcı ihtiyaçları ve uzun vadeli mekânsal değer üzerinden düşünürüz.
+                        Hedefimiz yalnızca iyi görünen değil, yaşamaya ve kullanılmaya devam ettikçe
+                        karakter kazanan mekânlar üretmek.
+                    </p>
+
+                    <a class="studio-editorial-link" href="#contact">
+                        Projenizi konuşalım <span aria-hidden="true">↗</span>
+                    </a>
+                </div>
+
+                <aside class="studio-editorial-principles hidden" aria-label="BG Studio yaklaşımı">
+                    <div class="studio-principle">
+                        <span class="studio-principle-number">01</span>
+                        <div>
+                            <span class="studio-principle-label">TASARIM</span>
+                            <h4>Karakterli ve işlevsel</h4>
+                            <p>Mekânsal kararları görsel etkiden önce kullanım, oran ve bağlam üzerinden kuruyoruz.</p>
+                        </div>
+                    </div>
+
+                    <div class="studio-principle">
+                        <span class="studio-principle-number">02</span>
+                        <div>
+                            <span class="studio-principle-label">UYGULANABİLİRLİK</span>
+                            <h4>Çizimden sahaya okunabilir</h4>
+                            <p>Tasarımı teknik kararlarla güçlendiriyor, proje ile uygulama arasındaki boşluğu azaltıyoruz.</p>
+                        </div>
+                    </div>
+
+                    <div class="studio-principle">
+                        <span class="studio-principle-number">03</span>
+                        <div>
+                            <span class="studio-principle-label">SUNUM</span>
+                            <h4>Projeyi doğru anlatan görseller</h4>
+                            <p>Render ve sunumları süs olarak değil, tasarım kararlarını görünür kılan araçlar olarak kullanıyoruz.</p>
+                        </div>
+                    </div>
+                </aside>
             </div>
-            <div class="why-card hidden">
-                <span class="why-number">03</span>
-                <h3>Net ve Kontrollü Süreç</h3>
-                <p>İlk görüşmeden teslim aşamasına kadar süreci anlaşılır ve kontrollü şekilde ilerletiriz.</p>
-            </div>
+
+            <blockquote class="studio-editorial-quote hidden">
+                <span class="studio-quote-mark" aria-hidden="true">“</span>
+                <p>
+                    Her yapı, bulunduğu coğrafyayla kurduğu ilişki üzerinden
+                    <em>kimlik kazanır.</em>
+                </p>
+            </blockquote>
         </div>
     </section>
 
-    <section id="about" style="position: relative; overflow: hidden;">
-        <video class="vision-video" loop muted playsinline preload="none" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.4; filter: grayscale(100%) contrast(1.2);">
-            <source data-src="vizyon.mp4" type="video/mp4">
-        </video>
-        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, #050505 0%, rgba(0,0,0,0.5) 50%, #050505 100%); z-index: 1;"></div>
-        <h2 class="section-title hidden" style="position: relative; z-index: 2;">VİZYON</h2>
-        <div class="about-container hidden" style="position: relative; z-index: 2;">
-            <p class="about-text">
-                "Her yapı, bulunduğu coğrafyayla kurduğu ilişki üzerinden kimlik kazanır.
-                <br><br>
-                BG Studio, <span style="color:#fff; font-weight:bold;">Mimar Berkant Gökbel</span> tarafından Kuşadası merkezli olarak kurulmuştur. Ege Bölgesi genelinde mimari tasarım, uygulama projesi, iç mekân kurgusu ve dijital görselleştirme süreçlerinde; mekânsal hafıza, işlevsellik ve estetik bütünlüğü merkeze alıyoruz. Modern ihtiyaçları güçlü bir tasarım diliyle birleştirerek yalnızca izlenen değil, <span class="highlight">içinde yaşanan ve değer üreten mekânlar</span> tasarlıyoruz."
-            </p>
+    <section id="stats" class="studio-stats hidden" aria-label="BG Studio sayılarla">
+        <div class="studio-stat-item">
+            <div class="studio-stat-top">
+                <span class="studio-stat-index">01</span>
+                <div class="stat-number studio-stat-number" data-target="4" data-suffix="+">0</div>
+            </div>
+            <div class="stat-label studio-stat-label">YIL TASARIM DENEYİMİ</div>
         </div>
-    </section>
-    
-    <section id="stats" class="hidden">
-        <div class="stat-item">
-            <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 3.5L18.5 20h-13L12 5.5z"/></svg></div>
-            <div class="stat-number" data-target="4">0</div>
-            <div class="stat-label">YIL TASARIM TUTKUSU</div>
+
+        <div class="studio-stat-item">
+            <div class="studio-stat-top">
+                <span class="studio-stat-index">02</span>
+                <div class="stat-number studio-stat-number" data-target="30" data-suffix="+">0</div>
+            </div>
+            <div class="stat-label studio-stat-label">TAMAMLANMIŞ PROJE</div>
         </div>
-        <div class="stat-item">
-            <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg></div>
-            <div class="stat-number" data-target="30">0</div>
-            <div class="stat-label">TAMAMLANMIŞ PROJE</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z"/></svg></div>
-            <div class="stat-number" data-target="100">0</div>
-            <div class="stat-label">% MÜŞTERİ MEMNUNİYETİ</div>
+
+        <div class="studio-stat-item">
+            <div class="studio-stat-top">
+                <span class="studio-stat-index">03</span>
+                <div class="stat-number studio-stat-number" data-target="100" data-suffix="%">0</div>
+            </div>
+            <div class="stat-label studio-stat-label">MÜŞTERİ MEMNUNİYETİ</div>
         </div>
     </section>
 
