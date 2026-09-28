@@ -1393,6 +1393,7 @@ textarea:focus-visible{
     </section>
 
     <section id="services" class="services-editorial">
+        <div class="services-pin-stage">
         <div class="services-editorial-head hidden">
             <div class="services-editorial-meta">
                 <span>03 / SERVICES</span>
@@ -1491,9 +1492,12 @@ textarea:focus-visible{
                 </div>
             </aside>
         </div>
+    
+        </div>
     </section>
 
     <section id="process" class="process-editorial">
+        <div class="process-pin-stage">
         <div class="process-editorial-head hidden">
             <div class="process-editorial-meta">
                 <span>04 / PROCESS</span>
@@ -1589,6 +1593,8 @@ textarea:focus-visible{
                     <span class="process-step-mark" aria-hidden="true"></span>
                 </article>
             </div>
+        </div>
+    
         </div>
     </section>
 
@@ -2704,9 +2710,11 @@ textarea:focus-visible{
 
 <script>
 (function(){
+    const section = document.querySelector('#services.services-editorial');
+    const stage = section && section.querySelector('.services-pin-stage');
     const items = Array.from(document.querySelectorAll('#services .service-editorial-item'));
     const previews = Array.from(document.querySelectorAll('#services .service-preview'));
-    if (!items.length || !previews.length) return;
+    if (!section || !stage || !items.length || !previews.length) return;
 
     const content = [
         {
@@ -2740,7 +2748,17 @@ textarea:focus-visible{
     const titleEl = document.getElementById('servicePreviewTitle');
     const textEl = document.getElementById('servicePreviewText');
 
+    let activeIndex = -1;
+    let ticking = false;
+    let pinStart = 0;
+    let pinDistance = 1;
+    let pinnedMode = false;
+
     function activate(index){
+        index = Math.max(0, Math.min(items.length - 1, index));
+        if (index === activeIndex) return;
+
+        activeIndex = index;
         const data = content[index];
         if (!data) return;
 
@@ -2760,11 +2778,60 @@ textarea:focus-visible{
         if (textEl) textEl.textContent = data.text;
     }
 
+    function measure(){
+        pinnedMode = window.matchMedia('(min-width:1024px) and (min-height:760px)').matches;
+
+        if (!pinnedMode) {
+            section.style.removeProperty('--pinned-progress');
+            return;
+        }
+
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        pinStart = section.getBoundingClientRect().top + scrollY;
+        pinDistance = Math.max(1, section.offsetHeight - window.innerHeight);
+    }
+
+    function update(){
+        ticking = false;
+        if (!pinnedMode) return;
+
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        const progress = Math.max(0, Math.min(1, (scrollY - pinStart) / pinDistance));
+        const index = Math.min(items.length - 1, Math.floor(progress * items.length));
+
+        section.style.setProperty('--pinned-progress', progress.toFixed(4));
+        activate(index);
+    }
+
+    function requestUpdate(){
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+    }
+
+    function refresh(){
+        requestAnimationFrame(() => {
+            measure();
+            update();
+        });
+    }
+
     items.forEach((item, index) => {
-        item.addEventListener('mouseenter', () => activate(index));
-        item.addEventListener('focus', () => activate(index));
         item.addEventListener('click', () => activate(index));
+        item.addEventListener('focus', () => activate(index));
     });
+
+    window.addEventListener('scroll', requestUpdate, {passive:true});
+    window.addEventListener('resize', refresh, {passive:true});
+    window.addEventListener('load', refresh, {once:true, passive:true});
+
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(refresh).catch(() => {});
+    }
+
+    activate(0);
+    measure();
+    update();
 })();
 </script>
 
@@ -2772,8 +2839,9 @@ textarea:focus-visible{
 <script>
 (function(){
     const section = document.querySelector('#process.process-editorial');
+    const stage = section && section.querySelector('.process-pin-stage');
     const steps = Array.from(document.querySelectorAll('#process .process-step'));
-    if (!section || !steps.length) return;
+    if (!section || !stage || !steps.length) return;
 
     const content = [
         {
@@ -2809,15 +2877,15 @@ textarea:focus-visible{
 
     let activeIndex = -1;
     let ticking = false;
-    let stepDocumentTops = [];
-    let viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    let pinStart = 0;
+    let pinDistance = 1;
+    let pinnedMode = false;
 
     function activate(index){
         index = Math.max(0, Math.min(steps.length - 1, index));
         if (index === activeIndex) return;
 
         activeIndex = index;
-
         steps.forEach((step, i) => {
             step.classList.toggle('is-active', i === index);
         });
@@ -2834,56 +2902,59 @@ textarea:focus-visible{
         section.style.setProperty('--process-progress', discreteProgress.toFixed(4));
     }
 
-    function measureSteps(){
-        viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-        const scrollY = window.scrollY || window.pageYOffset || 0;
+    function measure(){
+        pinnedMode = window.matchMedia('(min-width:1024px) and (min-height:760px)').matches;
 
-        stepDocumentTops = steps.map(step => {
-            return step.getBoundingClientRect().top + scrollY;
-        });
-    }
-
-    function updateFromScroll(){
-        ticking = false;
-
-        const triggerDocumentY = (window.scrollY || window.pageYOffset || 0) + viewportHeight * 0.46;
-        let nextIndex = 0;
-
-        for (let i = 0; i < stepDocumentTops.length; i++) {
-            if (stepDocumentTops[i] <= triggerDocumentY) nextIndex = i;
-            else break;
+        if (!pinnedMode) {
+            section.style.removeProperty('--pinned-progress');
+            return;
         }
 
-        activate(nextIndex);
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        pinStart = section.getBoundingClientRect().top + scrollY;
+        pinDistance = Math.max(1, section.offsetHeight - window.innerHeight);
+    }
+
+    function update(){
+        ticking = false;
+        if (!pinnedMode) return;
+
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        const progress = Math.max(0, Math.min(1, (scrollY - pinStart) / pinDistance));
+        const index = Math.min(steps.length - 1, Math.floor(progress * steps.length));
+
+        section.style.setProperty('--pinned-progress', progress.toFixed(4));
+        activate(index);
     }
 
     function requestUpdate(){
         if (ticking) return;
         ticking = true;
-        requestAnimationFrame(updateFromScroll);
+        requestAnimationFrame(update);
     }
 
-    function refreshMeasurements(){
+    function refresh(){
         requestAnimationFrame(() => {
-            measureSteps();
-            updateFromScroll();
+            measure();
+            update();
         });
-    }
-
-    window.addEventListener('scroll', requestUpdate, {passive:true});
-    window.addEventListener('resize', refreshMeasurements, {passive:true});
-    window.addEventListener('load', refreshMeasurements, {once:true, passive:true});
-
-    if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(refreshMeasurements).catch(() => {});
     }
 
     steps.forEach((step, index) => {
         step.addEventListener('click', () => activate(index));
     });
 
-    measureSteps();
-    updateFromScroll();
+    window.addEventListener('scroll', requestUpdate, {passive:true});
+    window.addEventListener('resize', refresh, {passive:true});
+    window.addEventListener('load', refresh, {once:true, passive:true});
+
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(refresh).catch(() => {});
+    }
+
+    activate(0);
+    measure();
+    update();
 })();
 </script>
 
@@ -5601,7 +5672,173 @@ textarea:focus-visible{
     background-repeat:no-repeat;
     background-position:left bottom;
     background-size:contain;
-}</script>
+}
+
+/* V1.10 / PINNED SCROLLYTELLING
+   Natural page scroll is preserved. On large screens the section creates
+   a scroll track while the visible composition stays pinned. */
+@media (min-width:1024px) and (min-height:760px) {
+    #services.services-editorial,
+    #process.process-editorial{
+        padding:0!important;
+        overflow:visible!important;
+        height:calc(100vh + 210vh);
+        min-height:0!important;
+    }
+
+    #services .services-pin-stage,
+    #process .process-pin-stage{
+        position:sticky;
+        top:0;
+        width:100%;
+        height:100vh;
+        min-height:760px;
+        overflow:hidden;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        box-sizing:border-box;
+    }
+
+    #services .services-pin-stage{
+        padding:82px 5% 52px;
+    }
+
+    #process .process-pin-stage{
+        padding:82px 5% 46px;
+    }
+
+    /* Keep both editorial headers readable for the entire four-step sequence. */
+    #services .services-editorial-head,
+    #process .process-editorial-head{
+        flex:0 0 auto;
+        margin-bottom:34px;
+    }
+
+    #services .services-editorial-title-row,
+    #process .process-editorial-title-row{
+        padding-top:22px;
+    }
+
+    #services .services-editorial-title span,
+    #process .process-editorial-title span{
+        font-size:clamp(3rem,4.8vw,5.5rem);
+    }
+
+    #services .services-editorial-title em,
+    #process .process-editorial-title em{
+        font-size:clamp(3.2rem,5.25vw,5.9rem);
+    }
+
+    /* Services: list and visual stay in one place, scroll only changes state. */
+    #services .services-editorial-layout{
+        flex:1 1 auto;
+        min-height:0;
+        align-items:center;
+    }
+
+    #services .services-editorial-visual{
+        position:relative!important;
+        top:auto!important;
+        align-self:center;
+    }
+
+    #services .services-preview-media{
+        max-height:44vh;
+        min-height:300px;
+    }
+
+    #services .service-editorial-item{
+        min-height:82px;
+        padding-top:15px!important;
+        padding-bottom:15px!important;
+    }
+
+    /* Process: compress the four cards so every step remains visible
+       while the pinned left-hand explanation updates. */
+    #process .process-editorial-body{
+        flex:1 1 auto;
+        min-height:0;
+        align-items:center;
+    }
+
+    #process .process-editorial-sticky{
+        position:relative!important;
+        top:auto!important;
+        min-height:0!important;
+        align-self:center;
+    }
+
+    #process .process-editorial-steps{
+        align-self:center;
+    }
+
+    #process .process-step{
+        min-height:112px;
+        padding:18px 4px 20px 0;
+    }
+
+    #process .process-step h3{
+        font-size:clamp(1.55rem,2.15vw,2.35rem);
+    }
+
+    #process .process-step p{
+        margin-top:8px;
+        font-size:clamp(.91rem,1.02vw,1.04rem);
+        line-height:1.45;
+    }
+
+    #process .process-step-eyebrow{
+        margin-bottom:6px;
+    }
+
+    #process .process-stage h3{
+        font-size:clamp(2.2rem,3.2vw,3.55rem);
+    }
+
+    #process .process-stage p{
+        margin-top:17px;
+    }
+
+    /* Tiny progress rail: reinforces that wheel/trackpad scroll advances steps. */
+    #services .services-pin-stage::after,
+    #process .process-pin-stage::after{
+        content:'';
+        position:absolute;
+        right:18px;
+        top:50%;
+        width:2px;
+        height:92px;
+        transform:translateY(-50%);
+        background:
+            linear-gradient(
+                to bottom,
+                #c6a87c 0,
+                #c6a87c calc(var(--pinned-progress, 0) * 100%),
+                rgba(255,255,255,.11) calc(var(--pinned-progress, 0) * 100%),
+                rgba(255,255,255,.11) 100%
+            );
+        pointer-events:none;
+    }
+}
+
+/* Medium screens and phones keep native vertical flow: no scroll trapping,
+   no oversized sticky composition. */
+@media (max-width:1023px), (max-height:759px) {
+    #services.services-editorial,
+    #process.process-editorial{
+        height:auto!important;
+    }
+
+    #services .services-pin-stage,
+    #process .process-pin-stage{
+        position:relative;
+        height:auto;
+        min-height:0;
+        overflow:visible;
+    }
+}
+</script>
 <script>
 (function(){
     const rawCss = document.getElementById('bg-deferred-css');
