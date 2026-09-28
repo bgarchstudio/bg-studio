@@ -1148,6 +1148,11 @@ textarea:focus-visible{
     opacity:1!important;
     transform:none!important;
 }
+
+/* V1.10.1 / NATIVE NO-FOUC */
+#whatsappChatBox[hidden]{
+    display:none!important;
+}
 </style>
 </head>
 <body>
@@ -1917,7 +1922,7 @@ textarea:focus-visible{
             </svg>
         </button>
 
-        <div class="whatsapp-chat-box" id="whatsappChatBox" aria-hidden="true">
+        <div class="whatsapp-chat-box" id="whatsappChatBox" aria-hidden="true" hidden inert>
             <div class="whatsapp-chat-header">
                 <div class="whatsapp-brand-head">
                     <img src="logo-96.webp" alt="BG Studio Architecture logosu"
@@ -1974,6 +1979,19 @@ textarea:focus-visible{
         </div>
     </div>
 
+
+
+<script>
+(function(){
+    const chatBox = document.getElementById('whatsappChatBox');
+    if (!chatBox) return;
+
+    chatBox.classList.remove('active');
+    chatBox.hidden = true;
+    chatBox.setAttribute('aria-hidden','true');
+    chatBox.setAttribute('inert','');
+})();
+</script>
 
     <footer class="site-footer footer-editorial">
         <div class="footer-editorial-inner">
@@ -2651,7 +2669,31 @@ textarea:focus-visible{
         function toggleWhatsappChat() {
             const chatBox = document.getElementById('whatsappChatBox');
             if (!chatBox) return;
-            window.requestAnimationFrame(() => chatBox.classList.toggle('active'));
+
+            const isOpen = chatBox.classList.contains('active');
+
+            if (isOpen) {
+                chatBox.classList.remove('active');
+                chatBox.setAttribute('aria-hidden', 'true');
+                chatBox.setAttribute('inert', '');
+
+                window.setTimeout(() => {
+                    if (!chatBox.classList.contains('active')) {
+                        chatBox.hidden = true;
+                    }
+                }, 380);
+                return;
+            }
+
+            chatBox.hidden = false;
+            chatBox.removeAttribute('inert');
+            chatBox.setAttribute('aria-hidden', 'false');
+
+            window.requestAnimationFrame(() => {
+                window.requestAnimationFrame(() => {
+                    chatBox.classList.add('active');
+                });
+            });
         }
 
         function sendWhatsappMessage() {
