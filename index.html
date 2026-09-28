@@ -2128,10 +2128,10 @@ textarea:focus-visible{
 
                 <div class="footer-editorial-services">
                     <span class="footer-editorial-label">HİZMETLER</span>
-                    <a href="#services">Mimari Tasarım <span>↗</span></a>
-                    <a href="#services">Uygulama Projesi <span>↗</span></a>
-                    <a href="#services">3D Görselleştirme <span>↗</span></a>
-                    <a href="#services">Mimari Sunum <span>↗</span></a>
+                    <a href="#services" data-service-index="0">Mimari Tasarım <span>↗</span></a>
+                    <a href="#services" data-service-index="1">Uygulama Projesi <span>↗</span></a>
+                    <a href="#services" data-service-index="2">3D Görselleştirme <span>↗</span></a>
+                    <a href="#services" data-service-index="3">Mimari Sunum <span>↗</span></a>
                 </div>
 
                 <div class="footer-editorial-contact">
@@ -2779,6 +2779,8 @@ textarea:focus-visible{
         }
 
         if (projectArea) {
+            // Do not let browser form-state restoration reopen the configurator at 1200 m².
+            projectArea.value = projectArea.defaultValue || '180';
             projectArea.addEventListener('input', syncAreaValue, { passive: true });
             syncAreaValue();
         }
@@ -3131,15 +3133,25 @@ textarea:focus-visible{
         });
     }
 
-    function scrollToIndex(index){
+    function scrollToIndex(index, behavior = 'smooth'){
+        index = Math.max(0, Math.min(items.length - 1, index));
+
         if (!isPinned()) {
             activate(index);
+            const target = section.getBoundingClientRect().top + window.scrollY - 76;
+            window.scrollTo({ top: Math.max(0, target), behavior });
             return;
         }
-        const targetProgress = items.length > 1 ? index / (items.length - 1) : 0;
+
+        // Land in the CENTER of the selected step's scroll bin.
+        // This avoids boundary rounding sending 02/03/04 back to 01.
+        const targetProgress = (index + 0.5) / items.length;
+        const targetY = pinStart + targetProgress * pinDistance;
+
+        activate(index);
         window.scrollTo({
-            top: pinStart + targetProgress * pinDistance,
-            behavior: 'smooth'
+            top: targetY,
+            behavior
         });
     }
 
@@ -3189,6 +3201,44 @@ textarea:focus-visible{
         });
         item.addEventListener('click', () => scrollToIndex(index));
     });
+
+    // Footer / external service links open the EXACT requested service.
+    document.querySelectorAll('[data-service-index]').forEach(link => {
+        link.addEventListener('click', event => {
+            const index = Number(link.dataset.serviceIndex);
+            if (!Number.isFinite(index)) return;
+
+            event.preventDefault();
+            refresh();
+
+            window.requestAnimationFrame(() => {
+                // Direct jump is intentional here: a long smooth trip from the footer
+                // would pass through the pinned section and repeatedly change states.
+                scrollToIndex(index, 'auto');
+
+                if (history.replaceState) {
+                    history.replaceState(null, '', '#services');
+                }
+            });
+        });
+    });
+
+    // Main navigation "HİZMETLER" always opens a clean 01 state.
+    const servicesNavLink = document.querySelector('.site-nav .nav-link[href="#services"]');
+    if (servicesNavLink) {
+        servicesNavLink.addEventListener('click', event => {
+            if (!isPinned()) return;
+            event.preventDefault();
+            refresh();
+
+            window.requestAnimationFrame(() => {
+                scrollToIndex(0, 'auto');
+                if (history.replaceState) {
+                    history.replaceState(null, '', '#services');
+                }
+            });
+        });
+    }
 
     window.addEventListener('scroll', requestUpdate, {passive:true});
     window.addEventListener('resize', refresh, {passive:true});
@@ -6994,6 +7044,196 @@ textarea:focus-visible{
     #contact.contact-editorial{
         padding-top:94px!important;
         padding-bottom:90px!important;
+    }
+}
+
+
+/* ===== V1.9.4.6 / BUGFIX PASS ===== */
+
+/* CONTACT: remove collisions and guarantee real click targets */
+#contact .contact-service-field{
+    position:relative!important;
+    display:block!important;
+    width:100%!important;
+    margin:0 0 34px!important;
+    padding:0!important;
+    border:0!important;
+    overflow:visible!important;
+}
+#contact .contact-service-field > .contact-form-step{
+    margin-bottom:18px!important;
+}
+#contact .contact-service-grid{
+    position:relative;
+    z-index:1;
+    margin:0!important;
+}
+#contact .contact-service-option{
+    position:relative!important;
+    display:block!important;
+    min-height:54px!important;
+    cursor:pointer!important;
+    isolation:isolate;
+}
+#contact .contact-service-option input{
+    position:absolute!important;
+    inset:0!important;
+    z-index:4!important;
+    width:100%!important;
+    height:100%!important;
+    margin:0!important;
+    padding:0!important;
+    opacity:0!important;
+    cursor:pointer!important;
+    pointer-events:auto!important;
+    appearance:none!important;
+    -webkit-appearance:none!important;
+}
+#contact .contact-service-option span{
+    position:relative!important;
+    z-index:1!important;
+    width:100%!important;
+    height:100%!important;
+    min-height:54px!important;
+    pointer-events:none!important;
+}
+#contact .contact-field-hint{
+    position:relative!important;
+    z-index:0!important;
+    min-height:18px;
+    margin:10px 0 0!important;
+    padding:0!important;
+    line-height:1.35!important;
+}
+#contact .contact-area-block{
+    position:relative;
+    clear:both;
+    margin:0 0 38px!important;
+    padding-top:0!important;
+}
+#contact .contact-message-block{
+    position:relative;
+    clear:both;
+    margin:0 0 42px!important;
+}
+#contact .contact-upload-block{
+    position:relative;
+    clear:both;
+    margin:0 0 34px!important;
+}
+#contact .contact-submit-row{
+    clear:both;
+}
+
+/* Upload: the actual file input covers the whole drop zone.
+   No dependency on a tiny invisible input or label forwarding. */
+#contact .contact-upload-zone{
+    position:relative!important;
+    overflow:hidden!important;
+}
+#contact .contact-upload-zone > input[type="file"]{
+    position:absolute!important;
+    inset:0!important;
+    z-index:5!important;
+    width:100%!important;
+    height:100%!important;
+    margin:0!important;
+    padding:0!important;
+    opacity:0!important;
+    cursor:pointer!important;
+    pointer-events:auto!important;
+}
+#contact .contact-upload-zone > :not(input){
+    position:relative;
+    z-index:1;
+    pointer-events:none!important;
+}
+
+/* FOOTER: back-to-top lives INSIDE footer, fully visible and perfectly centered. */
+.site-footer.footer-editorial-upgraded{
+    position:relative!important;
+    overflow:visible!important;
+    padding-top:0!important;
+}
+.footer-editorial-upgraded .footer-back-to-top{
+    top:18px!important;
+    left:50%!important;
+    width:48px!important;
+    height:48px!important;
+    min-width:48px!important;
+    min-height:48px!important;
+    transform:translateX(-50%)!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    padding:0!important;
+    margin:0!important;
+    line-height:1!important;
+    overflow:hidden!important;
+}
+.footer-editorial-upgraded .footer-back-to-top:hover{
+    transform:translateX(-50%) translateY(-2px)!important;
+}
+.footer-editorial-upgraded .footer-back-to-top > span{
+    display:block!important;
+    width:auto!important;
+    height:auto!important;
+    margin:0!important;
+    padding:0!important;
+    line-height:1!important;
+    font-size:17px!important;
+    transform:translateY(-1px);
+}
+.footer-editorial-upgraded .footer-editorial-inner{
+    padding-top:92px!important;
+}
+
+/* SERVICES pinned viewport:
+   top-align the editorial composition so tall monitors don't create a huge black cap. */
+@media (min-width:1100px) and (min-height:760px){
+    #services .services-scroll-stage{
+        justify-content:flex-start!important;
+        padding-top:92px!important;
+        padding-bottom:38px!important;
+    }
+    #services .services-editorial-head{
+        margin-bottom:24px!important;
+    }
+    #services .services-editorial-layout{
+        flex:1 1 auto!important;
+        min-height:0!important;
+        align-items:center!important;
+    }
+}
+
+/* WhatsApp header logo: fit full mark inside the circle, no black crop. */
+.whatsapp-architecture .whatsapp-brand-logo{
+    width:42px!important;
+    height:42px!important;
+    min-width:42px!important;
+    max-width:42px!important;
+    padding:0!important;
+    border:1px solid rgba(198,168,124,.38)!important;
+    border-radius:50%!important;
+    background:#fff!important;
+    object-fit:contain!important;
+    object-position:center center!important;
+    clip-path:circle(50% at 50% 50%);
+    overflow:hidden!important;
+    box-shadow:0 0 0 1px rgba(255,255,255,.07),0 0 16px rgba(198,168,124,.12)!important;
+}
+
+/* Small-screen form rhythm */
+@media(max-width:768px){
+    #contact .contact-service-field{
+        margin-bottom:28px!important;
+    }
+    #contact .contact-area-block,
+    #contact .contact-message-block{
+        margin-bottom:32px!important;
+    }
+    .footer-editorial-upgraded .footer-editorial-inner{
+        padding-top:86px!important;
     }
 }
 </script>
