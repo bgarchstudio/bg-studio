@@ -341,12 +341,13 @@
           gtag('config', 'G-QMPP71M8CN');
       }
 
-      ['scroll', 'click', 'touchstart', 'keydown'].forEach((eventName) => {
+      ['pointerdown', 'touchstart', 'keydown'].forEach((eventName) => {
           window.addEventListener(eventName, loadBgStudioAnalytics, { once: true, passive: true });
       });
 
+      // Keep Analytics outside the critical LCP window on passive visits.
       window.addEventListener('load', () => {
-          setTimeout(loadBgStudioAnalytics, 3500);
+          setTimeout(loadBgStudioAnalytics, 9000);
       });
 
     </script>
@@ -4627,6 +4628,63 @@ html.page-hidden .project-card .gallery-img{
     .skip-link{transition:none}
 }
 
+
+/* V1.9.1: LCP headline must paint immediately */
+.hero-title-main{
+    opacity:1!important;
+    transform:none!important;
+    transition:none!important;
+}
+
+
+/* V1.9.1: Lighthouse accessibility polish */
+.footer-editorial-label{
+    color:rgba(255,255,255,.62)!important;
+}
+.footer-editorial-bottom span{
+    color:rgba(255,255,255,.58)!important;
+}
+.footer-editorial-nav a i,
+.footer-editorial-social a span{
+    color:rgba(215,186,145,.86)!important;
+}
+.footer-editorial-nav a,
+.footer-editorial-social a{
+    color:rgba(255,255,255,.78)!important;
+}
+
+.whatsapp-architecture .whatsapp-chat-close{
+    width:48px!important;
+    height:48px!important;
+    min-width:48px!important;
+    min-height:48px!important;
+}
+.whatsapp-architecture .whatsapp-float{
+    min-width:58px!important;
+    min-height:58px!important;
+}
+
+@media(max-width:768px){
+    .hero-cinematic .hero-btn{
+        min-height:48px!important;
+        display:inline-flex!important;
+        align-items:center!important;
+        justify-content:center!important;
+    }
+    #projects .project-whatsapp-btn{
+        min-height:48px!important;
+        display:inline-flex!important;
+        align-items:center!important;
+    }
+    .mobile-contact-item{
+        min-height:60px!important;
+    }
+    .whatsapp-architecture .whatsapp-chat-close{
+        width:48px!important;
+        height:48px!important;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -4724,7 +4782,7 @@ html.page-hidden .project-card .gallery-img{
                     <span class="project-subtitle">Mimari Tasarım & 3D Görselleştirme</span>
                     <p class="project-desc">Denizle kurduğu güçlü ilişki, modern cephe dili ve açık yaşam kurgusuyla öne çıkan lüks villa konsepti. Geniş cam yüzeyler, gün batımı atmosferi ve havuz çevresi yaşam alanlarıyla güçlü bir satış sunumu dili oluşturur.</p>
                     <div class="project-card-actions">
-<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20COASTAL%20RESIDENCE%20/%20Deniz%20Manzaral%C4%B1%20L%C3%BCks%20Villa%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20L%C3%BCks%20villa.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20uygulama%20projesi%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener noreferrer">Bu tarz proje için teklif al</a>
+<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20COASTAL%20RESIDENCE%20/%20Deniz%20Manzaral%C4%B1%20L%C3%BCks%20Villa%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20L%C3%BCks%20villa.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20uygulama%20projesi%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener noreferrer" aria-label="Coastal Residence tarzı proje için WhatsApp üzerinden teklif al">Bu tarz proje için teklif al</a>
                     </div>
                 </div>
             </article>
@@ -4746,7 +4804,7 @@ html.page-hidden .project-card .gallery-img{
                     <span class="project-subtitle">Mekân Tasarımı & 3D Render</span>
                     <p class="project-desc">Sıcak malzeme paleti ve marina manzarasıyla zenginleşen rafine iç mekân kurgusu. Yaşam alanı, mutfak ve yatak odasında kontrollü ışık, ahşap dokular ve sakin lüks dili bir arada ele alındı.</p>
                     <div class="project-card-actions">
-<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20MARINA%20INTERIOR%20/%20Marina%20Manzaral%C4%B1%20Konut%20%C4%B0%C3%A7%20Mek%C3%A2n%C4%B1%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Konut%20i%C3%A7%20mek%C3%A2n%C4%B1.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20i%C3%A7%20mek%C3%A2n%20kurgusu%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener noreferrer">Bu tarz proje için teklif al</a>
+<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20MARINA%20INTERIOR%20/%20Marina%20Manzaral%C4%B1%20Konut%20%C4%B0%C3%A7%20Mek%C3%A2n%C4%B1%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Konut%20i%C3%A7%20mek%C3%A2n%C4%B1.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20i%C3%A7%20mek%C3%A2n%20kurgusu%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener noreferrer" aria-label="Marina Interior tarzı proje için WhatsApp üzerinden teklif al">Bu tarz proje için teklif al</a>
                     </div>
                 </div>
             </article>
@@ -4768,7 +4826,7 @@ html.page-hidden .project-card .gallery-img{
                     <span class="project-subtitle">Mimari Tasarım & İç Mekân Görselleştirme</span>
                     <p class="project-desc">Temiz çizgiler, dengeli ışık kullanımı ve güven veren mekân kurgusuyla öne çıkan modern klinik tasarımı. Dış cepheden lobiye ve tedavi alanlarına kadar bütüncül, kurumsal ve sakin bir atmosfer hedeflendi.</p>
                     <div class="project-card-actions">
-<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20MODERN%20CLINIC%20/%20Modern%20Klinik%20Tasar%C4%B1m%C4%B1%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Klinik%20/%20sa%C4%9Fl%C4%B1k%20yap%C4%B1s%C4%B1.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20uygulama%20projesi%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener noreferrer">Bu tarz proje için teklif al</a>
+<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20MODERN%20CLINIC%20/%20Modern%20Klinik%20Tasar%C4%B1m%C4%B1%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Klinik%20/%20sa%C4%9Fl%C4%B1k%20yap%C4%B1s%C4%B1.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20uygulama%20projesi%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener noreferrer" aria-label="Modern Clinic tarzı proje için WhatsApp üzerinden teklif al">Bu tarz proje için teklif al</a>
                     </div>
                 </div>
             </article>
@@ -4790,7 +4848,7 @@ html.page-hidden .project-card .gallery-img{
                     <span class="project-subtitle">Mimari Konsept & 3D Görselleştirme</span>
                     <p class="project-desc">Taş, ahşap ve manzara dengesini öne çıkaran; doğayla bütünleşen çağdaş dağ evi tasarımı. Güçlü kütle dili, doğal malzeme kullanımı ve şömine çevresinde şekillenen iç mekân atmosferiyle sıcak bir sığınak etkisi kurar.</p>
                     <div class="project-card-actions">
-<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20ALPINE%20STONE%20HOUSE%20/%20Ta%C5%9F%20ve%20Ah%C5%9Fap%20Da%C4%9F%20Evi%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Konut%20/%20da%C4%9F%20evi.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener noreferrer">Bu tarz proje için teklif al</a>
+<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20ALPINE%20STONE%20HOUSE%20/%20Ta%C5%9F%20ve%20Ah%C5%9Fap%20Da%C4%9F%20Evi%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Konut%20/%20da%C4%9F%20evi.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener noreferrer" aria-label="Alpine Stone House tarzı proje için WhatsApp üzerinden teklif al">Bu tarz proje için teklif al</a>
                     </div>
                 </div>
             </article>
@@ -4812,7 +4870,7 @@ html.page-hidden .project-card .gallery-img{
                     <span class="project-subtitle">Mimari Tasarım & Ticari Mekân Render</span>
                     <p class="project-desc">Sahil atmosferini çağdaş detaylarla birleştiren, güçlü ambiyansa sahip ticari mekân tasarımı. Teras, iç mekân ve marina cephesi; marka algısını yükselten sıcak ışık, doğal dokular ve davetkâr oturma düzenleriyle kurgulandı.</p>
                     <div class="project-card-actions">
-<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20MARINA%20BISTRO%20/%20Marina%20Restoran%20%26%20Bistro%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Ticari%20mek%C3%A2n%20/%20restoran.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20i%C3%A7%20mek%C3%A2n%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener noreferrer">Bu tarz proje için teklif al</a>
+<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20MARINA%20BISTRO%20/%20Marina%20Restoran%20%26%20Bistro%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Ticari%20mek%C3%A2n%20/%20restoran.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20i%C3%A7%20mek%C3%A2n%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener noreferrer" aria-label="Marina Bistro tarzı proje için WhatsApp üzerinden teklif al">Bu tarz proje için teklif al</a>
                     </div>
                 </div>
             </article>
@@ -4834,7 +4892,7 @@ html.page-hidden .project-card .gallery-img{
                     <span class="project-subtitle">Mimari Tasarım & Atmosfer Render</span>
                     <p class="project-desc">Taş doku, avlu yaşamı ve sıcak ışık kurgusuyla Akdeniz karakterini modern konforla birleştiren villa konsepti. İç-dış mekân sürekliliği, avlu merkezli yaşam ve doğal peyzaj dili projenin ana omurgasını oluşturur.</p>
                     <div class="project-card-actions">
-<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20STONE%20COURTYARD%20HOUSE%20/%20Avlulu%20Ta%C5%9F%20Villa%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Avlulu%20villa.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20uygulama%20projesi%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener noreferrer">Bu tarz proje için teklif al</a>
+<a class="project-whatsapp-btn" href="https://wa.me/905050364573?text=Merhaba%2C%20STONE%20COURTYARD%20HOUSE%20/%20Avlulu%20Ta%C5%9F%20Villa%20projesi%20gibi%20bir%20%C3%A7al%C4%B1%C5%9Fma%20i%C3%A7in%20teklif%20almak%20istiyorum.%20Proje%20t%C3%BCr%C3%BC%3A%20Avlulu%20villa.%20Hizmet%3A%20Mimari%20tasar%C4%B1m%2C%20uygulama%20projesi%20ve%203D%20g%C3%B6rselle%C5%9Ftirme." target="_blank" rel="noopener noreferrer" aria-label="Stone Courtyard House tarzı proje için WhatsApp üzerinden teklif al">Bu tarz proje için teklif al</a>
                     </div>
                 </div>
             </article>
@@ -4891,8 +4949,8 @@ html.page-hidden .project-card .gallery-img{
         </div>
 
         <div class="services-editorial-layout">
-            <div class="services-editorial-list" role="list" aria-label="Mimari hizmetler">
-                <button class="service-editorial-item is-active hidden" type="button" role="listitem"
+            <div class="services-editorial-list" aria-label="Mimari hizmetler">
+                <button class="service-editorial-item is-active hidden" type="button"
                         data-service="0" aria-pressed="true">
                     <span class="service-editorial-number">01</span>
                     <span class="service-editorial-name">Mimari Tasarım</span>
@@ -4900,7 +4958,7 @@ html.page-hidden .project-card .gallery-img{
                     <span class="service-editorial-arrow" aria-hidden="true">↗</span>
                 </button>
 
-                <button class="service-editorial-item hidden" type="button" role="listitem"
+                <button class="service-editorial-item hidden" type="button"
                         data-service="1" aria-pressed="false">
                     <span class="service-editorial-number">02</span>
                     <span class="service-editorial-name">Uygulama Projesi</span>
@@ -4908,7 +4966,7 @@ html.page-hidden .project-card .gallery-img{
                     <span class="service-editorial-arrow" aria-hidden="true">↗</span>
                 </button>
 
-                <button class="service-editorial-item hidden" type="button" role="listitem"
+                <button class="service-editorial-item hidden" type="button"
                         data-service="2" aria-pressed="false">
                     <span class="service-editorial-number">03</span>
                     <span class="service-editorial-name">3D Görselleştirme</span>
@@ -4916,7 +4974,7 @@ html.page-hidden .project-card .gallery-img{
                     <span class="service-editorial-arrow" aria-hidden="true">↗</span>
                 </button>
 
-                <button class="service-editorial-item hidden" type="button" role="listitem"
+                <button class="service-editorial-item hidden" type="button"
                         data-service="3" aria-pressed="false">
                     <span class="service-editorial-number">04</span>
                     <span class="service-editorial-name">Mimari Sunum</span>
@@ -6146,15 +6204,29 @@ html.page-hidden .project-card .gallery-img{
         const heroCinematic = document.querySelector('.hero-cinematic');
         const reduceHeroMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+        let heroNavThreshold = 72;
+
+        const measureHeroNavThreshold = () => {
+            if (!heroCinematic) return;
+            heroNavThreshold = Math.min(96, heroCinematic.getBoundingClientRect().height * 0.12);
+        };
+
         const syncHeroNav = () => {
             if (!siteNav || !heroCinematic) return;
-            const threshold = Math.min(96, heroCinematic.offsetHeight * 0.12);
-            siteNav.classList.toggle('hero-transparent', window.scrollY < threshold);
+            siteNav.classList.toggle('hero-transparent', window.scrollY < heroNavThreshold);
         };
 
         if (siteNav && heroCinematic) {
+            measureHeroNavThreshold();
             syncHeroNav();
+
             window.addEventListener('scroll', syncHeroNav, { passive: true });
+            window.addEventListener('resize', () => {
+                window.requestAnimationFrame(() => {
+                    measureHeroNavThreshold();
+                    syncHeroNav();
+                });
+            }, { passive: true });
         }
 
         if (heroCinematic && !reduceHeroMotion.matches && window.matchMedia('(pointer:fine)').matches) {
