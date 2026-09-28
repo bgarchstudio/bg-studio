@@ -1175,6 +1175,9 @@ textarea:focus-visible{
 @media(prefers-reduced-motion:reduce){
     .global-scroll-progress-fill{transition:none!important}
 }
+
+/* V1.9.4.3 / ONE WHEEL = ONE STEP
+   No layout changes. Wheel is intercepted only while a pinned step can advance. */
 </style>
 </head>
 <body>
@@ -2797,6 +2800,8 @@ textarea:focus-visible{
     let pinStart = 0;
     let pinDistance = 1;
     let ticking = false;
+    let wheelLocked = false;
+    let wheelUnlockTimer = 0;
 
     function isPinned(){
         return pinQuery.matches;
@@ -2890,6 +2895,43 @@ textarea:focus-visible{
         });
     }
 
+    function handlePinnedWheel(event){
+        if (!isPinned()) return;
+
+        const y = window.scrollY || window.pageYOffset || 0;
+        const pinEnd = pinStart + pinDistance;
+        const insidePinnedTrack = y >= pinStart - 2 && y <= pinEnd + 2;
+
+        if (!insidePinnedTrack || !event.deltaY) return;
+
+        const direction = event.deltaY > 0 ? 1 : -1;
+        const lastIndex = items.length - 1;
+
+        // İlk adımda yukarı ve son adımda aşağı: normal sayfa scroll'una izin ver.
+        if ((direction < 0 && activeIndex <= 0) ||
+            (direction > 0 && activeIndex >= lastIndex)) {
+            wheelLocked = false;
+            window.clearTimeout(wheelUnlockTimer);
+            return;
+        }
+
+        // Trackpad/mouse tek hareketinin art arda event üretip birkaç adım atlamasını önle.
+        event.preventDefault();
+
+        if (wheelLocked) return;
+
+        wheelLocked = true;
+        const nextIndex = Math.max(0, Math.min(lastIndex, activeIndex + direction));
+        scrollToIndex(nextIndex);
+
+        window.clearTimeout(wheelUnlockTimer);
+        wheelUnlockTimer = window.setTimeout(() => {
+            wheelLocked = false;
+        }, 360);
+    }
+
+    stage.addEventListener('wheel', handlePinnedWheel, {passive:false});
+
     items.forEach((item, index) => {
         item.addEventListener('mouseenter', () => {
             if (!isPinned()) activate(index);
@@ -2959,6 +3001,8 @@ textarea:focus-visible{
     let pinStart = 0;
     let pinDistance = 1;
     let ticking = false;
+    let wheelLocked = false;
+    let wheelUnlockTimer = 0;
 
     function isPinned(){
         return pinQuery.matches;
@@ -3048,6 +3092,43 @@ textarea:focus-visible{
             behavior: 'smooth'
         });
     }
+
+    function handlePinnedWheel(event){
+        if (!isPinned()) return;
+
+        const y = window.scrollY || window.pageYOffset || 0;
+        const pinEnd = pinStart + pinDistance;
+        const insidePinnedTrack = y >= pinStart - 2 && y <= pinEnd + 2;
+
+        if (!insidePinnedTrack || !event.deltaY) return;
+
+        const direction = event.deltaY > 0 ? 1 : -1;
+        const lastIndex = steps.length - 1;
+
+        // İlk adımda yukarı ve son adımda aşağı: normal sayfa scroll'una izin ver.
+        if ((direction < 0 && activeIndex <= 0) ||
+            (direction > 0 && activeIndex >= lastIndex)) {
+            wheelLocked = false;
+            window.clearTimeout(wheelUnlockTimer);
+            return;
+        }
+
+        // Trackpad/mouse tek hareketinin art arda event üretip birkaç adım atlamasını önle.
+        event.preventDefault();
+
+        if (wheelLocked) return;
+
+        wheelLocked = true;
+        const nextIndex = Math.max(0, Math.min(lastIndex, activeIndex + direction));
+        scrollToIndex(nextIndex);
+
+        window.clearTimeout(wheelUnlockTimer);
+        wheelUnlockTimer = window.setTimeout(() => {
+            wheelLocked = false;
+        }, 360);
+    }
+
+    stage.addEventListener('wheel', handlePinnedWheel, {passive:false});
 
     steps.forEach((step, index) => {
         step.addEventListener('click', () => scrollToIndex(index));
