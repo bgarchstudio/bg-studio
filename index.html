@@ -4531,6 +4531,47 @@ body.footer-in-view .whatsapp-widget.whatsapp-architecture{
     }
 }
 
+
+/* ===== BG STUDIO V1.8.2 / PERFORMANCE CLEANUP ===== */
+
+/* Çok sayıda katmanın sürekli compositor rezervasyonu yapmasını engeller. */
+.hidden,
+.site-nav{
+    will-change:auto!important;
+}
+
+/* Proje slideshow'ları yalnızca viewport'a yakınken çalışır. */
+.project-card.slideshow-3 .gallery-img,
+.project-card.slideshow-2 .gallery-img{
+    animation-play-state:paused!important;
+}
+.project-card.slideshow-3.is-in-view .gallery-img,
+.project-card.slideshow-2.is-in-view .gallery-img{
+    animation-play-state:running!important;
+}
+
+/* Sekme görünür değilken görsel animasyonları da durur. */
+html.page-hidden .project-card .gallery-img{
+    animation-play-state:paused!important;
+}
+
+/* GPU'ya sürekli katman zorlamadan sadece gerçek geçişleri optimize et. */
+.video-bg,
+.studio-editorial-video{
+    backface-visibility:hidden;
+}
+
+/* Düşük hareket tercihinde posterler ana deneyim olur. */
+@media(prefers-reduced-motion:reduce){
+    .hero-cinematic .hero-poster img,
+    .service-preview img{
+        transform:none!important;
+    }
+    .project-card .gallery-img{
+        animation:none!important;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -4833,28 +4874,28 @@ body.footer-in-view .whatsapp-widget.whatsapp-architecture{
                         <source media="(max-width: 768px)" type="image/webp"
                                 srcset="coastal-residence-01-560.webp 560w, coastal-residence-01-736.webp 736w">
                         <img src="coastal-residence-01.webp" width="1122" height="1402"
-                             alt="" loading="lazy" decoding="async">
+                             alt="" loading="lazy" decoding="async" fetchpriority="low">
                     </picture>
 
                     <picture class="service-preview" data-service-preview="1">
                         <source media="(max-width: 768px)" type="image/webp"
                                 srcset="stone-courtyard-house-01-560.webp 560w, stone-courtyard-house-01-736.webp 736w">
                         <img src="stone-courtyard-house-01.webp" width="1122" height="1402"
-                             alt="" loading="lazy" decoding="async">
+                             alt="" loading="lazy" decoding="async" fetchpriority="low">
                     </picture>
 
                     <picture class="service-preview" data-service-preview="2">
                         <source media="(max-width: 768px)" type="image/webp"
                                 srcset="marina-interior-01-560.webp 560w, marina-interior-01-736.webp 736w">
                         <img src="marina-interior-01.webp" width="1122" height="1402"
-                             alt="" loading="lazy" decoding="async">
+                             alt="" loading="lazy" decoding="async" fetchpriority="low">
                     </picture>
 
                     <picture class="service-preview" data-service-preview="3">
                         <source media="(max-width: 768px)" type="image/webp"
                                 srcset="marina-bistro-01-560.webp 560w, marina-bistro-01-736.webp 736w">
                         <img src="marina-bistro-01.webp" width="1122" height="1402"
-                             alt="" loading="lazy" decoding="async">
+                             alt="" loading="lazy" decoding="async" fetchpriority="low">
                     </picture>
 
                     <div class="services-preview-shade"></div>
@@ -5294,7 +5335,7 @@ body.footer-in-view .whatsapp-widget.whatsapp-architecture{
             <div class="whatsapp-chat-header">
                 <div class="whatsapp-brand-head">
                     <img src="logo-96.webp" alt="BG Studio Architecture logosu"
-                         class="whatsapp-brand-logo" width="40" height="40">
+                         class="whatsapp-brand-logo" width="40" height="40" loading="lazy" decoding="async" fetchpriority="low">
                     <div class="whatsapp-brand-copy">
                         <strong>BG STUDIO</strong>
                         <span>Architecture</span>
@@ -5427,26 +5468,42 @@ body.footer-in-view .whatsapp-widget.whatsapp-architecture{
             });
         }
 
-        // Hero videosu ilk boya/LCP sonrasına bırakılır; kaynaklar gerektiğinde bağlanır.
+        // HERO & STUDIO VIDEO / V1.8.2
+        // Ağır videolar veri tasarrufu veya azaltılmış hareket tercihinde hiç yüklenmez.
+        // Görünür alandan çıkınca oynatma durur; geri gelince devam eder.
         const heroContent = document.querySelector('.hero-content');
         const heroVideo = document.querySelector('.video-bg');
         const heroEl = document.querySelector('.hero');
+        const visionVideo = document.querySelector('#about .vision-video');
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const saveDataEnabled = Boolean(navigator.connection && navigator.connection.saveData);
+        const allowDecorativeVideo = !prefersReducedMotion && !saveDataEnabled;
+
+        let heroVideoLoadStarted = false;
+        let heroInView = true;
+        let visionVideoLoadStarted = false;
+        let visionInView = false;
+
         const markHeroVideoReady = () => {
             if (heroVideo) heroVideo.classList.add('is-ready');
             if (heroEl) heroEl.classList.add('video-ready');
         };
-        let heroVideoLoadStarted = false;
+
         const loadHeroVideoSources = () => {
-            if (!heroVideo || heroVideoLoadStarted) return;
+            if (!heroVideo || heroVideoLoadStarted || !allowDecorativeVideo) return;
             heroVideoLoadStarted = true;
 
             const isMobileHero = window.matchMedia('(max-width: 768px)').matches;
-            heroVideo.src = isMobileHero ? heroVideo.dataset.mobileSrc : heroVideo.dataset.desktopSrc;
+            heroVideo.src = isMobileHero
+                ? heroVideo.dataset.mobileSrc
+                : heroVideo.dataset.desktopSrc;
 
             heroVideo.load();
         };
+
         const playHeroVideoSafely = () => {
-            if (!heroVideo || document.hidden) return;
+            if (!heroVideo || !allowDecorativeVideo || document.hidden || !heroInView) return;
 
             loadHeroVideoSources();
             heroVideo.muted = true;
@@ -5458,66 +5515,130 @@ body.footer-in-view .whatsapp-widget.whatsapp-architecture{
             heroVideo.setAttribute('webkit-playsinline', '');
 
             const playAttempt = heroVideo.play();
-            if (playAttempt && typeof playAttempt.catch === 'function') {
+            if (playAttempt && typeof playAttempt.then === 'function') {
                 playAttempt.then(markHeroVideoReady).catch(() => {});
             } else if (!heroVideo.paused && heroVideo.readyState >= 2) {
                 markHeroVideoReady();
             }
         };
+
+        const pauseHeroVideo = () => {
+            if (heroVideo && !heroVideo.paused) heroVideo.pause();
+        };
+
         let heroVideoTimer = 0;
         const scheduleHeroVideo = () => {
-            if (!heroVideo || heroVideoLoadStarted || heroVideoTimer) return;
+            if (!heroVideo || heroVideoLoadStarted || heroVideoTimer || !allowDecorativeVideo) return;
+
             heroVideoTimer = window.setTimeout(() => {
                 heroVideoTimer = 0;
                 playHeroVideoSafely();
-            }, 1400);
+            }, 1600);
         };
 
         if (heroVideo) {
-            heroVideo.addEventListener('playing', markHeroVideoReady, { once: true });
-            heroVideo.addEventListener('loadeddata', () => {
-                if (!heroVideo.paused) markHeroVideoReady();
-            }, { once: true });
-            heroVideo.addEventListener('canplay', playHeroVideoSafely, { once: true });
-            if (document.readyState === 'complete') scheduleHeroVideo();
-            else window.addEventListener('load', scheduleHeroVideo, { once: true, passive: true });
-            window.addEventListener('pageshow', scheduleHeroVideo, { passive: true });
-            window.addEventListener('touchstart', playHeroVideoSafely, { once: true, passive: true });
-            window.addEventListener('pointerdown', playHeroVideoSafely, { once: true, passive: true });
-            document.addEventListener('visibilitychange', playHeroVideoSafely, { passive: true });
+            if (!allowDecorativeVideo) {
+                heroVideo.removeAttribute('src');
+                heroVideo.setAttribute('preload', 'none');
+            } else {
+                heroVideo.addEventListener('playing', markHeroVideoReady, { once: true });
+                heroVideo.addEventListener('loadeddata', () => {
+                    if (!heroVideo.paused) markHeroVideoReady();
+                }, { once: true });
+
+                if ('IntersectionObserver' in window && heroEl) {
+                    const heroVideoObserver = new IntersectionObserver((entries) => {
+                        const entry = entries[0];
+                        heroInView = Boolean(entry && entry.isIntersecting);
+
+                        if (heroInView) {
+                            playHeroVideoSafely();
+                        } else {
+                            pauseHeroVideo();
+                        }
+                    }, {
+                        rootMargin: '80px 0px',
+                        threshold: 0.02
+                    });
+
+                    heroVideoObserver.observe(heroEl);
+                }
+
+                if (document.readyState === 'complete') scheduleHeroVideo();
+                else window.addEventListener('load', scheduleHeroVideo, { once: true, passive: true });
+
+                window.addEventListener('pageshow', scheduleHeroVideo, { passive: true });
+                window.addEventListener('touchstart', playHeroVideoSafely, { once: true, passive: true });
+                window.addEventListener('pointerdown', playHeroVideoSafely, { once: true, passive: true });
+            }
         }
 
-        const visionVideo = document.querySelector('#about .vision-video');
         const loadVisionVideo = () => {
-            if (!visionVideo) return;
+            if (!visionVideo || visionVideoLoadStarted || !allowDecorativeVideo) return;
 
             const source = visionVideo.querySelector('source[data-src]');
             if (source) {
                 source.src = source.dataset.src;
                 source.removeAttribute('data-src');
-                visionVideo.load();
             }
 
-            if (!document.hidden) {
-                visionVideo.play().catch(() => {});
-            }
+            visionVideoLoadStarted = true;
+            visionVideo.load();
+        };
+
+        const playVisionVideoSafely = () => {
+            if (!visionVideo || !allowDecorativeVideo || !visionInView || document.hidden) return;
+
+            loadVisionVideo();
+            visionVideo.muted = true;
+            visionVideo.defaultMuted = true;
+            visionVideo.playsInline = true;
+            visionVideo.play().catch(() => {});
+        };
+
+        const pauseVisionVideo = () => {
+            if (visionVideo && !visionVideo.paused) visionVideo.pause();
         };
 
         if (visionVideo) {
-            if ('IntersectionObserver' in window) {
+            if (!allowDecorativeVideo) {
+                const source = visionVideo.querySelector('source[data-src]');
+                if (source) source.removeAttribute('data-src');
+                visionVideo.setAttribute('preload', 'none');
+            } else if ('IntersectionObserver' in window) {
                 const visionVideoObserver = new IntersectionObserver((entries) => {
-                    entries.forEach((entry) => {
-                        if (!entry.isIntersecting) return;
-                        loadVisionVideo();
-                        visionVideoObserver.unobserve(entry.target);
-                    });
-                }, { rootMargin: '650px 0px', threshold: 0.01 });
+                    const entry = entries[0];
+                    visionInView = Boolean(entry && entry.isIntersecting);
+
+                    if (visionInView) {
+                        playVisionVideoSafely();
+                    } else {
+                        pauseVisionVideo();
+                    }
+                }, {
+                    rootMargin: '260px 0px',
+                    threshold: 0.01
+                });
 
                 visionVideoObserver.observe(visionVideo);
             } else {
-                scheduleBgStudioIdle(loadVisionVideo);
+                scheduleBgStudioIdle(() => {
+                    visionInView = true;
+                    playVisionVideoSafely();
+                });
             }
         }
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                pauseHeroVideo();
+                pauseVisionVideo();
+                return;
+            }
+
+            if (heroInView) playHeroVideoSafely();
+            if (visionInView) playVisionVideoSafely();
+        }, { passive: true });
 
         if (heroEl && heroContent) {
             const heroObserver = new IntersectionObserver((entries) => {
@@ -5558,7 +5679,17 @@ body.footer-in-view .whatsapp-widget.whatsapp-architecture{
                     if (!entry.isIntersecting) return;
 
                     const counters = document.querySelectorAll('.stat-number');
-                    const animationDuration = 1800;
+
+                    if (prefersReducedMotion) {
+                        counters.forEach(counter => {
+                            const target = Number(counter.getAttribute('data-target')) || 0;
+                            counter.textContent = target;
+                        });
+                        statsObserver.unobserve(entry.target);
+                        return;
+                    }
+
+                    const animationDuration = 1500;
                     const startTime = performance.now();
 
                     counters.forEach(counter => {
@@ -6282,6 +6413,37 @@ body.footer-in-view .whatsapp-widget.whatsapp-architecture{
             window.setTimeout(requestNavRefresh, 380);
         }, {passive:true});
     });
+})();
+</script>
+
+
+<script>
+(function(){
+    const animatedCards = Array.from(document.querySelectorAll(
+        '.project-card.slideshow-3, .project-card.slideshow-2'
+    ));
+
+    if (animatedCards.length && 'IntersectionObserver' in window) {
+        const projectAnimationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                entry.target.classList.toggle('is-in-view', entry.isIntersecting);
+            });
+        }, {
+            rootMargin: '260px 0px',
+            threshold: 0.01
+        });
+
+        animatedCards.forEach(card => projectAnimationObserver.observe(card));
+    } else {
+        animatedCards.forEach(card => card.classList.add('is-in-view'));
+    }
+
+    const syncPageVisibility = () => {
+        document.documentElement.classList.toggle('page-hidden', document.hidden);
+    };
+
+    document.addEventListener('visibilitychange', syncPageVisibility, {passive:true});
+    syncPageVisibility();
 })();
 </script>
 
