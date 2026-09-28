@@ -2818,6 +2818,9 @@ textarea:focus-visible{
         if (kickerEl) kickerEl.textContent = data.kicker;
         if (titleEl) titleEl.textContent = data.title;
         if (textEl) textEl.textContent = data.text;
+
+        const railProgress = items.length > 1 ? index / (items.length - 1) : 1;
+        section.style.setProperty('--rail-progress', railProgress.toFixed(4));
     }
 
     function measure(){
@@ -2942,6 +2945,7 @@ textarea:focus-visible{
 
         const discreteProgress = steps.length > 1 ? index / (steps.length - 1) : 1;
         section.style.setProperty('--process-progress', discreteProgress.toFixed(4));
+        section.style.setProperty('--rail-progress', discreteProgress.toFixed(4));
     }
 
     function measure(){
@@ -5842,31 +5846,60 @@ textarea:focus-visible{
         margin-top:17px;
     }
 
-    /* Tiny progress rail: reinforces that wheel/trackpad scroll advances steps. */
+    /* SAFE side progress rail: purely decorative overlay; does not affect layout. */
+    #services,
+    #process{
+        --rail-progress:0;
+    }
+
     #services .services-pin-stage::after,
     #process .process-pin-stage::after{
         content:'';
         position:absolute;
-        right:18px;
+        right:28px;
         top:50%;
-        width:2px;
-        height:92px;
+        width:1px;
+        height:176px;
         transform:translateY(-50%);
-        background:
-            linear-gradient(
-                to bottom,
-                #c6a87c 0,
-                #c6a87c calc(var(--pinned-progress, 0) * 100%),
-                rgba(255,255,255,.11) calc(var(--pinned-progress, 0) * 100%),
-                rgba(255,255,255,.11) 100%
-            );
+        background:linear-gradient(
+            to bottom,
+            rgba(255,255,255,.07),
+            rgba(255,255,255,.22) 50%,
+            rgba(255,255,255,.07)
+        );
         pointer-events:none;
+        z-index:5;
+    }
+
+    #services .services-pin-stage::before,
+    #process .process-pin-stage::before{
+        content:'';
+        position:absolute;
+        right:19.5px;
+        top:calc(50% - 88px + (var(--rail-progress, 0) * 158px));
+        width:18px;
+        height:18px;
+        border-radius:50%;
+        background:#0b0908;
+        border:5px solid rgba(244,239,230,.94);
+        outline:1px solid rgba(198,168,124,.32);
+        box-shadow:0 3px 10px rgba(0,0,0,.28);
+        pointer-events:none;
+        z-index:6;
+        transition:top .44s cubic-bezier(.22,1,.36,1);
     }
 }
 
 /* Medium screens and phones keep native vertical flow: no scroll trapping,
    no oversized sticky composition. */
 @media (max-width:1023px), (max-height:759px) {
+
+    #services .services-pin-stage::before,
+    #services .services-pin-stage::after,
+    #process .process-pin-stage::before,
+    #process .process-pin-stage::after{
+        display:none!important;
+    }
     #services.services-editorial,
     #process.process-editorial{
         height:auto!important;
