@@ -2532,6 +2532,7 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     background:linear-gradient(180deg,rgba(198,168,124,.18),rgba(255,255,255,.08) 48%,rgba(198,168,124,.18));
 }
 .process-step{
+    cursor:default;
     position:relative;
     min-height:230px;
     display:grid;
@@ -2542,7 +2543,6 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     border-bottom:1px solid rgba(255,255,255,.13);
     transition:background .45s ease,padding .45s cubic-bezier(.22,1,.36,1),border-color .35s ease;
 }
-.process-step:hover,
 .process-step.is-active{
     padding-left:14px;
     padding-right:12px;
@@ -2566,8 +2566,7 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     letter-spacing:1px;
     transition:border-color .35s ease,color .35s ease,background .35s ease;
 }
-.process-step.is-active .process-step-number,
-.process-step:hover .process-step-number{
+.process-step.is-active .process-step-number{
     border-color:#c6a87c;
     background:rgba(198,168,124,.08);
     color:#e0c49b;
@@ -2612,12 +2611,9 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     opacity:.2;
     transition:opacity .35s ease,border-color .35s ease,transform .45s cubic-bezier(.22,1,.36,1);
 }
-.process-step.is-active h3,
-.process-step:hover h3{color:#fff;transform:translateX(3px)}
-.process-step.is-active p,
-.process-step:hover p{color:rgba(255,255,255,.63)}
-.process-step.is-active .process-step-mark,
-.process-step:hover .process-step-mark{
+.process-step.is-active h3{color:#fff;transform:translateX(3px)}
+.process-step.is-active p{color:rgba(255,255,255,.63)}
+.process-step.is-active .process-step-mark{
     opacity:1;
     border-color:#c6a87c;
     transform:rotate(45deg) translate(0,0);
@@ -2668,7 +2664,6 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
         gap:14px;
         padding:30px 2px 32px 0;
     }
-    .process-step:hover,
     .process-step.is-active{
         padding-left:6px;
         padding-right:4px;
@@ -4492,61 +4487,69 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     const titleEl = document.getElementById('processStageTitle');
     const textEl = document.getElementById('processStageText');
 
-    let activeIndex = 0;
+    let activeIndex = -1;
     let ticking = false;
 
     function activate(index){
-        if (index < 0 || index >= content.length || index === activeIndex) return;
+        index = Math.max(0, Math.min(steps.length - 1, index));
+        if (index === activeIndex) return;
+
         activeIndex = index;
-        steps.forEach((step, i) => step.classList.toggle('is-active', i === index));
+
+        steps.forEach((step, i) => {
+            step.classList.toggle('is-active', i === index);
+        });
 
         const data = content[index];
+        if (!data) return;
+
         if (indexEl) indexEl.textContent = data.index;
         if (kickerEl) kickerEl.textContent = data.kicker;
         if (titleEl) titleEl.textContent = data.title;
         if (textEl) textEl.textContent = data.text;
+
+        // Progress now follows the active stage, so it also moves backward
+        // cleanly when the user scrolls upward.
+        const discreteProgress = steps.length > 1 ? index / (steps.length - 1) : 1;
+        section.style.setProperty('--process-progress', discreteProgress.toFixed(4));
     }
 
-    function updateProgress(){
+    function updateFromScroll(){
         ticking = false;
-        const rect = section.getBoundingClientRect();
-        const viewport = window.innerHeight || document.documentElement.clientHeight;
-        const start = viewport * 0.72;
-        const end = Math.max(viewport * 0.28, rect.height - viewport * 0.45);
-        const travelled = start - rect.top;
-        const progress = Math.max(0, Math.min(1, travelled / Math.max(1, end)));
-        section.style.setProperty('--process-progress', progress.toFixed(4));
+
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+        // The active-stage trigger line sits around the middle of the viewport.
+        // A stage becomes active only after its top crosses this line.
+        const triggerY = viewportHeight * 0.46;
+
+        let nextIndex = 0;
+
+        for (let i = 0; i < steps.length; i++) {
+            const rect = steps[i].getBoundingClientRect();
+
+            if (rect.top <= triggerY) {
+                nextIndex = i;
+            } else {
+                break;
+            }
+        }
+
+        activate(nextIndex);
     }
 
-    function requestProgress(){
+    function requestUpdate(){
         if (ticking) return;
         ticking = true;
-        requestAnimationFrame(updateProgress);
+        requestAnimationFrame(updateFromScroll);
     }
 
-    const observer = new IntersectionObserver((entries) => {
-        const visible = entries
-            .filter(entry => entry.isIntersecting)
-            .sort((a,b) => Math.abs(a.boundingClientRect.top - window.innerHeight * .43) -
-                           Math.abs(b.boundingClientRect.top - window.innerHeight * .43));
-        if (!visible.length) return;
-        const index = Number(visible[0].target.dataset.processStep || 0);
-        activate(index);
-    }, {
-        rootMargin:'-26% 0px -48% 0px',
-        threshold:[0, .15, .35, .65]
-    });
+    window.addEventListener('scroll', requestUpdate, {passive:true});
+    window.addEventListener('resize', requestUpdate, {passive:true});
 
-    steps.forEach((step, index) => {
-        observer.observe(step);
-        step.addEventListener('mouseenter', () => activate(index));
-        step.addEventListener('focusin', () => activate(index));
-        step.addEventListener('click', () => activate(index));
-    });
-
-    window.addEventListener('scroll', requestProgress, {passive:true});
-    window.addEventListener('resize', requestProgress, {passive:true});
-    updateProgress();
+    // Scroll alone controls the active stage.
+    // Hover/focus/click intentionally do not change the current stage.
+    updateFromScroll();
 })();
 </script>
 
