@@ -3059,6 +3059,474 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     #about .studio-editorial-video{transform:none!important}
 }
 
+
+/* ===== BG STUDIO V1.6 / CONTACT EDITORIAL ===== */
+#contact.contact-editorial{
+    position:relative;
+    padding:138px 5% 132px!important;
+    background:#060606;
+    overflow:hidden;
+}
+#contact.contact-editorial::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    opacity:.25;
+    background:
+      linear-gradient(90deg,transparent calc(7% - 1px),rgba(255,255,255,.055) 7%,transparent calc(7% + 1px)),
+      linear-gradient(90deg,transparent calc(93% - 1px),rgba(255,255,255,.055) 93%,transparent calc(93% + 1px));
+}
+.contact-editorial-inner{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:1180px;
+    margin:0 auto;
+}
+.contact-editorial-head{
+    margin-bottom:82px;
+}
+.contact-editorial-meta{
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    padding-bottom:16px;
+    border-bottom:1px solid rgba(255,255,255,.14);
+    color:rgba(255,255,255,.43);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:9px;
+    font-weight:650;
+    letter-spacing:2.2px;
+    text-transform:uppercase;
+}
+.contact-editorial-meta span:first-child{color:#c6a87c}
+.contact-editorial-title-row{
+    display:grid;
+    grid-template-columns:minmax(0,1.12fr) minmax(320px,.88fr);
+    gap:72px;
+    align-items:end;
+    padding-top:34px;
+}
+.contact-editorial-title{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    margin:0;
+    line-height:.82;
+    letter-spacing:-.055em;
+}
+.contact-editorial-title span{
+    color:#fff;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(3.35rem,6vw,6.55rem);
+    font-weight:700;
+}
+.contact-editorial-title em{
+    margin:.09em 0 0 .02em;
+    color:#d7ba91;
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(3.65rem,6.55vw,7.1rem);
+    font-weight:500;
+    font-style:italic;
+    letter-spacing:-.045em;
+    text-transform:none;
+}
+.contact-editorial-intro{
+    margin:0 0 4px!important;
+    padding-left:23px;
+    border-left:1px solid rgba(198,168,124,.48);
+    color:rgba(255,255,255,.62)!important;
+    font-family:'Cormorant Garamond',serif!important;
+    font-size:clamp(1.18rem,1.65vw,1.55rem)!important;
+    font-weight:500!important;
+    line-height:1.52!important;
+}
+.contact-editorial-layout{
+    display:grid;
+    grid-template-columns:minmax(300px,.74fr) minmax(0,1.26fr);
+    gap:86px;
+    align-items:start;
+}
+.contact-editorial-info{
+    position:sticky;
+    top:112px;
+}
+.contact-info-kicker{
+    display:block;
+    margin-bottom:15px;
+    color:#c6a87c;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:2.1px;
+}
+.contact-info-top h3{
+    max-width:480px;
+    margin:0;
+    color:#fff;
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(2.3rem,3.45vw,3.95rem);
+    font-weight:500;
+    line-height:1;
+    letter-spacing:-.04em;
+    text-transform:none;
+}
+.contact-info-top p{
+    max-width:455px;
+    margin:24px 0 0;
+    color:rgba(255,255,255,.52);
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.05rem,1.28vw,1.2rem);
+    font-weight:500;
+    line-height:1.62;
+}
+.contact-info-lines{
+    margin-top:52px;
+    border-top:1px solid rgba(255,255,255,.14);
+}
+.contact-info-line{
+    display:grid;
+    grid-template-columns:82px minmax(0,1fr) 20px;
+    align-items:center;
+    gap:16px;
+    min-height:74px;
+    padding:0 3px;
+    border-bottom:1px solid rgba(255,255,255,.14);
+    color:inherit;
+    text-decoration:none;
+    transition:padding .35s cubic-bezier(.22,1,.36,1),background .3s ease,border-color .3s ease;
+}
+a.contact-info-line:hover{
+    padding-left:9px;
+    padding-right:8px;
+    background:linear-gradient(90deg,rgba(198,168,124,.06),transparent 80%);
+    border-bottom-color:rgba(198,168,124,.35);
+}
+.contact-info-line > span{
+    color:rgba(255,255,255,.3);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:7px;
+    font-weight:700;
+    letter-spacing:1.45px;
+}
+.contact-info-line strong{
+    min-width:0;
+    overflow-wrap:anywhere;
+    color:rgba(255,255,255,.78);
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.08rem;
+    font-weight:500;
+}
+.contact-info-line i{
+    color:rgba(198,168,124,.68);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:10px;
+    font-style:normal;
+}
+.contact-editorial-note{
+    display:grid;
+    grid-template-columns:34px minmax(0,1fr);
+    gap:14px;
+    margin-top:34px;
+    padding-top:20px;
+    border-top:1px solid rgba(198,168,124,.3);
+}
+.contact-editorial-note span{
+    color:#c6a87c;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:1.4px;
+}
+.contact-editorial-note p{
+    margin:0;
+    color:rgba(255,255,255,.38);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:9px;
+    line-height:1.65;
+    letter-spacing:.4px;
+}
+#contact .contact-editorial-form{
+    margin:0!important;
+    padding:0!important;
+    width:100%!important;
+    max-width:none!important;
+    display:block!important;
+    background:transparent!important;
+    border:0!important;
+    box-shadow:none!important;
+}
+.contact-form-step{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin:0 0 18px;
+    padding-bottom:12px;
+    border-bottom:1px solid rgba(255,255,255,.13);
+    color:rgba(255,255,255,.42);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:1.75px;
+    text-transform:uppercase;
+}
+.contact-form-step-index{
+    color:#c6a87c;
+}
+.contact-field-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+    margin-bottom:50px;
+}
+#contact .contact-field{
+    display:block!important;
+    margin:0!important;
+}
+#contact .contact-field label{
+    position:static!important;
+    display:block!important;
+    margin:0 0 10px!important;
+    color:rgba(255,255,255,.56)!important;
+    font-family:'Space Grotesk',sans-serif!important;
+    font-size:8px!important;
+    font-weight:650!important;
+    letter-spacing:1.25px!important;
+    text-transform:uppercase!important;
+    pointer-events:auto!important;
+}
+#contact .contact-field input,
+#contact .contact-field textarea{
+    width:100%!important;
+    margin:0!important;
+    border:0!important;
+    border-bottom:1px solid rgba(255,255,255,.22)!important;
+    border-radius:0!important;
+    outline:0!important;
+    background:transparent!important;
+    color:#fff!important;
+    box-shadow:none!important;
+    font-family:'Cormorant Garamond',serif!important;
+    font-size:clamp(1.22rem,1.55vw,1.5rem)!important;
+    font-weight:500!important;
+    line-height:1.35!important;
+    transition:border-color .3s ease,background .3s ease!important;
+}
+#contact .contact-field input{
+    height:auto!important;
+    min-height:54px!important;
+    padding:8px 0 13px!important;
+}
+#contact .contact-field textarea{
+    min-height:164px!important;
+    padding:11px 0 14px!important;
+    resize:vertical!important;
+}
+#contact .contact-field input::placeholder,
+#contact .contact-field textarea::placeholder{
+    color:rgba(255,255,255,.23)!important;
+    opacity:1;
+}
+#contact .contact-field input:focus,
+#contact .contact-field textarea:focus{
+    border-bottom-color:#c6a87c!important;
+    background:linear-gradient(180deg,transparent,rgba(198,168,124,.025))!important;
+}
+#contact .contact-project-types{
+    margin:0 0 50px!important;
+    padding:0!important;
+    border:0!important;
+}
+#contact .contact-project-types .contact-form-step{
+    width:100%;
+}
+#contact .project-type-grid{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:0!important;
+    border-top:1px solid rgba(255,255,255,.14);
+    border-left:1px solid rgba(255,255,255,.14);
+}
+#contact .project-type-option{
+    position:relative!important;
+    display:block!important;
+    margin:0!important;
+}
+#contact .project-type-option input{
+    position:absolute!important;
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+    opacity:0!important;
+    cursor:pointer!important;
+    z-index:3!important;
+}
+#contact .project-type-card{
+    position:relative!important;
+    min-height:82px!important;
+    display:grid!important;
+    grid-template-columns:38px minmax(0,1fr)!important;
+    align-items:center!important;
+    gap:13px!important;
+    margin:0!important;
+    padding:19px 20px!important;
+    border:0!important;
+    border-right:1px solid rgba(255,255,255,.14)!important;
+    border-bottom:1px solid rgba(255,255,255,.14)!important;
+    border-radius:0!important;
+    background:rgba(255,255,255,.01)!important;
+    color:rgba(255,255,255,.58)!important;
+    box-shadow:none!important;
+    font-family:'Cormorant Garamond',serif!important;
+    font-size:1.22rem!important;
+    font-weight:500!important;
+    line-height:1.1!important;
+    transform:none!important;
+    transition:background .3s ease,color .3s ease,border-color .3s ease!important;
+}
+#contact .contact-type-index{
+    color:rgba(198,168,124,.48);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:7px;
+    font-weight:700;
+    letter-spacing:1.25px;
+}
+#contact .project-type-option:hover .project-type-card{
+    background:rgba(198,168,124,.05)!important;
+    color:#fff!important;
+}
+#contact .project-type-option input:focus-visible + .project-type-card{
+    outline:1px solid #c6a87c!important;
+    outline-offset:-1px!important;
+}
+#contact .project-type-option input:checked + .project-type-card{
+    background:linear-gradient(135deg,rgba(198,168,124,.16),rgba(198,168,124,.035))!important;
+    color:#fff!important;
+    box-shadow:inset 3px 0 0 #c6a87c!important;
+}
+#contact .project-type-option input:checked + .project-type-card .contact-type-index{
+    color:#d9bc92;
+}
+.contact-message-block{margin-bottom:42px}
+.contact-submit-row{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:34px;
+    align-items:end;
+    padding-top:22px;
+    border-top:1px solid rgba(255,255,255,.14);
+}
+.contact-submit-row > p{
+    max-width:430px;
+    margin:0!important;
+    color:rgba(255,255,255,.28)!important;
+    font-family:'Space Grotesk',sans-serif!important;
+    font-size:8px!important;
+    line-height:1.65!important;
+    letter-spacing:.35px!important;
+}
+#contact .contact-submit{
+    min-width:250px!important;
+    min-height:58px!important;
+    margin:0!important;
+    padding:0 22px!important;
+    border:1px solid rgba(198,168,124,.64)!important;
+    border-radius:0!important;
+    background:transparent!important;
+    color:#fff!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:20px!important;
+    box-shadow:none!important;
+    font-family:'Space Grotesk',sans-serif!important;
+    font-size:9px!important;
+    font-weight:700!important;
+    letter-spacing:1.35px!important;
+    text-transform:uppercase!important;
+    transition:background .32s ease,color .32s ease,border-color .32s ease,padding .35s ease!important;
+}
+#contact .contact-submit:hover{
+    padding-left:26px!important;
+    padding-right:18px!important;
+    border-color:#c6a87c!important;
+    background:#c6a87c!important;
+    color:#080808!important;
+}
+#contact .contact-submit:disabled{
+    cursor:wait!important;
+    opacity:.62!important;
+}
+@media(max-width:980px){
+    .contact-editorial-title-row{grid-template-columns:1fr;gap:28px}
+    .contact-editorial-intro{max-width:710px}
+    .contact-editorial-layout{grid-template-columns:1fr;gap:60px}
+    .contact-editorial-info{position:relative;top:auto;max-width:760px}
+    .contact-info-lines{max-width:720px}
+}
+@media(max-width:768px){
+    #contact.contact-editorial{
+        padding:88px 20px 96px!important;
+    }
+    #contact.contact-editorial::before{display:none}
+    .contact-editorial-head{margin-bottom:48px}
+    .contact-editorial-meta{
+        gap:12px;
+        padding-bottom:13px;
+        font-size:7px;
+        letter-spacing:1.2px;
+    }
+    .contact-editorial-title-row{padding-top:24px;gap:22px}
+    .contact-editorial-title span{font-size:clamp(3rem,14vw,4.8rem)}
+    .contact-editorial-title em{font-size:clamp(3.2rem,15vw,5.05rem)}
+    .contact-editorial-intro{
+        margin:0!important;
+        padding-left:16px;
+        font-size:1.08rem!important;
+        line-height:1.46!important;
+    }
+    .contact-editorial-layout{gap:48px}
+    .contact-info-top h3{font-size:2.45rem}
+    .contact-info-top p{font-size:1.05rem}
+    .contact-info-lines{margin-top:36px}
+    .contact-info-line{
+        grid-template-columns:68px minmax(0,1fr) 18px;
+        min-height:66px;
+        gap:10px;
+    }
+    .contact-info-line strong{font-size:1rem}
+    .contact-field-grid{
+        grid-template-columns:1fr;
+        gap:26px;
+        margin-bottom:42px;
+    }
+    #contact .project-type-grid{
+        grid-template-columns:1fr!important;
+    }
+    #contact .project-type-card{
+        min-height:68px!important;
+        padding:16px 15px!important;
+        font-size:1.15rem!important;
+    }
+    .contact-message-block{margin-bottom:34px}
+    .contact-submit-row{
+        grid-template-columns:1fr;
+        gap:22px;
+    }
+    #contact .contact-submit{
+        width:100%!important;
+        min-width:0!important;
+    }
+}
+@media(prefers-reduced-motion:reduce){
+    .contact-info-line,
+    #contact .project-type-card,
+    #contact .contact-submit{
+        transition:none!important;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -3616,93 +4084,178 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
         </div>
     </section>
 
-    <section id="contact">
-        <h2 class="section-title hidden">BİRLİKTE ÇALIŞALIM</h2>
-        <div class="contact-container hidden">
-            <div class="contact-left">
-                <div style="font-size: 1.5rem; color: #888;">
-                    <p>Projeleriniz için iletişime geçin.</p>
-                    <p style="margin-top: 12px; font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.58);">Kuşadası, Aydın ve Ege Bölgesi genelinde mimari proje, iç mimarlık, villa render tasarımı ve 3D görselleştirme talepleriniz için ulaşabilirsiniz.</p>
-                    <p style="color: #fff; margin-top: 10px;">bgstudio.arch@gmail.com</p> 
-                    <p style="margin-top: 20px; font-size: 14px;">Kuşadası, AYDIN</p>
-                    <div style="margin-top: 30px; display: flex; gap: 20px;"> 
-                    </div>
+    <section id="contact" class="contact-editorial">
+        <div class="contact-editorial-inner">
+            <div class="contact-editorial-head hidden">
+                <div class="contact-editorial-meta">
+                    <span>06 / CONTACT</span>
+                    <span>START A PROJECT</span>
                 </div>
-                <picture><source media="(max-width: 768px)" type="image/webp" srcset="tiger-736.webp"><img src="tiger-1200.webp" alt="BG Studio mimarlık ve 3D render stüdyosu marka görseli" class="footer-tiger-img" width="1200" height="634" loading="lazy" decoding="async" fetchpriority="low"></picture>
+
+                <div class="contact-editorial-title-row">
+                    <h2 class="contact-editorial-title">
+                        <span>BİRLİKTE</span>
+                        <em>Çalışalım</em>
+                    </h2>
+
+                    <p class="contact-editorial-intro">
+                        Yeni bir yapı, iç mekân veya görselleştirme projesi için ilk adımı burada atalım.
+                        Kapsamı kısaca paylaşın; size uygun çalışma akışını birlikte netleştirelim.
+                    </p>
+                </div>
             </div>
-            
-            <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
-    <input type="hidden" name="access_key" value="d1031bef-cd4e-4609-a9e8-0d534a157a57">
-    <input type="hidden" name="subject" value="BG Studio Sitesinden Yeni Mesaj">
-    <input type="hidden" name="from_name" value="BG Studio Web Sitesi">
-    <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none;">
 
-    <div class="form-group">
-        <label class="sr-only" for="adSoyad">Adınız Soyadınız</label>
-        <input type="text" id="adSoyad" name="ad_soyad" placeholder="Adınız Soyadınız" autocomplete="name" required>
-    </div>
+            <div class="contact-editorial-layout">
+                <aside class="contact-editorial-info hidden">
+                    <div class="contact-info-top">
+                        <span class="contact-info-kicker">BG STUDIO ARCHITECTURE</span>
+                        <h3>Projenizin ilk çizgisi bir konuşmayla başlar.</h3>
+                        <p>
+                            Kuşadası ve Aydın çevresinde yüz yüze, farklı şehirlerde ise çevrim içi
+                            olarak mimari tasarım, uygulama projesi ve 3D görselleştirme süreçleri yürütüyoruz.
+                        </p>
+                    </div>
 
-    <div class="form-group">
-        <label class="sr-only" for="emailAdresi">E-posta Adresiniz</label>
-        <input type="email" id="emailAdresi" name="email" placeholder="E-posta Adresiniz" autocomplete="email" required>
-    </div>
+                    <div class="contact-info-lines">
+                        <a href="mailto:bgstudio.arch@gmail.com" class="contact-info-line">
+                            <span>E-POSTA</span>
+                            <strong>bgstudio.arch@gmail.com</strong>
+                            <i aria-hidden="true">↗</i>
+                        </a>
 
-    <fieldset class="project-type-field">
-        <legend class="project-type-title">Proje Türü</legend>
-        <div class="project-type-grid">
-            <label class="project-type-option">
-                <input type="radio" name="proje_turu" value="Konut / Villa" checked required>
-                <span class="project-type-card">
-                    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 23.5 24 9l17 14.5"/><path d="M12 22v17h24V22"/><path d="M20 39V27h8v12"/></svg>
-                    <span>Konut / Villa</span>
-                </span>
-            </label>
-            <label class="project-type-option">
-                <input type="radio" name="proje_turu" value="İç Mekan">
-                <span class="project-type-card">
-                    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 31h17v8H9z"/><path d="M13 31v-8c0-3 2-5 5-5h3c3 0 5 2 5 5v8"/><path d="M32 19h10"/><path d="M37 19v20"/><path d="M34 39h6"/><path d="M34 13h6l2 6h-10z"/></svg>
-                    <span>İç Mekan</span>
-                </span>
-            </label>
-            <label class="project-type-option">
-                <input type="radio" name="proje_turu" value="Ticari Mekan">
-                <span class="project-type-card">
-                    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 18h28l-2-8H12z"/><path d="M12 18v21h24V18"/><path d="M8 18h32"/><path d="M16 39V28h8v11"/><path d="M29 28h5"/><path d="M29 34h5"/><path d="M12 18c0 4 6 4 6 0"/><path d="M18 18c0 4 6 4 6 0"/><path d="M24 18c0 4 6 4 6 0"/><path d="M30 18c0 4 6 4 6 0"/></svg>
-                    <span>Ticari Mekan</span>
-                </span>
-            </label>
-            <label class="project-type-option">
-                <input type="radio" name="proje_turu" value="Klinik / Ofis">
-                <span class="project-type-card">
-                    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M13 39V13h22v26"/><path d="M9 39h30"/><path d="M20 39v-8h8v8"/><path d="M19 20h2"/><path d="M27 20h2"/><path d="M19 26h2"/><path d="M27 26h2"/><path d="M22 13v-4h4v4"/></svg>
-                    <span>Klinik / Ofis</span>
-                </span>
-            </label>
-            <label class="project-type-option">
-                <input type="radio" name="proje_turu" value="3D Render">
-                <span class="project-type-card">
-                    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 7 39 15.5v17L24 41 9 32.5v-17z"/><path d="M24 24 39 15.5"/><path d="M24 24 9 15.5"/><path d="M24 24v17"/></svg>
-                    <span>3D Render</span>
-                </span>
-            </label>
-            <label class="project-type-option">
-                <input type="radio" name="proje_turu" value="Uygulama Projesi">
-                <span class="project-type-card">
-                    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M11 11h26v26H11z"/><path d="M18 31h12"/><path d="M18 17h5"/><path d="M25 17h5"/><path d="M18 24h4"/><path d="M27 24h4"/><path d="m23 29 6-6"/><path d="m19 23 4-4"/></svg>
-                    <span>Uygulama Projesi</span>
-                </span>
-            </label>
-        </div>
-    </fieldset>
+                        <div class="contact-info-line">
+                            <span>STÜDYO</span>
+                            <strong>Kuşadası, Aydın</strong>
+                            <i aria-hidden="true">TR</i>
+                        </div>
 
-    <div class="form-group project-message-group">
-        <label class="project-message-title" for="projeMesaji">Proje Detayları</label>
-        <textarea id="projeMesaji" name="mesaj" rows="5" placeholder="Projenizden kısaca bahsedin..." required></textarea>
-    </div>
+                        <a href="https://www.instagram.com/bgstudio.arch/" target="_blank" rel="noopener"
+                           class="contact-info-line">
+                            <span>INSTAGRAM</span>
+                            <strong>@bgstudio.arch</strong>
+                            <i aria-hidden="true">↗</i>
+                        </a>
+                    </div>
 
-    <button type="submit">GÖNDER</button>
+                    <div class="contact-editorial-note">
+                        <span>01</span>
+                        <p>
+                            Proje türünü seçin ve ihtiyacınızı birkaç cümleyle anlatın.
+                            Gelen talepleri proje kapsamına göre değerlendiriyoruz.
+                        </p>
+                    </div>
+                </aside>
 
-</form>
+                <form id="contactForm" class="contact-editorial-form hidden"
+                      action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="d1031bef-cd4e-4609-a9e8-0d534a157a57">
+                    <input type="hidden" name="subject" value="BG Studio Sitesinden Yeni Mesaj">
+                    <input type="hidden" name="from_name" value="BG Studio Web Sitesi">
+                    <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none;">
+
+                    <div class="contact-form-step">
+                        <span class="contact-form-step-index">01</span>
+                        <span>İLETİŞİM BİLGİLERİ</span>
+                    </div>
+
+                    <div class="contact-field-grid">
+                        <div class="contact-field">
+                            <label for="adSoyad">Adınız Soyadınız</label>
+                            <input type="text" id="adSoyad" name="ad_soyad"
+                                   placeholder="Ad Soyad" autocomplete="name" required>
+                        </div>
+
+                        <div class="contact-field">
+                            <label for="emailAdresi">E-posta Adresiniz</label>
+                            <input type="email" id="emailAdresi" name="email"
+                                   placeholder="ornek@email.com" autocomplete="email" required>
+                        </div>
+                    </div>
+
+                    <fieldset class="project-type-field contact-project-types">
+                        <legend class="contact-form-step">
+                            <span class="contact-form-step-index">02</span>
+                            <span>PROJE TÜRÜ</span>
+                        </legend>
+
+                        <div class="project-type-grid">
+                            <label class="project-type-option">
+                                <input type="radio" name="proje_turu" value="Konut / Villa" checked required>
+                                <span class="project-type-card">
+                                    <span class="contact-type-index">01</span>
+                                    <span>Konut / Villa</span>
+                                </span>
+                            </label>
+
+                            <label class="project-type-option">
+                                <input type="radio" name="proje_turu" value="İç Mekan">
+                                <span class="project-type-card">
+                                    <span class="contact-type-index">02</span>
+                                    <span>İç Mekan</span>
+                                </span>
+                            </label>
+
+                            <label class="project-type-option">
+                                <input type="radio" name="proje_turu" value="Ticari Mekan">
+                                <span class="project-type-card">
+                                    <span class="contact-type-index">03</span>
+                                    <span>Ticari Mekan</span>
+                                </span>
+                            </label>
+
+                            <label class="project-type-option">
+                                <input type="radio" name="proje_turu" value="Klinik / Ofis">
+                                <span class="project-type-card">
+                                    <span class="contact-type-index">04</span>
+                                    <span>Klinik / Ofis</span>
+                                </span>
+                            </label>
+
+                            <label class="project-type-option">
+                                <input type="radio" name="proje_turu" value="3D Render">
+                                <span class="project-type-card">
+                                    <span class="contact-type-index">05</span>
+                                    <span>3D Görselleştirme</span>
+                                </span>
+                            </label>
+
+                            <label class="project-type-option">
+                                <input type="radio" name="proje_turu" value="Uygulama Projesi">
+                                <span class="project-type-card">
+                                    <span class="contact-type-index">06</span>
+                                    <span>Uygulama Projesi</span>
+                                </span>
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <div class="contact-message-block">
+                        <div class="contact-form-step">
+                            <span class="contact-form-step-index">03</span>
+                            <span>PROJE DETAYLARI</span>
+                        </div>
+
+                        <div class="contact-field contact-field-message">
+                            <label for="projeMesaji">Projenizden kısaca bahsedin</label>
+                            <textarea id="projeMesaji" name="mesaj" rows="6"
+                                      placeholder="Projenin yeri, yaklaşık m²'si, ihtiyaç duyduğunuz hizmet ve varsa hedef teslim tarihini paylaşabilirsiniz."
+                                      required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="contact-submit-row">
+                        <p>
+                            Formu göndererek proje talebinizin değerlendirilmesi için gerekli bilgileri
+                            BG Studio ile paylaşmış olursunuz.
+                        </p>
+
+                        <button type="submit" class="contact-submit">
+                            <span>PROJE TALEBİNİ GÖNDER</span>
+                            <span aria-hidden="true">↗</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </section>
     
