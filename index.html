@@ -1548,11 +1548,401 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
     .footer-social-group{flex-direction:column;gap:16px}
     .footer-social-item{font-size:12px;white-space:normal}
 }
+
+
+/* =========================================================
+   BG STUDIO ARCHITECTURE — CINEMATIC HERO V1
+   Yalnızca hero + üst navigasyon. Diğer bölümlere dokunmaz.
+   ========================================================= */
+.site-nav{
+    padding:22px 5%;
+    transition:background .45s ease,border-color .45s ease,backdrop-filter .45s ease,padding .45s ease;
+}
+.site-nav.hero-transparent{
+    background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,0));
+    border-bottom-color:transparent;
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+}
+.site-nav:not(.hero-transparent){
+    background:rgba(5,5,5,.84);
+    border-bottom-color:rgba(255,255,255,.07);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    padding-top:16px;
+    padding-bottom:16px;
+}
+.site-nav .logo-text{
+    font-size:20px;
+    letter-spacing:2.4px;
+}
+.site-nav .nav-link{
+    font-size:11px;
+    letter-spacing:1.8px;
+    opacity:.64;
+}
+.site-nav .nav-link::after{
+    background:#c6a87c;
+    bottom:-9px;
+}
+
+.hero-cinematic{
+    --hero-x:0px;
+    --hero-y:0px;
+    min-height:680px;
+    isolation:isolate;
+    justify-content:flex-end;
+    align-items:stretch;
+    background:#030303;
+}
+.hero-cinematic::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    z-index:3;
+    pointer-events:none;
+    background:
+        linear-gradient(90deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.52) 38%,rgba(0,0,0,.18) 68%,rgba(0,0,0,.42) 100%),
+        linear-gradient(180deg,rgba(0,0,0,.16) 0%,rgba(0,0,0,.04) 36%,rgba(0,0,0,.78) 100%);
+}
+.hero-cinematic::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    z-index:4;
+    pointer-events:none;
+    background:
+        radial-gradient(circle at 74% 36%,rgba(230,190,138,.11),transparent 22%),
+        linear-gradient(180deg,transparent 72%,#050505 100%);
+    opacity:.9;
+}
+.hero-cinematic .hero-poster img,
+.hero-cinematic .video-bg{
+    filter:grayscale(100%) contrast(1.08) brightness(.72)!important;
+}
+.hero-cinematic .hero-poster img{
+    transform:scale(1.025);
+    transition:transform 8s cubic-bezier(.2,.7,.2,1),filter .8s ease;
+}
+.hero-cinematic.video-ready .hero-poster img{transform:scale(1.045)}
+.hero-cinematic .video-bg{
+    min-width:101.5%;
+    min-height:101.5%;
+}
+.hero-ambient{
+    position:absolute;
+    z-index:5;
+    inset:-18%;
+    pointer-events:none;
+    opacity:.76;
+    background:
+        radial-gradient(circle at calc(62% + var(--hero-x)) calc(38% + var(--hero-y)),rgba(230,190,138,.16) 0%,rgba(198,168,124,.055) 16%,transparent 35%);
+    transition:opacity .35s ease;
+    mix-blend-mode:screen;
+}
+.hero-architecture-lines{
+    position:absolute;
+    inset:0;
+    z-index:5;
+    pointer-events:none;
+    opacity:.38;
+}
+.hero-architecture-lines span{
+    position:absolute;
+    background:rgba(255,255,255,.12);
+}
+.hero-architecture-lines span:nth-child(1){left:5%;top:0;width:1px;height:100%}
+.hero-architecture-lines span:nth-child(2){right:5%;top:0;width:1px;height:100%}
+.hero-architecture-lines span:nth-child(3){left:0;right:0;bottom:104px;height:1px;background:rgba(255,255,255,.09)}
+
+.hero-stage{
+    position:relative;
+    z-index:10;
+    width:100%;
+    min-height:100%;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    align-items:end;
+    gap:48px;
+    padding:150px 7% 148px;
+}
+.hero-cinematic .hero-brand-content{
+    width:min(1080px,100%);
+    max-width:none;
+    margin:0;
+    padding:0;
+    text-align:left;
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 1s cubic-bezier(.22,1,.36,1),transform 1s cubic-bezier(.22,1,.36,1);
+}
+.hero-cinematic .hero-brand-content.show{
+    opacity:1;
+    transform:translateY(0);
+}
+.hero-kicker{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    width:min(540px,100%);
+    margin-bottom:26px;
+    color:rgba(255,255,255,.72);
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:2.8px;
+    text-transform:uppercase;
+    opacity:0;
+    transform:translateY(10px);
+    transition:opacity .8s ease .08s,transform .8s cubic-bezier(.22,1,.36,1) .08s;
+}
+.hero-brand-content.show .hero-kicker{opacity:1;transform:none}
+.hero-kicker-rule{height:1px;flex:1;background:linear-gradient(90deg,rgba(198,168,124,.9),rgba(198,168,124,.12))}
+
+.hero-cinematic .hero-brand-content h1{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    margin:0;
+    text-shadow:0 18px 70px rgba(0,0,0,.55);
+    line-height:.82;
+    letter-spacing:0;
+}
+.hero-title-main{
+    display:block;
+    color:#fff;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(5rem,10.4vw,12.8rem);
+    font-weight:700;
+    letter-spacing:-.065em;
+    white-space:nowrap;
+    opacity:0;
+    transform:translateY(34px);
+    transition:opacity 1s ease .12s,transform 1.1s cubic-bezier(.22,1,.36,1) .12s;
+}
+.hero-title-accent{
+    display:block;
+    margin-top:12px;
+    margin-left:.045em;
+    color:#d8bc94;
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(3.6rem,7.2vw,8.6rem);
+    font-weight:500;
+    font-style:italic;
+    line-height:.82;
+    letter-spacing:-.04em;
+    text-transform:none;
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 1s ease .22s,transform 1.1s cubic-bezier(.22,1,.36,1) .22s;
+}
+.hero-brand-content.show .hero-title-main,
+.hero-brand-content.show .hero-title-accent{opacity:1;transform:none}
+
+.hero-cinematic .hero-brand-subtitle{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:0 9px;
+    margin:34px 0 0;
+    color:rgba(255,255,255,.83);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:2.2px!important;
+    line-height:1.7;
+    text-transform:uppercase;
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity .85s ease .36s,transform .85s cubic-bezier(.22,1,.36,1) .36s;
+}
+.hero-cinematic .hero-brand-subtitle span{color:#c6a87c}
+.hero-brand-content.show .hero-brand-subtitle{opacity:1;transform:none}
+
+.hero-cinematic .hero-brand-description{
+    max-width:690px;
+    margin:18px 0 0;
+    color:rgba(255,255,255,.67);
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.18rem,1.38vw,1.48rem);
+    font-weight:500;
+    line-height:1.46;
+    letter-spacing:.08px!important;
+    text-transform:none!important;
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity .85s ease .46s,transform .85s cubic-bezier(.22,1,.36,1) .46s;
+}
+.hero-brand-content.show .hero-brand-description{opacity:1;transform:none}
+
+.hero-cinematic .hero-actions{
+    justify-content:flex-start;
+    margin-top:28px;
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity .85s ease .56s,transform .85s cubic-bezier(.22,1,.36,1) .56s;
+}
+.hero-brand-content.show .hero-actions{opacity:1;transform:none}
+.hero-cinematic .hero-btn{
+    min-width:176px;
+    padding:13px 19px;
+    border-color:rgba(255,255,255,.28);
+    font-size:10px;
+    letter-spacing:1.55px;
+    background:rgba(4,4,4,.22);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+}
+.hero-cinematic .hero-btn-primary{
+    background:rgba(198,168,124,.94);
+    border-color:#c6a87c;
+    color:#050505;
+}
+.hero-cinematic .hero-btn-secondary{color:#fff}
+
+.hero-side-meta{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    justify-content:flex-end;
+    gap:8px;
+    padding-bottom:8px;
+    color:rgba(255,255,255,.48);
+    font-size:9px;
+    letter-spacing:1.8px;
+    text-align:right;
+    text-transform:uppercase;
+    white-space:nowrap;
+}
+.hero-meta-index{color:#c6a87c;font-size:11px}
+.hero-meta-rule{width:54px;height:1px;background:rgba(198,168,124,.55);margin:3px 0 6px}
+
+.hero-scroll{
+    position:absolute;
+    z-index:12;
+    left:7%;
+    right:7%;
+    bottom:38px;
+    display:grid;
+    grid-template-columns:auto auto 1fr;
+    align-items:center;
+    gap:18px;
+    color:rgba(255,255,255,.48);
+    text-decoration:none;
+    font-size:8.5px;
+    font-weight:600;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+.hero-scroll-index{color:rgba(255,255,255,.78)}
+.hero-scroll-line{height:1px;background:linear-gradient(90deg,rgba(198,168,124,.55),rgba(255,255,255,.1));position:relative;overflow:hidden}
+.hero-scroll-line::after{
+    content:'';
+    position:absolute;
+    top:0;bottom:0;
+    width:80px;
+    background:linear-gradient(90deg,transparent,#e6be8a,transparent);
+    animation:bgHeroScroll 3.6s ease-in-out infinite;
+}
+@keyframes bgHeroScroll{0%{left:-100px;opacity:0}18%{opacity:1}75%{opacity:.8}100%{left:100%;opacity:0}}
+
+@media(max-width:1100px){
+    .hero-stage{padding-left:6%;padding-right:6%}
+    .hero-side-meta{display:none}
+    .hero-scroll{left:6%;right:6%}
+}
+@media(max-width:768px){
+    .site-nav{padding:16px 18px!important}
+    .site-nav.hero-transparent{background:linear-gradient(180deg,rgba(0,0,0,.58),rgba(0,0,0,0))}
+    .hero-cinematic{height:100svh;min-height:650px}
+    .hero-cinematic::before{
+        background:
+            linear-gradient(90deg,rgba(0,0,0,.62),rgba(0,0,0,.16)),
+            linear-gradient(180deg,rgba(0,0,0,.12) 0%,rgba(0,0,0,.25) 42%,rgba(0,0,0,.88) 100%);
+    }
+    .hero-cinematic .hero-poster img,
+    .hero-cinematic .video-bg{
+        object-position:center center;
+        filter:grayscale(100%) contrast(1.08) brightness(.7)!important;
+    }
+    .hero-architecture-lines span:nth-child(1){left:18px}
+    .hero-architecture-lines span:nth-child(2){right:18px}
+    .hero-architecture-lines span:nth-child(3){bottom:84px}
+    .hero-stage{
+        display:block;
+        min-height:100%;
+        padding:122px 24px 112px;
+    }
+    .hero-cinematic .hero-brand-content{
+        position:absolute;
+        left:24px;
+        right:24px;
+        bottom:126px;
+        width:auto;
+        padding:0!important;
+    }
+    .hero-kicker{gap:10px;margin-bottom:18px;font-size:8px;letter-spacing:2px}
+    .hero-title-main{
+        font-size:clamp(3.7rem,17vw,6.2rem);
+        letter-spacing:-.07em;
+        white-space:normal;
+    }
+    .hero-title-accent{
+        margin-top:9px;
+        font-size:clamp(3.1rem,14.5vw,5.2rem);
+    }
+    .hero-cinematic .hero-brand-subtitle{
+        gap:0 7px;
+        max-width:330px;
+        margin-top:24px;
+        font-size:8.2px;
+        letter-spacing:1.45px!important;
+        line-height:1.75;
+    }
+    .hero-cinematic .hero-brand-description{
+        max-width:330px;
+        margin-top:13px;
+        font-size:1rem;
+        line-height:1.42;
+    }
+    .hero-cinematic .hero-actions{gap:8px;margin-top:21px;flex-wrap:nowrap}
+    .hero-cinematic .hero-btn{
+        min-width:0;
+        flex:1 1 0;
+        padding:12px 10px;
+        font-size:8.5px;
+        letter-spacing:1px;
+        text-align:center;
+    }
+    .hero-scroll{
+        left:24px;
+        right:24px;
+        bottom:28px;
+        grid-template-columns:auto 1fr;
+        gap:13px;
+        font-size:7.5px;
+        letter-spacing:1.5px;
+    }
+    .hero-scroll-copy{display:none}
+}
+@media(max-width:390px){
+    .hero-cinematic .hero-brand-content{left:20px;right:20px;bottom:112px}
+    .hero-stage{padding-left:20px;padding-right:20px}
+    .hero-title-main{font-size:clamp(3.3rem,16.5vw,4.9rem)}
+    .hero-title-accent{font-size:clamp(2.8rem,14vw,4.4rem)}
+    .hero-cinematic .hero-brand-description{font-size:.94rem}
+    .hero-scroll{left:20px;right:20px}
+}
+@media(prefers-reduced-motion:reduce){
+    .hero-scroll-line::after{animation:none}
+    .hero-ambient{display:none}
+    .hero-title-main,.hero-title-accent,.hero-kicker,.hero-cinematic .hero-brand-subtitle,.hero-cinematic .hero-brand-description,.hero-cinematic .hero-actions{opacity:1!important;transform:none!important}
+}
+
 </style>
 </head>
 <body>
-    <nav>
-        <a href="#" class="logo-text">BG STUDIO</a>
+    <nav class="site-nav hero-transparent">
+        <a href="#" class="logo-text" aria-label="BG Studio ana sayfa">BG STUDIO</a>
         
         <button type="button" class="menu-toggle" onclick="toggleMenu()" aria-label="Menüyü aç veya kapat" aria-controls="navLinks" aria-expanded="false">☰</button>
         
@@ -1565,21 +1955,53 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
         </div>
     </nav>
 
-    <header class="hero">
+    <header class="hero hero-cinematic" aria-labelledby="heroTitle">
         <picture class="hero-poster" aria-hidden="true">
             <source media="(max-width: 768px)" type="image/webp" srcset="hero-poster-mobile.webp">
             <img src="hero-poster-desktop.webp" alt="" width="1280" height="720" fetchpriority="high" decoding="async">
         </picture>
         <video class="video-bg" loop muted playsinline webkit-playsinline preload="none" data-mobile-src="head-city-mobile.mp4" data-desktop-src="head-city-desktop.mp4" aria-hidden="true"></video>
-        <div class="hero-content hero-brand-content">
-            <h1 aria-label="BG STUDIO Mimari Tasarım ve 3D Görselleştirme"><span aria-hidden="true">BG<br>STUDIO</span><span class="sr-only">BG STUDIO Mimari Tasarım ve 3D Görselleştirme</span></h1>
-            <p class="hero-brand-subtitle">MİMARİ TASARIM, UYGULAMA PROJESİ & GÖRSELLEŞTİRME</p>
-            <p class="hero-brand-description">Kuşadası merkezli olarak Ege Bölgesi genelinde konut, villa, iç mekân ve ticari alan projeleri için; tasarım kararlarını, teknik çizimleri ve fotogerçekçi sunumları bütüncül bir mimari yaklaşımla bir araya getiriyoruz.</p>
-            <div class="hero-actions">
-                <a href="#projects" class="hero-btn hero-btn-primary">Projeleri İncele</a>
-                <a href="#contact" class="hero-btn hero-btn-secondary">Teklif Al</a>
-            </div>
+
+        <div class="hero-ambient" aria-hidden="true"></div>
+        <div class="hero-architecture-lines" aria-hidden="true">
+            <span></span><span></span><span></span>
         </div>
+
+        <div class="hero-stage">
+            <div class="hero-content hero-brand-content">
+                <div class="hero-kicker" aria-hidden="true">
+                    <span>BG STUDIO</span>
+                    <span class="hero-kicker-rule"></span>
+                    <span>ARCHITECTURE</span>
+                </div>
+
+                <h1 id="heroTitle" aria-label="BG Studio Architecture">
+                    <span class="hero-title-main">BG STUDIO</span>
+                    <span class="hero-title-accent">Architecture</span>
+                </h1>
+
+                <p class="hero-brand-subtitle">MİMARİ TASARIM <span>·</span> UYGULAMA PROJESİ <span>·</span> 3D GÖRSELLEŞTİRME</p>
+                <p class="hero-brand-description">Kuşadası merkezli mimarlık stüdyosu. Konut, villa, iç mekân ve ticari alan projelerinde tasarım fikrini teknik çözüm ve güçlü görselleştirme ile tek bir mimari dilde buluşturuyoruz.</p>
+
+                <div class="hero-actions">
+                    <a href="#projects" class="hero-btn hero-btn-primary">Seçili Projeler</a>
+                    <a href="#contact" class="hero-btn hero-btn-secondary">Projenizi Konuşalım</a>
+                </div>
+            </div>
+
+            <aside class="hero-side-meta" aria-label="Stüdyo bilgisi">
+                <span class="hero-meta-index">01</span>
+                <span class="hero-meta-rule"></span>
+                <span>KUŞADASI · AYDIN</span>
+                <span>ARCHITECTURE / VISUALIZATION</span>
+            </aside>
+        </div>
+
+        <a class="hero-scroll" href="#projects" aria-label="Seçili projelere kaydır">
+            <span class="hero-scroll-index">01 / SELECTED WORKS</span>
+            <span class="hero-scroll-copy">SCROLL TO EXPLORE</span>
+            <span class="hero-scroll-line" aria-hidden="true"></span>
+        </a>
     </header>
 
     <section id="projects">
@@ -2594,6 +3016,44 @@ section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank', 'noopener');
         }
+    
+
+        // BG Studio Architecture — cinematic hero interaction.
+        // Hafif tutulur: görsel/video yerine yalnızca ışık katmanı hareket eder.
+        const siteNav = document.querySelector('.site-nav');
+        const heroCinematic = document.querySelector('.hero-cinematic');
+        const reduceHeroMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+        const syncHeroNav = () => {
+            if (!siteNav || !heroCinematic) return;
+            const threshold = Math.min(96, heroCinematic.offsetHeight * 0.12);
+            siteNav.classList.toggle('hero-transparent', window.scrollY < threshold);
+        };
+
+        if (siteNav && heroCinematic) {
+            syncHeroNav();
+            window.addEventListener('scroll', syncHeroNav, { passive: true });
+        }
+
+        if (heroCinematic && !reduceHeroMotion.matches && window.matchMedia('(pointer:fine)').matches) {
+            let heroPointerFrame = 0;
+            heroCinematic.addEventListener('pointermove', (event) => {
+                if (heroPointerFrame) return;
+                heroPointerFrame = window.requestAnimationFrame(() => {
+                    heroPointerFrame = 0;
+                    const rect = heroCinematic.getBoundingClientRect();
+                    const x = ((event.clientX - rect.left) / Math.max(rect.width, 1) - .5) * 26;
+                    const y = ((event.clientY - rect.top) / Math.max(rect.height, 1) - .5) * 18;
+                    heroCinematic.style.setProperty('--hero-x', `${x.toFixed(1)}px`);
+                    heroCinematic.style.setProperty('--hero-y', `${y.toFixed(1)}px`);
+                });
+            }, { passive: true });
+            heroCinematic.addEventListener('pointerleave', () => {
+                heroCinematic.style.setProperty('--hero-x', '0px');
+                heroCinematic.style.setProperty('--hero-y', '0px');
+            }, { passive: true });
+        }
+
     </script>
 </body>
 </html>
