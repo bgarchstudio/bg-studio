@@ -250,8 +250,7 @@
       ],
       "sameAs": [
         "https://www.instagram.com/bgstudio.arch/",
-        "https://www.facebook.com/bgstudio.archtr",
-        "https://t.me/bgstudio_arch"
+        "https://www.facebook.com/bgstudio.archtr"
       ],
       "knowsAbout": [
         "Mimari tasarım",
@@ -4425,6 +4424,113 @@ body.footer-in-view .whatsapp-widget.whatsapp-architecture{
     border-bottom:0!important;
 }
 
+
+/* ===== BG STUDIO V1.8 / ACTIVE NAV + FOOTER SOCIAL STABILITY ===== */
+
+/* Desktop navigation alignment */
+.site-nav .nav-links{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:clamp(26px,2.8vw,42px);
+}
+.site-nav .nav-link{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:34px;
+    padding:0 0 2px;
+    line-height:1;
+    opacity:.58;
+    color:rgba(255,255,255,.78);
+    transition:color .28s ease,opacity .28s ease;
+}
+.site-nav .nav-link::after{
+    left:50%;
+    right:auto;
+    bottom:1px;
+    width:0;
+    height:1px;
+    background:#c6a87c;
+    opacity:0;
+    transform:translateX(-50%);
+    transition:width .34s cubic-bezier(.22,1,.36,1),opacity .25s ease;
+}
+.site-nav .nav-link:hover{
+    opacity:.9;
+    color:#fff;
+}
+.site-nav .nav-link:hover::after{
+    width:55%;
+    opacity:.55;
+}
+.site-nav .nav-link.is-active{
+    opacity:1;
+    color:#fff;
+}
+.site-nav .nav-link.is-active::after{
+    width:100%;
+    opacity:1;
+}
+
+/* Footer social links: Instagram + Facebook + WhatsApp only */
+.footer-editorial-social a[href*="wa.me"]{
+    color:rgba(255,255,255,.72);
+}
+.footer-editorial-social a[href*="wa.me"] span{
+    color:#c6a87c;
+}
+
+/* Mobile navigation: same active section, cleaner alignment */
+@media(max-width:768px){
+    .site-nav .nav-links{
+        align-items:center;
+        justify-content:flex-start;
+        gap:18px!important;
+        padding:28px 20px 32px!important;
+    }
+    .site-nav .nav-link{
+        width:auto;
+        min-height:42px;
+        padding:0 6px 4px;
+        font-size:14px;
+        line-height:1;
+        text-align:center;
+        opacity:.62;
+    }
+    .site-nav .nav-link::after{
+        bottom:2px;
+    }
+    .site-nav .nav-link:hover::after{
+        width:0;
+        opacity:0;
+    }
+    .site-nav .nav-link.is-active{
+        color:#fff;
+        opacity:1;
+    }
+    .site-nav .nav-link.is-active::after{
+        width:42px;
+        opacity:1;
+    }
+
+    .footer-editorial-social a{
+        min-height:48px;
+    }
+}
+
+@media(hover:none), (pointer:coarse){
+    .site-nav .nav-link:hover{
+        opacity:.62;
+        color:rgba(255,255,255,.78);
+    }
+    .site-nav .nav-link.is-active{
+        opacity:1;
+        color:#fff;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -5271,8 +5377,8 @@ body.footer-in-view .whatsapp-widget.whatsapp-architecture{
                         Facebook <span>↗</span>
                     </a>
 
-                    <a href="https://t.me/bgstudio_arch" target="_blank" rel="noopener">
-                        Telegram <span>↗</span>
+                    <a href="https://wa.me/905050364573?text=Merhaba%2C%20BG%20Studio%20Architecture%20web%20sitesi%20%C3%BCzerinden%20ula%C5%9F%C4%B1yorum.%20Mimari%20projem%20i%C3%A7in%20bilgi%20ve%20teklif%20almak%20istiyorum." target="_blank" rel="noopener">
+                        WhatsApp <span>↗</span>
                     </a>
                 </div>
             </div>
@@ -6079,26 +6185,43 @@ body.footer-in-view .whatsapp-widget.whatsapp-architecture{
     function updateActiveNav(){
         if (!sections.length) return;
 
-        const probe = (nav ? nav.getBoundingClientRect().bottom : 70) + 70;
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+        const navBottom = nav ? nav.getBoundingClientRect().bottom : 64;
+
+        // Both desktop and mobile use the same visual ownership rule:
+        // the section crossing this viewport line owns the active state.
+        const probeViewportY = Math.max(
+            navBottom + 44,
+            Math.min(viewportHeight * 0.34, viewportHeight - 120)
+        );
+        const probeDocumentY = window.scrollY + probeViewportY;
+
+        const positions = sections.map(item => ({
+            ...item,
+            top: item.section.getBoundingClientRect().top + window.scrollY
+        }));
+
         let active = null;
 
-        for (const item of sections){
-            const rect = item.section.getBoundingClientRect();
-            if (rect.top <= probe){
-                active = item;
-            } else {
-                break;
+        // Nothing is active while the hero still owns the probe line.
+        if (positions.length && probeDocumentY >= positions[0].top){
+            for (let i = 0; i < positions.length; i++){
+                const current = positions[i];
+                const nextTop = i < positions.length - 1
+                    ? positions[i + 1].top
+                    : Number.POSITIVE_INFINITY;
+
+                if (probeDocumentY >= current.top && probeDocumentY < nextTop){
+                    active = current;
+                    break;
+                }
             }
         }
 
-        // Hero area has no active navigation item.
-        if (window.scrollY < Math.max(180, window.innerHeight * .58)){
-            active = null;
-        }
-
         sections.forEach(item => {
-            const isActive = active === item;
+            const isActive = Boolean(active && active.link === item.link);
             item.link.classList.toggle('is-active', isActive);
+
             if (isActive){
                 item.link.setAttribute('aria-current','location');
             } else {
@@ -6139,6 +6262,26 @@ body.footer-in-view .whatsapp-widget.whatsapp-architecture{
     });
 
     observer.observe(footer);
+})();
+</script>
+
+
+<script>
+(function(){
+    const requestNavRefresh = () => {
+        window.requestAnimationFrame(() => {
+            window.dispatchEvent(new Event('scroll'));
+        });
+    };
+
+    window.addEventListener('hashchange', requestNavRefresh, {passive:true});
+    window.addEventListener('pageshow', requestNavRefresh, {passive:true});
+
+    document.querySelectorAll('.site-nav .nav-link[href^="#"]').forEach(link => {
+        link.addEventListener('click', () => {
+            window.setTimeout(requestNavRefresh, 380);
+        }, {passive:true});
+    });
 })();
 </script>
 
