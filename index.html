@@ -1119,7 +1119,36 @@ textarea:focus-visible{
 }.footer-editorial-nav a i,
 .footer-editorial-social a span{
     color:rgba(224,196,155,.92)!important;
-}</style>
+}
+/* V1.9.4.1 / STARTUP FOUC HOTFIX */
+.whatsapp-chat-box{
+    opacity:0!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+    transform:translateY(18px) scale(.96)!important;
+}
+.whatsapp-chat-box.active{
+    opacity:1!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+    transform:translateY(0) scale(1)!important;
+}
+
+/* Hero copy is part of the first viewport; never leave an empty first frame. */
+.hero-cinematic .hero-brand-content{
+    opacity:1!important;
+    transform:none!important;
+}
+.hero-cinematic .hero-brand-content .hero-kicker,
+.hero-cinematic .hero-brand-content .hero-title-main,
+.hero-cinematic .hero-brand-content .hero-title-accent,
+.hero-cinematic .hero-brand-content .hero-brand-subtitle,
+.hero-cinematic .hero-brand-content .hero-brand-description,
+.hero-cinematic .hero-brand-content .hero-actions{
+    opacity:1!important;
+    transform:none!important;
+}
+</style>
 </head>
 <body>
     <a class="skip-link" href="#main-content">Ana içeriğe geç</a>
@@ -1151,7 +1180,7 @@ textarea:focus-visible{
         </div>
 
         <div class="hero-stage">
-            <div class="hero-content hero-brand-content">
+            <div class="hero-content hero-brand-content show">
                 <div class="hero-kicker" aria-hidden="true">
                     <span>BG STUDIO</span>
                     <span class="hero-kicker-rule"></span>
@@ -1882,7 +1911,7 @@ textarea:focus-visible{
             </svg>
         </button>
 
-        <div class="whatsapp-chat-box" id="whatsappChatBox">
+        <div class="whatsapp-chat-box" id="whatsappChatBox" aria-hidden="true">
             <div class="whatsapp-chat-header">
                 <div class="whatsapp-brand-head">
                     <img src="logo-96.webp" alt="BG Studio Architecture logosu"
