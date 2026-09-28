@@ -3811,6 +3811,604 @@ img,video{
     }
 }
 
+
+/* ===== BG STUDIO V1.7.3 / CONTACT + FOOTER + WHATSAPP ===== */
+
+/* CONTACT finishing */
+#contact .contact-field input,
+#contact .contact-field textarea{
+    border-bottom-color:rgba(255,255,255,.31)!important;
+}
+#contact .contact-field label{
+    color:rgba(255,255,255,.67)!important;
+}
+#contact .project-type-card{
+    color:rgba(255,255,255,.68)!important;
+    border-color:rgba(255,255,255,.18)!important;
+}
+#contact .project-type-option input:checked + .project-type-card{
+    background:linear-gradient(135deg,rgba(198,168,124,.20),rgba(198,168,124,.05))!important;
+    box-shadow:inset 3px 0 0 #c6a87c!important;
+}
+#contact .contact-submit{
+    border-color:rgba(198,168,124,.84)!important;
+}
+#contact .contact-submit:hover{
+    box-shadow:none!important;
+    letter-spacing:1.35px!important;
+}
+
+/* Form feedback now belongs to the form instead of floating over the footer */
+#contact .contact-inline-status.form-toast{
+    position:relative!important;
+    left:auto!important;
+    bottom:auto!important;
+    transform:none!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    min-height:0!important;
+    margin:0 0 25px!important;
+    padding:0!important;
+    border-radius:0!important;
+    border:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+    opacity:0!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+    overflow:hidden!important;
+    max-height:0!important;
+    transition:opacity .35s ease,max-height .45s cubic-bezier(.22,1,.36,1),padding .35s ease,border-color .35s ease!important;
+}
+#contact .contact-inline-status.form-toast::before{
+    display:none!important;
+}
+#contact .contact-inline-status.form-toast.show{
+    opacity:1!important;
+    visibility:visible!important;
+    max-height:130px!important;
+    padding:16px 18px!important;
+    border:1px solid rgba(198,168,124,.34)!important;
+    border-left:3px solid #c6a87c!important;
+    background:rgba(198,168,124,.055)!important;
+}
+#contact .contact-inline-status .form-toast-inner{
+    display:flex!important;
+    align-items:center!important;
+    gap:13px!important;
+}
+#contact .contact-inline-status .form-toast-icon{
+    flex:0 0 34px!important;
+    width:34px!important;
+    height:34px!important;
+    display:grid!important;
+    place-items:center!important;
+    border:1px solid rgba(198,168,124,.36)!important;
+    border-radius:50%!important;
+    color:#d7ba91!important;
+}
+#contact .contact-inline-status .form-toast-icon svg{
+    width:16px!important;
+    height:16px!important;
+}
+#contact .contact-inline-status .form-toast-content{
+    display:grid!important;
+    gap:3px!important;
+}
+#contact .contact-inline-status .form-toast-title{
+    color:#fff!important;
+    font-family:'Space Grotesk',sans-serif!important;
+    font-size:9px!important;
+    font-weight:700!important;
+    letter-spacing:1.15px!important;
+}
+#contact .contact-inline-status .form-toast-text{
+    color:rgba(255,255,255,.53)!important;
+    font-family:'Cormorant Garamond',serif!important;
+    font-size:1.03rem!important;
+    line-height:1.35!important;
+}
+
+/* EDITORIAL FOOTER */
+.site-footer.footer-editorial{
+    position:relative;
+    width:100%;
+    min-height:520px;
+    padding:0 5%!important;
+    background:#040404;
+    border-top:1px solid rgba(255,255,255,.08)!important;
+    overflow:hidden;
+}
+.footer-editorial-inner{
+    position:relative;
+    width:100%;
+    max-width:1180px;
+    min-height:520px;
+    margin:0 auto;
+    padding:74px 0 42px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+.footer-editorial-top{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:minmax(0,1.35fr) minmax(180px,.7fr) minmax(180px,.7fr);
+    gap:80px;
+    align-items:start;
+}
+.footer-editorial-kicker{
+    display:block;
+    margin-bottom:8px;
+    color:#c6a87c;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:2.35px;
+}
+.footer-editorial-brand h2{
+    margin:0;
+    color:#fff;
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(3.15rem,5vw,5.8rem);
+    font-style:italic;
+    font-weight:500;
+    line-height:.92;
+    letter-spacing:-.045em;
+    text-transform:none;
+}
+.footer-editorial-brand p{
+    margin:27px 0 0;
+    color:rgba(255,255,255,.57);
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.35rem,2vw,1.85rem);
+    line-height:1.2;
+}
+.footer-editorial-label{
+    display:block;
+    margin-bottom:17px;
+    color:rgba(255,255,255,.29);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:7px;
+    font-weight:700;
+    letter-spacing:1.9px;
+}
+.footer-editorial-nav,
+.footer-editorial-social{
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+}
+.footer-editorial-nav a,
+.footer-editorial-social a{
+    min-height:43px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    border-bottom:1px solid rgba(255,255,255,.105);
+    color:rgba(255,255,255,.68);
+    text-decoration:none;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:9px;
+    font-weight:600;
+    letter-spacing:1.05px;
+    text-transform:uppercase;
+    transition:color .28s ease,padding .32s cubic-bezier(.22,1,.36,1),border-color .28s ease;
+}
+.footer-editorial-nav a:first-of-type,
+.footer-editorial-social a:first-of-type{
+    border-top:1px solid rgba(255,255,255,.105);
+}
+.footer-editorial-nav a i,
+.footer-editorial-social a span{
+    color:rgba(198,168,124,.63);
+    font-size:8px;
+    font-style:normal;
+}
+.footer-editorial-nav a:hover,
+.footer-editorial-social a:hover{
+    padding-left:7px;
+    color:#fff;
+    border-color:rgba(198,168,124,.42);
+}
+.footer-editorial-bottom{
+    position:relative;
+    z-index:2;
+    display:flex;
+    justify-content:space-between;
+    gap:30px;
+    padding-top:25px;
+    border-top:1px solid rgba(255,255,255,.11);
+}
+.footer-editorial-bottom > div{
+    display:flex;
+    gap:24px;
+}
+.footer-editorial-bottom span{
+    color:rgba(255,255,255,.34);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:7px;
+    font-weight:650;
+    letter-spacing:1.45px;
+}
+.footer-editorial-watermark{
+    position:absolute;
+    left:-.025em;
+    bottom:-.18em;
+    z-index:1;
+    color:rgba(255,255,255,.022);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(8rem,17vw,15.5rem);
+    font-weight:700;
+    line-height:.8;
+    letter-spacing:-.075em;
+    white-space:nowrap;
+    pointer-events:none;
+    user-select:none;
+}
+
+/* WHATSAPP ARCHITECTURE */
+.whatsapp-widget.whatsapp-architecture{
+    position:fixed;
+    right:30px;
+    bottom:28px;
+    z-index:9998;
+}
+.whatsapp-architecture .whatsapp-float{
+    position:relative!important;
+    right:auto!important;
+    bottom:auto!important;
+    width:58px!important;
+    height:58px!important;
+    margin:0!important;
+    padding:0!important;
+    display:grid!important;
+    place-items:center!important;
+    border:1px solid rgba(198,168,124,.64)!important;
+    border-radius:50%!important;
+    background:rgba(6,6,6,.92)!important;
+    color:#c6a87c!important;
+    box-shadow:0 12px 38px rgba(0,0,0,.34)!important;
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    transition:background .3s ease,color .3s ease,border-color .3s ease,transform .3s ease!important;
+}
+.whatsapp-architecture .whatsapp-float:hover{
+    transform:translateY(-2px)!important;
+    background:#c6a87c!important;
+    color:#080808!important;
+    letter-spacing:normal!important;
+}
+.whatsapp-float-label{
+    position:absolute;
+    right:70px;
+    bottom:17px;
+    padding:8px 11px;
+    border:1px solid rgba(255,255,255,.11);
+    background:rgba(6,6,6,.9);
+    color:rgba(255,255,255,.62);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:7px;
+    font-weight:700;
+    letter-spacing:1.45px;
+    opacity:0;
+    transform:translateX(8px);
+    pointer-events:none;
+    transition:opacity .28s ease,transform .32s cubic-bezier(.22,1,.36,1);
+}
+.whatsapp-architecture:hover .whatsapp-float-label{
+    opacity:1;
+    transform:translateX(0);
+}
+.whatsapp-architecture .whatsapp-chat-box{
+    position:absolute!important;
+    right:0!important;
+    bottom:74px!important;
+    width:min(390px,calc(100vw - 42px))!important;
+    max-height:min(720px,calc(100vh - 120px))!important;
+    border:1px solid rgba(198,168,124,.32)!important;
+    border-radius:2px!important;
+    background:rgba(5,5,5,.965)!important;
+    box-shadow:0 28px 90px rgba(0,0,0,.58)!important;
+    backdrop-filter:blur(20px)!important;
+    -webkit-backdrop-filter:blur(20px)!important;
+    overflow:hidden!important;
+}
+.whatsapp-architecture .whatsapp-chat-header{
+    min-height:76px!important;
+    padding:15px 17px!important;
+    border-bottom:1px solid rgba(255,255,255,.10)!important;
+    background:linear-gradient(90deg,rgba(198,168,124,.08),transparent)!important;
+}
+.whatsapp-architecture .whatsapp-brand-head{
+    gap:12px!important;
+}
+.whatsapp-architecture .whatsapp-brand-logo{
+    width:40px!important;
+    height:40px!important;
+    border:1px solid rgba(198,168,124,.30);
+    border-radius:50%;
+}
+.whatsapp-brand-copy{
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+}
+.whatsapp-architecture .whatsapp-brand-copy strong{
+    color:#fff;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1.15px;
+}
+.whatsapp-architecture .whatsapp-brand-copy span{
+    color:#d7ba91;
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.04rem;
+    font-style:italic;
+}
+.whatsapp-architecture .whatsapp-chat-close{
+    width:36px!important;
+    height:36px!important;
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
+    background:transparent!important;
+    color:rgba(255,255,255,.58)!important;
+    font-size:24px!important;
+    letter-spacing:normal!important;
+    box-shadow:none!important;
+}
+.whatsapp-architecture .whatsapp-chat-close:hover{
+    color:#fff!important;
+    background:transparent!important;
+}
+.whatsapp-architecture .whatsapp-chat-body{
+    max-height:calc(min(720px,100vh - 120px) - 76px);
+    padding:20px!important;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    scrollbar-width:thin;
+    scrollbar-color:rgba(198,168,124,.36) transparent;
+}
+.whatsapp-architecture .whatsapp-message{
+    margin:0 0 22px!important;
+    padding:0 0 20px!important;
+    border:0!important;
+    border-bottom:1px solid rgba(255,255,255,.10)!important;
+    border-radius:0!important;
+    background:transparent!important;
+    color:inherit!important;
+}
+.whatsapp-message-kicker{
+    display:block;
+    margin-bottom:8px;
+    color:#c6a87c;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:7px;
+    font-weight:700;
+    letter-spacing:1.8px;
+}
+.whatsapp-architecture .whatsapp-message p{
+    margin:0;
+    color:rgba(255,255,255,.75);
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.16rem;
+    line-height:1.42;
+}
+.whatsapp-architecture .whatsapp-quick-label{
+    display:block!important;
+    margin:0 0 10px!important;
+    color:rgba(255,255,255,.32)!important;
+    font-family:'Space Grotesk',sans-serif!important;
+    font-size:7px!important;
+    font-weight:700!important;
+    letter-spacing:1.7px!important;
+}
+.whatsapp-architecture .whatsapp-quick-options{
+    display:block!important;
+}
+.whatsapp-architecture .whatsapp-quick-option{
+    width:100%!important;
+    min-height:51px!important;
+    margin:0!important;
+    padding:0 12px!important;
+    display:grid!important;
+    grid-template-columns:30px minmax(0,1fr) 16px!important;
+    align-items:center!important;
+    gap:9px!important;
+    border:0!important;
+    border-top:1px solid rgba(255,255,255,.11)!important;
+    border-radius:0!important;
+    background:transparent!important;
+    color:rgba(255,255,255,.69)!important;
+    box-shadow:none!important;
+    text-align:left!important;
+    text-transform:none!important;
+    letter-spacing:0!important;
+    transition:background .25s ease,color .25s ease,padding .3s ease!important;
+}
+.whatsapp-architecture .whatsapp-quick-option:last-child{
+    border-bottom:1px solid rgba(255,255,255,.11)!important;
+}
+.whatsapp-architecture .whatsapp-quick-option > span{
+    color:rgba(198,168,124,.56);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:7px;
+    font-weight:700;
+    letter-spacing:1px;
+}
+.whatsapp-architecture .whatsapp-quick-option strong{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.04rem;
+    font-weight:500;
+}
+.whatsapp-architecture .whatsapp-quick-option i{
+    color:rgba(198,168,124,.56);
+    font-style:normal;
+    opacity:.5;
+}
+.whatsapp-architecture .whatsapp-quick-option:hover{
+    padding-left:17px!important;
+    background:rgba(198,168,124,.055)!important;
+    color:#fff!important;
+    letter-spacing:0!important;
+}
+.whatsapp-architecture .whatsapp-trust-note{
+    display:flex!important;
+    align-items:center!important;
+    gap:8px!important;
+    margin:15px 0!important;
+    color:rgba(255,255,255,.33)!important;
+    font-family:'Space Grotesk',sans-serif!important;
+    font-size:7px!important;
+    letter-spacing:.65px!important;
+}
+.whatsapp-status-dot{
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:#c6a87c;
+    box-shadow:0 0 0 4px rgba(198,168,124,.07);
+}
+.whatsapp-architecture #whatsappMessage{
+    width:100%!important;
+    min-height:104px!important;
+    margin:0 0 14px!important;
+    padding:13px 0!important;
+    border:0!important;
+    border-top:1px solid rgba(255,255,255,.13)!important;
+    border-bottom:1px solid rgba(255,255,255,.20)!important;
+    border-radius:0!important;
+    outline:0!important;
+    background:transparent!important;
+    color:#fff!important;
+    box-shadow:none!important;
+    resize:vertical!important;
+    font-family:'Cormorant Garamond',serif!important;
+    font-size:1.04rem!important;
+    line-height:1.42!important;
+}
+.whatsapp-architecture #whatsappMessage:focus{
+    border-bottom-color:#c6a87c!important;
+}
+.whatsapp-architecture .whatsapp-send-btn{
+    width:100%!important;
+    min-height:52px!important;
+    margin:0!important;
+    padding:0 15px!important;
+    display:flex!important;
+    justify-content:space-between!important;
+    align-items:center!important;
+    border:1px solid rgba(198,168,124,.72)!important;
+    border-radius:0!important;
+    background:transparent!important;
+    color:#fff!important;
+    box-shadow:none!important;
+    font-family:'Space Grotesk',sans-serif!important;
+    font-size:8px!important;
+    font-weight:700!important;
+    letter-spacing:1.35px!important;
+}
+.whatsapp-architecture .whatsapp-send-btn:hover{
+    background:#c6a87c!important;
+    color:#070707!important;
+    letter-spacing:1.35px!important;
+}
+body.footer-in-view .whatsapp-widget.whatsapp-architecture{
+    transform:translateY(-38px);
+}
+.whatsapp-widget.whatsapp-architecture{
+    transition:transform .38s cubic-bezier(.22,1,.36,1);
+}
+
+/* MOBILE: WhatsApp behaves like a compact bottom sheet */
+@media(max-width:768px){
+    .site-footer.footer-editorial{
+        min-height:620px;
+        padding:0 20px!important;
+    }
+    .footer-editorial-inner{
+        min-height:620px;
+        padding:58px 0 30px;
+    }
+    .footer-editorial-top{
+        grid-template-columns:1fr;
+        gap:42px;
+    }
+    .footer-editorial-brand p{
+        margin-top:20px;
+    }
+    .footer-editorial-nav,
+    .footer-editorial-social{
+        max-width:100%;
+    }
+    .footer-editorial-bottom{
+        flex-direction:column;
+        gap:12px;
+    }
+    .footer-editorial-bottom > div{
+        flex-wrap:wrap;
+        gap:10px 18px;
+    }
+    .footer-editorial-watermark{
+        bottom:-.06em;
+        font-size:22vw;
+    }
+
+    .whatsapp-widget.whatsapp-architecture{
+        right:16px;
+        bottom:82px;
+    }
+    .whatsapp-float-label{
+        display:none;
+    }
+    .whatsapp-architecture .whatsapp-float{
+        width:54px!important;
+        height:54px!important;
+    }
+    .whatsapp-architecture .whatsapp-chat-box{
+        position:fixed!important;
+        left:12px!important;
+        right:12px!important;
+        bottom:78px!important;
+        width:auto!important;
+        max-height:min(72svh,650px)!important;
+        border-radius:2px!important;
+    }
+    .whatsapp-architecture .whatsapp-chat-body{
+        max-height:calc(min(72svh,650px) - 76px)!important;
+        padding:18px!important;
+    }
+    body.footer-in-view .whatsapp-widget.whatsapp-architecture{
+        transform:translateY(-24px);
+    }
+
+    #contact .contact-inline-status.form-toast.show{
+        padding:14px!important;
+    }
+}
+
+/* No sticky hover ghosts on touch */
+@media(hover:none), (pointer:coarse){
+    .footer-editorial-nav a:hover,
+    .footer-editorial-social a:hover{
+        padding-left:0;
+    }
+    .whatsapp-architecture .whatsapp-quick-option:hover{
+        padding-left:12px!important;
+        background:transparent!important;
+    }
+    .whatsapp-architecture:hover .whatsapp-float-label{
+        opacity:0;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -4527,6 +5125,10 @@ img,video{
                         </div>
                     </div>
 
+
+                    <div id="formToast" class="form-toast contact-inline-status"
+                         role="status" aria-live="polite" aria-atomic="true"></div>
+
                     <div class="contact-submit-row">
                         <p>
                             Formu göndererek proje talebinizin değerlendirilmesi için gerekli bilgileri
@@ -4542,11 +5144,7 @@ img,video{
             </div>
         </div>
     </section>
-    
-    <div id="formToast" class="form-toast" role="status" aria-live="polite"></div>
-
-
-    <div class="mobile-contact-bar" aria-label="Mobil hızlı iletişim çubuğu">
+<div class="mobile-contact-bar" aria-label="Mobil hızlı iletişim çubuğu">
         <button type="button" class="mobile-contact-item" onclick="toggleWhatsappChat()" aria-label="WhatsApp chat penceresini aç">
             <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.04 3C9.39 3 4 8.39 4 15.04c0 2.12.56 4.19 1.62 6.01L4 29l8.16-1.55c1.75.95 3.72 1.45 5.88 1.45C24.69 28.9 30 23.59 30 16.94 30 10.29 22.69 3 16.04 3zm.01 23.75c-1.86 0-3.58-.5-5.1-1.38l-.36-.21-4.84.92.94-4.71-.24-.38c-1-1.58-1.53-3.4-1.53-5.28 0-5.48 4.46-9.94 9.94-9.94 2.65 0 5.14 1.03 7.02 2.91 1.87 1.88 2.9 4.37 2.9 7.02 0 5.48-4.46 10.05-9.93 10.05zm5.45-7.44c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35z"/></svg>
             <span>WhatsApp</span>
@@ -4560,11 +5158,12 @@ img,video{
             <span>Teklif Al</span>
         </a>
     </div>
+    <div class="whatsapp-widget whatsapp-architecture">
+        <span class="whatsapp-float-label" aria-hidden="true">WHATSAPP</span>
 
-
-    <div class="whatsapp-widget">
-        <button class="whatsapp-float" onclick="toggleWhatsappChat()" aria-label="WhatsApp ile iletişime geç">
-            <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor" aria-hidden="true">
+        <button class="whatsapp-float" onclick="toggleWhatsappChat()"
+                aria-label="BG Studio Architecture ile WhatsApp üzerinden iletişime geç">
+            <svg viewBox="0 0 32 32" width="24" height="24" fill="currentColor" aria-hidden="true">
                 <path d="M16.04 3C9.39 3 4 8.39 4 15.04c0 2.12.56 4.19 1.62 6.01L4 29l8.16-1.55c1.75.95 3.72 1.45 5.88 1.45C24.69 28.9 30 23.59 30 16.94 30 10.29 22.69 3 16.04 3zm.01 23.75c-1.86 0-3.58-.5-5.1-1.38l-.36-.21-4.84.92.94-4.71-.24-.38c-1-1.58-1.53-3.4-1.53-5.28 0-5.48 4.46-9.94 9.94-9.94 2.65 0 5.14 1.03 7.02 2.91 1.87 1.88 2.9 4.37 2.9 7.02 0 5.48-4.46 10.05-9.93 10.05zm5.45-7.44c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35z"/>
             </svg>
         </button>
@@ -4572,63 +5171,111 @@ img,video{
         <div class="whatsapp-chat-box" id="whatsappChatBox">
             <div class="whatsapp-chat-header">
                 <div class="whatsapp-brand-head">
-                    <img src="logo-96.webp" alt="BG Studio logo" class="whatsapp-brand-logo" width="44" height="44">
-                    <div>
-                        <strong>BG Studio</strong>
+                    <img src="logo-96.webp" alt="BG Studio Architecture logosu"
+                         class="whatsapp-brand-logo" width="40" height="40">
+                    <div class="whatsapp-brand-copy">
+                        <strong>BG STUDIO</strong>
+                        <span>Architecture</span>
                     </div>
                 </div>
-                <button class="whatsapp-chat-close" onclick="toggleWhatsappChat()" aria-label="WhatsApp penceresini kapat">×</button>
+
+                <button class="whatsapp-chat-close" onclick="toggleWhatsappChat()"
+                        aria-label="WhatsApp penceresini kapat">×</button>
             </div>
 
             <div class="whatsapp-chat-body">
                 <div class="whatsapp-message">
-                    Merhaba 👋<br>
-                    Mimari proje, iç mimarlık veya 3D render hizmeti için mesajınızı bırakabilirsiniz.
+                    <span class="whatsapp-message-kicker">MİMARİ İLETİŞİM</span>
+                    <p>Merhaba. Mimari projeniz hakkında birkaç detay paylaşın, size uygun çalışma biçimini birlikte belirleyelim.</p>
                 </div>
 
-                <span class="whatsapp-quick-label">Hızlı seçenekler</span>
+                <span class="whatsapp-quick-label">HIZLI SEÇENEKLER</span>
+
                 <div class="whatsapp-quick-options" aria-label="WhatsApp hızlı mesaj seçenekleri">
-                    <button type="button" class="whatsapp-quick-option" onclick="setWhatsappQuickMessage('villa')">Villa projem için teklif almak istiyorum</button>
-                    <button type="button" class="whatsapp-quick-option" onclick="setWhatsappQuickMessage('interior')">İç mekan render hizmeti almak istiyorum</button>
-                    <button type="button" class="whatsapp-quick-option" onclick="setWhatsappQuickMessage('animation')">3D animasyon hakkında bilgi almak istiyorum</button>
-                    <button type="button" class="whatsapp-quick-option" onclick="setWhatsappQuickMessage('visualization')">Mevcut projemi görselleştirmek istiyorum</button>
+                    <button type="button" class="whatsapp-quick-option" onclick="setWhatsappQuickMessage('villa')">
+                        <span>01</span><strong>Villa / Konut Projesi</strong><i>↗</i>
+                    </button>
+
+                    <button type="button" class="whatsapp-quick-option" onclick="setWhatsappQuickMessage('interior')">
+                        <span>02</span><strong>İç Mekân Tasarımı</strong><i>↗</i>
+                    </button>
+
+                    <button type="button" class="whatsapp-quick-option" onclick="setWhatsappQuickMessage('visualization')">
+                        <span>03</span><strong>3D Görselleştirme</strong><i>↗</i>
+                    </button>
+
+                    <button type="button" class="whatsapp-quick-option" onclick="setWhatsappQuickMessage('application')">
+                        <span>04</span><strong>Uygulama Projesi</strong><i>↗</i>
+                    </button>
                 </div>
-                <div class="whatsapp-trust-note">Ortalama yanıt süresi: aynı gün içinde</div>
+
+                <div class="whatsapp-trust-note">
+                    <span class="whatsapp-status-dot" aria-hidden="true"></span>
+                    Ortalama yanıt süresi: aynı gün içinde
+                </div>
+
                 <label class="sr-only" for="whatsappMessage">WhatsApp mesajınız</label>
-                <textarea id="whatsappMessage" placeholder="Mesajınızı yazın...">Merhaba, BG Studio üzerinden ulaşıyorum. Projem hakkında bilgi almak istiyorum.</textarea>
+                <textarea id="whatsappMessage" placeholder="Mesajınızı yazın...">Merhaba, BG Studio Architecture üzerinden ulaşıyorum. Projem hakkında bilgi almak istiyorum.</textarea>
 
                 <button class="whatsapp-send-btn" onclick="sendWhatsappMessage()">
-                    WhatsApp’ta Gönder
+                    <span>WHATSAPP’TA GÖNDER</span>
+                    <span aria-hidden="true">↗</span>
                 </button>
             </div>
         </div>
     </div>
 
 
-   <footer class="site-footer">
-    <div class="footer-container">
-        <div class="footer-social-group" role="navigation" aria-label="BG Studio dijital profilleri">
-            <a href="https://www.instagram.com/bgstudio.arch/" target="_blank" rel="noopener" class="footer-social-item" aria-label="BG Studio mimarlık Instagram hesabını aç">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                <span>bgstudio.arch</span>
-            </a>
-            <a href="https://t.me/bgstudio_arch" target="_blank" rel="noopener" class="footer-social-item" aria-label="BG Studio Telegram hesabını aç">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.26.26-.534.26l.195-2.795 5.084-4.59c.22-.194-.048-.303-.342-.108L6.438 13.01l-2.708-.845c-.59-.186-.6-.59.124-.874l10.58-4.074c.49-.18.914.113.76.994z"/></svg>
-                <span>bgstudio_arch</span>
-            </a>
-            <a href="https://www.facebook.com/bgstudio.archtr" target="_blank" rel="noopener" class="footer-social-item" aria-label="BG Studio mimarlık Facebook hesabını aç">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.099 4.388 23.094 10.125 24v-8.438H7.078v-3.489h3.047V9.413c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.974h-1.513c-1.49 0-1.956.931-1.956 1.887v2.26h3.328l-.532 3.489h-2.796V24C19.612 23.094 24 18.099 24 12.073z"/></svg>
-                <span>bgstudio.archtr</span>
-            </a>
+    <footer class="site-footer footer-editorial">
+        <div class="footer-editorial-inner">
+            <div class="footer-editorial-top">
+                <div class="footer-editorial-brand">
+                    <span class="footer-editorial-kicker">BG STUDIO</span>
+                    <h2>Architecture</h2>
+                    <p>Designing spaces<br>with clarity.</p>
+                </div>
+
+                <nav class="footer-editorial-nav" aria-label="Alt menü">
+                    <span class="footer-editorial-label">NAVIGATION</span>
+                    <a href="#projects">Projeler <i>01</i></a>
+                    <a href="#services">Hizmetler <i>02</i></a>
+                    <a href="#process">Süreç <i>03</i></a>
+                    <a href="#about">Stüdyo <i>04</i></a>
+                    <a href="#contact">İletişim <i>05</i></a>
+                </nav>
+
+                <div class="footer-editorial-social">
+                    <span class="footer-editorial-label">FOLLOW</span>
+
+                    <a href="https://www.instagram.com/bgstudio.arch/" target="_blank" rel="noopener">
+                        Instagram <span>↗</span>
+                    </a>
+
+                    <a href="https://www.facebook.com/bgstudio.archtr" target="_blank" rel="noopener">
+                        Facebook <span>↗</span>
+                    </a>
+
+                    <a href="https://t.me/bgstudio_arch" target="_blank" rel="noopener">
+                        Telegram <span>↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-editorial-bottom">
+                <div>
+                    <span>KUŞADASI · AYDIN</span>
+                    <span>MİMAR BERKANT GÖKBEL</span>
+                </div>
+
+                <div>
+                    <span>© 2026 BG STUDIO</span>
+                    <span>TÜM HAKLARI SAKLIDIR</span>
+                </div>
+            </div>
+
+            <div class="footer-editorial-watermark" aria-hidden="true">BG STUDIO</div>
         </div>
-        <p class="footer-copyright">
-            BG STUDIO © 2026. Tüm hakları saklıdır. | Mimari tasarım ve görselleştirmede zamansız, işlevsel ve etkileyici mekânlar.
-        </p>
-        <p class="footer-designer-line">
-            Mimar Berkant Gökbel tarafından tasarlanmıştır.
-        </p>
-    </div>
-</footer>
+    </footer>
 
     <script>
         // Hafif yardımcı: kritik olmayan işleri ilk çizimden sonra başlatır.
@@ -5150,13 +5797,13 @@ img,video{
             if (!messageInput) return;
 
             const messages = {
-                villa: 'Merhaba, BG Studio üzerinden ulaşıyorum. Villa projem için mimari tasarım / 3D görselleştirme teklifi almak istiyorum.',
-                interior: 'Merhaba, BG Studio üzerinden ulaşıyorum. İç mekan render hizmeti hakkında bilgi almak istiyorum.',
-                animation: 'Merhaba, BG Studio üzerinden ulaşıyorum. 3D mimari animasyon hizmetiniz hakkında bilgi almak istiyorum.',
-                visualization: 'Merhaba, BG Studio üzerinden ulaşıyorum. Mevcut projemi fotogerçekçi şekilde görselleştirmek istiyorum.'
+                villa: 'Merhaba, BG Studio Architecture üzerinden ulaşıyorum. Villa / konut projem için mimari tasarım hizmeti hakkında bilgi ve teklif almak istiyorum.',
+                interior: 'Merhaba, BG Studio Architecture üzerinden ulaşıyorum. İç mekân tasarımı projem için bilgi ve teklif almak istiyorum.',
+                visualization: 'Merhaba, BG Studio Architecture üzerinden ulaşıyorum. Projem için 3D mimari görselleştirme hizmeti hakkında bilgi almak istiyorum.',
+                application: 'Merhaba, BG Studio Architecture üzerinden ulaşıyorum. Uygulama projesi hizmetiniz hakkında bilgi ve teklif almak istiyorum.'
             };
 
-            messageInput.value = messages[type] || 'Merhaba, BG Studio üzerinden ulaşıyorum. Projem hakkında bilgi almak istiyorum.';
+            messageInput.value = messages[type] || 'Merhaba, BG Studio Architecture üzerinden ulaşıyorum. Projem hakkında bilgi almak istiyorum.';
             messageInput.focus();
         }
 
@@ -5459,6 +6106,23 @@ img,video{
     window.addEventListener('scroll', requestUpdate, {passive:true});
     window.addEventListener('resize', requestUpdate, {passive:true});
     update();
+})();
+</script>
+
+
+<script>
+(function(){
+    const footer = document.querySelector('.footer-editorial');
+    if (!footer || !('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        document.body.classList.toggle('footer-in-view', entries[0]?.isIntersecting || false);
+    }, {
+        rootMargin:'0px 0px -4% 0px',
+        threshold:[0,.08,.2]
+    });
+
+    observer.observe(footer);
 })();
 </script>
 
