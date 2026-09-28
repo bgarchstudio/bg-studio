@@ -4409,6 +4409,22 @@ body.footer-in-view .whatsapp-widget.whatsapp-architecture{
     }
 }
 
+
+/* ===== V1.7.4 HOTFIX / FOOTER NAV ISOLATION ===== */
+.footer-editorial .footer-editorial-nav{
+    position:static!important;
+    top:auto!important;
+    left:auto!important;
+    right:auto!important;
+    width:auto!important;
+    padding:0!important;
+    z-index:auto!important;
+    background:transparent!important;
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+    border-bottom:0!important;
+}
+
 </style>
 </head>
 <body>
@@ -5235,14 +5251,14 @@ body.footer-in-view .whatsapp-widget.whatsapp-architecture{
                     <p>Designing spaces<br>with clarity.</p>
                 </div>
 
-                <nav class="footer-editorial-nav" aria-label="Alt menü">
+                <div class="footer-editorial-nav" role="navigation" aria-label="Alt menü">
                     <span class="footer-editorial-label">NAVIGATION</span>
                     <a href="#projects">Projeler <i>01</i></a>
                     <a href="#services">Hizmetler <i>02</i></a>
                     <a href="#process">Süreç <i>03</i></a>
                     <a href="#about">Stüdyo <i>04</i></a>
                     <a href="#contact">İletişim <i>05</i></a>
-                </nav>
+                </div>
 
                 <div class="footer-editorial-social">
                     <span class="footer-editorial-label">FOLLOW</span>
