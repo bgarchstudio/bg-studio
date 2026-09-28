@@ -1148,9 +1148,39 @@ textarea:focus-visible{
     opacity:1!important;
     transform:none!important;
 }
+
+/* V1.9.4.2 / SAFE GLOBAL SCROLL PROGRESS */
+.global-scroll-progress{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:2px;
+    z-index:12050;
+    pointer-events:none;
+    background:rgba(255,255,255,.025);
+    overflow:hidden;
+}
+.global-scroll-progress-fill{
+    display:block;
+    width:100%;
+    height:100%;
+    transform:scaleX(var(--page-progress,0));
+    transform-origin:left center;
+    background:linear-gradient(90deg,#9d805c 0%,#c6a87c 52%,#e0c49b 100%);
+    box-shadow:0 0 8px rgba(198,168,124,.34),0 0 18px rgba(198,168,124,.10);
+    transition:transform .08s linear;
+    will-change:transform;
+}
+@media(prefers-reduced-motion:reduce){
+    .global-scroll-progress-fill{transition:none!important}
+}
 </style>
 </head>
 <body>
+    <div class="global-scroll-progress" aria-hidden="true">
+        <span class="global-scroll-progress-fill"></span>
+    </div>
     <a class="skip-link" href="#main-content">Ana içeriğe geç</a>
     <nav class="site-nav hero-transparent" aria-label="Ana menü">
         <a href="#" class="logo-text" aria-label="BG Studio ana sayfa">BG STUDIO</a>
@@ -1595,6 +1625,20 @@ textarea:focus-visible{
             </div>
         </div>
     
+        </div>
+    </section>
+
+
+    <section id="manifesto" class="manifesto-reading" aria-labelledby="manifestoTitle">
+        <div class="manifesto-reading-sticky">
+            <div class="manifesto-reading-inner">
+                <span class="manifesto-reading-kicker">MANİFESTO</span>
+                <h2 id="manifestoTitle" class="manifesto-reading-copy"><span class="manifesto-word" data-manifesto-word="0">Mekânı</span> <span class="manifesto-word" data-manifesto-word="1">yalnızca</span> <span class="manifesto-word" data-manifesto-word="2">biçim</span> <span class="manifesto-word" data-manifesto-word="3">olarak</span> <span class="manifesto-word" data-manifesto-word="4">değil;</span> <span class="manifesto-word" data-manifesto-word="5">işlev,</span> <span class="manifesto-word" data-manifesto-word="6">atmosfer,</span> <span class="manifesto-word" data-manifesto-word="7">malzeme</span> <span class="manifesto-word" data-manifesto-word="8">ve</span> <span class="manifesto-word" data-manifesto-word="9">bulunduğu</span> <span class="manifesto-word" data-manifesto-word="10">coğrafyayla</span> <span class="manifesto-word" data-manifesto-word="11">kurduğu</span> <span class="manifesto-word" data-manifesto-word="12">ilişki</span> <span class="manifesto-word" data-manifesto-word="13">üzerinden</span> <span class="manifesto-word" data-manifesto-word="14">ele</span> <span class="manifesto-word" data-manifesto-word="15">alıyoruz.</span> <span class="manifesto-word" data-manifesto-word="16">Tasarım</span> <span class="manifesto-word" data-manifesto-word="17">kararlarını</span> <span class="manifesto-word" data-manifesto-word="18">uygulanabilirlikten</span> <span class="manifesto-word" data-manifesto-word="19">ayırmadan;</span> <span class="manifesto-word" data-manifesto-word="20">kullanıcı</span> <span class="manifesto-word" data-manifesto-word="21">ihtiyaçlarını,</span> <span class="manifesto-word" data-manifesto-word="22">bağlamı</span> <span class="manifesto-word" data-manifesto-word="23">ve</span> <span class="manifesto-word" data-manifesto-word="24">uzun</span> <span class="manifesto-word" data-manifesto-word="25">vadeli</span> <span class="manifesto-word" data-manifesto-word="26">mekânsal</span> <span class="manifesto-word" data-manifesto-word="27">değeri</span> <span class="manifesto-word" data-manifesto-word="28">birlikte</span> <span class="manifesto-word" data-manifesto-word="29">düşünüyoruz.</span> <span class="manifesto-word" data-manifesto-word="30">Amacımız</span> <span class="manifesto-word" data-manifesto-word="31">yalnızca</span> <span class="manifesto-word" data-manifesto-word="32">iyi</span> <span class="manifesto-word" data-manifesto-word="33">görünen</span> <span class="manifesto-word" data-manifesto-word="34">değil,</span> <span class="manifesto-word" data-manifesto-word="35">yaşadıkça</span> <span class="manifesto-word" data-manifesto-word="36">ve</span> <span class="manifesto-word" data-manifesto-word="37">kullanıldıkça</span> <span class="manifesto-word" data-manifesto-word="38">karakter</span> <span class="manifesto-word" data-manifesto-word="39">kazanan</span> <span class="manifesto-word" data-manifesto-word="40">mekânlar</span> <span class="manifesto-word" data-manifesto-word="41">üretmek.</span></h2>
+                <div class="manifesto-reading-foot" aria-hidden="true">
+                    <span>BG STUDIO ARCHITECTURE</span>
+                    <span>KUŞADASI · AYDIN</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -5948,6 +5992,120 @@ textarea:focus-visible{
         padding: 0;
     }
 }
+
+
+/* V1.9.4.2 / SAFE MANIFESTO SCROLL READING */
+#manifesto.manifesto-reading{
+    position:relative;
+    min-height:180vh;
+    background:#050505;
+    border-top:1px solid rgba(255,255,255,.055);
+    border-bottom:1px solid rgba(255,255,255,.055);
+    isolation:isolate;
+}
+#manifesto .manifesto-reading-sticky{
+    position:sticky;
+    top:0;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:108px 6% 92px;
+    overflow:hidden;
+}
+#manifesto .manifesto-reading-inner{
+    width:100%;
+    max-width:1220px;
+    margin:0 auto;
+    text-align:center;
+}
+#manifesto .manifesto-reading-kicker{
+    display:block;
+    margin-bottom:42px;
+    color:rgba(198,168,124,.66);
+    font-family:"Space Grotesk",sans-serif;
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:2.35px;
+    text-transform:uppercase;
+}
+#manifesto .manifesto-reading-copy{
+    margin:0 auto;
+    max-width:1180px;
+    color:transparent;
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(2.65rem,4.65vw,5.45rem);
+    font-weight:500;
+    line-height:1.08;
+    letter-spacing:-.035em;
+    text-transform:none;
+    text-wrap:balance;
+}
+#manifesto .manifesto-word{
+    color:rgba(255,255,255,.10);
+    transition:color .30s ease,text-shadow .30s ease;
+}
+#manifesto .manifesto-word.is-read{
+    color:#f1eee8;
+}
+#manifesto .manifesto-word.is-current{
+    color:#d7ba91;
+    text-shadow:0 0 18px rgba(198,168,124,.12);
+}
+#manifesto .manifesto-reading-foot{
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    max-width:1180px;
+    margin:48px auto 0;
+    padding-top:15px;
+    border-top:1px solid rgba(255,255,255,.10);
+    color:rgba(255,255,255,.24);
+    font-family:"Space Grotesk",sans-serif;
+    font-size:6.5px;
+    font-weight:700;
+    letter-spacing:1.55px;
+    text-transform:uppercase;
+}
+@media(max-width:900px){
+    #manifesto.manifesto-reading{
+        min-height:auto;
+    }
+    #manifesto .manifesto-reading-sticky{
+        position:relative;
+        min-height:0;
+        padding:94px 20px 96px;
+    }
+    #manifesto .manifesto-reading-kicker{
+        margin-bottom:28px;
+    }
+    #manifesto .manifesto-reading-copy{
+        font-size:clamp(2.15rem,10.5vw,3.75rem);
+        line-height:1.08;
+        text-align:left;
+        text-wrap:pretty;
+    }
+    #manifesto .manifesto-word{
+        color:rgba(255,255,255,.72);
+    }
+    #manifesto .manifesto-word.is-read,
+    #manifesto .manifesto-word.is-current{
+        color:#f1eee8;
+        text-shadow:none;
+    }
+    #manifesto .manifesto-reading-foot{
+        margin-top:34px;
+        font-size:6px;
+        letter-spacing:1.15px;
+    }
+}
+@media(prefers-reduced-motion:reduce){
+    #manifesto .manifesto-word{
+        transition:none!important;
+        color:#f1eee8!important;
+        text-shadow:none!important;
+    }
+}
 </script>
 <script>
 (function(){
@@ -6002,6 +6160,96 @@ textarea:focus-visible{
     } else {
         media.forEach(hydrateMedia);
     }
+})();
+</script>
+
+
+<script>
+(function(){
+    const section = document.getElementById('manifesto');
+    if (!section) return;
+
+    const words = Array.from(section.querySelectorAll('.manifesto-word'));
+    if (!words.length) return;
+
+    const desktopMq = window.matchMedia('(min-width:901px)');
+    const reducedMq = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    let startY = 0;
+    let distance = 1;
+    let ticking = false;
+    let lastCount = -1;
+
+    function paint(count){
+        count = Math.max(0, Math.min(words.length, count));
+        if (count === lastCount) return;
+
+        const from = Math.min(lastCount < 0 ? 0 : lastCount, count);
+        const to = Math.max(lastCount < 0 ? 0 : lastCount, count);
+
+        if (lastCount < 0) {
+            words.forEach((word, i) => word.classList.toggle('is-read', i < count));
+        } else if (count > lastCount) {
+            for (let i = from; i < to; i++) words[i].classList.add('is-read');
+        } else {
+            for (let i = from; i < to; i++) words[i].classList.remove('is-read');
+        }
+
+        words.forEach(word => word.classList.remove('is-current'));
+        if (count < words.length) words[count].classList.add('is-current');
+
+        lastCount = count;
+    }
+
+    function measure(){
+        if (!desktopMq.matches || reducedMq.matches) {
+            words.forEach(word => {
+                word.classList.add('is-read');
+                word.classList.remove('is-current');
+            });
+            lastCount = words.length;
+            return;
+        }
+
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        startY = section.getBoundingClientRect().top + scrollY;
+        distance = Math.max(1, section.offsetHeight - window.innerHeight);
+        update();
+    }
+
+    function update(){
+        ticking = false;
+        if (!desktopMq.matches || reducedMq.matches) return;
+
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        const progress = Math.max(0, Math.min(1, (scrollY - startY) / distance));
+        const eased = progress * progress * (3 - 2 * progress);
+        const count = Math.round(eased * words.length);
+        paint(count);
+    }
+
+    function requestUpdate(){
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+    }
+
+    function refresh(){
+        requestAnimationFrame(measure);
+    }
+
+    window.addEventListener('scroll', requestUpdate, {passive:true});
+    window.addEventListener('resize', refresh, {passive:true});
+    window.addEventListener('load', refresh, {once:true, passive:true});
+
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(refresh).catch(() => {});
+    }
+
+    if (desktopMq.addEventListener) desktopMq.addEventListener('change', refresh);
+    if (reducedMq.addEventListener) reducedMq.addEventListener('change', refresh);
+
+    measure();
 })();
 </script>
 
