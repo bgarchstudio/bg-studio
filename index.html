@@ -1231,12 +1231,43 @@ textarea:focus-visible{
         bottom:calc(72px + env(safe-area-inset-bottom))!important;
     }
 }
+
+/* ===== TR / EN LANGUAGE SWITCH ===== */
+.site-nav .language-switcher{
+    display:flex;align-items:center;justify-content:center;gap:4px;
+    margin-left:auto;margin-right:22px;height:30px;padding:0 7px;
+    border:1px solid rgba(198,168,124,.22);border-radius:999px;
+    background:rgba(5,5,5,.30);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    flex:0 0 auto
+}
+.site-nav .language-btn{
+    min-width:26px;height:24px;margin:0;padding:0 4px;border:0;border-radius:999px;
+    background:transparent;color:rgba(255,255,255,.42);
+    font-family:"Space Grotesk",sans-serif;font-size:8px;font-weight:700;line-height:1;
+    letter-spacing:1px;cursor:pointer;box-shadow:none;
+    transition:color .25s ease,background .25s ease
+}
+.site-nav .language-btn:hover{color:#fff;background:rgba(198,168,124,.08);letter-spacing:1px;box-shadow:none}
+.site-nav .language-btn.is-active{color:#050505;background:#c6a87c}
+.site-nav .language-divider{color:rgba(198,168,124,.34);font-family:"Space Grotesk",sans-serif;font-size:8px}
+@media(max-width:768px){
+    .site-nav .language-switcher{order:2;margin-left:auto;margin-right:12px;height:30px;padding:0 6px}
+    .site-nav .menu-toggle{order:3;flex:0 0 auto}
+    .site-nav .nav-links{order:4}
+    .site-nav .language-btn{min-width:25px;font-size:7.5px}
+}
 </style>
 </head>
 <body>
     <a class="skip-link" href="#main-content">Ana içeriğe geç</a>
     <nav class="site-nav hero-transparent" aria-label="Ana menü">
         <a href="#" class="logo-text" aria-label="BG Studio ana sayfa">BG STUDIO</a>
+        <div class="language-switcher" role="group" aria-label="Dil seçimi">
+            <button type="button" class="language-btn is-active" data-lang="tr" aria-pressed="true">TR</button>
+            <span class="language-divider" aria-hidden="true">/</span>
+            <button type="button" class="language-btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+
         
         <button type="button" class="menu-toggle" onclick="toggleMenu()" aria-label="Menüyü aç veya kapat" aria-controls="navLinks" aria-expanded="false">☰</button>
         
@@ -2694,7 +2725,7 @@ textarea:focus-visible{
 
                 if (submitButton) {
                     submitButton.disabled = true;
-                    submitButton.textContent = 'GÖNDERİLİYOR...';
+                    submitButton.textContent = window.bgT ? window.bgT('GÖNDERİLİYOR...', 'SENDING...') : 'GÖNDERİLİYOR...';
                 }
 
                 try {
@@ -2711,12 +2742,12 @@ textarea:focus-visible{
 
                     if (response.ok && result.success === true) {
                         contactForm.reset();
-                        showFormToast('Mesajınız alındı.', 'success');
+                        showFormToast(window.bgT ? window.bgT('Mesajınız alındı.', 'Your message has been received.') : 'Mesajınız alındı.', 'success');
                     } else {
-                        showFormToast('Mesaj gönderilemedi. Lütfen biraz sonra tekrar deneyin.', 'error');
+                        showFormToast(window.bgT ? window.bgT('Mesaj gönderilemedi. Lütfen biraz sonra tekrar deneyin.', 'Message could not be sent. Please try again shortly.') : 'Mesaj gönderilemedi. Lütfen biraz sonra tekrar deneyin.', 'error');
                     }
                 } catch (error) {
-                    showFormToast('Bağlantı hatası oluştu. Lütfen tekrar deneyin.', 'error');
+                    showFormToast(window.bgT ? window.bgT('Bağlantı hatası oluştu. Lütfen tekrar deneyin.', 'A connection error occurred. Please try again.') : 'Bağlantı hatası oluştu. Lütfen tekrar deneyin.', 'error');
                 } finally {
                     if (submitButton) {
                         submitButton.disabled = false;
@@ -2731,14 +2762,23 @@ textarea:focus-visible{
             const messageInput = document.getElementById('whatsappMessage');
             if (!messageInput) return;
 
-            const messages = {
+            const messagesTr = {
                 villa: 'Merhaba, BG Studio Architecture üzerinden ulaşıyorum. Villa / konut projem için mimari tasarım hizmeti hakkında bilgi ve teklif almak istiyorum.',
                 interior: 'Merhaba, BG Studio Architecture üzerinden ulaşıyorum. İç mekân tasarımı projem için bilgi ve teklif almak istiyorum.',
                 visualization: 'Merhaba, BG Studio Architecture üzerinden ulaşıyorum. Projem için 3D mimari görselleştirme hizmeti hakkında bilgi almak istiyorum.',
                 application: 'Merhaba, BG Studio Architecture üzerinden ulaşıyorum. Uygulama projesi hizmetiniz hakkında bilgi ve teklif almak istiyorum.'
             };
-
-            messageInput.value = messages[type] || 'Merhaba, BG Studio Architecture üzerinden ulaşıyorum. Projem hakkında bilgi almak istiyorum.';
+            const messagesEn = {
+                villa: 'Hello, I am contacting you through BG Studio Architecture. I would like information and a quote for architectural design services for my villa / residential project.',
+                interior: 'Hello, I am contacting you through BG Studio Architecture. I would like information and a quote for my interior design project.',
+                visualization: 'Hello, I am contacting you through BG Studio Architecture. I would like information about 3D architectural visualization for my project.',
+                application: 'Hello, I am contacting you through BG Studio Architecture. I would like information and a quote for your construction documentation service.'
+            };
+            const isEnglish = window.bgStudioLanguage === 'en';
+            const messages = isEnglish ? messagesEn : messagesTr;
+            messageInput.value = messages[type] || (isEnglish
+                ? 'Hello, I am contacting you through BG Studio Architecture. I would like information about my project.'
+                : 'Merhaba, BG Studio Architecture üzerinden ulaşıyorum. Projem hakkında bilgi almak istiyorum.');
             messageInput.focus();
         }
 
@@ -2816,7 +2856,7 @@ textarea:focus-visible{
             const message = messageInput ? messageInput.value.trim() : "";
 
             if (!message) {
-                showFormToast('Lütfen WhatsApp mesajınızı yazın.', 'error');
+                showFormToast(window.bgT ? window.bgT('Lütfen WhatsApp mesajınızı yazın.', 'Please enter your WhatsApp message.') : 'Lütfen WhatsApp mesajınızı yazın.', 'error');
                 return;
             }
 
@@ -2951,9 +2991,9 @@ textarea:focus-visible{
         });
 
         if (indexEl) indexEl.textContent = data.index;
-        if (kickerEl) kickerEl.textContent = data.kicker;
-        if (titleEl) titleEl.textContent = data.title;
-        if (textEl) textEl.textContent = data.text;
+        if (kickerEl) kickerEl.textContent = window.bgTranslateString ? window.bgTranslateString(data.kicker) : data.kicker;
+        if (titleEl) titleEl.textContent = window.bgTranslateString ? window.bgTranslateString(data.title) : data.title;
+        if (textEl) textEl.textContent = window.bgTranslateString ? window.bgTranslateString(data.text) : data.text;
     }
 
     function measure(){
@@ -3107,9 +3147,9 @@ textarea:focus-visible{
         if (!data) return;
 
         if (indexEl) indexEl.textContent = data.index;
-        if (kickerEl) kickerEl.textContent = data.kicker;
-        if (titleEl) titleEl.textContent = data.title;
-        if (textEl) textEl.textContent = data.text;
+        if (kickerEl) kickerEl.textContent = window.bgTranslateString ? window.bgTranslateString(data.kicker) : data.kicker;
+        if (titleEl) titleEl.textContent = window.bgTranslateString ? window.bgTranslateString(data.title) : data.title;
+        if (textEl) textEl.textContent = window.bgTranslateString ? window.bgTranslateString(data.text) : data.text;
 
         const discreteProgress = steps.length > 1 ? index / (steps.length - 1) : 1;
         section.style.setProperty('--process-progress', discreteProgress.toFixed(4));
@@ -6265,6 +6305,117 @@ textarea:focus-visible{
     } else {
         media.forEach(hydrateMedia);
     }
+})();
+</script>
+
+
+<script id="bg-i18n">
+(function(){
+'use strict';
+const TEXT_TR_EN={"Ana içeriğe geç": "Skip to main content", "PROJELER": "PROJECTS", "HİZMETLER": "SERVICES", "SÜREÇ": "PROCESS", "STÜDYO": "STUDIO", "İLETİŞİM": "CONTACT", "MİMARİ TASARIM": "ARCHITECTURAL DESIGN", "UYGULAMA PROJESİ": "CONSTRUCTION DOCUMENTATION", "3D GÖRSELLEŞTİRME": "3D VISUALIZATION", "Kuşadası merkezli mimarlık stüdyosu. Konut, villa, iç mekân ve ticari alan projelerinde tasarım fikrini teknik çözüm ve güçlü görselleştirme ile tek bir mimari dilde buluşturuyoruz.": "An architecture studio based in Kuşadası. We bring design ideas, technical resolution and strong visualization together in a single architectural language for residential, villa, interior and commercial projects.", "Seçili Projeler": "Selected Projects", "Projenizi Konuşalım": "Discuss Your Project", "SEÇİLİ": "SELECTED", "Villa, iç mekân, ticari alan ve sağlık yapıları için hazırlanmış; mimari tasarım, uygulama projesi ve fotogerçekçi görselleştirme seçkisi.": "A curated selection of architectural design, construction documentation and photorealistic visualization for villas, interiors, commercial spaces and healthcare projects.", "Kaydır": "Swipe", "01 — LÜKS VİLLA / SAHİL KONUTU": "01 — LUXURY VILLA / COASTAL RESIDENCE", "Deniz Manzaralı Lüks Villa": "Luxury Seafront Villa", "Mimari Tasarım & 3D Görselleştirme": "Architectural Design & 3D Visualization", "Denizle kurduğu güçlü ilişki, modern cephe dili ve açık yaşam kurgusuyla öne çıkan lüks villa konsepti. Geniş cam yüzeyler, gün batımı atmosferi ve havuz çevresi yaşam alanlarıyla güçlü bir satış sunumu dili oluşturur.": "A luxury villa concept defined by a strong relationship with the sea, a contemporary façade language and open-plan living. Expansive glazing, sunset atmosphere and poolside spaces create a compelling presentation for the project.", "Bu tarz proje için teklif al": "Get a Quote for a Similar Project", "02 — KONUT / İÇ MEKÂN": "02 — RESIDENCE / INTERIOR", "Marina Manzaralı Konut İç Mekânı": "Marina View Residence Interior", "Mekân Tasarımı & 3D Render": "Interior Design & 3D Render", "Sıcak malzeme paleti ve marina manzarasıyla zenginleşen rafine iç mekân kurgusu. Yaşam alanı, mutfak ve yatak odasında kontrollü ışık, ahşap dokular ve sakin lüks dili bir arada ele alındı.": "A refined interior enriched by a warm material palette and marina views. Controlled lighting, timber textures and a quiet sense of luxury shape the living area, kitchen and bedroom.", "03 — SAĞLIK YAPISI / KLİNİK": "03 — HEALTHCARE / CLINIC", "Modern Klinik Tasarımı": "Modern Clinic Design", "Mimari Tasarım & İç Mekân Görselleştirme": "Architectural Design & Interior Visualization", "Temiz çizgiler, dengeli ışık kullanımı ve güven veren mekân kurgusuyla öne çıkan modern klinik tasarımı. Dış cepheden lobiye ve tedavi alanlarına kadar bütüncül, kurumsal ve sakin bir atmosfer hedeflendi.": "A modern clinic shaped by clean lines, balanced lighting and a reassuring spatial concept. From the façade to the lobby and treatment areas, the design aims for a coherent, professional and calm atmosphere.", "04 — DAĞ EVİ / KONUT": "04 — MOUNTAIN HOUSE / RESIDENCE", "Taş ve Ahşap Dağ Evi": "Stone & Timber Mountain House", "Mimari Konsept & 3D Görselleştirme": "Architectural Concept & 3D Visualization", "Taş, ahşap ve manzara dengesini öne çıkaran; doğayla bütünleşen çağdaş dağ evi tasarımı. Güçlü kütle dili, doğal malzeme kullanımı ve şömine çevresinde şekillenen iç mekân atmosferiyle sıcak bir sığınak etkisi kurar.": "A contemporary mountain house that balances stone, timber and landscape while integrating with nature. Strong massing, natural materials and a fireplace-centered interior create the feeling of a warm retreat.", "05 — TİCARİ MEKÂN / RESTORAN": "05 — COMMERCIAL / RESTAURANT", "Marina Restoran & Bistro": "Marina Restaurant & Bistro", "Mimari Tasarım & Ticari Mekân Render": "Architectural Design & Commercial Visualization", "Sahil atmosferini çağdaş detaylarla birleştiren, güçlü ambiyansa sahip ticari mekân tasarımı. Teras, iç mekân ve marina cephesi; marka algısını yükselten sıcak ışık, doğal dokular ve davetkâr oturma düzenleriyle kurgulandı.": "A commercial space with a strong atmosphere, combining the waterfront setting with contemporary detailing. The terrace, interior and marina frontage are shaped by warm lighting, natural textures and inviting seating that strengthen the brand experience.", "06 — AKDENİZ KONUTU / AVLULU VİLLA": "06 — MEDITERRANEAN RESIDENCE / COURTYARD VILLA", "Avlulu Taş Villa": "Courtyard Stone Villa", "Mimari Tasarım & Atmosfer Render": "Architectural Design & Atmosphere Visualization", "Taş doku, avlu yaşamı ve sıcak ışık kurgusuyla Akdeniz karakterini modern konforla birleştiren villa konsepti. İç-dış mekân sürekliliği, avlu merkezli yaşam ve doğal peyzaj dili projenin ana omurgasını oluşturur.": "A villa concept blending Mediterranean character with modern comfort through stone textures, courtyard living and warm light. Indoor-outdoor continuity, courtyard-centered life and a natural landscape language form the project's backbone.", "Projelerinizi yalnızca görselleştirmiyoruz; satışa, sunuma ve yatırıma hazır bir mimari hikâyeye dönüştürüyoruz.": "We do more than visualize your projects; we turn them into architectural stories ready for presentation, sales and investment.", "Kalite Standardı": "Quality Standard", "Her proje; ışık, kompozisyon ve sunum diliyle kontrollü bir mimari hikâyeye dönüştürülür.": "Every project is shaped into a controlled architectural narrative through light, composition and presentation.", "Fotogerçekçi Işık": "Photorealistic Lighting", "Malzeme ve atmosfer kararları gerçekçi render diliyle sunulur.": "Material and atmosphere decisions are presented through a realistic rendering language.", "Mimari Kompozisyon": "Architectural Composition", "Her kare yalnızca görsel değil, projeyi anlatan bir sunum aracıdır.": "Every frame is more than an image; it is a presentation tool that communicates the project.", "Satışa Hazır Sunum": "Sales-Ready Presentation", "Görseller sosyal medya, portfolyo ve müşteri sunumları için optimize edilir.": "Visuals are optimized for social media, portfolios and client presentations.", "MİMARİ": "ARCHITECTURAL", "Hizmetler": "Services", "Tasarım fikrinden teknik çizime, mekân kurgusundan fotogerçekçi sunuma kadar projeyi tek bir mimari dil içinde geliştiriyoruz.": "From the first design idea to technical drawings, spatial planning and photorealistic presentation, we develop the project within one coherent architectural language.", "Mimari Tasarım": "Architectural Design", "Konut · Villa · Ticari Alan": "Residence · Villa · Commercial", "Uygulama Projesi": "Construction Documentation", "Plan · Kesit · Görünüş · Detay": "Plan · Section · Elevation · Detail", "3D Görselleştirme": "3D Visualization", "Render · Atmosfer · Malzeme": "Render · Atmosphere · Material", "Mimari Sunum": "Architectural Presentation", "Pafta · Animasyon · Görsel Hikâye": "Boards · Animation · Visual Storytelling", "Mekânı fikirden mimariye dönüştüren tasarım kararları.": "Design decisions that transform an idea into architecture.", "Konut, villa ve ticari alanlarda işlev, oran, malzeme ve kullanıcı deneyimini birlikte ele alan; güçlü bir mimari karakter oluşturan tasarım çözümleri geliştiriyoruz.": "For residences, villas and commercial spaces, we develop design solutions that balance function, proportion, material and user experience to create a strong architectural identity.", "Tasarım fikrini uygulanabilir ve okunabilir teknik çizimlere taşıyoruz.": "We translate the design idea into clear, buildable technical drawings.", "Plan, kesit, görünüş ve detay kararlarını sahada anlaşılır bir proje setine dönüştürerek tasarım ile uygulama arasındaki bağı güçlendiriyoruz.": "We turn plans, sections, elevations and details into a clear construction set, strengthening the connection between design and execution.", "Henüz inşa edilmemiş mekânı güçlü bir görsel deneyime dönüştürüyoruz.": "We turn an unbuilt space into a compelling visual experience.", "Işık, malzeme, doku ve kamera kararlarıyla projeyi fotogerçekçi renderlara taşıyor; tasarımın müşteriye, yatırımcıya ve kullanıcıya net biçimde aktarılmasını sağlıyoruz.": "Through lighting, material, texture and camera decisions, we create photorealistic renders that communicate the design clearly to clients, investors and users.", "Projeyi yalnızca göstermiyor, doğru bir görsel hikâyeyle anlatıyoruz.": "We do not just show the project; we communicate it through the right visual story.", "Render, animasyon, pafta düzeni ve sunum diliyle projeyi teklif, satış, portfolyo ve müşteri sunumlarına hazır, bütünlüklü bir anlatıya dönüştürüyoruz.": "Through renders, animation, presentation boards and visual language, we turn the project into a coherent story ready for proposals, sales, portfolios and client presentations.", "Projenizi konuşalım": "Discuss your project", "FİKİRDEN TESLİME": "FROM IDEA TO DELIVERY", "ÇALIŞMA": "DESIGN", "Süreci": "Process", "Her projede tasarım kararlarını adım adım netleştiriyor; fikir, proje geliştirme, görselleştirme ve teslim aşamalarını kontrollü bir akış içinde yürütüyoruz.": "We clarify design decisions step by step, guiding each project through concept, development, visualization and delivery in a controlled workflow.", "ÖN GÖRÜŞME & İHTİYAÇ": "INITIAL CONSULTATION & NEEDS", "Projeyi doğru sorularla başlatıyoruz.": "We start the project with the right questions.", "İhtiyaçları, proje kapsamını, kullanım senaryolarını ve teslim hedeflerini birlikte netleştiriyor; tasarım sürecinin temelini doğru veriler üzerine kuruyoruz.": "Together we clarify needs, project scope, use scenarios and delivery goals, building the design process on the right information.", "Ön Görüşme & İhtiyaç": "Initial Consultation & Needs", "İhtiyaçlarınızı, proje kapsamını, mevcut verileri, beklentileri ve teslim hedeflerini birlikte netleştiriyoruz.": "We clarify your needs, project scope, available information, expectations and delivery goals together.", "KONSEPT TASARIM": "CONCEPT DESIGN", "Konsept Tasarım": "Concept Design", "Mekân kurgusu, kütle yaklaşımı, oran, malzeme ve atmosfer kararlarıyla projeye güçlü ve tutarlı bir mimari omurga kazandırıyoruz.": "Through spatial planning, massing, proportion, material and atmosphere, we give the project a strong and consistent architectural framework.", "Mimari karakteri erken aşamada netleştiriyoruz.": "We define the architectural character early in the process.", "Mekân kurgusu, kütle yaklaşımı, oran, malzeme ve atmosfer kararlarını birlikte geliştirerek projenin ana tasarım dilini oluşturuyoruz.": "We develop spatial organization, massing, proportion, material and atmosphere together to establish the project's main design language.", "PROJE GELİŞTİRME & GÖRSELLEŞTİRME": "DESIGN DEVELOPMENT & VISUALIZATION", "Proje Geliştirme & Görselleştirme": "Design Development & Visualization", "Tasarım kararlarını plan, kesit, görünüş ve 3D model üzerinde geliştiriyor; ışık, doku ve malzemeyle projeyi fotogerçekçi görsellerle görünür hâle getiriyoruz.": "We develop design decisions through plans, sections, elevations and 3D models, using light, texture and materials to make the project visible through photorealistic imagery.", "Tasarımı çizim ve görselleştirmeyle olgunlaştırıyoruz.": "We refine the design through drawing and visualization.", "Plan, kesit, görünüş ve 3D model üzerinde tasarım kararlarını geliştiriyor; ışık, malzeme ve doku kararlarını fotogerçekçi görsellerle test ediyoruz.": "We develop decisions through plans, sections, elevations and 3D models, testing light, material and texture through photorealistic visuals.", "UYGULAMA PROJESİ & TESLİM": "CONSTRUCTION DOCUMENTS & DELIVERY", "Uygulama Projesi & Teslim": "Construction Documents & Delivery", "Son geri bildirimleri işleyerek teknik çizim ve sunum dosyalarını tamamlıyor; projeyi anlaşılır, düzenli ve uygulanabilir bir teslim setine dönüştürüyoruz.": "We incorporate final feedback, complete the technical drawings and presentation files, and turn the project into a clear, organized and buildable delivery set.", "Projeyi uygulanabilir bir teslim setine dönüştürüyoruz.": "We turn the project into a buildable delivery set.", "Son geri bildirimleri işleyerek teknik çizim, detay ve sunum dosyalarını tamamlıyor; projeyi anlaşılır, düzenli ve uygulamaya hazır biçimde teslim ediyoruz.": "We incorporate final feedback, complete technical drawings, details and presentation files, and deliver the project in a clear, organized and construction-ready format.", "Mekânı yalnızca biçim olarak değil; işlev, atmosfer, malzeme ve bulunduğu coğrafyayla kurduğu ilişki üzerinden ele alan bir mimarlık stüdyosu.": "An architecture studio that approaches space not only as form, but through function, atmosphere, material and its relationship with its context.", "KURUCU MİMAR": "FOUNDER / ARCHITECT", "BG Studio, Kuşadası merkezli olarak mimari tasarım, uygulama projesi, iç mekân kurgusu ve 3D görselleştirme süreçlerini tek bir tasarım dili içerisinde geliştirmek amacıyla kuruldu.": "BG Studio was founded in Kuşadası to develop architectural design, construction documentation, interior design and 3D visualization within one coherent design language.", "Her projede estetik kararları uygulanabilirlikten ayırmadan; bulunduğu yer, kullanıcı ihtiyaçları ve uzun vadeli mekânsal değer üzerinden düşünürüz. Hedefimiz yalnızca iyi görünen değil, yaşamaya ve kullanılmaya devam ettikçe karakter kazanan mekânlar üretmek.": "In every project, we connect aesthetics with buildability, context, user needs and long-term spatial value. Our aim is not simply to create spaces that look good, but spaces that gain character as they are lived in and used.", "TASARIM": "DESIGN", "Karakterli ve işlevsel": "Distinctive and functional", "Mekânsal kararları görsel etkiden önce kullanım, oran ve bağlam üzerinden kuruyoruz.": "We base spatial decisions on use, proportion and context before visual impact.", "UYGULANABİLİRLİK": "BUILDABILITY", "Çizimden sahaya okunabilir": "Clear from drawing to site", "Tasarımı teknik kararlarla güçlendiriyor, proje ile uygulama arasındaki boşluğu azaltıyoruz.": "We strengthen design through technical decisions and reduce the gap between project and construction.", "SUNUM": "PRESENTATION", "Projeyi doğru anlatan görseller": "Visuals that communicate the project clearly", "Render ve sunumları süs olarak değil, tasarım kararlarını görünür kılan araçlar olarak kullanıyoruz.": "We use renders and presentations not as decoration, but as tools that make design decisions visible.", "Her yapı, bulunduğu coğrafyayla kurduğu ilişki üzerinden": "Every building gains identity through", "kimlik kazanır.": "its relationship with its context.", "YIL TASARIM DENEYİMİ": "YEARS OF DESIGN EXPERIENCE", "TAMAMLANMIŞ PROJE": "COMPLETED PROJECTS", "MÜŞTERİ MEMNUNİYETİ": "CLIENT SATISFACTION", "BİRLİKTE": "LET'S", "Çalışalım": "Work Together", "Yeni bir yapı, iç mekân veya görselleştirme projesi için ilk adımı burada atalım. Kapsamı kısaca paylaşın; size uygun çalışma akışını birlikte netleştirelim.": "Take the first step here for a new building, interior or visualization project. Briefly share the scope and we will define the right workflow together.", "Projenizin ilk çizgisi bir konuşmayla başlar.": "The first line of your project starts with a conversation.", "Kuşadası ve Aydın çevresinde yüz yüze, farklı şehirlerde ise çevrim içi olarak mimari tasarım, uygulama projesi ve 3D görselleştirme süreçleri yürütüyoruz.": "We provide architectural design, construction documentation and 3D visualization face to face in Kuşadası and Aydın, and online for clients in other cities.", "E-POSTA": "EMAIL", "Proje türünü seçin ve ihtiyacınızı birkaç cümleyle anlatın. Gelen talepleri proje kapsamına göre değerlendiriyoruz.": "Choose your project type and describe what you need in a few sentences. We evaluate inquiries according to project scope.", "İLETİŞİM BİLGİLERİ": "CONTACT DETAILS", "Adınız Soyadınız": "Full Name", "E-posta Adresiniz": "Email Address", "PROJE TÜRÜ": "PROJECT TYPE", "Konut / Villa": "Residence / Villa", "İç Mekan": "Interior", "Ticari Mekan": "Commercial", "Klinik / Ofis": "Clinic / Office", "PROJE DETAYLARI": "PROJECT DETAILS", "Projenizden kısaca bahsedin": "Tell us briefly about your project", "Formu göndererek proje talebinizin değerlendirilmesi için gerekli bilgileri BG Studio ile paylaşmış olursunuz.": "By submitting the form, you share the information required for BG Studio to evaluate your project inquiry.", "PROJE TALEBİNİ GÖNDER": "SEND PROJECT INQUIRY", "Teklif Al": "Get Quote", "MİMARİ İLETİŞİM": "ARCHITECTURAL INQUIRY", "Merhaba. Mimari projeniz hakkında birkaç detay paylaşın, size uygun çalışma biçimini birlikte belirleyelim.": "Hello. Share a few details about your architectural project and we will determine the most suitable way to work together.", "HIZLI SEÇENEKLER": "QUICK OPTIONS", "Villa / Konut Projesi": "Villa / Residential Project", "İç Mekân Tasarımı": "Interior Design", "Ortalama yanıt süresi: aynı gün içinde": "Average response time: within the same day", "WhatsApp mesajınız": "Your WhatsApp message", "Merhaba, BG Studio Architecture üzerinden ulaşıyorum. Projem hakkında bilgi almak istiyorum.": "Hello, I am contacting you through BG Studio Architecture. I would like to get information about my project.", "WHATSAPP’TA GÖNDER": "SEND ON WHATSAPP", "Projeler": "Projects", "Süreç": "Process", "Stüdyo": "Studio", "İletişim": "Contact", "MİMAR BERKANT GÖKBEL": "ARCHITECT BERKANT GÖKBEL", "TÜM HAKLARI SAKLIDIR": "ALL RIGHTS RESERVED"};
+const ATTR_TR_EN={"Dil seçimi": "Language selection", "Ana menü": "Main navigation", "BG Studio ana sayfa": "BG Studio home", "Menüyü aç veya kapat": "Open or close menu", "Stüdyo bilgisi": "Studio information", "Seçili projelere kaydır": "Scroll to selected projects", "Proje görselleri": "Project images", "Coastal Residence tarzı proje için WhatsApp üzerinden teklif al": "Get a quote on WhatsApp for a project similar to Coastal Residence", "Marina Interior tarzı proje için WhatsApp üzerinden teklif al": "Get a quote on WhatsApp for a project similar to Marina Interior", "Modern Clinic tarzı proje için WhatsApp üzerinden teklif al": "Get a quote on WhatsApp for a project similar to Modern Clinic", "Alpine Stone House tarzı proje için WhatsApp üzerinden teklif al": "Get a quote on WhatsApp for a project similar to Alpine Stone House", "Marina Bistro tarzı proje için WhatsApp üzerinden teklif al": "Get a quote on WhatsApp for a project similar to Marina Bistro", "Stone Courtyard House tarzı proje için WhatsApp üzerinden teklif al": "Get a quote on WhatsApp for a project similar to Stone Courtyard House", "BG Studio yaklaşımı": "BG Studio approach", "BG Studio kalite standardı": "BG Studio quality standard", "Mimari hizmetler": "Architectural services", "BG Studio sayılarla": "BG Studio in numbers", "Mobil hızlı iletişim": "Mobile quick contact", "WhatsApp chat penceresini aç veya kapat": "Open or close WhatsApp chat", "WhatsApp chat penceresini aç": "Open WhatsApp chat", "WhatsApp chat penceresini kapat": "Close WhatsApp chat", "Instagram sayfasını aç": "Open Instagram page", "Teklif formuna git": "Go to project inquiry form", "BG Studio Architecture ile WhatsApp üzerinden iletişime geç": "Contact BG Studio Architecture on WhatsApp", "WhatsApp penceresini kapat": "Close WhatsApp panel", "WhatsApp hızlı mesaj seçenekleri": "WhatsApp quick message options", "Alt menü": "Footer navigation", "Ad Soyad": "Full Name", "ornek@email.com": "name@example.com", "Projenin yeri, yaklaşık m²'si, ihtiyaç duyduğunuz hizmet ve varsa hedef teslim tarihini paylaşabilirsiniz.": "Share the project location, approximate area, services you need and target delivery date if applicable.", "Mesajınızı yazın...": "Write your message..."};
+const META={"tr": {"title": "BG Studio Architecture | Kuşadası Mimar | Berkant Gökbel", "description": "BG Studio Architecture, Mimar Berkant Gökbel tarafından Kuşadası merkezli olarak mimari tasarım, uygulama projesi, iç mekân ve 3D görselleştirme hizmetleri sunar.", "ogTitle": "BG Studio Architecture | Kuşadası Mimar | Berkant Gökbel", "ogDescription": "Kuşadası merkezli BG Studio Architecture; mimari tasarım, uygulama projesi, iç mekân ve fotogerçekçi 3D görselleştirme hizmetleri sunar.", "twitterDescription": "Kuşadası merkezli mimarlık stüdyosu: mimari tasarım, uygulama projesi, iç mekân ve 3D görselleştirme."}, "en": {"title": "BG Studio Architecture | Architect in Kuşadası | Berkant Gökbel", "description": "BG Studio Architecture, founded by architect Berkant Gökbel in Kuşadası, provides architectural design, construction documentation, interior design and 3D visualization services.", "ogTitle": "BG Studio Architecture | Architect in Kuşadası | Berkant Gökbel", "ogDescription": "BG Studio Architecture in Kuşadası provides architectural design, construction documentation, interior design and photorealistic 3D visualization services.", "twitterDescription": "Architecture studio in Kuşadası: architectural design, construction documentation, interiors and 3D visualization."}};
+const TEXT_EN_TR=Object.fromEntries(Object.entries(TEXT_TR_EN).map(([tr,en])=>[en,tr]));
+const ATTR_EN_TR=Object.fromEntries(Object.entries(ATTR_TR_EN).map(([tr,en])=>[en,tr]));
+let applying=false;
+
+function norm(v){return String(v||'').replace(/\s+/g,' ').trim();}
+window.bgStudioLanguage='tr';
+window.bgTranslateString=function(value){
+  const n=norm(value);
+  return window.bgStudioLanguage==='en'?(TEXT_TR_EN[n]||value):(TEXT_EN_TR[n]||value);
+};
+window.bgT=(tr,en)=>window.bgStudioLanguage==='en'?en:tr;
+
+function translateTextNode(node,lang){
+  if(!node||node.nodeType!==Node.TEXT_NODE)return;
+  const p=node.parentElement;
+  if(!p||p.closest('script,style,noscript'))return;
+  const raw=node.nodeValue,n=norm(raw);
+  if(!n)return;
+  const translated=lang==='en'?TEXT_TR_EN[n]:TEXT_EN_TR[n];
+  if(!translated)return;
+  const lead=(raw.match(/^\s*/)||[''])[0],tail=(raw.match(/\s*$/)||[''])[0];
+  node.nodeValue=lead+translated+tail;
+}
+function translateTree(root,lang){
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{
+    acceptNode(node){
+      const p=node.parentElement;
+      return (!p||p.closest('script,style,noscript'))?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const nodes=[];while(w.nextNode())nodes.push(w.currentNode);
+  nodes.forEach(n=>translateTextNode(n,lang));
+}
+function translateAttrs(lang){
+  const map=lang==='en'?ATTR_TR_EN:ATTR_EN_TR;
+  document.querySelectorAll('[aria-label]').forEach(el=>{
+    const n=norm(el.getAttribute('aria-label'));if(map[n])el.setAttribute('aria-label',map[n]);
+  });
+  document.querySelectorAll('[placeholder]').forEach(el=>{
+    const n=norm(el.getAttribute('placeholder'));if(map[n])el.setAttribute('placeholder',map[n]);
+  });
+  const wa=document.getElementById('whatsappMessage');
+  if(wa){
+    const n=norm(wa.value),t=lang==='en'?TEXT_TR_EN[n]:TEXT_EN_TR[n];
+    if(t)wa.value=t;
+  }
+}
+function updateMeta(lang){
+  const m=META[lang];if(!m)return;
+  document.title=m.title;
+  const set=(sel,val)=>{const el=document.querySelector(sel);if(el)el.setAttribute('content',val);};
+  set('meta[name="description"]',m.description);
+  set('meta[property="og:title"]',m.ogTitle);
+  set('meta[property="og:description"]',m.ogDescription);
+  set('meta[property="og:locale"]',lang==='en'?'en_US':'tr_TR');
+  set('meta[name="twitter:title"]',m.ogTitle);
+  set('meta[name="twitter:description"]',m.twitterDescription);
+}
+function updateProjectWhatsApp(lang){
+  document.querySelectorAll('.project-whatsapp-btn').forEach(btn=>{
+    if(!btn.dataset.trHref)btn.dataset.trHref=btn.getAttribute('href')||'';
+    if(lang==='tr'){btn.setAttribute('href',btn.dataset.trHref);return;}
+    const card=btn.closest('.project-card');
+    const project=card?.querySelector('.card-overlay h3')?.textContent?.trim()||'this project';
+    const msg=`Hello, I am contacting you through BG Studio Architecture. I would like information and a quote for a project similar to ${project}.`;
+    btn.setAttribute('href','https://wa.me/905050364573?text='+encodeURIComponent(msg));
+  });
+}
+function updateButtons(lang){
+  document.querySelectorAll('.language-btn').forEach(btn=>{
+    const on=btn.dataset.lang===lang;
+    btn.classList.toggle('is-active',on);btn.setAttribute('aria-pressed',on?'true':'false');
+  });
+}
+function applyLanguage(lang,persist=true){
+  if(lang!=='tr'&&lang!=='en')lang='tr';
+  applying=true;window.bgStudioLanguage=lang;
+  document.documentElement.lang=lang;document.documentElement.dataset.language=lang;
+  translateTree(document.body,lang);translateAttrs(lang);updateMeta(lang);updateProjectWhatsApp(lang);updateButtons(lang);
+  if(persist){try{localStorage.setItem('bgstudio-language',lang)}catch(e){}}
+  requestAnimationFrame(()=>{applying=false;window.dispatchEvent(new CustomEvent('bg:languagechange',{detail:{lang}}));});
+}
+window.setBGStudioLanguage=applyLanguage;
+document.querySelectorAll('.language-btn').forEach(btn=>btn.addEventListener('click',()=>applyLanguage(btn.dataset.lang,true)));
+
+const observer=new MutationObserver(mutations=>{
+  if(applying)return;applying=true;
+  mutations.forEach(m=>{
+    if(m.type==='characterData'){translateTextNode(m.target,window.bgStudioLanguage);return;}
+    m.addedNodes.forEach(node=>{
+      if(node.nodeType===Node.TEXT_NODE)translateTextNode(node,window.bgStudioLanguage);
+      else if(node.nodeType===Node.ELEMENT_NODE&&!node.matches('script,style,noscript'))translateTree(node,window.bgStudioLanguage);
+    });
+  });
+  requestAnimationFrame(()=>{applying=false;});
+});
+observer.observe(document.body,{subtree:true,childList:true,characterData:true});
+
+let initial='tr';
+try{const saved=localStorage.getItem('bgstudio-language');if(saved==='tr'||saved==='en')initial=saved;}catch(e){}
+applyLanguage(initial,false);
 })();
 </script>
 
