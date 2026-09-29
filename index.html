@@ -6251,6 +6251,50 @@ textarea:focus-visible{
         padding-bottom:198px!important;
     }
 }
+
+
+/* ===== MOBILE FOOTER WATERMARK FINAL BALANCE ===== */
+@media(max-width:768px){
+    /* Watermark stays fully inside the viewport width.
+       No left/right overflow and no oversized dead zone below. */
+    .site-footer.footer-editorial .footer-editorial-watermark{
+        left:16px!important;
+        right:16px!important;
+        width:auto!important;
+        height:108px!important;
+        bottom:86px!important;
+        background-position:center bottom!important;
+        background-size:contain!important;
+        opacity:1!important;
+        overflow:hidden!important;
+        pointer-events:none!important;
+    }
+
+    /* Keep only the room actually needed for watermark + fixed mobile CTA. */
+    .site-footer.footer-editorial .footer-editorial-inner{
+        padding-bottom:142px!important;
+        min-height:0!important;
+    }
+
+    .site-footer.footer-editorial{
+        padding-bottom:0!important;
+        min-height:0!important;
+    }
+}
+
+@media(max-width:430px){
+    .site-footer.footer-editorial .footer-editorial-watermark{
+        left:14px!important;
+        right:14px!important;
+        height:102px!important;
+        bottom:84px!important;
+        background-size:contain!important;
+    }
+
+    .site-footer.footer-editorial .footer-editorial-inner{
+        padding-bottom:136px!important;
+    }
+}
 </script>
 <script>
 (function(){
