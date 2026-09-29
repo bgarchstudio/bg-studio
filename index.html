@@ -1570,7 +1570,57 @@ textarea:focus-visible{
         </div>
     </section>
 
-    <section id="services" class="services-editorial">
+        <section id="exploded-architecture" class="exploded-architecture" aria-labelledby="explodedTitle">
+        <div class="exploded-scroll-space">
+            <div class="exploded-stage">
+                <canvas id="explodedCanvas" class="exploded-canvas" aria-hidden="true"></canvas>
+                <div class="exploded-vignette" aria-hidden="true"></div>
+
+                <div class="exploded-ui">
+                    <div class="exploded-head">
+                        <div class="exploded-meta">
+                            <span>ARCHITECTURAL BREAKDOWN</span>
+                            <span id="explodedFrameLabel">001 / 120</span>
+                        </div>
+                        <div class="exploded-title-row">
+                            <h2 id="explodedTitle" class="exploded-title">
+                                <span data-exploded-tr="YAPININ" data-exploded-en="ANATOMY OF">YAPININ</span>
+                                <em data-exploded-tr="Katmanları" data-exploded-en="Architecture">Katmanları</em>
+                            </h2>
+                            <p class="exploded-intro"
+                               data-exploded-tr="Mimariyi sonuçtan geriye doğru okuyun. Kütle, kabuk, mekân ve teknik katmanlar scroll ilerledikçe ayrışır; yukarı çıktığınızda yeniden bir araya gelir."
+                               data-exploded-en="Read architecture backwards from the finished whole. Mass, envelope, space and technical layers separate as you scroll and assemble again as you move upward.">
+                                Mimariyi sonuçtan geriye doğru okuyun. Kütle, kabuk, mekân ve teknik katmanlar scroll ilerledikçe ayrışır; yukarı çıktığınızda yeniden bir araya gelir.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="exploded-bottom">
+                        <div class="exploded-phase" id="explodedPhase" aria-live="polite">
+                            <span class="exploded-phase-no" id="explodedPhaseNo">01</span>
+                            <div>
+                                <span class="exploded-phase-kicker" id="explodedPhaseKicker">BÜTÜN</span>
+                                <strong id="explodedPhaseTitle">Yapı tek kompozisyon olarak okunur.</strong>
+                                <p id="explodedPhaseText">Mimari, peyzaj ve çevre ilişkisi başlangıçta tek bir bütün olarak görünür.</p>
+                            </div>
+                        </div>
+
+                        <div class="exploded-nav" aria-hidden="true">
+                            <span class="exploded-scroll-copy" data-exploded-tr="SCROLL İLE KEŞFET" data-exploded-en="SCROLL TO EXPLORE">SCROLL İLE KEŞFET</span>
+                            <div class="exploded-progress-track"><span id="explodedProgress"></span></div>
+                            <span class="exploded-percent" id="explodedPercent">00%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <noscript>
+                    <img class="exploded-noscript" src="assets/exploded/desktop/frame_001.webp" alt="BG Studio mimari exploded view">
+                </noscript>
+            </div>
+        </div>
+    </section>
+
+<section id="services" class="services-editorial">
         <div class="services-scroll-stage">
         <div class="services-editorial-head hidden">
             <div class="services-editorial-meta">
@@ -7369,6 +7419,267 @@ textarea:focus-visible{
         transition:none!important;
     }
 }
+
+
+/* ===== EXPLODED ARCHITECTURE 1.9.4.7 / SAFE ISOLATED ===== */
+#exploded-architecture{
+    position:relative;
+    width:100%;
+    background:#030303;
+    border-top:1px solid rgba(255,255,255,.07);
+    border-bottom:1px solid rgba(255,255,255,.07);
+    overflow:clip;
+}
+#exploded-architecture .exploded-scroll-space{
+    position:relative;
+    height:560vh;
+}
+#exploded-architecture .exploded-stage{
+    position:sticky;
+    top:0;
+    width:100%;
+    height:100svh;
+    min-height:620px;
+    overflow:hidden;
+    background:#030303;
+    isolation:isolate;
+}
+#exploded-architecture .exploded-canvas{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    width:100%;
+    height:100%;
+    display:block;
+    background:#030303;
+}
+#exploded-architecture .exploded-vignette{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    background:
+        linear-gradient(180deg,rgba(0,0,0,.68) 0%,rgba(0,0,0,.16) 28%,rgba(0,0,0,.08) 55%,rgba(0,0,0,.72) 100%),
+        linear-gradient(90deg,rgba(0,0,0,.48) 0%,transparent 28%,transparent 72%,rgba(0,0,0,.32) 100%);
+}
+#exploded-architecture .exploded-ui{
+    position:absolute;
+    inset:0;
+    z-index:2;
+    width:min(1380px,90%);
+    margin:0 auto;
+    left:0;
+    right:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:clamp(92px,12vh,132px) 0 clamp(44px,6vh,70px);
+    pointer-events:none;
+}
+#exploded-architecture .exploded-head{
+    max-width:1050px;
+}
+#exploded-architecture .exploded-meta{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding-bottom:13px;
+    border-bottom:1px solid rgba(255,255,255,.16);
+    color:#c6a87c;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:6px;
+    font-weight:700;
+    letter-spacing:1.65px;
+}
+#exploded-architecture .exploded-meta span:last-child{
+    color:rgba(255,255,255,.44);
+}
+#exploded-architecture .exploded-title-row{
+    display:grid;
+    grid-template-columns:minmax(320px,.90fr) minmax(330px,.72fr);
+    gap:clamp(60px,9vw,140px);
+    align-items:start;
+    margin-top:24px;
+}
+#exploded-architecture .exploded-title{
+    margin:0;
+    display:flex;
+    flex-direction:column;
+    color:#fff;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:clamp(3.4rem,6vw,7rem);
+    font-weight:650;
+    line-height:.84;
+    letter-spacing:-.06em;
+}
+#exploded-architecture .exploded-title em{
+    margin-top:8px;
+    color:#cfae7c;
+    font-family:"Cormorant Garamond",serif;
+    font-weight:500;
+    letter-spacing:-.045em;
+}
+#exploded-architecture .exploded-intro{
+    margin:9px 0 0;
+    padding-left:24px;
+    border-left:1px solid rgba(198,168,124,.46);
+    color:rgba(255,255,255,.64);
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(1.14rem,1.55vw,1.55rem);
+    line-height:1.5;
+}
+#exploded-architecture .exploded-bottom{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:50px;
+}
+#exploded-architecture .exploded-phase{
+    width:min(580px,60%);
+    display:grid;
+    grid-template-columns:38px minmax(0,1fr);
+    gap:18px;
+    align-items:start;
+    padding:18px 0 0;
+    border-top:1px solid rgba(255,255,255,.18);
+}
+#exploded-architecture .exploded-phase-no{
+    padding-top:4px;
+    color:#c6a87c;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:7px;
+    font-weight:700;
+    letter-spacing:1px;
+}
+#exploded-architecture .exploded-phase > div{
+    min-width:0;
+}
+#exploded-architecture .exploded-phase-kicker{
+    display:block;
+    margin-bottom:7px;
+    color:#c6a87c;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:6px;
+    font-weight:700;
+    letter-spacing:1.4px;
+}
+#exploded-architecture .exploded-phase strong{
+    display:block;
+    color:#fff;
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(1.4rem,2.1vw,2.2rem);
+    font-weight:500;
+    line-height:1.08;
+}
+#exploded-architecture .exploded-phase p{
+    max-width:520px;
+    margin:8px 0 0;
+    color:rgba(255,255,255,.46);
+    font-family:"Inter",sans-serif;
+    font-size:.72rem;
+    line-height:1.6;
+}
+#exploded-architecture .exploded-nav{
+    width:min(330px,30vw);
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    align-items:center;
+    gap:13px;
+    padding-bottom:2px;
+}
+#exploded-architecture .exploded-scroll-copy,
+#exploded-architecture .exploded-percent{
+    color:rgba(255,255,255,.44);
+    font-family:"Space Grotesk",sans-serif;
+    font-size:6px;
+    font-weight:700;
+    letter-spacing:1.2px;
+    white-space:nowrap;
+}
+#exploded-architecture .exploded-percent{color:#c6a87c}
+#exploded-architecture .exploded-progress-track{
+    position:relative;
+    height:1px;
+    overflow:hidden;
+    background:rgba(255,255,255,.14);
+}
+#exploded-architecture .exploded-progress-track span{
+    position:absolute;
+    inset:0;
+    transform:scaleX(0);
+    transform-origin:left center;
+    background:#c6a87c;
+    will-change:transform;
+}
+#exploded-architecture .exploded-noscript{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+@media(max-width:900px){
+    #exploded-architecture .exploded-scroll-space{height:430vh}
+    #exploded-architecture .exploded-stage{min-height:560px}
+    #exploded-architecture .exploded-ui{
+        width:calc(100% - 36px);
+        padding:92px 0 38px;
+    }
+    #exploded-architecture .exploded-title-row{
+        grid-template-columns:1fr;
+        gap:18px;
+        margin-top:18px;
+    }
+    #exploded-architecture .exploded-title{
+        font-size:clamp(3rem,14.5vw,5.2rem);
+    }
+    #exploded-architecture .exploded-intro{
+        max-width:620px;
+        margin-top:2px;
+        padding-left:15px;
+        font-size:1.04rem;
+    }
+    #exploded-architecture .exploded-bottom{
+        display:block;
+    }
+    #exploded-architecture .exploded-phase{
+        width:100%;
+        grid-template-columns:28px minmax(0,1fr);
+        gap:10px;
+        padding-top:12px;
+    }
+    #exploded-architecture .exploded-phase strong{
+        font-size:1.5rem;
+    }
+    #exploded-architecture .exploded-phase p{
+        max-width:92%;
+        margin-top:5px;
+        font-size:.66rem;
+    }
+    #exploded-architecture .exploded-nav{
+        width:100%;
+        margin-top:15px;
+        grid-template-columns:auto 1fr auto;
+    }
+    #exploded-architecture .exploded-vignette{
+        background:
+            linear-gradient(180deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.18) 30%,rgba(0,0,0,.08) 55%,rgba(0,0,0,.82) 100%);
+    }
+}
+@media(max-width:520px){
+    #exploded-architecture .exploded-scroll-space{height:400vh}
+    #exploded-architecture .exploded-stage{height:100svh;min-height:540px}
+    #exploded-architecture .exploded-ui{padding:84px 0 28px}
+    #exploded-architecture .exploded-meta{font-size:5.5px}
+    #exploded-architecture .exploded-title{font-size:clamp(2.75rem,14vw,4rem)}
+    #exploded-architecture .exploded-intro{font-size:.92rem;line-height:1.42}
+    #exploded-architecture .exploded-phase p{display:none}
+    #exploded-architecture .exploded-scroll-copy{display:none}
+    #exploded-architecture .exploded-nav{grid-template-columns:1fr auto}
+}
+@media(prefers-reduced-motion:reduce){
+    #exploded-architecture .exploded-scroll-space{height:100vh!important}
+    #exploded-architecture .exploded-stage{position:relative!important}
+}
 </script>
 <script>
 (function(){
@@ -8210,6 +8521,236 @@ applyLanguage(initial,false);
     });
 
     requestAnimationFrame(() => applyFilter('all', false));
+})();
+</script>
+
+
+<script id="bg-exploded-architecture">
+(function(){
+    'use strict';
+
+    const root=document.getElementById('exploded-architecture');
+    const canvas=document.getElementById('explodedCanvas');
+    if(!root||!canvas)return;
+
+    const ctx=canvas.getContext('2d',{alpha:false,desynchronized:true});
+    if(!ctx)return;
+
+    const progressEl=document.getElementById('explodedProgress');
+    const percentEl=document.getElementById('explodedPercent');
+    const frameLabel=document.getElementById('explodedFrameLabel');
+    const phaseNo=document.getElementById('explodedPhaseNo');
+    const phaseKicker=document.getElementById('explodedPhaseKicker');
+    const phaseTitle=document.getElementById('explodedPhaseTitle');
+    const phaseText=document.getElementById('explodedPhaseText');
+
+    const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const mobileQuery=window.matchMedia('(max-width: 900px)');
+
+    const PHASES_TR=[
+        ['01','BÜTÜN','Yapı tek kompozisyon olarak okunur.','Mimari, peyzaj ve çevre ilişkisi başlangıçta tek bir bütün olarak görünür.'],
+        ['02','KÜTLE','Ana hacimler birbirinden ayrışmaya başlar.','Kütle kurgusu, katların birbirleriyle kurduğu ilişkiyi daha okunur hâle getirir.'],
+        ['03','KABUK','Cephe ve dış katmanlar yapının üzerinden açılır.','Malzeme, açıklık ve dış kabuk kararları ana hacimden bağımsız olarak izlenebilir.'],
+        ['04','MEKÂN','İç mekânsal organizasyon görünür hâle gelir.','Döşemeler ve mekânsal katmanlar ayrıştıkça yapının iç ilişkileri okunmaya başlar.'],
+        ['05','EXPLODED VIEW','Mimari sistem bütün parçalarıyla görünür.','Tasarım kararları tek bir final görsel yerine, onu oluşturan katmanların bütünü üzerinden okunur.']
+    ];
+    const PHASES_EN=[
+        ['01','WHOLE','The building reads as one composition.','Architecture, landscape and context are initially perceived as a single whole.'],
+        ['02','MASS','Primary volumes begin to separate.','The massing strategy and relationships between levels become easier to read.'],
+        ['03','ENVELOPE','Facade and outer layers open away from the building.','Material, openings and envelope decisions can be observed independently from the main volume.'],
+        ['04','SPACE','The spatial organization becomes visible.','As floors and spatial layers separate, the internal relationships of the building are revealed.'],
+        ['05','EXPLODED VIEW','The architectural system is visible in full.','Design decisions are read through the complete set of layers that form the finished architecture.']
+    ];
+
+    let isMobile=mobileQuery.matches;
+    let frameCount=isMobile?72:120;
+    let basePath=isMobile?'assets/exploded/mobile/':'assets/exploded/desktop/';
+    let currentFrame=-1;
+    let lastProgress=-1;
+    let previousProgress=-1;
+    let raf=0;
+    let sizeRaf=0;
+    let activated=false;
+    let generation=0;
+    const cache=new Map();
+    const loading=new Map();
+    const MAX_CACHE=isMobile?10:7;
+
+    function pad(n){return String(n).padStart(3,'0')}
+    function urlFor(index){return basePath+'frame_'+pad(index+1)+'.webp'}
+    function lang(){return window.bgStudioLanguage==='en'?'en':'tr'}
+
+    function applyStaticLanguage(){
+        const en=lang()==='en';
+        root.querySelectorAll('[data-exploded-tr][data-exploded-en]').forEach(el=>{
+            el.textContent=en?el.dataset.explodedEn:el.dataset.explodedTr;
+        });
+        updatePhase(lastProgress<0?0:lastProgress,true);
+    }
+
+    function resizeCanvas(){
+        cancelAnimationFrame(sizeRaf);
+        sizeRaf=requestAnimationFrame(()=>{
+            const rect=canvas.getBoundingClientRect();
+            const dpr=Math.min(window.devicePixelRatio||1,isMobile?1.5:2);
+            const w=Math.max(1,Math.round(rect.width*dpr));
+            const h=Math.max(1,Math.round(rect.height*dpr));
+            if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;redrawCurrent()}
+        });
+    }
+
+    function drawCover(img){
+        const cw=canvas.width,ch=canvas.height;
+        if(!cw||!ch||!img||!img.naturalWidth)return;
+        ctx.fillStyle='#030303';ctx.fillRect(0,0,cw,ch);
+        const iw=img.naturalWidth,ih=img.naturalHeight;
+        let scale;
+        if(isMobile){
+            // Mobile keeps the entire 16:9 frame visible against the site's black background.
+            scale=Math.min(cw/iw,ch/ih);
+        }else{
+            scale=Math.max(cw/iw,ch/ih);
+        }
+        const dw=iw*scale,dh=ih*scale;
+        const dx=(cw-dw)/2,dy=(ch-dh)/2;
+        ctx.imageSmoothingEnabled=true;
+        ctx.imageSmoothingQuality='high';
+        ctx.drawImage(img,dx,dy,dw,dh);
+    }
+
+    function touchCache(index,img){
+        if(cache.has(index))cache.delete(index);
+        cache.set(index,img);
+        while(cache.size>MAX_CACHE){
+            const oldest=cache.keys().next().value;
+            if(oldest===currentFrame&&cache.size>1){
+                const keep=cache.get(oldest);cache.delete(oldest);cache.set(oldest,keep);continue;
+            }
+            const victim=cache.get(oldest);cache.delete(oldest);
+            if(victim)victim.onload=victim.onerror=null;
+        }
+    }
+
+    function loadFrame(index,priority){
+        index=Math.max(0,Math.min(frameCount-1,index));
+        if(cache.has(index)){const img=cache.get(index);touchCache(index,img);return Promise.resolve(img)}
+        if(loading.has(index))return loading.get(index);
+        const myGen=generation;
+        const p=new Promise((resolve,reject)=>{
+            const img=new Image();
+            img.decoding='async';
+            if(priority)img.fetchPriority='high';
+            img.onload=()=>{
+                if(myGen!==generation){resolve(null);return}
+                loading.delete(index);touchCache(index,img);resolve(img);
+            };
+            img.onerror=()=>{loading.delete(index);reject(new Error('frame '+(index+1)+' failed'))};
+            img.src=urlFor(index);
+        });
+        loading.set(index,p);return p;
+    }
+
+    function nearestLoaded(target){
+        if(cache.has(target))return cache.get(target);
+        let best=null,dist=Infinity;
+        for(const [idx,img] of cache){const d=Math.abs(idx-target);if(d<dist){dist=d;best=img}}
+        return best;
+    }
+
+    function redrawCurrent(){
+        const img=cache.get(currentFrame)||nearestLoaded(currentFrame);
+        if(img)drawCover(img);
+    }
+
+    function requestFrame(index){
+        index=Math.max(0,Math.min(frameCount-1,index));
+        currentFrame=index;
+        const existing=cache.get(index);
+        if(existing){drawCover(existing)}
+        else{
+            const fallback=nearestLoaded(index);if(fallback)drawCover(fallback);
+            loadFrame(index,true).then(img=>{if(img&&currentFrame===index)drawCover(img)}).catch(()=>{});
+        }
+        const dir=previousProgress>=0&&lastProgress<previousProgress?-1:1;
+        const neighbors=[index+dir,index+2*dir,index-dir,index+3*dir];
+        neighbors.forEach(i=>{if(i>=0&&i<frameCount)loadFrame(i,false).catch(()=>{})});
+    }
+
+    function phaseIndex(progress){return Math.min(4,Math.floor(Math.max(0,Math.min(.9999,progress))*5))}
+    function updatePhase(progress,force){
+        const p=phaseIndex(progress);
+        if(!force&&root.dataset.phase===String(p))return;
+        root.dataset.phase=String(p);
+        const data=(lang()==='en'?PHASES_EN:PHASES_TR)[p];
+        if(phaseNo)phaseNo.textContent=data[0];
+        if(phaseKicker)phaseKicker.textContent=data[1];
+        if(phaseTitle)phaseTitle.textContent=data[2];
+        if(phaseText)phaseText.textContent=data[3];
+    }
+
+    function measureProgress(){
+        const rect=root.getBoundingClientRect();
+        const total=Math.max(1,root.offsetHeight-window.innerHeight);
+        return Math.max(0,Math.min(1,-rect.top/total));
+    }
+
+    function render(){
+        raf=0;
+        if(!activated)return;
+        const progress=reduced?0:measureProgress();
+        previousProgress=lastProgress;
+        lastProgress=progress;
+        const idx=Math.round(progress*(frameCount-1));
+        if(idx!==currentFrame)requestFrame(idx);
+        if(progressEl)progressEl.style.transform='scaleX('+progress.toFixed(5)+')';
+        if(percentEl)percentEl.textContent=String(Math.round(progress*100)).padStart(2,'0')+'%';
+        if(frameLabel)frameLabel.textContent=pad(idx+1)+' / '+frameCount;
+        updatePhase(progress,false);
+    }
+
+    function requestRender(){if(!raf)raf=requestAnimationFrame(render)}
+
+    function warmSequence(){
+        if(!activated)return;
+        // Sparse anchors give an immediate visual fallback without decoding the full 4K sequence into memory.
+        const anchors=isMobile?[0,12,24,36,48,60,71]:[0,20,40,60,80,100,119];
+        let delay=0;
+        anchors.forEach(index=>{
+            setTimeout(()=>{if(activated)loadFrame(index,false).catch(()=>{})},delay);
+            delay+=90;
+        });
+    }
+
+    function activate(){
+        if(activated)return;
+        activated=true;
+        loadFrame(0,true).then(img=>{if(img&&currentFrame<0){currentFrame=0;drawCover(img)}}).catch(()=>{});
+        warmSequence();resizeCanvas();requestRender();
+    }
+
+    const observer=new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{
+            if(entry.isIntersecting){activate();requestRender()}
+        });
+    },{rootMargin:'1400px 0px 1400px 0px',threshold:0});
+    observer.observe(root);
+
+    window.addEventListener('scroll',requestRender,{passive:true});
+    window.addEventListener('resize',()=>{resizeCanvas();requestRender()},{passive:true});
+    window.addEventListener('orientationchange',()=>{setTimeout(()=>{resizeCanvas();requestRender()},120)},{passive:true});
+    window.addEventListener('bg:languagechange',applyStaticLanguage);
+
+    if(mobileQuery.addEventListener){
+        mobileQuery.addEventListener('change',event=>{
+            const nextMobile=event.matches;
+            if(nextMobile===isMobile)return;
+            isMobile=nextMobile;frameCount=isMobile?72:120;basePath=isMobile?'assets/exploded/mobile/':'assets/exploded/desktop/';
+            generation++;cache.clear();loading.clear();currentFrame=-1;lastProgress=-1;previousProgress=-1;root.dataset.phase='';
+            if(activated){loadFrame(0,true).then(img=>{if(img){currentFrame=0;drawCover(img)}}).catch(()=>{});warmSequence();resizeCanvas();requestRender()}
+        });
+    }
+
+    applyStaticLanguage();
 })();
 </script>
 
