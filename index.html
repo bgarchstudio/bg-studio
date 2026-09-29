@@ -1849,42 +1849,46 @@ textarea:focus-visible{
             <div class="contact-editorial-head hidden">
                 <div class="contact-editorial-meta">
                     <span>06 / CONTACT</span>
-                    <span>START A PROJECT</span>
+                    <span data-contact-tr="PROJE KONFİGÜRATÖRÜ" data-contact-en="PROJECT CONFIGURATOR">PROJE KONFİGÜRATÖRÜ</span>
                 </div>
 
                 <div class="contact-editorial-title-row">
                     <h2 class="contact-editorial-title">
-                        <span>BİRLİKTE</span>
-                        <em>Çalışalım</em>
+                        <span data-contact-tr="BİRLİKTE" data-contact-en="LET'S">BİRLİKTE</span>
+                        <em data-contact-tr="Çalışalım" data-contact-en="Work Together">Çalışalım</em>
                     </h2>
 
-                    <p class="contact-editorial-intro">
-                        Yeni bir yapı, iç mekân veya görselleştirme projesi için ilk adımı burada atalım.
-                        Kapsamı kısaca paylaşın; size uygun çalışma akışını birlikte netleştirelim.
+                    <p class="contact-editorial-intro"
+                       data-contact-tr="Projenizin temel bilgilerini paylaşın; ilk görüşmeye daha hazırlıklı başlayalım ve size uygun çalışma kapsamını birlikte netleştirelim."
+                       data-contact-en="Share the essential details of your project so we can begin the first conversation prepared and define the right scope together.">
+                        Projenizin temel bilgilerini paylaşın; ilk görüşmeye daha hazırlıklı başlayalım ve size uygun çalışma kapsamını birlikte netleştirelim.
                     </p>
                 </div>
             </div>
 
-            <div class="contact-editorial-layout">
+            <div class="contact-editorial-layout contact-config-layout">
                 <aside class="contact-editorial-info hidden">
                     <div class="contact-info-top">
                         <span class="contact-info-kicker">BG STUDIO ARCHITECTURE</span>
-                        <h3>Projenizin ilk çizgisi bir konuşmayla başlar.</h3>
-                        <p>
-                            Kuşadası ve Aydın çevresinde yüz yüze, farklı şehirlerde ise çevrim içi
-                            olarak mimari tasarım, uygulama projesi ve 3D görselleştirme süreçleri yürütüyoruz.
+                        <h3 data-contact-tr="Projenizin ilk çizgisi doğru bilgilerle başlar."
+                            data-contact-en="The first line of your project starts with the right information.">
+                            Projenizin ilk çizgisi doğru bilgilerle başlar.
+                        </h3>
+                        <p data-contact-tr="Kuşadası ve Aydın çevresinde yüz yüze, farklı şehirlerde çevrim içi olarak mimari tasarım, uygulama projesi ve 3D görselleştirme süreçleri yürütüyoruz."
+                           data-contact-en="We provide architectural design, construction documentation and 3D visualization face to face in Kuşadası and Aydın, and online for clients in other cities.">
+                            Kuşadası ve Aydın çevresinde yüz yüze, farklı şehirlerde çevrim içi olarak mimari tasarım, uygulama projesi ve 3D görselleştirme süreçleri yürütüyoruz.
                         </p>
                     </div>
 
                     <div class="contact-info-lines">
                         <a href="mailto:bgstudio.arch@gmail.com" class="contact-info-line">
-                            <span>E-POSTA</span>
+                            <span data-contact-tr="E-POSTA" data-contact-en="EMAIL">E-POSTA</span>
                             <strong>bgstudio.arch@gmail.com</strong>
                             <i aria-hidden="true">↗</i>
                         </a>
 
                         <div class="contact-info-line">
-                            <span>STÜDYO</span>
+                            <span data-contact-tr="STÜDYO" data-contact-en="STUDIO">STÜDYO</span>
                             <strong>Kuşadası, Aydın</strong>
                             <i aria-hidden="true">TR</i>
                         </div>
@@ -1897,45 +1901,94 @@ textarea:focus-visible{
                         </a>
                     </div>
 
-                    <div class="contact-editorial-note">
+                    <div class="contact-hours-card" aria-label="Çalışma saatleri">
+                        <div class="contact-hours-title">
+                            <span class="contact-hours-dot" aria-hidden="true"></span>
+                            <span data-contact-tr="ÇALIŞMA SAATLERİ" data-contact-en="BUSINESS HOURS">ÇALIŞMA SAATLERİ</span>
+                        </div>
+                        <div class="contact-hours-row">
+                            <span data-contact-tr="Pazartesi–Cuma" data-contact-en="Monday–Friday">Pazartesi–Cuma</span>
+                            <strong>10:00–19:00</strong>
+                        </div>
+                        <div class="contact-hours-row is-closed">
+                            <span data-contact-tr="Cumartesi–Pazar" data-contact-en="Saturday–Sunday">Cumartesi–Pazar</span>
+                            <strong data-contact-tr="Kapalı" data-contact-en="Closed">Kapalı</strong>
+                        </div>
+                    </div>
+
+                    <div class="contact-editorial-note contact-privacy-note">
                         <span>01</span>
-                        <p>
-                            Proje türünü seçin ve ihtiyacınızı birkaç cümleyle anlatın.
-                            Gelen talepleri proje kapsamına göre değerlendiriyoruz.
+                        <p data-contact-tr="Paylaştığınız proje bilgileri, çizimler ve dosyalar yalnızca teklif ve proje değerlendirme sürecinde kullanılır."
+                           data-contact-en="Project information, drawings and files you share are used only for quotation and project evaluation.">
+                            Paylaştığınız proje bilgileri, çizimler ve dosyalar yalnızca teklif ve proje değerlendirme sürecinde kullanılır.
                         </p>
                     </div>
                 </aside>
 
-                <form id="contactForm" class="contact-editorial-form hidden"
-                      action="https://api.web3forms.com/submit" method="POST">
+                <form id="contactForm" class="contact-editorial-form contact-config-form hidden"
+                      action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="access_key" value="d1031bef-cd4e-4609-a9e8-0d534a157a57">
-                    <input type="hidden" name="subject" value="BG Studio Sitesinden Yeni Mesaj">
-                    <input type="hidden" name="from_name" value="BG Studio Web Sitesi">
+                    <input type="hidden" name="subject" value="BG Studio Sitesinden Yeni Proje Talebi">
+                    <input type="hidden" name="from_name" value="BG Studio Architecture Web Sitesi">
+                    <input type="hidden" name="site_dili" id="contactLanguageField" value="tr">
                     <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none;">
+
+                    <div class="contact-config-intro">
+                        <div>
+                            <span class="contact-info-kicker"
+                                  data-contact-tr="PROJE KONFİGÜRATÖRÜ"
+                                  data-contact-en="PROJECT CONFIGURATOR">PROJE KONFİGÜRATÖRÜ</span>
+                            <h3 data-contact-tr="Proje Briefi" data-contact-en="Project Brief">Proje Briefi</h3>
+                        </div>
+                        <span class="contact-config-time"
+                              data-contact-tr="~2 DAKİKA"
+                              data-contact-en="~2 MINUTES">~2 DAKİKA</span>
+                    </div>
 
                     <div class="contact-form-step">
                         <span class="contact-form-step-index">01</span>
-                        <span>İLETİŞİM BİLGİLERİ</span>
+                        <span data-contact-tr="İLETİŞİM BİLGİLERİ" data-contact-en="CONTACT DETAILS">İLETİŞİM BİLGİLERİ</span>
                     </div>
 
-                    <div class="contact-field-grid">
+                    <div class="contact-field-grid contact-field-grid-three">
                         <div class="contact-field">
-                            <label for="adSoyad">Adınız Soyadınız</label>
+                            <label for="adSoyad"
+                                   data-contact-tr="Ad Soyad *"
+                                   data-contact-en="Full Name *">Ad Soyad *</label>
                             <input type="text" id="adSoyad" name="ad_soyad"
-                                   placeholder="Ad Soyad" autocomplete="name" required>
+                                   placeholder="Ad Soyad"
+                                   data-contact-placeholder-tr="Ad Soyad"
+                                   data-contact-placeholder-en="Full Name"
+                                   autocomplete="name" required>
                         </div>
 
                         <div class="contact-field">
-                            <label for="emailAdresi">E-posta Adresiniz</label>
+                            <label for="emailAdresi"
+                                   data-contact-tr="E-posta *"
+                                   data-contact-en="Email *">E-posta *</label>
                             <input type="email" id="emailAdresi" name="email"
-                                   placeholder="ornek@email.com" autocomplete="email" required>
+                                   placeholder="ornek@email.com"
+                                   data-contact-placeholder-tr="ornek@email.com"
+                                   data-contact-placeholder-en="name@example.com"
+                                   autocomplete="email" required>
+                        </div>
+
+                        <div class="contact-field">
+                            <label for="telefon"
+                                   data-contact-tr="Telefon"
+                                   data-contact-en="Phone">Telefon</label>
+                            <input type="tel" id="telefon" name="telefon"
+                                   placeholder="+90 5xx xxx xx xx"
+                                   data-contact-placeholder-tr="+90 5xx xxx xx xx"
+                                   data-contact-placeholder-en="+90 5xx xxx xx xx"
+                                   autocomplete="tel">
                         </div>
                     </div>
 
                     <fieldset class="project-type-field contact-project-types">
                         <legend class="contact-form-step">
                             <span class="contact-form-step-index">02</span>
-                            <span>PROJE TÜRÜ</span>
+                            <span data-contact-tr="PROJE TÜRÜ" data-contact-en="PROJECT TYPE">PROJE TÜRÜ</span>
                         </legend>
 
                         <div class="project-type-grid">
@@ -1943,7 +1996,7 @@ textarea:focus-visible{
                                 <input type="radio" name="proje_turu" value="Konut / Villa" checked required>
                                 <span class="project-type-card">
                                     <span class="contact-type-index">01</span>
-                                    <span>Konut / Villa</span>
+                                    <span data-contact-tr="Konut / Villa" data-contact-en="Residence / Villa">Konut / Villa</span>
                                 </span>
                             </label>
 
@@ -1951,7 +2004,7 @@ textarea:focus-visible{
                                 <input type="radio" name="proje_turu" value="İç Mekan">
                                 <span class="project-type-card">
                                     <span class="contact-type-index">02</span>
-                                    <span>İç Mekan</span>
+                                    <span data-contact-tr="İç Mekân" data-contact-en="Interior">İç Mekân</span>
                                 </span>
                             </label>
 
@@ -1959,7 +2012,7 @@ textarea:focus-visible{
                                 <input type="radio" name="proje_turu" value="Ticari Mekan">
                                 <span class="project-type-card">
                                     <span class="contact-type-index">03</span>
-                                    <span>Ticari Mekan</span>
+                                    <span data-contact-tr="Ticari Mekân" data-contact-en="Commercial">Ticari Mekân</span>
                                 </span>
                             </label>
 
@@ -1967,15 +2020,15 @@ textarea:focus-visible{
                                 <input type="radio" name="proje_turu" value="Klinik / Ofis">
                                 <span class="project-type-card">
                                     <span class="contact-type-index">04</span>
-                                    <span>Klinik / Ofis</span>
+                                    <span data-contact-tr="Klinik / Ofis" data-contact-en="Clinic / Office">Klinik / Ofis</span>
                                 </span>
                             </label>
 
                             <label class="project-type-option">
-                                <input type="radio" name="proje_turu" value="3D Render">
+                                <input type="radio" name="proje_turu" value="3D Görselleştirme">
                                 <span class="project-type-card">
                                     <span class="contact-type-index">05</span>
-                                    <span>3D Görselleştirme</span>
+                                    <span data-contact-tr="3D Görselleştirme" data-contact-en="3D Visualization">3D Görselleştirme</span>
                                 </span>
                             </label>
 
@@ -1983,38 +2036,110 @@ textarea:focus-visible{
                                 <input type="radio" name="proje_turu" value="Uygulama Projesi">
                                 <span class="project-type-card">
                                     <span class="contact-type-index">06</span>
-                                    <span>Uygulama Projesi</span>
+                                    <span data-contact-tr="Uygulama Projesi" data-contact-en="Construction Documentation">Uygulama Projesi</span>
                                 </span>
                             </label>
                         </div>
                     </fieldset>
 
+                    <div class="contact-area-block">
+                        <div class="contact-form-step contact-form-step-output">
+                            <span class="contact-form-step-index">03</span>
+                            <span data-contact-tr="YAKLAŞIK PROJE ALANI" data-contact-en="APPROXIMATE PROJECT AREA">YAKLAŞIK PROJE ALANI</span>
+                            <output id="projectAreaOutput" for="projectArea">~180 m²</output>
+                        </div>
+
+                        <input type="range" id="projectArea" name="yaklasik_alan_m2"
+                               min="20" max="1500" step="10" value="180"
+                               aria-label="Yaklaşık proje alanı">
+
+                        <div class="contact-range-legend" aria-hidden="true">
+                            <span>20 m²</span>
+                            <span>1500+ m²</span>
+                        </div>
+                    </div>
+
                     <div class="contact-message-block">
                         <div class="contact-form-step">
-                            <span class="contact-form-step-index">03</span>
-                            <span>PROJE DETAYLARI</span>
+                            <span class="contact-form-step-index">04</span>
+                            <span data-contact-tr="PROJE DETAYLARI" data-contact-en="PROJECT DETAILS">PROJE DETAYLARI</span>
                         </div>
 
                         <div class="contact-field contact-field-message">
-                            <label for="projeMesaji">Projenizden kısaca bahsedin</label>
+                            <label for="projeMesaji"
+                                   data-contact-tr="Projenizden kısaca bahsedin *"
+                                   data-contact-en="Tell us briefly about your project *">Projenizden kısaca bahsedin *</label>
                             <textarea id="projeMesaji" name="mesaj" rows="6"
-                                      placeholder="Projenin yeri, yaklaşık m²'si, ihtiyaç duyduğunuz hizmet ve varsa hedef teslim tarihini paylaşabilirsiniz."
+                                      placeholder="Projenin yeri, mevcut durumu, beklentiniz ve varsa hedef teslim tarihini paylaşabilirsiniz."
+                                      data-contact-placeholder-tr="Projenin yeri, mevcut durumu, beklentiniz ve varsa hedef teslim tarihini paylaşabilirsiniz."
+                                      data-contact-placeholder-en="Share the project location, current condition, expectations and target delivery date if applicable."
                                       required></textarea>
                         </div>
                     </div>
 
+                    <div class="contact-files-block">
+                        <div class="contact-form-step">
+                            <span class="contact-form-step-index">05</span>
+                            <span data-contact-tr="DOSYA / PAYLAŞIM BAĞLANTISI" data-contact-en="FILE / SHARE LINK">DOSYA / PAYLAŞIM BAĞLANTISI</span>
+                        </div>
+
+                        <div class="contact-file-grid">
+                            <div class="contact-upload-wrap">
+                                <label class="contact-upload-zone" id="contactUploadZone" for="projectFile">
+                                    <input type="file" id="projectFile" name="attachment"
+                                           accept=".zip,.jpg,.jpeg,.png,.pdf,application/zip,application/x-zip-compressed,image/jpeg,image/png,application/pdf">
+                                    <span class="contact-upload-icon" aria-hidden="true">↑</span>
+                                    <strong id="contactUploadTitle"
+                                            data-contact-tr="Dosyayı buraya bırakın veya seçin"
+                                            data-contact-en="Drop a file here or choose one">Dosyayı buraya bırakın veya seçin</strong>
+                                    <small data-contact-tr="ZIP, JPG, JPEG, PNG veya PDF · tek dosya · en fazla 5 MB"
+                                           data-contact-en="ZIP, JPG, JPEG, PNG or PDF · one file · max 5 MB">
+                                        ZIP, JPG, JPEG, PNG veya PDF · tek dosya · en fazla 5 MB
+                                    </small>
+                                </label>
+
+                                <div class="contact-file-selected" id="contactFileSelected" hidden>
+                                    <div>
+                                        <span id="contactFileName">—</span>
+                                        <small id="contactFileSize">—</small>
+                                    </div>
+                                    <button type="button" id="contactFileRemove"
+                                            data-contact-tr="KALDIR"
+                                            data-contact-en="REMOVE">KALDIR</button>
+                                </div>
+                            </div>
+
+                            <div class="contact-share-link">
+                                <div class="contact-field">
+                                    <label for="projectShareLink"
+                                           data-contact-tr="Büyük / çoklu dosyalar için bağlantı"
+                                           data-contact-en="Link for large / multiple files">
+                                        Büyük / çoklu dosyalar için bağlantı
+                                    </label>
+                                    <input type="url" id="projectShareLink" name="dosya_baglantisi"
+                                           placeholder="Google Drive / WeTransfer / Dropbox / OneDrive"
+                                           data-contact-placeholder-tr="Google Drive / WeTransfer / Dropbox / OneDrive"
+                                           data-contact-placeholder-en="Google Drive / WeTransfer / Dropbox / OneDrive">
+                                </div>
+                                <p data-contact-tr="5 MB üzerindeki veya birden fazla dosya için paylaşım bağlantısı bırakabilirsiniz."
+                                   data-contact-en="For files over 5 MB or multiple files, you can leave a sharing link.">
+                                    5 MB üzerindeki veya birden fazla dosya için paylaşım bağlantısı bırakabilirsiniz.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
 
                     <div id="formToast" class="form-toast contact-inline-status"
                          role="status" aria-live="polite" aria-atomic="true"></div>
 
                     <div class="contact-submit-row">
-                        <p>
-                            Formu göndererek proje talebinizin değerlendirilmesi için gerekli bilgileri
-                            BG Studio ile paylaşmış olursunuz.
+                        <p data-contact-tr="Formu göndererek proje talebinizin değerlendirilmesi için gerekli bilgileri BG Studio ile paylaşmış olursunuz."
+                           data-contact-en="By submitting the form, you share the information required for BG Studio to evaluate your project inquiry.">
+                            Formu göndererek proje talebinizin değerlendirilmesi için gerekli bilgileri BG Studio ile paylaşmış olursunuz.
                         </p>
 
                         <button type="submit" class="contact-submit">
-                            <span>PROJE TALEBİNİ GÖNDER</span>
+                            <span data-contact-tr="PROJE TALEBİNİ GÖNDER" data-contact-en="SEND PROJECT INQUIRY">PROJE TALEBİNİ GÖNDER</span>
                             <span aria-hidden="true">↗</span>
                         </button>
                     </div>
@@ -2703,8 +2828,12 @@ textarea:focus-visible{
             if (!formToast) return;
 
             const isSuccess = type === 'success';
-            const title = isSuccess ? 'Mesajınız alındı.' : 'Mesaj gönderilemedi.';
-            const text = isSuccess ? 'BG Studio en kısa sürede sizinle iletişime geçecek.' : message;
+            const title = isSuccess
+                ? (window.bgT ? window.bgT('Mesajınız alındı.', 'Your message has been received.') : 'Mesajınız alındı.')
+                : (window.bgT ? window.bgT('Mesaj gönderilemedi.', 'Message could not be sent.') : 'Mesaj gönderilemedi.');
+            const text = isSuccess
+                ? (window.bgT ? window.bgT('BG Studio en kısa sürede sizinle iletişime geçecek.', 'BG Studio will contact you as soon as possible.') : 'BG Studio en kısa sürede sizinle iletişime geçecek.')
+                : message;
             const iconPath = isSuccess
                 ? 'M9.2 16.6 4.95 12.35 3.55 13.75 9.2 19.4 20.7 7.9 19.3 6.5z'
                 : 'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 14h-2v-2h2v2zm0-4h-2V6h2v6z';
@@ -3458,280 +3587,7 @@ textarea:focus-visible{
 </script>
 
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "@id": "https://bgstudio.com.tr/#website",
-      "url": "https://bgstudio.com.tr/",
-      "name": "BG Studio Architecture",
-      "alternateName": [
-        "BG STUDIO",
-        "BG Studio",
-        "BG Studio Architecture",
-        "BG Studio Arch",
-        "bgstudio.arch"
-      ],
-      "inLanguage": "tr-TR",
-      "publisher": {
-        "@id": "https://bgstudio.com.tr/#organization"
-      },
-      "about": {
-        "@id": "https://bgstudio.com.tr/#organization"
-      }
-    },
-    {
-      "@type": "WebPage",
-      "@id": "https://bgstudio.com.tr/#webpage",
-      "url": "https://bgstudio.com.tr/",
-      "name": "BG Studio Architecture | Kuşadası Mimar | Berkant Gökbel",
-      "isPartOf": {
-        "@id": "https://bgstudio.com.tr/#website"
-      },
-      "about": [
-        {
-          "@id": "https://bgstudio.com.tr/#organization"
-        },
-        {
-          "@id": "https://bgstudio.com.tr/#bg-studio-architecture"
-        },
-        {
-          "@id": "https://bgstudio.com.tr/#berkant-gokbel"
-        }
-      ],
-      "primaryImageOfPage": {
-        "@id": "https://bgstudio.com.tr/#primaryimage"
-      },
-      "inLanguage": "tr-TR",
-      "description": "BG Studio Architecture, Mimar Berkant Gökbel tarafından Kuşadası merkezli olarak mimari tasarım, uygulama projesi, iç mekân ve 3D görselleştirme hizmetleri sunar."
-    },
-    {
-      "@type": "ImageObject",
-      "@id": "https://bgstudio.com.tr/#primaryimage",
-      "url": "https://bgstudio.com.tr/coastal-residence-01.webp",
-      "contentUrl": "https://bgstudio.com.tr/coastal-residence-01.webp",
-      "width": 1122,
-      "height": 1402,
-      "caption": "BG Studio Architecture villa mimari tasarım ve 3D görselleştirme"
-    },
-    {
-      "@type": "Organization",
-      "@id": "https://bgstudio.com.tr/#organization",
-      "name": "BG STUDIO",
-      "alternateName": [
-        "BG Studio",
-        "BG Studio Architecture"
-      ],
-      "url": "https://bgstudio.com.tr/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://bgstudio.com.tr/logo.webp",
-        "width": 1080,
-        "height": 1080
-      },
-      "image": [
-        {
-          "@id": "https://bgstudio.com.tr/#primaryimage"
-        },
-        {
-          "@type": "ImageObject",
-          "url": "https://bgstudio.com.tr/stone-courtyard-house-01.webp",
-          "width": 1122,
-          "height": 1402,
-          "caption": "Avlulu taş villa mimari render ve 3D görselleştirme"
-        },
-        {
-          "@type": "ImageObject",
-          "url": "https://bgstudio.com.tr/marina-bistro-01.webp",
-          "width": 1122,
-          "height": 1402,
-          "caption": "Marina restoran ve bistro mimari tasarım görselleştirmesi"
-        }
-      ],
-      "primaryImageOfPage": {
-        "@id": "https://bgstudio.com.tr/#primaryimage"
-      },
-      "description": "BG STUDIO, Mimar Berkant Gökbel tarafından kurulan ve Kuşadası merkezli çalışan mimarlık ve görselleştirme stüdyosudur.",
-      "email": "bgstudio.arch@gmail.com",
-      "telephone": "+90 505 036 45 73",
-      "founder": {
-        "@id": "https://bgstudio.com.tr/#berkant-gokbel"
-      },
-      "department": [
-        {
-          "@id": "https://bgstudio.com.tr/#bg-studio-architecture"
-        }
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Kuşadası",
-        "addressRegion": "Aydın",
-        "addressCountry": "TR"
-      },
-      "areaServed": [
-        {
-          "@type": "City",
-          "name": "Kuşadası"
-        },
-        {
-          "@type": "AdministrativeArea",
-          "name": "Aydın"
-        },
-        {
-          "@type": "City",
-          "name": "İzmir"
-        }
-      ],
-      "sameAs": [
-        "https://www.instagram.com/bgstudio.arch/",
-        "https://www.facebook.com/bgstudio.archtr"
-      ],
-      "contactPoint": [
-        {
-          "@type": "ContactPoint",
-          "contactType": "project inquiries",
-          "email": "bgstudio.arch@gmail.com",
-          "availableLanguage": [
-            "tr"
-          ]
-        }
-      ]
-    },
-    {
-      "@type": [
-        "ProfessionalService",
-        "LocalBusiness"
-      ],
-      "@id": "https://bgstudio.com.tr/#bg-studio-architecture",
-      "name": "BG Studio Architecture",
-      "alternateName": [
-        "BG Studio Mimarlık",
-        "BG Studio Arch",
-        "bgstudio.arch"
-      ],
-      "url": "https://bgstudio.com.tr/",
-      "description": "BG Studio Architecture, Kuşadası merkezli olarak mimari tasarım, uygulama projesi, iç mekân tasarımı ve mimari 3D görselleştirme hizmetleri sunar.",
-      "telephone": "+90 530 246 69 03",
-      "email": "bgstudio.arch@gmail.com",
-      "parentOrganization": {
-        "@id": "https://bgstudio.com.tr/#organization"
-      },
-      "founder": {
-        "@id": "https://bgstudio.com.tr/#berkant-gokbel"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Kuşadası",
-        "addressRegion": "Aydın",
-        "addressCountry": "TR"
-      },
-      "areaServed": [
-        {
-          "@type": "City",
-          "name": "Kuşadası"
-        },
-        {
-          "@type": "AdministrativeArea",
-          "name": "Aydın"
-        },
-        {
-          "@type": "AdministrativeArea",
-          "name": "Ege Bölgesi"
-        }
-      ],
-      "sameAs": [
-        "https://www.instagram.com/bgstudio.arch/",
-        "https://www.facebook.com/bgstudio.archtr"
-      ],
-      "knowsAbout": [
-        "Mimari tasarım",
-        "Uygulama projesi",
-        "İç mekân tasarımı",
-        "Mimari 3D görselleştirme",
-        "Fotogerçekçi render",
-        "Mimari sunum"
-      ],
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "BG Studio Architecture Hizmetleri",
-        "itemListElement": [
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Mimari Tasarım",
-              "description": "Konut, villa ve ticari alanlar için mimari tasarım hizmeti."
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Uygulama Projesi",
-              "description": "Plan, kesit, görünüş ve detay çizimlerinden oluşan uygulama projesi hizmeti."
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "İç Mekân Tasarımı",
-              "description": "Konut ve ticari alanlar için işlev ve malzeme odaklı iç mekân tasarımı."
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Mimari 3D Görselleştirme",
-              "description": "İç ve dış mekân projeleri için fotogerçekçi mimari render ve görselleştirme."
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Mimari Sunum",
-              "description": "Projeler için render, pafta ve görsel sunum düzeni."
-            }
-          }
-        ]
-      }
-    },
-    {
-      "@type": "Person",
-      "@id": "https://bgstudio.com.tr/#berkant-gokbel",
-      "name": "Berkant Gökbel",
-      "alternateName": [
-        "Mimar Berkant Gökbel",
-        "Berkant Gokbel",
-        "BerkantGökbel",
-        "BerkantGokbel"
-      ],
-      "jobTitle": "Mimar",
-      "url": "https://bgstudio.com.tr/",
-      "email": "bgstudio.arch@gmail.com",
-      "description": "Berkant Gökbel, BG STUDIO'nun kurucusu ve BG Studio Architecture'ın Kuşadası merkezli mimarıdır.",
-      "disambiguatingDescription": "BG STUDIO kurucusu, Kuşadası merkezli mimar Berkant Gökbel.",
-      "knowsAbout": [
-        "Mimari tasarım",
-        "Uygulama projesi",
-        "İç mekân tasarımı",
-        "Mimari 3D görselleştirme",
-        "Mimari sunum"
-      ],
-      "mainEntityOfPage": {
-        "@id": "https://bgstudio.com.tr/#webpage"
-      },
-      "worksFor": {
-        "@id": "https://bgstudio.com.tr/#organization"
-      }
-    }
-  ]
-}
-</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://bgstudio.com.tr/#website","url":"https://bgstudio.com.tr/","name":"BG Studio Architecture","alternateName":["BG STUDIO","BG Studio","BG Studio Architecture","BG Studio Arch","bgstudio.arch"],"inLanguage":"tr-TR","publisher":{"@id":"https://bgstudio.com.tr/#organization"},"about":{"@id":"https://bgstudio.com.tr/#organization"}},{"@type":"WebPage","@id":"https://bgstudio.com.tr/#webpage","url":"https://bgstudio.com.tr/","name":"BG Studio Architecture | Kuşadası Mimar | Berkant Gökbel","isPartOf":{"@id":"https://bgstudio.com.tr/#website"},"about":[{"@id":"https://bgstudio.com.tr/#organization"},{"@id":"https://bgstudio.com.tr/#bg-studio-architecture"},{"@id":"https://bgstudio.com.tr/#berkant-gokbel"}],"primaryImageOfPage":{"@id":"https://bgstudio.com.tr/#primaryimage"},"inLanguage":"tr-TR","description":"BG Studio Architecture, Mimar Berkant Gökbel tarafından Kuşadası merkezli olarak mimari tasarım, uygulama projesi, iç mekân ve 3D görselleştirme hizmetleri sunar."},{"@type":"ImageObject","@id":"https://bgstudio.com.tr/#primaryimage","url":"https://bgstudio.com.tr/coastal-residence-01.webp","contentUrl":"https://bgstudio.com.tr/coastal-residence-01.webp","width":1122,"height":1402,"caption":"BG Studio Architecture villa mimari tasarım ve 3D görselleştirme"},{"@type":"Organization","@id":"https://bgstudio.com.tr/#organization","name":"BG STUDIO","alternateName":["BG Studio","BG Studio Architecture"],"url":"https://bgstudio.com.tr/","logo":{"@type":"ImageObject","url":"https://bgstudio.com.tr/logo.webp","width":1080,"height":1080},"image":[{"@id":"https://bgstudio.com.tr/#primaryimage"},{"@type":"ImageObject","url":"https://bgstudio.com.tr/stone-courtyard-house-01.webp","width":1122,"height":1402,"caption":"Avlulu taş villa mimari render ve 3D görselleştirme"},{"@type":"ImageObject","url":"https://bgstudio.com.tr/marina-bistro-01.webp","width":1122,"height":1402,"caption":"Marina restoran ve bistro mimari tasarım görselleştirmesi"}],"primaryImageOfPage":{"@id":"https://bgstudio.com.tr/#primaryimage"},"description":"BG STUDIO, Mimar Berkant Gökbel tarafından kurulan ve Kuşadası merkezli çalışan mimarlık ve görselleştirme stüdyosudur.","email":"bgstudio.arch@gmail.com","telephone":"+90 505 036 45 73","founder":{"@id":"https://bgstudio.com.tr/#berkant-gokbel"},"department":[{"@id":"https://bgstudio.com.tr/#bg-studio-architecture"}],"address":{"@type":"PostalAddress","addressLocality":"Kuşadası","addressRegion":"Aydın","addressCountry":"TR"},"areaServed":[{"@type":"City","name":"Kuşadası"},{"@type":"AdministrativeArea","name":"Aydın"},{"@type":"City","name":"İzmir"}],"sameAs":["https://www.instagram.com/bgstudio.arch/","https://www.facebook.com/bgstudio.archtr"],"contactPoint":[{"@type":"ContactPoint","contactType":"project inquiries","email":"bgstudio.arch@gmail.com","availableLanguage":["tr"]}]},{"@type":["ProfessionalService","LocalBusiness"],"@id":"https://bgstudio.com.tr/#bg-studio-architecture","name":"BG Studio Architecture","alternateName":["BG Studio Mimarlık","BG Studio Arch","bgstudio.arch"],"url":"https://bgstudio.com.tr/","description":"BG Studio Architecture, Kuşadası merkezli olarak mimari tasarım, uygulama projesi, iç mekân tasarımı ve mimari 3D görselleştirme hizmetleri sunar.","telephone":"+90 530 246 69 03","email":"bgstudio.arch@gmail.com","parentOrganization":{"@id":"https://bgstudio.com.tr/#organization"},"founder":{"@id":"https://bgstudio.com.tr/#berkant-gokbel"},"address":{"@type":"PostalAddress","addressLocality":"Kuşadası","addressRegion":"Aydın","addressCountry":"TR"},"areaServed":[{"@type":"City","name":"Kuşadası"},{"@type":"AdministrativeArea","name":"Aydın"},{"@type":"AdministrativeArea","name":"Ege Bölgesi"}],"sameAs":["https://www.instagram.com/bgstudio.arch/","https://www.facebook.com/bgstudio.archtr"],"knowsAbout":["Mimari tasarım","Uygulama projesi","İç mekân tasarımı","Mimari 3D görselleştirme","Fotogerçekçi render","Mimari sunum"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"BG Studio Architecture Hizmetleri","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Mimari Tasarım","description":"Konut, villa ve ticari alanlar için mimari tasarım hizmeti."}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Uygulama Projesi","description":"Plan, kesit, görünüş ve detay çizimlerinden oluşan uygulama projesi hizmeti."}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"İç Mekân Tasarımı","description":"Konut ve ticari alanlar için işlev ve malzeme odaklı iç mekân tasarımı."}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Mimari 3D Görselleştirme","description":"İç ve dış mekân projeleri için fotogerçekçi mimari render ve görselleştirme."}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Mimari Sunum","description":"Projeler için render, pafta ve görsel sunum düzeni."}}]},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"10:00","closes":"19:00"}]},{"@type":"Person","@id":"https://bgstudio.com.tr/#berkant-gokbel","name":"Berkant Gökbel","alternateName":["Mimar Berkant Gökbel","Berkant Gokbel","BerkantGökbel","BerkantGokbel"],"jobTitle":"Mimar","url":"https://bgstudio.com.tr/","email":"bgstudio.arch@gmail.com","description":"Berkant Gökbel, BG STUDIO'nun kurucusu ve BG Studio Architecture'ın Kuşadası merkezli mimarıdır.","disambiguatingDescription":"BG STUDIO kurucusu, Kuşadası merkezli mimar Berkant Gökbel.","knowsAbout":["Mimari tasarım","Uygulama projesi","İç mekân tasarımı","Mimari 3D görselleştirme","Mimari sunum"],"mainEntityOfPage":{"@id":"https://bgstudio.com.tr/#webpage"},"worksFor":{"@id":"https://bgstudio.com.tr/#organization"}}]}</script>
 
 <script id="bg-deferred-css" type="text/plain">.social-links-wrapper{margin-top:25px;display:flex;flex-wrap:wrap;gap:30px;justify-content:center;align-items:center}.social-item{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.6);text-decoration:none;font-family:"Inter",sans-serif;font-size:0.9rem;transition:all 0.4s ease}.social-item:hover{color:#fff;transform:translateY(-3px)}.social-text{letter-spacing:0.7px}.hidden{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(0.2,0.8,0.2,1),transform 1s cubic-bezier(0.2,0.8,0.2,1);will-change:opacity,transform}.show{opacity:1;transform:translateY(0)}.hidden:not(.show){transition-duration:0.2s}h1{font-size:10vw;line-height:0.8;letter-spacing:-5px;color:#fff;text-shadow:0 15px 50px rgba(0,0,0,0.8);margin-bottom:20px;font-weight:700}@media (max-width:768px){h1{font-size:18vw;letter-spacing:-2px}}section#projects{padding:100px 5%}.section-title{font-size:14px;color:#888;letter-spacing:2px;margin-bottom:40px;display:block;border-bottom:1px solid #333;padding-bottom:10px;margin-left:5%;margin-right:5%}.portfolio-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;align-items:start}.project-card{position:relative;height:500px;overflow:hidden;cursor:default;background:#000}.project-img,.gallery-img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;filter:grayscale(100%);transition:transform 0.8s ease,filter 0.5s ease,opacity 0.8s ease}.project-card:hover .project-img,.project-card:hover .gallery-img,.project-card.active .project-img{filter:grayscale(0%);transform:scale(1.05)}.img-1{z-index:3;opacity:1}.img-2{z-index:2;opacity:0}.img-3{z-index:1;opacity:0}@keyframes cycleThreeImg1{0%,30%,100%{opacity:1}33.33%,96.66%{opacity:0}}@keyframes cycleThreeImg2{0%,30%,66.66%,100%{opacity:0}33.33%,63.33%{opacity:1}}@keyframes cycleThreeImg3{0%,63.33%,100%{opacity:0}66.66%,96.66%{opacity:1}}.slideshow-3 .img-1{animation:cycleThreeImg1 9s infinite}.slideshow-3 .img-2{animation:cycleThreeImg2 9s infinite}.slideshow-3 .img-3{animation:cycleThreeImg3 9s infinite}@keyframes cycleTwoImg1{0%,45%,100%{opacity:1}50%,95%{opacity:0}}@keyframes cycleTwoImg2{0%,45%,100%{opacity:0}50%,95%{opacity:1}}.slideshow-2 .img-1{animation:cycleTwoImg1 6s infinite}.slideshow-2 .img-2{animation:cycleTwoImg2 6s infinite}.project-static{z-index:2;opacity:1}.project-video{z-index:1;opacity:0}.project-card.playing .project-static{opacity:0}.project-card.playing .project-video{opacity:1;filter:grayscale(0%)}@media (max-width:768px){section{padding:50px 20px}h1{font-size:15vw;margin-bottom:20px}.about-container,.contact-container{grid-template-columns:1fr;flex-direction:column}.portfolio-grid{grid-template-columns:1fr}.project-img,.gallery-img{filter:grayscale(0%) !important}#stats{flex-direction:column;gap:60px;padding:80px 20px}.stat-item{width:100%;text-align:center;display:flex;flex-direction:column;align-items:center}.stat-number{font-size:3.5rem;line-height:1}.stat-label{font-size:10px;letter-spacing:3px;margin-top:10px}}.play-btn,.gallery-indicator{position:absolute;top:20px;right:20px;width:50px;height:50px;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);border-radius:50%;display:flex;justify-content:center;align-items:center;z-index:20;transition:all 0.3s ease}.play-btn:hover{background:rgba(255,255,255,0.2);transform:scale(1.1)}.card-overlay{position:absolute;bottom:35px;left:30px;pointer-events:none;z-index:5;width:85%}.project-card::after{content:"";position:absolute;bottom:0;left:0;width:100%;height:60%;background:linear-gradient(to top,rgba(0,0,0,0.8) 0%,transparent 100%);pointer-events:none;z-index:3}.card-overlay h3{font-size:2.2rem;font-weight:700;color:#fff;margin:5px 0;line-height:1.1;letter-spacing:-1px}.project-subtitle{display:block;font-size:0.9rem;color:rgba(255,255,255,0.6);font-weight:400;margin-bottom:8px;letter-spacing:2px;text-transform:uppercase}.project-desc{color:rgba(255,255,255,0.8);font-size:0.9rem;line-height:1.6;max-width:90%;opacity:0;max-height:0;transform:translateY(15px);transition:all 0.6s cubic-bezier(0.23,1,0.32,1);overflow:hidden}.project-card:hover .project-desc,.project-card.active .project-desc{opacity:1;max-height:300px;transform:translateY(0);margin-top:20px}@media (max-width:768px){.card-overlay h3{font-size:1.6rem}.project-desc{font-size:0.85rem}.play-btn{width:40px;height:40px}}#stats{display:flex;justify-content:space-around;align-items:center;padding:80px 5%;background:#080808}.stat-item{display:flex;flex-direction:column;align-items:center;gap:15px;transition:transform 0.3s}.stat-item:hover{transform:translateY(-10px)}.stat-number{font-family:"Space Grotesk",sans-serif;font-size:3.5rem;font-weight:700;color:#fff;line-height:1}.stat-number::after{content:"+";font-size:2rem;color:#C6A87C;vertical-align:super;margin-left:5px}.stat-item:last-child .stat-number::after{content:""}.stat-label{color:#888;font-size:0.9rem;letter-spacing:2px;text-transform:uppercase}.about-container{display:flex;justify-content:space-between;align-items:center;gap:50px;padding:0 5%}.about-text{font-size:2rem;line-height:1.4;max-width:800px;color:#fff}.contact-container{display:grid;grid-template-columns:1fr 1fr;gap:50px;padding:0 5%}.contact-left{display:flex;flex-direction:column;justify-content:space-between}.footer-tiger-img{width:100%;max-width:100%;height:auto;margin-top:40px;opacity:1;filter:contrast(1.2);transition:all 0.5s ease}.footer-tiger-img:hover{filter:grayscale(0%);opacity:1;transform:scale(1.02)}form{display:flex;flex-direction:column;gap:30px}.form-group{position:relative}input,textarea{width:100%;background:transparent;border:none;border-bottom:1px solid #444;padding:15px 0;color:#fff;font-family:"Inter",sans-serif;font-size:16px;outline:none;transition:0.3s}input:focus,textarea:focus{border-bottom:1px solid #fff}label{position:absolute;top:15px;left:0;color:#666;pointer-events:none;transition:0.3s;font-size:14px}input:focus~label,input:valid~label,textarea:focus~label,textarea:valid~label{top:-10px;font-size:12px;color:#fff}button{background:transparent;color:#C6A87C;border:1px solid #C6A87C;padding:15px 50px;font-family:"Space Grotesk",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:2px;cursor:pointer;align-self:flex-start;margin-top:20px;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden}button:hover{background:#C6A87C;color:#000;letter-spacing:4px;box-shadow:0 0 20px rgba(198,168,124,0.3)}footer{padding:50px;border-top:1px solid #222;display:flex;justify-content:space-between;font-size:14px;color:#555}.social-link{color:#fff;text-decoration:none;border-bottom:1px solid #444;padding-bottom:5px;transition:0.3s}.social-link:hover{border-bottom:1px solid #fff;opacity:0.8}.highlight{color:#888}footer{display:flex;justify-content:space-between;align-items:center;padding:30px 5%;border-top:1px solid rgba(255,255,255,0.1);min-height:80px}.social-links-wrapper{display:flex;align-items:center;gap:25px}.social-item{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;line-height:1}.footer-text{margin:0;padding:0;color:rgba(255,255,255,0.4);font-size:12px;line-height:1;display:flex;align-items:center}.site-footer{width:100%;background-color:#050505;border-top:1px solid rgba(255,255,255,0.05);padding:60px 5% 40px}.footer-container{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:25px}.footer-social-group{display:flex;justify-content:center;align-items:center;gap:40px}.footer-social-item{display:flex;align-items:center;gap:10px;color:#C6A87C;text-decoration:none;font-size:14px;letter-spacing:0.5px;transition:all 0.4s ease}.footer-social-item:hover{color:#fff}.footer-social-item:hover{color:#E6BE8A;transform:translateY(-3px)}.footer-brand-line{max-width:760px;margin:0 auto -4px;color:rgba(255,255,255,0.72);font-family:"Cormorant Garamond",serif;font-size:clamp(1.05rem,1.45vw,1.42rem);font-weight:500;line-height:1.45;text-align:center;letter-spacing:0.25px}.footer-designer-line{color:rgba(255,255,255,0.48);font-size:11px;letter-spacing:0.7px;text-align:center;margin:-8px 0 0;line-height:1.55}.footer-copyright{color:rgba(255,255,255,0.68);font-size:12px;letter-spacing:0.8px;text-align:center;margin:0;line-height:1.6}@media (max-width:768px){.footer-social-group{gap:25px}.footer-brand-line{max-width:300px;font-size:1.05rem;line-height:1.42}.footer-copyright{font-size:11px;max-width:280px}}section#services,section#process{padding:100px 5%;background:#050505;overflow-x:hidden}.services-intro,.process-intro{max-width:920px;margin:0 5% 50px;color:rgba(255,255,255,0.72);font-family:"Cormorant Garamond",serif;font-size:clamp(1.35rem,2.1vw,2.05rem);font-weight:500;line-height:1.45;letter-spacing:0.15px}.services-grid,.process-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;padding:0 5%}.service-card,.process-card{position:relative;min-height:300px;padding:32px 26px;border:1px solid rgba(198,168,124,0.22);border-radius:2px;background:linear-gradient(145deg,rgba(255,255,255,0.045),rgba(255,255,255,0.015));overflow:hidden;transition:transform 0.45s ease,border-color 0.45s ease,background 0.45s ease}.service-card::before,.process-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(198,168,124,0.16),transparent 45%);opacity:0;transition:opacity 0.45s ease;pointer-events:none}.service-card:hover,.process-card:hover{transform:translateY(-8px);border-color:rgba(198,168,124,0.55);background:linear-gradient(145deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))}.service-card:hover::before,.process-card:hover::before{opacity:1}.service-number,.process-number{display:inline-flex;align-items:center;gap:10px;margin-bottom:30px;color:#C6A87C;font-family:"Space Grotesk",sans-serif;font-size:0.78rem;letter-spacing:2.8px}.service-number::after,.process-number::after{content:"";width:34px;height:1px;background:rgba(198,168,124,0.42)}.service-card h3,.process-card h3{position:relative;z-index:1;color:#fff;font-family:"Cormorant Garamond",serif;font-size:clamp(1.65rem,2.2vw,2.1rem);font-weight:600;text-transform:none;line-height:1.05;letter-spacing:0.15px;margin-bottom:18px}.service-card p,.process-card p{position:relative;z-index:1;color:rgba(255,255,255,0.68);font-family:"Cormorant Garamond",serif;font-size:clamp(1.12rem,1.35vw,1.28rem);font-weight:500;line-height:1.62;letter-spacing:0.08px}.process-card{min-height:265px}@media (max-width:1024px){.services-grid,.process-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:768px){section#services,section#process{padding:70px 20px;width:100%;max-width:100%}.services-intro,.process-intro{margin:0 0 32px;font-size:1.32rem;line-height:1.42;max-width:100%}.services-grid,.process-grid{grid-template-columns:1fr;gap:14px;padding:0;width:100%;max-width:100%}.service-card,.process-card{min-height:auto;padding:26px 22px;width:100%;max-width:100%}.service-number,.process-number{margin-bottom:18px}.service-card h3,.process-card h3{font-size:1.58rem}.service-card p,.process-card p{font-size:1.12rem;line-height:1.58}}.form-toast{position:fixed;left:50%;bottom:35px;transform:translate(-50%,34px) scale(0.96);min-width:340px;max-width:calc(100% - 40px);padding:0;border:1px solid rgba(198,168,124,0.42);border-radius:20px;background:linear-gradient(135deg,rgba(198,168,124,0.18),rgba(255,255,255,0.035)),rgba(5,5,5,0.94);color:#fff;box-shadow:0 22px 70px rgba(0,0,0,0.68),0 0 28px rgba(198,168,124,0.14);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);z-index:10000;opacity:0;visibility:hidden;pointer-events:none;overflow:hidden;transition:opacity 0.4s ease,transform 0.4s cubic-bezier(0.22,1,0.36,1),visibility 0.4s ease}.form-toast::before{content:"";position:absolute;left:0;top:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,#C6A87C,#E6BE8A,transparent);opacity:0.95}.form-toast.show{opacity:1;visibility:visible;transform:translate(-50%,0) scale(1)}.form-toast.success{border-color:rgba(198,168,124,0.72)}.form-toast.error{border-color:rgba(255,90,90,0.68)}.form-toast-inner{display:flex;align-items:center;gap:14px;padding:17px 20px 18px}.form-toast-icon{position:relative;width:42px;height:42px;min-width:42px;border-radius:50%;border:1px solid rgba(198,168,124,0.74);color:#E6BE8A;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 16px rgba(198,168,124,0.12),0 0 18px rgba(198,168,124,0.18)}.form-toast.show .form-toast-icon::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid rgba(198,168,124,0.34);animation:toastGoldPulse 1.6s ease-out infinite}.form-toast.error .form-toast-icon{border-color:rgba(255,90,90,0.72);color:#ff8585;box-shadow:inset 0 0 16px rgba(255,90,90,0.10),0 0 18px rgba(255,90,90,0.14)}.form-toast-content{text-align:left}.form-toast-title{display:block;font-family:"Space Grotesk",sans-serif;font-size:14px;line-height:1.2;letter-spacing:1.1px;text-transform:uppercase;color:#fff;margin-bottom:4px}.form-toast-text{display:block;color:rgba(255,255,255,0.72);font-size:13.5px;line-height:1.45;letter-spacing:0.2px}@keyframes toastGoldPulse{0%{opacity:0.75;transform:scale(0.82)}100%{opacity:0;transform:scale(1.28)}}@media (max-width:768px){.whatsapp-quick-options{gap:8px;margin-bottom:14px}.whatsapp-quick-option{padding:9px 11px;font-size:11.5px}}button:disabled{opacity:0.65;cursor:not-allowed;letter-spacing:2px}.whatsapp-chat-box{position:absolute;right:0;bottom:78px;width:350px;background:rgba(8,8,8,0.97);border:1px solid rgba(198,168,124,0.35);border-radius:22px;overflow:hidden;box-shadow:0 25px 70px rgba(0,0,0,0.75);backdrop-filter:blur(18px);opacity:0;visibility:hidden;transform:translateY(18px) scale(0.96);transition:all 0.35s cubic-bezier(0.4,0,0.2,1)}.whatsapp-chat-box.active{opacity:1;visibility:visible;transform:translateY(0) scale(1)}.whatsapp-chat-header{padding:18px 20px;background:linear-gradient(135deg,rgba(198,168,124,0.22),rgba(255,255,255,0.03));border-bottom:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:flex-start}.whatsapp-chat-header strong{display:block;color:#fff;font-family:"Space Grotesk",sans-serif;font-size:16px;letter-spacing:0.8px}.whatsapp-chat-header span{display:block;color:rgba(255,255,255,0.58);font-size:12px;margin-top:3px}.whatsapp-chat-close{width:28px;height:28px;border:none;background:transparent;color:rgba(255,255,255,0.75);font-size:26px;padding:0;margin:0;cursor:pointer;line-height:1;align-self:auto;font-family:Arial,sans-serif}.whatsapp-chat-close:hover{background:transparent;color:#fff;letter-spacing:normal;box-shadow:none}.whatsapp-message{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.88);padding:14px 16px;border-radius:16px 16px 16px 4px;font-size:14px;line-height:1.55;margin-bottom:16px}.whatsapp-quick-options{display:grid;grid-template-columns:1fr;gap:9px;margin:14px 0 16px}.whatsapp-quick-option{width:100%;padding:10px 12px;border-radius:12px;border:1px solid rgba(198,168,124,0.28);background:rgba(255,255,255,0.045);color:rgba(255,255,255,0.82);font-family:"Inter",sans-serif;font-size:12px;line-height:1.35;letter-spacing:0.2px;text-align:left;cursor:pointer;transition:all 0.25s ease;margin:0}.whatsapp-quick-option:hover{background:rgba(198,168,124,0.14);border-color:rgba(198,168,124,0.58);color:#fff;transform:translateY(-1px);letter-spacing:0.2px}.whatsapp-quick-label{display:block;color:rgba(255,255,255,0.48);font-size:11px;letter-spacing:0.8px;text-transform:uppercase;margin:2px 0 9px}#whatsappMessage{width:100%;min-height:95px;resize:none;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:14px;color:#fff;font-family:"Inter",sans-serif;font-size:14px;outline:none;margin-bottom:14px}#whatsappMessage:focus{border-color:rgba(198,168,124,0.7)}.whatsapp-send-btn{width:100%;padding:14px 18px;border-radius:14px;border:1px solid #C6A87C;background:#C6A87C;color:#050505;font-family:"Space Grotesk",sans-serif;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all 0.3s ease;margin-top:0;align-self:auto}.whatsapp-send-btn:hover{background:#E6BE8A;border-color:#E6BE8A;color:#050505;letter-spacing:1.5px;box-shadow:0 0 20px rgba(198,168,124,0.25)}@media (max-width:768px){.whatsapp-chat-box{width:calc(100vw - 36px);right:0;bottom:74px}}@media (max-width:768px){section,section#projects,section#about,section#contact,#stats{width:100%;max-width:100%;overflow-x:hidden;padding-left:18px;padding-right:18px}.section-title{width:100%;margin-left:0;margin-right:0;letter-spacing:1.8px}.portfolio-grid{width:100%;max-width:100%;grid-template-columns:1fr;gap:18px}.project-card,.project-card[style]{width:100% !important;max-width:100% !important;height:min(126vw,680px) !important;min-height:470px}.project-img,.gallery-img{width:100%;max-width:100%}.play-btn,.gallery-indicator{top:16px;right:16px;width:42px;height:42px}.card-overlay{left:20px;right:20px;bottom:24px;width:auto;max-width:calc(100% - 40px)}.card-overlay h3{font-size:clamp(1.35rem,7.6vw,1.85rem);line-height:1.08;word-break:normal;overflow-wrap:anywhere}.project-subtitle,.card-overlay span{letter-spacing:1.3px !important}.project-desc{max-width:100%;font-size:0.82rem;line-height:1.55}.project-card:hover .project-desc{opacity:0;max-height:0;transform:translateY(15px);margin-top:0}.project-card.active .project-desc{opacity:1;max-height:320px;transform:translateY(0);margin-top:16px}.project-card.active .project-img,.project-card.active .gallery-img{filter:grayscale(0%);transform:scale(1.04)}.about-container,.contact-container{width:100%;max-width:100%;padding:0;gap:32px}.about-text{width:100%;max-width:100%;font-size:1.18rem;line-height:1.55;overflow-wrap:anywhere}#stats{gap:54px;padding-top:70px;padding-bottom:70px}.stat-number{font-size:3.15rem}.stat-label{max-width:240px;line-height:1.55}.contact-left,form,.form-group{width:100%;max-width:100%}.contact-left>div{width:100%;max-width:100%;font-size:1.05rem !important;overflow-wrap:anywhere}input,textarea{max-width:100%;font-size:16px}form button[type="submit"]{width:100%;max-width:100%;align-self:stretch;padding:14px 22px;text-align:center}.footer-tiger-img{max-width:100%;margin-top:28px}.site-footer{width:100%;max-width:100%;padding:46px 18px 112px;overflow-x:hidden}.footer-container,.footer-social-group{width:100%;max-width:100%}.footer-social-group{flex-direction:column;gap:18px}.footer-social-item{justify-content:center;max-width:100%;overflow-wrap:anywhere}.form-toast{left:18px;right:18px;bottom:92px;width:auto;min-width:0;max-width:none;transform:translateY(24px)}.form-toast.show{transform:translateY(0)}.whatsapp-chat-box{position:fixed;left:14px;right:14px;bottom:calc(82px + env(safe-area-inset-bottom));width:auto;max-width:none;max-height:min(70svh,560px);overflow-y:auto;border-radius:18px}#whatsappMessage{min-height:92px;max-width:100%}.whatsapp-send-btn{width:100%;padding:14px 16px}}@media (max-width:420px){section,section#projects,section#about,section#contact,#stats{padding-left:16px;padding-right:16px}.project-card,.project-card[style]{height:128vw !important;min-height:430px}.card-overlay{left:16px;right:16px;bottom:20px;max-width:calc(100% - 32px)}.whatsapp-chat-box{left:10px;right:10px}}@media (max-width:768px){.whatsapp-chat-box{position:fixed !important;left:16px !important;right:16px !important;bottom:calc(88px + env(safe-area-inset-bottom)) !important;width:auto !important;max-height:min(70vh,560px);overflow-y:auto;border-radius:22px}.form-toast{bottom:calc(92px + env(safe-area-inset-bottom))}}@media (max-width:768px){.form-toast-inner{padding:15px 16px 16px;gap:12px}.form-toast-icon{width:38px;height:38px;min-width:38px}.form-toast-title{font-size:13px}.form-toast-text{font-size:12.5px}}@media (max-width:768px){.footer-designer-line{max-width:320px;font-size:10.5px;margin-top:-6px}}.service-line-icon{width:46px;height:46px;margin:-8px 0 22px;color:#C6A87C;opacity:.92}.service-card:hover .service-line-icon{opacity:1;transform:translateY(-2px);transition:transform .45s ease,opacity .45s ease}section#why-bgstudio{padding:100px 5%;background:linear-gradient(180deg,#050505 0%,#080808 52%,#050505 100%);overflow-x:hidden}.why-intro{max-width:860px;margin:0 5% 46px;color:rgba(255,255,255,.7);font-family:"Cormorant Garamond",serif;font-size:clamp(1.28rem,1.85vw,1.85rem);font-weight:500;line-height:1.5;letter-spacing:.12px}.why-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:0 5%}.why-card{position:relative;min-height:250px;padding:30px 26px;border:1px solid rgba(198,168,124,.2);background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.014));overflow:hidden;transition:transform .45s ease,border-color .45s ease,background .45s ease}.why-card::before{content:"";position:absolute;left:26px;right:26px;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(198,168,124,.65),transparent);opacity:.52}.why-card:hover{transform:translateY(-7px);border-color:rgba(198,168,124,.5);background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.018))}.why-number{display:block;margin-bottom:28px;color:#C6A87C;font-family:"Space Grotesk",sans-serif;font-size:.78rem;letter-spacing:2.8px}.why-card h3{color:#fff;font-family:"Cormorant Garamond",serif;font-size:clamp(1.55rem,2vw,2rem);font-weight:600;text-transform:none;line-height:1.08;margin-bottom:18px}.why-card p{color:rgba(255,255,255,.66);font-family:"Cormorant Garamond",serif;font-size:clamp(1.08rem,1.25vw,1.22rem);font-weight:500;line-height:1.62}.why-card::before{left:30px;right:30px;background:linear-gradient(90deg,transparent,rgba(198,168,124,.78),transparent);opacity:1}.project-card:hover .project-img,.project-card:hover .gallery-img,.project-card.active .project-img{transform:scale(1.025)}.project-card::after{background:linear-gradient(to top,rgba(0,0,0,.84) 0%,rgba(0,0,0,.26) 46%,transparent 100%)}.card-overlay::before{content:"";display:block;width:42px;height:1px;background:rgba(198,168,124,.7);margin-bottom:14px;transform:scaleX(.72);transform-origin:left;opacity:.75;transition:transform .55s ease,opacity .55s ease}.project-card:hover .card-overlay::before,.project-card.active .card-overlay::before{transform:scaleX(1);opacity:1}.project-desc{transition:opacity .72s cubic-bezier(.22,1,.36,1),max-height .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1),margin-top .72s cubic-bezier(.22,1,.36,1)}.whatsapp-brand-head{display:flex;align-items:center;gap:12px}.whatsapp-mini-logo{width:38px;height:38px;min-width:38px;border-radius:50%;border:1px solid rgba(198,168,124,.68);display:flex;align-items:center;justify-content:center;color:#E6BE8A;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;background:radial-gradient(circle at 35% 25%,rgba(198,168,124,.18),rgba(255,255,255,.03) 42%,rgba(0,0,0,.2));box-shadow:inset 0 0 14px rgba(198,168,124,.12)}.whatsapp-trust-note{margin:-4px 0 12px;color:rgba(255,255,255,.48);font-size:11px;letter-spacing:.5px;text-align:center}@media (max-width:1024px){.why-grid{grid-template-columns:1fr 1fr}}@media (max-width:768px){section#why-bgstudio{padding:70px 20px}.why-intro{margin:0 0 32px;font-size:1.24rem;max-width:100%}.why-grid{grid-template-columns:1fr;padding:0;gap:14px}.why-card{min-height:auto;padding:26px 22px}.service-line-icon{width:42px;height:42px;margin:-2px 0 18px}.project-card:hover .project-img,.project-card:hover .gallery-img{transform:none}.project-card.active .project-img,.project-card.active .gallery-img{transform:scale(1.018)}}.whatsapp-brand-logo{width:44px;height:44px;min-width:44px;border-radius:50%;object-fit:cover;border:1px solid rgba(198,168,124,.55);background:#fff;box-shadow:0 0 18px rgba(198,168,124,.16)}.whatsapp-brand-head{display:flex;align-items:center;gap:12px}.whatsapp-trust-note{margin:-4px 0 12px;color:rgba(255,255,255,.48);font-size:11px;letter-spacing:.5px;text-align:center}.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}.play-btn{padding:0;margin:0;align-self:auto;color:#fff}.play-btn:hover{letter-spacing:normal}.whatsapp-trust-note{margin:-4px 0 12px;color:rgba(255,255,255,.48);font-size:11px;letter-spacing:.5px;text-align:center}@media (min-width: 769px){.whatsapp-chat-box {
     max-height: calc(100vh - 120px);
@@ -6276,6 +6132,354 @@ textarea:focus-visible{
         margin-top:-22px!important;
     }
 }
+
+
+/* ===== CONTACT CONFIGURATOR 1.9.4.3 ===== */
+#contact .contact-config-layout{
+    grid-template-columns:minmax(300px,.70fr) minmax(0,1.30fr)!important;
+    gap:74px!important;
+}
+
+#contact .contact-hours-card{
+    margin-top:22px;
+    padding:18px 18px 16px;
+    border:1px solid rgba(198,168,124,.22);
+    background:linear-gradient(145deg,rgba(198,168,124,.045),rgba(255,255,255,.008));
+}
+#contact .contact-hours-title{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-bottom:14px;
+    padding-bottom:11px;
+    border-bottom:1px solid rgba(255,255,255,.10);
+    color:rgba(255,255,255,.48);
+    font-family:"Space Grotesk",sans-serif;
+    font-size:7px;
+    font-weight:700;
+    letter-spacing:1.55px;
+}
+#contact .contact-hours-dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#c6a87c;
+    box-shadow:0 0 10px rgba(198,168,124,.42);
+}
+#contact .contact-hours-row{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:18px;
+    align-items:center;
+    min-height:31px;
+    color:rgba(255,255,255,.58);
+    font-family:"Cormorant Garamond",serif;
+    font-size:1rem;
+}
+#contact .contact-hours-row strong{
+    color:#fff;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:.65px;
+}
+#contact .contact-hours-row.is-closed{
+    color:rgba(255,255,255,.34);
+}
+#contact .contact-hours-row.is-closed strong{
+    color:rgba(255,255,255,.38);
+}
+#contact .contact-privacy-note{
+    margin-top:22px!important;
+}
+
+#contact .contact-config-form{
+    position:relative;
+}
+#contact .contact-config-intro{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:22px;
+    margin-bottom:34px;
+    padding-bottom:18px;
+    border-bottom:1px solid rgba(255,255,255,.14);
+}
+#contact .contact-config-intro h3{
+    margin:4px 0 0;
+    color:#fff;
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(2rem,3vw,3.15rem);
+    font-weight:500;
+    line-height:1;
+    letter-spacing:-.035em;
+    text-transform:none;
+}
+#contact .contact-config-time{
+    padding:7px 10px;
+    border:1px solid rgba(198,168,124,.24);
+    color:#d7ba91;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:6px;
+    font-weight:700;
+    letter-spacing:1.2px;
+    white-space:nowrap;
+}
+
+#contact .contact-field-grid-three{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:20px!important;
+}
+
+#contact .contact-area-block{
+    margin:0 0 50px;
+}
+#contact .contact-form-step-output{
+    align-items:center;
+}
+#contact .contact-form-step-output output{
+    margin-left:auto;
+    padding:6px 9px;
+    border:1px solid rgba(198,168,124,.30);
+    color:#e0c59b;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:.75px;
+}
+#contact #projectArea{
+    --area-progress:10.81%;
+    width:100%;
+    height:4px;
+    display:block;
+    margin:27px 0 10px;
+    padding:0;
+    border:0;
+    outline:0;
+    appearance:none;
+    -webkit-appearance:none;
+    border-radius:999px;
+    background:
+        linear-gradient(
+            90deg,
+            #c6a87c 0%,
+            #ddc39b var(--area-progress),
+            rgba(255,255,255,.12) var(--area-progress),
+            rgba(255,255,255,.12) 100%
+        );
+}
+#contact #projectArea::-webkit-slider-thumb{
+    width:18px;
+    height:18px;
+    margin-top:0;
+    appearance:none;
+    -webkit-appearance:none;
+    border:4px solid #060606;
+    border-radius:50%;
+    background:#ead5ad;
+    box-shadow:0 0 0 1px rgba(198,168,124,.55),0 0 16px rgba(198,168,124,.15);
+    cursor:pointer;
+}
+#contact #projectArea::-moz-range-thumb{
+    width:10px;
+    height:10px;
+    border:4px solid #060606;
+    border-radius:50%;
+    background:#ead5ad;
+    box-shadow:0 0 0 1px rgba(198,168,124,.55);
+    cursor:pointer;
+}
+#contact .contact-range-legend{
+    display:flex;
+    justify-content:space-between;
+    color:rgba(255,255,255,.28);
+    font-family:"Space Grotesk",sans-serif;
+    font-size:6px;
+    font-weight:650;
+    letter-spacing:1px;
+}
+
+#contact .contact-files-block{
+    margin:0 0 44px;
+}
+#contact .contact-file-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1.05fr) minmax(260px,.95fr);
+    gap:22px;
+    align-items:stretch;
+}
+#contact .contact-upload-wrap{
+    min-width:0;
+}
+#contact .contact-upload-zone{
+    position:relative;
+    min-height:154px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    padding:24px 20px;
+    border:1px dashed rgba(198,168,124,.34);
+    background:rgba(255,255,255,.008);
+    text-align:center;
+    cursor:pointer;
+    overflow:hidden;
+    transition:border-color .28s ease,background .28s ease,transform .28s ease;
+}
+#contact .contact-upload-zone:hover,
+#contact .contact-upload-zone.is-dragging{
+    border-color:rgba(198,168,124,.75);
+    background:rgba(198,168,124,.045);
+}
+#contact .contact-upload-zone input{
+    position:absolute!important;
+    inset:0!important;
+    z-index:5!important;
+    width:100%!important;
+    height:100%!important;
+    margin:0!important;
+    padding:0!important;
+    opacity:0!important;
+    cursor:pointer!important;
+    pointer-events:auto!important;
+}
+#contact .contact-upload-zone > :not(input){
+    position:relative;
+    z-index:1;
+    pointer-events:none;
+}
+#contact .contact-upload-icon{
+    color:#d7ba91;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:24px;
+    line-height:1;
+}
+#contact .contact-upload-zone strong{
+    color:rgba(255,255,255,.76);
+    font-family:"Inter",sans-serif;
+    font-size:.84rem;
+    font-weight:500;
+}
+#contact .contact-upload-zone small{
+    color:rgba(255,255,255,.30);
+    font-family:"Inter",sans-serif;
+    font-size:.66rem;
+    line-height:1.45;
+}
+#contact .contact-file-selected{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    min-height:58px;
+    padding:12px 14px;
+    border:1px solid rgba(198,168,124,.25);
+    border-top:0;
+    background:rgba(198,168,124,.025);
+}
+#contact .contact-file-selected[hidden]{
+    display:none!important;
+}
+#contact .contact-file-selected > div{
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+}
+#contact .contact-file-selected span{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    color:rgba(255,255,255,.78);
+    font-family:"Inter",sans-serif;
+    font-size:.75rem;
+}
+#contact .contact-file-selected small{
+    color:rgba(255,255,255,.30);
+    font-family:"Space Grotesk",sans-serif;
+    font-size:6px;
+    letter-spacing:.8px;
+}
+#contact .contact-file-selected button{
+    flex:0 0 auto;
+    min-height:32px;
+    padding:0 11px;
+    border:1px solid rgba(198,168,124,.24);
+    background:transparent;
+    color:#d7ba91;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:6px;
+    font-weight:700;
+    letter-spacing:1px;
+    cursor:pointer;
+}
+#contact .contact-file-selected button:hover{
+    border-color:#c6a87c;
+    background:rgba(198,168,124,.08);
+}
+#contact .contact-share-link{
+    min-height:154px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:20px 22px;
+    border:1px solid rgba(255,255,255,.12);
+    background:linear-gradient(145deg,rgba(255,255,255,.018),rgba(255,255,255,.004));
+}
+#contact .contact-share-link p{
+    margin:12px 0 0;
+    color:rgba(255,255,255,.30);
+    font-family:"Space Grotesk",sans-serif;
+    font-size:7px;
+    line-height:1.6;
+    letter-spacing:.35px;
+}
+
+@media(max-width:1080px){
+    #contact .contact-config-layout{
+        grid-template-columns:1fr!important;
+        gap:54px!important;
+    }
+    #contact .contact-editorial-info{
+        position:relative!important;
+        top:auto!important;
+        max-width:none!important;
+    }
+    #contact .contact-field-grid-three{
+        grid-template-columns:1fr 1fr!important;
+    }
+    #contact .contact-field-grid-three .contact-field:last-child{
+        grid-column:1 / -1;
+    }
+}
+@media(max-width:768px){
+    #contact .contact-config-intro{
+        margin-bottom:28px;
+    }
+    #contact .contact-field-grid-three{
+        grid-template-columns:1fr!important;
+        gap:24px!important;
+    }
+    #contact .contact-field-grid-three .contact-field:last-child{
+        grid-column:auto;
+    }
+    #contact .contact-file-grid{
+        grid-template-columns:1fr;
+        gap:14px;
+    }
+    #contact .contact-share-link{
+        min-height:0;
+        padding:18px 16px;
+    }
+    #contact .contact-upload-zone{
+        min-height:138px;
+        padding:22px 16px;
+    }
+    #contact .contact-hours-card{
+        margin-top:18px;
+    }
+}
 </script>
 <script>
 (function(){
@@ -6497,6 +6701,218 @@ applyLanguage(initial,false);
     window.addEventListener('load', requestProgressUpdate, {once:true});
 
     requestProgressUpdate();
+})();
+</script>
+
+
+<script id="bg-contact-configurator">
+(function(){
+    'use strict';
+
+    const form = document.getElementById('contactForm');
+    const area = document.getElementById('projectArea');
+    const areaOutput = document.getElementById('projectAreaOutput');
+    const fileInput = document.getElementById('projectFile');
+    const uploadZone = document.getElementById('contactUploadZone');
+    const fileSelected = document.getElementById('contactFileSelected');
+    const fileName = document.getElementById('contactFileName');
+    const fileSize = document.getElementById('contactFileSize');
+    const fileRemove = document.getElementById('contactFileRemove');
+    const languageField = document.getElementById('contactLanguageField');
+
+    if (!form) return;
+
+    const MAX_FILE_BYTES = 5 * 1024 * 1024;
+    const ALLOWED_EXTENSIONS = ['zip','jpg','jpeg','png','pdf'];
+
+    function currentLang(){
+        return window.bgStudioLanguage === 'en' ? 'en' : 'tr';
+    }
+
+    function contactText(tr, en){
+        return currentLang() === 'en' ? en : tr;
+    }
+
+    function applyContactLanguage(){
+        const lang = currentLang();
+
+        document.querySelectorAll('[data-contact-tr][data-contact-en]').forEach(el => {
+            el.textContent = lang === 'en' ? el.dataset.contactEn : el.dataset.contactTr;
+        });
+
+        document.querySelectorAll('[data-contact-placeholder-tr][data-contact-placeholder-en]').forEach(el => {
+            el.setAttribute(
+                'placeholder',
+                lang === 'en' ? el.dataset.contactPlaceholderEn : el.dataset.contactPlaceholderTr
+            );
+        });
+
+        const hoursCard = document.querySelector('.contact-hours-card');
+        if (hoursCard) {
+            hoursCard.setAttribute('aria-label', lang === 'en' ? 'Business hours' : 'Çalışma saatleri');
+        }
+
+        if (area) {
+            area.setAttribute('aria-label', lang === 'en' ? 'Approximate project area' : 'Yaklaşık proje alanı');
+        }
+
+        if (languageField) languageField.value = lang;
+    }
+
+    function syncArea(){
+        if (!area || !areaOutput) return;
+
+        const value = Number(area.value || 180);
+        const min = Number(area.min || 20);
+        const max = Number(area.max || 1500);
+        const pct = max > min ? ((value - min) / (max - min)) * 100 : 0;
+
+        area.style.setProperty('--area-progress', pct.toFixed(2) + '%');
+        areaOutput.textContent = value >= max ? '~1500+ m²' : '~' + value + ' m²';
+    }
+
+    function prettySize(bytes){
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
+
+    function extensionOf(name){
+        const parts = String(name || '').toLowerCase().split('.');
+        return parts.length > 1 ? parts.pop() : '';
+    }
+
+    function showLocalError(message){
+        if (typeof showFormToast === 'function') {
+            showFormToast(message, 'error');
+            return;
+        }
+        window.alert(message);
+    }
+
+    function validateFile(file){
+        if (!file) return true;
+
+        const ext = extensionOf(file.name);
+
+        if (!ALLOWED_EXTENSIONS.includes(ext)) {
+            showLocalError(contactText(
+                'Dosya türü ZIP, JPG, JPEG, PNG veya PDF olmalı.',
+                'File type must be ZIP, JPG, JPEG, PNG or PDF.'
+            ));
+            return false;
+        }
+
+        if (file.size > MAX_FILE_BYTES) {
+            showLocalError(contactText(
+                'Dosya 5 MB sınırını aşıyor. Büyük dosyalar için paylaşım bağlantısı alanını kullanın.',
+                'The file exceeds 5 MB. Please use the sharing-link field for larger files.'
+            ));
+            return false;
+        }
+
+        return true;
+    }
+
+    function syncFileUI(){
+        if (!fileInput || !fileSelected || !fileName || !fileSize) return;
+
+        const file = fileInput.files && fileInput.files[0];
+
+        if (!file) {
+            fileSelected.hidden = true;
+            fileName.textContent = '—';
+            fileSize.textContent = '—';
+            return;
+        }
+
+        fileSelected.hidden = false;
+        fileName.textContent = file.name;
+        fileSize.textContent = prettySize(file.size);
+    }
+
+    if (area) {
+        area.value = area.defaultValue || '180';
+        area.addEventListener('input', syncArea, {passive:true});
+        syncArea();
+    }
+
+    if (fileInput) {
+        fileInput.addEventListener('change', () => {
+            const file = fileInput.files && fileInput.files[0];
+
+            if (file && !validateFile(file)) {
+                fileInput.value = '';
+            }
+
+            syncFileUI();
+        });
+    }
+
+    if (fileRemove && fileInput) {
+        fileRemove.addEventListener('click', () => {
+            fileInput.value = '';
+            syncFileUI();
+        });
+    }
+
+    if (uploadZone && fileInput) {
+        ['dragenter','dragover'].forEach(eventName => {
+            uploadZone.addEventListener(eventName, event => {
+                event.preventDefault();
+                uploadZone.classList.add('is-dragging');
+            });
+        });
+
+        ['dragleave','drop'].forEach(eventName => {
+            uploadZone.addEventListener(eventName, event => {
+                event.preventDefault();
+                uploadZone.classList.remove('is-dragging');
+            });
+        });
+
+        uploadZone.addEventListener('drop', event => {
+            const file = event.dataTransfer && event.dataTransfer.files
+                ? event.dataTransfer.files[0]
+                : null;
+
+            if (!file || !validateFile(file)) return;
+
+            try {
+                const transfer = new DataTransfer();
+                transfer.items.add(file);
+                fileInput.files = transfer.files;
+                syncFileUI();
+            } catch (error) {
+                showLocalError(contactText(
+                    'Bu tarayıcı sürükle-bırak dosya aktarımını desteklemiyor. Kutuyu tıklayarak dosyayı seçin.',
+                    'This browser does not support drag-and-drop file transfer. Click the upload area to choose the file.'
+                ));
+            }
+        });
+    }
+
+    form.addEventListener('submit', event => {
+        const file = fileInput && fileInput.files ? fileInput.files[0] : null;
+
+        if (file && !validateFile(file)) {
+            event.preventDefault();
+            return;
+        }
+
+        if (languageField) languageField.value = currentLang();
+    }, true);
+
+    form.addEventListener('reset', () => {
+        window.setTimeout(() => {
+            if (area) area.value = area.defaultValue || '180';
+            syncArea();
+            syncFileUI();
+        }, 0);
+    });
+
+    window.addEventListener('bg:languagechange', applyContactLanguage);
+    applyContactLanguage();
 })();
 </script>
 
