@@ -1926,7 +1926,7 @@ textarea:focus-visible{
                 </aside>
 
                 <form id="contactForm" class="contact-editorial-form contact-config-form hidden"
-                      action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+                      action="https://api.web3forms.com/submit" method="POST">
                     <input type="hidden" name="access_key" value="d1031bef-cd4e-4609-a9e8-0d534a157a57">
                     <input type="hidden" name="subject" value="BG Studio Sitesinden Yeni Proje Talebi">
                     <input type="hidden" name="from_name" value="BG Studio Architecture Web Sitesi">
@@ -2077,55 +2077,28 @@ textarea:focus-visible{
                         </div>
                     </div>
 
-                    <div class="contact-files-block">
+                    <div class="contact-files-block contact-share-only">
                         <div class="contact-form-step">
                             <span class="contact-form-step-index">05</span>
-                            <span data-contact-tr="DOSYA / PAYLAŞIM BAĞLANTISI" data-contact-en="FILE / SHARE LINK">DOSYA / PAYLAŞIM BAĞLANTISI</span>
+                            <span data-contact-tr="DOSYA PAYLAŞIM BAĞLANTISI" data-contact-en="FILE SHARING LINK">DOSYA PAYLAŞIM BAĞLANTISI</span>
                         </div>
 
-                        <div class="contact-file-grid">
-                            <div class="contact-upload-wrap">
-                                <label class="contact-upload-zone" id="contactUploadZone" for="projectFile">
-                                    <input type="file" id="projectFile" name="attachment"
-                                           accept=".zip,.jpg,.jpeg,.png,.pdf,application/zip,application/x-zip-compressed,image/jpeg,image/png,application/pdf">
-                                    <span class="contact-upload-icon" aria-hidden="true">↑</span>
-                                    <strong id="contactUploadTitle"
-                                            data-contact-tr="Dosyayı buraya bırakın veya seçin"
-                                            data-contact-en="Drop a file here or choose one">Dosyayı buraya bırakın veya seçin</strong>
-                                    <small data-contact-tr="ZIP, JPG, JPEG, PNG veya PDF · tek dosya · en fazla 5 MB"
-                                           data-contact-en="ZIP, JPG, JPEG, PNG or PDF · one file · max 5 MB">
-                                        ZIP, JPG, JPEG, PNG veya PDF · tek dosya · en fazla 5 MB
-                                    </small>
+                        <div class="contact-share-link contact-share-link-full">
+                            <div class="contact-field">
+                                <label for="projectShareLink"
+                                       data-contact-tr="Plan, görsel veya proje dosyalarınız için bağlantı"
+                                       data-contact-en="Link for plans, images or project files">
+                                    Plan, görsel veya proje dosyalarınız için bağlantı
                                 </label>
-
-                                <div class="contact-file-selected" id="contactFileSelected" hidden>
-                                    <div>
-                                        <span id="contactFileName">—</span>
-                                        <small id="contactFileSize">—</small>
-                                    </div>
-                                    <button type="button" id="contactFileRemove"
-                                            data-contact-tr="KALDIR"
-                                            data-contact-en="REMOVE">KALDIR</button>
-                                </div>
+                                <input type="url" id="projectShareLink" name="dosya_baglantisi"
+                                       placeholder="Google Drive / WeTransfer / Dropbox / OneDrive"
+                                       data-contact-placeholder-tr="Google Drive / WeTransfer / Dropbox / OneDrive"
+                                       data-contact-placeholder-en="Google Drive / WeTransfer / Dropbox / OneDrive">
                             </div>
-
-                            <div class="contact-share-link">
-                                <div class="contact-field">
-                                    <label for="projectShareLink"
-                                           data-contact-tr="Büyük / çoklu dosyalar için bağlantı"
-                                           data-contact-en="Link for large / multiple files">
-                                        Büyük / çoklu dosyalar için bağlantı
-                                    </label>
-                                    <input type="url" id="projectShareLink" name="dosya_baglantisi"
-                                           placeholder="Google Drive / WeTransfer / Dropbox / OneDrive"
-                                           data-contact-placeholder-tr="Google Drive / WeTransfer / Dropbox / OneDrive"
-                                           data-contact-placeholder-en="Google Drive / WeTransfer / Dropbox / OneDrive">
-                                </div>
-                                <p data-contact-tr="5 MB üzerindeki veya birden fazla dosya için paylaşım bağlantısı bırakabilirsiniz."
-                                   data-contact-en="For files over 5 MB or multiple files, you can leave a sharing link.">
-                                    5 MB üzerindeki veya birden fazla dosya için paylaşım bağlantısı bırakabilirsiniz.
-                                </p>
-                            </div>
+                            <p data-contact-tr="Dosyalarınızı Google Drive, WeTransfer, Dropbox veya OneDrive üzerinden paylaşabilir; bağlantıyı buraya bırakabilirsiniz."
+                               data-contact-en="You can share your files via Google Drive, WeTransfer, Dropbox or OneDrive and paste the link here.">
+                                Dosyalarınızı Google Drive, WeTransfer, Dropbox veya OneDrive üzerinden paylaşabilir; bağlantıyı buraya bırakabilirsiniz.
+                            </p>
                         </div>
                     </div>
 
@@ -6464,20 +6437,37 @@ textarea:focus-visible{
     #contact .contact-field-grid-three .contact-field:last-child{
         grid-column:auto;
     }
-    #contact .contact-file-grid{
-        grid-template-columns:1fr;
-        gap:14px;
-    }
     #contact .contact-share-link{
         min-height:0;
         padding:18px 16px;
     }
-    #contact .contact-upload-zone{
-        min-height:138px;
-        padding:22px 16px;
-    }
     #contact .contact-hours-card{
         margin-top:18px;
+    }
+}
+
+/* ===== CONTACT LINK-ONLY FILE SHARING ===== */
+#contact .contact-share-only{
+    margin:0 0 44px;
+}
+#contact .contact-share-link-full{
+    width:100%;
+    min-height:0;
+    padding:22px 24px;
+    border:1px solid rgba(255,255,255,.12);
+    background:linear-gradient(145deg,rgba(255,255,255,.018),rgba(255,255,255,.004));
+}
+#contact .contact-share-link-full p{
+    margin:12px 0 0;
+    color:rgba(255,255,255,.30);
+    font-family:"Space Grotesk",sans-serif;
+    font-size:7px;
+    line-height:1.6;
+    letter-spacing:.35px;
+}
+@media(max-width:768px){
+    #contact .contact-share-link-full{
+        padding:18px 16px;
     }
 }
 </script>
@@ -6712,18 +6702,9 @@ applyLanguage(initial,false);
     const form = document.getElementById('contactForm');
     const area = document.getElementById('projectArea');
     const areaOutput = document.getElementById('projectAreaOutput');
-    const fileInput = document.getElementById('projectFile');
-    const uploadZone = document.getElementById('contactUploadZone');
-    const fileSelected = document.getElementById('contactFileSelected');
-    const fileName = document.getElementById('contactFileName');
-    const fileSize = document.getElementById('contactFileSize');
-    const fileRemove = document.getElementById('contactFileRemove');
     const languageField = document.getElementById('contactLanguageField');
 
     if (!form) return;
-
-    const MAX_FILE_BYTES = 5 * 1024 * 1024;
-    const ALLOWED_EXTENSIONS = ['zip','jpg','jpeg','png','pdf'];
 
     function currentLang(){
         return window.bgStudioLanguage === 'en' ? 'en' : 'tr';
@@ -6845,14 +6826,12 @@ applyLanguage(initial,false);
                 fileInput.value = '';
             }
 
-            syncFileUI();
         });
     }
 
     if (fileRemove && fileInput) {
         fileRemove.addEventListener('click', () => {
             fileInput.value = '';
-            syncFileUI();
         });
     }
 
@@ -6882,8 +6861,7 @@ applyLanguage(initial,false);
                 const transfer = new DataTransfer();
                 transfer.items.add(file);
                 fileInput.files = transfer.files;
-                syncFileUI();
-            } catch (error) {
+                } catch (error) {
                 showLocalError(contactText(
                     'Bu tarayıcı sürükle-bırak dosya aktarımını desteklemiyor. Kutuyu tıklayarak dosyayı seçin.',
                     'This browser does not support drag-and-drop file transfer. Click the upload area to choose the file.'
@@ -6907,7 +6885,6 @@ applyLanguage(initial,false);
         window.setTimeout(() => {
             if (area) area.value = area.defaultValue || '180';
             syncArea();
-            syncFileUI();
         }, 0);
     });
 
