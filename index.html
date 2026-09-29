@@ -7421,7 +7421,7 @@ textarea:focus-visible{
 }
 
 
-/* ===== EXPLODED ARCHITECTURE 1.9.5.0 / HARD PIN + NO GAP ===== */
+/* ===== EXPLODED ARCHITECTURE 1.9.5.1 / DESKTOP ONLY ===== */
 #exploded-architecture{
     --exploded-stage-height:100vh;
     --exploded-scrub-distance:280vh;
@@ -7711,6 +7711,12 @@ textarea:focus-visible{
     #exploded-architecture .exploded-phase p{display:none}
     #exploded-architecture .exploded-scroll-copy{display:none}
     #exploded-architecture .exploded-nav{grid-template-columns:1fr auto}
+}
+/* Exploded deneyimi yalnızca masaüstünde gösterilir. Mobil/tablet görünümünde bölüm akıştan tamamen çıkar. */
+@media(max-width:900px){
+    #exploded-architecture{
+        display:none!important;
+    }
 }
 @media(prefers-reduced-motion:reduce){
     /* Scroll scrub kullanıcı kontrollüdür; bölümü dondurmak yerine yalnızca dekoratif geçişleri kapatırız. */
@@ -8563,7 +8569,7 @@ applyLanguage(initial,false);
 </script>
 
 
-<script id="bg-exploded-architecture" data-version="1.9.5.0">
+<script id="bg-exploded-architecture" data-version="1.9.5.1">
 (function(){
     'use strict';
 
@@ -8584,7 +8590,7 @@ applyLanguage(initial,false);
     const phaseTitle=document.getElementById('explodedPhaseTitle');
     const phaseText=document.getElementById('explodedPhaseText');
 
-    const mobileQuery=window.matchMedia('(max-width: 900px)');
+    const desktopOnlyQuery=window.matchMedia('(min-width: 901px)');
 
     const PHASES_TR=[
         ['01','BÜTÜN','Yapı tek kompozisyon olarak okunur.','Mimari, peyzaj ve çevre ilişkisi başlangıçta tek bir bütün olarak görünür.'],
@@ -8601,9 +8607,8 @@ applyLanguage(initial,false);
         ['05','EXPLODED VIEW','The architectural system is visible in full.','Design decisions are read through the complete set of layers that form the finished architecture.']
     ];
 
-    let isMobile=mobileQuery.matches;
-    let frameCount=isMobile?72:120;
-    let basePath=isMobile?'assets/exploded/mobile/':'assets/exploded/desktop/';
+    let frameCount=120;
+    let basePath='assets/exploded/desktop/';
     let currentFrame=-1;
     let lastProgress=0;
     let previousProgress=0;
@@ -8615,7 +8620,7 @@ applyLanguage(initial,false);
     const cache=new Map();
     const loading=new Map();
     const prefetched=new Set();
-    const MAX_CACHE=isMobile?12:6;
+    const MAX_CACHE=6;
 
     function pad(n){return String(n).padStart(3,'0')}
     function urlFor(index){return basePath+'frame_'+pad(index+1)+'.webp'}
@@ -8634,7 +8639,7 @@ applyLanguage(initial,false);
         cancelAnimationFrame(sizeRaf);
         sizeRaf=requestAnimationFrame(()=>{
             const rect=canvas.getBoundingClientRect();
-            const dpr=Math.min(window.devicePixelRatio||1,isMobile?1.35:1.75);
+            const dpr=Math.min(window.devicePixelRatio||1,1.75);
             const w=Math.max(1,Math.round(rect.width*dpr));
             const h=Math.max(1,Math.round(rect.height*dpr));
             if(canvas.width!==w||canvas.height!==h){
@@ -8650,7 +8655,7 @@ applyLanguage(initial,false);
         if(!cw||!ch||!img||!img.naturalWidth)return;
         ctx.fillStyle='#030303';ctx.fillRect(0,0,cw,ch);
         const iw=img.naturalWidth,ih=img.naturalHeight;
-        const scale=isMobile?Math.min(cw/iw,ch/ih):Math.max(cw/iw,ch/ih);
+        const scale=Math.max(cw/iw,ch/ih);
         const dw=iw*scale,dh=ih*scale;
         const dx=(cw-dw)/2,dy=(ch-dh)/2;
         ctx.imageSmoothingEnabled=true;
@@ -8714,7 +8719,7 @@ applyLanguage(initial,false);
     }
 
     function prefetchWindow(center,direction){
-        const ahead=isMobile?7:9;
+        const ahead=9;
         for(let n=1;n<=ahead;n++){
             const i=center+(direction>=0?n:-n);
             if(i>=0&&i<frameCount)prefetchFrame(i);
@@ -8810,7 +8815,10 @@ applyLanguage(initial,false);
 
     function render(){
         raf=0;
-        if(!activated)return;
+        if(!activated||!desktopOnlyQuery.matches){
+            root.classList.remove('is-exploded-pinned','is-exploded-pinned-end');
+            return;
+        }
 
         const timeline=measureTimeline();
         syncPinnedState(timeline);
@@ -8833,18 +8841,18 @@ applyLanguage(initial,false);
     }
 
     function warmSequence(){
-        if(!activated)return;
+        if(!activated||!desktopOnlyQuery.matches)return;
         // Başlangıç bölümünde akıcı tepki için ilk karelerin HTTP cache'ini önceden ısıt.
-        const initialCount=isMobile?10:12;
+        const initialCount=12;
         for(let i=0;i<Math.min(initialCount,frameCount);i++){
             setTimeout(()=>prefetchFrame(i),i*35);
         }
-        const anchors=isMobile?[18,36,54,71]:[24,48,72,96,119];
+        const anchors=[24,48,72,96,119];
         anchors.forEach((index,n)=>setTimeout(()=>prefetchFrame(index),520+n*90));
     }
 
     function activate(){
-        if(activated)return;
+        if(activated||!desktopOnlyQuery.matches)return;
         activated=true;
         loadFrame(0,true).then(img=>{
             if(img&&currentFrame<0){
@@ -8859,7 +8867,7 @@ applyLanguage(initial,false);
 
     const observer=new IntersectionObserver(entries=>{
         entries.forEach(entry=>{
-            if(entry.isIntersecting){activate();requestRender()}
+            if(entry.isIntersecting&&desktopOnlyQuery.matches){activate();requestRender()}
         });
     },{rootMargin:'1800px 0px 1800px 0px',threshold:0});
     observer.observe(root);
@@ -8871,21 +8879,38 @@ applyLanguage(initial,false);
     },{passive:true});
     window.addEventListener('bg:languagechange',applyStaticLanguage);
 
-    if(mobileQuery.addEventListener){
-        mobileQuery.addEventListener('change',event=>{
-            const nextMobile=event.matches;
-            if(nextMobile===isMobile)return;
-            isMobile=nextMobile;
-            frameCount=isMobile?72:120;
-            basePath=isMobile?'assets/exploded/mobile/':'assets/exploded/desktop/';
-            generation++;
-            cache.clear();loading.clear();prefetched.clear();
-            currentFrame=-1;lastTarget=-1;lastProgress=0;previousProgress=0;root.dataset.phase='';
-            if(activated){
+    if(desktopOnlyQuery.addEventListener){
+        desktopOnlyQuery.addEventListener('change',event=>{
+            root.classList.remove('is-exploded-pinned','is-exploded-pinned-end');
+
+            if(!event.matches){
+                // Mobil/tablette bölüm CSS ile tamamen gizlidir. Animasyon işi ve yeni frame yüklemeleri durur.
+                generation++;
+                loading.clear();
+                prefetched.clear();
+                cancelAnimationFrame(raf);
+                raf=0;
+                return;
+            }
+
+            // Tekrar masaüstü genişliğine geçilirse yalnızca desktop sequence devreye girer.
+            frameCount=120;
+            basePath='assets/exploded/desktop/';
+            currentFrame=-1;
+            lastTarget=-1;
+            lastProgress=0;
+            previousProgress=0;
+            root.dataset.phase='';
+
+            if(!activated){
+                activate();
+            }else{
                 loadFrame(0,true).then(img=>{
                     if(img){currentFrame=0;drawCover(img)}
                 }).catch(()=>{});
-                warmSequence();resizeCanvas();requestRender();
+                warmSequence();
+                resizeCanvas();
+                requestRender();
             }
         });
     }
