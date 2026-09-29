@@ -1844,7 +1844,230 @@ textarea:focus-visible{
         </div>
     </section>
 
-    <section id="contact" class="contact-editorial">
+    
+    <section id="service-finder" class="service-finder-section" aria-labelledby="serviceFinderTitle">
+        <div class="service-finder-inner">
+            <div class="service-finder-copy hidden">
+                <div class="service-finder-eyebrow">
+                    <span>PROJECT MATCH</span>
+                    <span data-contact-tr="4 KISA SORU" data-contact-en="4 QUICK QUESTIONS">4 KISA SORU</span>
+                </div>
+
+                <h2 id="serviceFinderTitle" class="service-finder-title">
+                    <span data-contact-tr="Size uygun" data-contact-en="Find the right">Size uygun</span>
+                    <em data-contact-tr="hizmeti bulun." data-contact-en="service scope.">hizmeti bulun.</em>
+                </h2>
+
+                <p class="service-finder-intro"
+                   data-contact-tr="Projenizin mevcut durumunu ve ihtiyacınızı birkaç adımda belirtin. Sistem size uygun çalışma kapsamını oluştursun ve bilgileri iletişim formuna aktarsın."
+                   data-contact-en="Tell us the current status of your project and what you need in a few steps. We will suggest a suitable scope and transfer it to the inquiry form.">
+                    Projenizin mevcut durumunu ve ihtiyacınızı birkaç adımda belirtin. Sistem size uygun çalışma kapsamını oluştursun ve bilgileri iletişim formuna aktarsın.
+                </p>
+
+                <div class="service-finder-notes">
+                    <div>
+                        <span>01</span>
+                        <p data-contact-tr="Yaklaşık 1 dakika" data-contact-en="About 1 minute">Yaklaşık 1 dakika</p>
+                    </div>
+                    <div>
+                        <span>02</span>
+                        <p data-contact-tr="Teklif değildir; doğru hizmet kapsamını belirlemeye yardımcı olur."
+                           data-contact-en="This is not a quotation; it helps identify the right service scope.">
+                            Teklif değildir; doğru hizmet kapsamını belirlemeye yardımcı olur.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-finder-panel hidden">
+                <div class="service-finder-panel-head">
+                    <div>
+                        <span class="service-finder-panel-label"
+                              data-contact-tr="HİZMET BULUCU"
+                              data-contact-en="SERVICE FINDER">HİZMET BULUCU</span>
+                        <strong id="serviceFinderCounter">01 / 04</strong>
+                    </div>
+                    <div class="service-finder-progress" aria-hidden="true">
+                        <span id="serviceFinderProgressBar"></span>
+                    </div>
+                </div>
+
+                <div class="service-finder-body" id="serviceFinderBody">
+                    <fieldset class="service-finder-step is-active" data-finder-step="1">
+                        <legend>
+                            <span class="service-finder-question-index">01</span>
+                            <span data-contact-tr="Projenizin mevcut durumu nedir?"
+                                  data-contact-en="What is the current status of your project?">
+                                Projenizin mevcut durumu nedir?
+                            </span>
+                        </legend>
+
+                        <div class="service-finder-options service-finder-options-two">
+                            <button type="button" class="service-finder-option" data-finder-key="structure" data-finder-value="new" aria-pressed="false">
+                                <span class="service-finder-option-index">A</span>
+                                <span>
+                                    <strong data-contact-tr="Yeni yapı" data-contact-en="New build">Yeni yapı</strong>
+                                    <small data-contact-tr="Sıfırdan geliştirilecek proje"
+                                           data-contact-en="A project to be developed from scratch">
+                                        Sıfırdan geliştirilecek proje
+                                    </small>
+                                </span>
+                            </button>
+
+                            <button type="button" class="service-finder-option" data-finder-key="structure" data-finder-value="existing" aria-pressed="false">
+                                <span class="service-finder-option-index">B</span>
+                                <span>
+                                    <strong data-contact-tr="Mevcut yapı" data-contact-en="Existing space">Mevcut yapı</strong>
+                                    <small data-contact-tr="Yenileme, dönüşüm veya mevcut mekân"
+                                           data-contact-en="Renovation, transformation or an existing space">
+                                        Yenileme, dönüşüm veya mevcut mekân
+                                    </small>
+                                </span>
+                            </button>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="service-finder-step" data-finder-step="2" hidden>
+                        <legend>
+                            <span class="service-finder-question-index">02</span>
+                            <span data-contact-tr="Hangi kapsamı hedefliyorsunuz?"
+                                  data-contact-en="What level of service do you need?">
+                                Hangi kapsamı hedefliyorsunuz?
+                            </span>
+                        </legend>
+
+                        <div class="service-finder-options service-finder-options-two">
+                            <button type="button" class="service-finder-option" data-finder-key="stage" data-finder-value="design" aria-pressed="false">
+                                <span class="service-finder-option-index">A</span>
+                                <span>
+                                    <strong data-contact-tr="Tasarım odaklı" data-contact-en="Design focused">Tasarım odaklı</strong>
+                                    <small data-contact-tr="Mimari tasarım kararlarını geliştirmek istiyorum"
+                                           data-contact-en="I want to develop the architectural design">
+                                        Mimari tasarım kararlarını geliştirmek istiyorum
+                                    </small>
+                                </span>
+                            </button>
+
+                            <button type="button" class="service-finder-option" data-finder-key="stage" data-finder-value="application" aria-pressed="false">
+                                <span class="service-finder-option-index">B</span>
+                                <span>
+                                    <strong data-contact-tr="Uygulamaya hazırlanıyorum"
+                                            data-contact-en="Preparing for construction">Uygulamaya hazırlanıyorum</strong>
+                                    <small data-contact-tr="Tasarımla birlikte uygulama projesine ihtiyacım var"
+                                           data-contact-en="I need design together with construction documentation">
+                                        Tasarımla birlikte uygulama projesine ihtiyacım var
+                                    </small>
+                                </span>
+                            </button>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="service-finder-step" data-finder-step="3" hidden>
+                        <legend>
+                            <span class="service-finder-question-index">03</span>
+                            <span data-contact-tr="3D görselleştirme gerekli mi?"
+                                  data-contact-en="Do you need 3D visualization?">
+                                3D görselleştirme gerekli mi?
+                            </span>
+                        </legend>
+
+                        <div class="service-finder-options service-finder-options-two">
+                            <button type="button" class="service-finder-option" data-finder-key="visualization" data-finder-value="yes" aria-pressed="false">
+                                <span class="service-finder-option-index">A</span>
+                                <span>
+                                    <strong data-contact-tr="Evet" data-contact-en="Yes">Evet</strong>
+                                    <small data-contact-tr="Fotogerçekçi renderlarla projeyi görmek istiyorum"
+                                           data-contact-en="I want to see the project through photorealistic renders">
+                                        Fotogerçekçi renderlarla projeyi görmek istiyorum
+                                    </small>
+                                </span>
+                            </button>
+
+                            <button type="button" class="service-finder-option" data-finder-key="visualization" data-finder-value="no" aria-pressed="false">
+                                <span class="service-finder-option-index">B</span>
+                                <span>
+                                    <strong data-contact-tr="Şimdilik hayır" data-contact-en="Not for now">Şimdilik hayır</strong>
+                                    <small data-contact-tr="Önceliğim tasarım ve teknik proje"
+                                           data-contact-en="My priority is design and technical documentation">
+                                        Önceliğim tasarım ve teknik proje
+                                    </small>
+                                </span>
+                            </button>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="service-finder-step" data-finder-step="4" hidden>
+                        <legend>
+                            <span class="service-finder-question-index">04</span>
+                            <span data-contact-tr="Yaklaşık proje alanı nedir?"
+                                  data-contact-en="What is the approximate project area?">
+                                Yaklaşık proje alanı nedir?
+                            </span>
+                        </legend>
+
+                        <div class="service-finder-area">
+                            <div class="service-finder-area-value">
+                                <span data-contact-tr="YAKLAŞIK ALAN" data-contact-en="APPROX. AREA">YAKLAŞIK ALAN</span>
+                                <output id="serviceFinderAreaOutput" for="serviceFinderArea">~180 m²</output>
+                            </div>
+
+                            <input type="range" id="serviceFinderArea"
+                                   min="20" max="1500" step="10" value="180"
+                                   aria-label="Yaklaşık proje alanı">
+
+                            <div class="service-finder-range-labels" aria-hidden="true">
+                                <span>20 m²</span>
+                                <span>1500+ m²</span>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="service-finder-result" id="serviceFinderResult" hidden aria-live="polite">
+                        <span class="service-finder-result-kicker"
+                              data-contact-tr="ÖNERİLEN KAPSAM"
+                              data-contact-en="RECOMMENDED SCOPE">ÖNERİLEN KAPSAM</span>
+
+                        <h3 id="serviceFinderResultTitle"
+                            data-contact-tr="Size uygun çalışma kapsamı"
+                            data-contact-en="Recommended service scope">
+                            Size uygun çalışma kapsamı
+                        </h3>
+
+                        <div class="service-finder-result-chips" id="serviceFinderResultChips"></div>
+
+                        <div class="service-finder-result-meta">
+                            <span id="serviceFinderResultStructure">—</span>
+                            <span id="serviceFinderResultArea">—</span>
+                        </div>
+
+                        <p data-contact-tr="Bu öneri, ilk görüşmede kapsamın daha hızlı netleşmesine yardımcı olur. Nihai hizmet kapsamı proje verileri incelendikten sonra belirlenir."
+                           data-contact-en="This recommendation helps clarify the scope faster during the first conversation. The final scope is confirmed after reviewing the project information.">
+                            Bu öneri, ilk görüşmede kapsamın daha hızlı netleşmesine yardımcı olur. Nihai hizmet kapsamı proje verileri incelendikten sonra belirlenir.
+                        </p>
+
+                        <button type="button" class="service-finder-transfer" id="serviceFinderTransfer">
+                            <span data-contact-tr="İLETİŞİM FORMUNA AKTAR" data-contact-en="TRANSFER TO INQUIRY FORM">İLETİŞİM FORMUNA AKTAR</span>
+                            <span aria-hidden="true">↗</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="service-finder-controls" id="serviceFinderControls">
+                    <button type="button" class="service-finder-back" id="serviceFinderBack" disabled>
+                        <span aria-hidden="true">←</span>
+                        <span data-contact-tr="GERİ" data-contact-en="BACK">GERİ</span>
+                    </button>
+
+                    <button type="button" class="service-finder-next" id="serviceFinderNext" disabled>
+                        <span data-contact-tr="DEVAM" data-contact-en="CONTINUE">DEVAM</span>
+                        <span aria-hidden="true">→</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="contact" class="contact-editorial">
         <div class="contact-editorial-inner">
             <div class="contact-editorial-head hidden">
                 <div class="contact-editorial-meta">
@@ -1931,6 +2154,11 @@ textarea:focus-visible{
                     <input type="hidden" name="subject" value="BG Studio Sitesinden Yeni Proje Talebi">
                     <input type="hidden" name="from_name" value="BG Studio Architecture Web Sitesi">
                     <input type="hidden" name="site_dili" id="contactLanguageField" value="tr">
+                    <input type="hidden" name="hizmet_bulucu_yapi_durumu" id="finderStructureField" value="">
+                    <input type="hidden" name="hizmet_bulucu_ihtiyac" id="finderStageField" value="">
+                    <input type="hidden" name="hizmet_bulucu_3d" id="finderVisualizationField" value="">
+                    <input type="hidden" name="hizmet_bulucu_onerilen_kapsam" id="finderScopeField" value="">
+
                     <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none;">
 
                     <div class="contact-config-intro">
@@ -6470,6 +6698,494 @@ textarea:focus-visible{
         padding:18px 16px;
     }
 }
+
+
+/* ===== SERVICE FINDER / SAFE ISOLATED SECTION ===== */
+#service-finder{
+    position:relative;
+    width:100%;
+    overflow:hidden;
+    background:#050505;
+    border-top:1px solid rgba(255,255,255,.08);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+#service-finder .service-finder-inner{
+    width:min(1380px,90%);
+    margin:0 auto;
+    padding:118px 0;
+    display:grid;
+    grid-template-columns:minmax(280px,.72fr) minmax(520px,1.28fr);
+    gap:88px;
+    align-items:start;
+}
+#service-finder .service-finder-copy{
+    position:sticky;
+    top:132px;
+}
+#service-finder .service-finder-eyebrow{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    padding-bottom:16px;
+    margin-bottom:34px;
+    border-bottom:1px solid rgba(255,255,255,.14);
+    color:#c6a87c;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:6px;
+    font-weight:700;
+    letter-spacing:1.65px;
+}
+#service-finder .service-finder-eyebrow span:last-child{
+    color:rgba(255,255,255,.28);
+}
+#service-finder .service-finder-title{
+    margin:0;
+    display:flex;
+    flex-direction:column;
+    color:#fff;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:clamp(3rem,5vw,5.9rem);
+    font-weight:650;
+    line-height:.90;
+    letter-spacing:-.055em;
+}
+#service-finder .service-finder-title em{
+    margin-top:4px;
+    color:#cfae7c;
+    font-family:"Cormorant Garamond",serif;
+    font-weight:500;
+    letter-spacing:-.045em;
+}
+#service-finder .service-finder-intro{
+    max-width:560px;
+    margin:34px 0 0;
+    color:rgba(255,255,255,.52);
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(1.18rem,1.6vw,1.55rem);
+    line-height:1.48;
+}
+#service-finder .service-finder-notes{
+    margin-top:46px;
+    border-top:1px solid rgba(255,255,255,.10);
+}
+#service-finder .service-finder-notes > div{
+    display:grid;
+    grid-template-columns:34px 1fr;
+    gap:14px;
+    align-items:start;
+    padding:15px 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+#service-finder .service-finder-notes span{
+    color:#c6a87c;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:6px;
+    font-weight:700;
+    letter-spacing:1px;
+}
+#service-finder .service-finder-notes p{
+    margin:0;
+    color:rgba(255,255,255,.34);
+    font-family:"Space Grotesk",sans-serif;
+    font-size:7px;
+    line-height:1.65;
+    letter-spacing:.32px;
+}
+
+#service-finder .service-finder-panel{
+    min-width:0;
+    border:1px solid rgba(198,168,124,.22);
+    background:
+        radial-gradient(circle at 92% 4%,rgba(198,168,124,.055),transparent 30%),
+        rgba(255,255,255,.006);
+}
+#service-finder .service-finder-panel-head{
+    padding:20px 24px 0;
+}
+#service-finder .service-finder-panel-head > div:first-child{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+#service-finder .service-finder-panel-label,
+#service-finder #serviceFinderCounter{
+    color:rgba(255,255,255,.36);
+    font-family:"Space Grotesk",sans-serif;
+    font-size:6px;
+    font-weight:700;
+    letter-spacing:1.45px;
+}
+#service-finder #serviceFinderCounter{
+    color:#c6a87c;
+}
+#service-finder .service-finder-progress{
+    position:relative;
+    width:100%;
+    height:1px;
+    margin-top:19px;
+    overflow:hidden;
+    background:rgba(255,255,255,.10);
+}
+#service-finder .service-finder-progress span{
+    position:absolute;
+    inset:0;
+    width:100%;
+    transform:scaleX(.25);
+    transform-origin:left center;
+    background:#c6a87c;
+    transition:transform .35s ease;
+}
+
+#service-finder .service-finder-body{
+    min-height:428px;
+    padding:48px 34px 34px;
+}
+#service-finder .service-finder-step{
+    margin:0;
+    padding:0;
+    border:0;
+}
+#service-finder .service-finder-step[hidden],
+#service-finder .service-finder-result[hidden]{
+    display:none!important;
+}
+#service-finder .service-finder-step legend{
+    width:100%;
+    display:grid;
+    grid-template-columns:36px minmax(0,1fr);
+    gap:18px;
+    align-items:start;
+    padding:0;
+    color:#fff;
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(1.9rem,3vw,3.15rem);
+    font-weight:500;
+    line-height:1.06;
+    letter-spacing:-.035em;
+}
+#service-finder .service-finder-question-index{
+    padding-top:8px;
+    color:#c6a87c;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:7px;
+    font-weight:700;
+    letter-spacing:1px;
+}
+#service-finder .service-finder-options{
+    display:grid;
+    gap:12px;
+    margin-top:42px;
+}
+#service-finder .service-finder-options-two{
+    grid-template-columns:1fr 1fr;
+}
+#service-finder .service-finder-option{
+    width:100%;
+    min-height:122px;
+    display:grid;
+    grid-template-columns:30px minmax(0,1fr);
+    gap:14px;
+    align-items:start;
+    padding:20px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.008);
+    color:inherit;
+    text-align:left;
+    cursor:pointer;
+    transition:border-color .24s ease,background .24s ease,transform .24s ease;
+}
+#service-finder .service-finder-option:hover{
+    border-color:rgba(198,168,124,.50);
+    background:rgba(198,168,124,.035);
+    transform:translateY(-1px);
+}
+#service-finder .service-finder-option.is-selected{
+    border-color:#c6a87c;
+    background:linear-gradient(145deg,rgba(198,168,124,.10),rgba(198,168,124,.025));
+}
+#service-finder .service-finder-option-index{
+    padding-top:3px;
+    color:#c6a87c;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:7px;
+    font-weight:700;
+    letter-spacing:1px;
+}
+#service-finder .service-finder-option > span:last-child{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+#service-finder .service-finder-option strong{
+    color:rgba(255,255,255,.88);
+    font-family:"Cormorant Garamond",serif;
+    font-size:1.38rem;
+    font-weight:500;
+    line-height:1.1;
+}
+#service-finder .service-finder-option small{
+    color:rgba(255,255,255,.34);
+    font-family:"Inter",sans-serif;
+    font-size:.68rem;
+    line-height:1.55;
+}
+
+#service-finder .service-finder-area{
+    margin-top:52px;
+}
+#service-finder .service-finder-area-value{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+#service-finder .service-finder-area-value > span{
+    color:rgba(255,255,255,.32);
+    font-family:"Space Grotesk",sans-serif;
+    font-size:6px;
+    font-weight:700;
+    letter-spacing:1.25px;
+}
+#service-finder #serviceFinderAreaOutput{
+    padding:7px 10px;
+    border:1px solid rgba(198,168,124,.30);
+    color:#e0c59b;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:.75px;
+}
+#service-finder #serviceFinderArea{
+    --finder-area-progress:10.81%;
+    width:100%;
+    height:5px;
+    display:block;
+    margin:34px 0 13px;
+    padding:0;
+    border:0;
+    outline:0;
+    appearance:none;
+    -webkit-appearance:none;
+    border-radius:999px;
+    background:
+        linear-gradient(
+            90deg,
+            #c6a87c 0%,
+            #e0c79f var(--finder-area-progress),
+            rgba(255,255,255,.12) var(--finder-area-progress),
+            rgba(255,255,255,.12) 100%
+        );
+}
+#service-finder #serviceFinderArea::-webkit-slider-thumb{
+    width:20px;
+    height:20px;
+    appearance:none;
+    -webkit-appearance:none;
+    border:5px solid #050505;
+    border-radius:50%;
+    background:#ead5ad;
+    box-shadow:0 0 0 1px rgba(198,168,124,.60);
+    cursor:pointer;
+}
+#service-finder #serviceFinderArea::-moz-range-thumb{
+    width:10px;
+    height:10px;
+    border:5px solid #050505;
+    border-radius:50%;
+    background:#ead5ad;
+    box-shadow:0 0 0 1px rgba(198,168,124,.60);
+    cursor:pointer;
+}
+#service-finder .service-finder-range-labels{
+    display:flex;
+    justify-content:space-between;
+    color:rgba(255,255,255,.25);
+    font-family:"Space Grotesk",sans-serif;
+    font-size:6px;
+    font-weight:650;
+    letter-spacing:1px;
+}
+
+#service-finder .service-finder-controls{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    padding:0 34px 28px;
+}
+#service-finder .service-finder-back,
+#service-finder .service-finder-next,
+#service-finder .service-finder-transfer{
+    min-height:48px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    padding:0 20px;
+    border:1px solid rgba(198,168,124,.30);
+    background:transparent;
+    color:#d7ba91;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:7px;
+    font-weight:700;
+    letter-spacing:1.25px;
+    cursor:pointer;
+    transition:border-color .22s ease,background .22s ease,color .22s ease;
+}
+#service-finder .service-finder-next,
+#service-finder .service-finder-transfer{
+    margin-left:auto;
+    border-color:#c6a87c;
+    background:#c6a87c;
+    color:#070707;
+}
+#service-finder .service-finder-back:hover:not(:disabled){
+    border-color:#c6a87c;
+    background:rgba(198,168,124,.06);
+}
+#service-finder .service-finder-next:hover:not(:disabled),
+#service-finder .service-finder-transfer:hover{
+    background:#d8bb91;
+}
+#service-finder button:disabled{
+    opacity:.25;
+    cursor:not-allowed;
+}
+#service-finder .service-finder-result{
+    padding-top:3px;
+}
+#service-finder .service-finder-result-kicker{
+    display:block;
+    margin-bottom:13px;
+    color:#c6a87c;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:6px;
+    font-weight:700;
+    letter-spacing:1.5px;
+}
+#service-finder .service-finder-result h3{
+    max-width:620px;
+    margin:0;
+    color:#fff;
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(2.25rem,3.5vw,4rem);
+    font-weight:500;
+    line-height:1;
+    letter-spacing:-.04em;
+}
+#service-finder .service-finder-result-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:30px 0 24px;
+}
+#service-finder .service-finder-result-chips span{
+    padding:9px 11px;
+    border:1px solid rgba(198,168,124,.34);
+    background:rgba(198,168,124,.045);
+    color:#ddc59e;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:7px;
+    font-weight:700;
+    letter-spacing:.72px;
+}
+#service-finder .service-finder-result-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 26px;
+    padding:15px 0;
+    border-top:1px solid rgba(255,255,255,.10);
+    border-bottom:1px solid rgba(255,255,255,.10);
+    color:rgba(255,255,255,.45);
+    font-family:"Space Grotesk",sans-serif;
+    font-size:7px;
+    font-weight:650;
+    letter-spacing:.55px;
+}
+#service-finder .service-finder-result p{
+    max-width:630px;
+    margin:24px 0 28px;
+    color:rgba(255,255,255,.38);
+    font-family:"Inter",sans-serif;
+    font-size:.72rem;
+    line-height:1.65;
+}
+#service-finder .service-finder-transfer{
+    margin-left:0;
+}
+
+@media(max-width:1100px){
+    #service-finder .service-finder-inner{
+        width:min(920px,90%);
+        grid-template-columns:1fr;
+        gap:52px;
+        padding:92px 0;
+    }
+    #service-finder .service-finder-copy{
+        position:relative;
+        top:auto;
+    }
+    #service-finder .service-finder-intro{
+        max-width:760px;
+    }
+}
+@media(max-width:768px){
+    #service-finder .service-finder-inner{
+        width:calc(100% - 36px);
+        padding:72px 0;
+        gap:38px;
+    }
+    #service-finder .service-finder-title{
+        font-size:clamp(2.9rem,15vw,4.8rem);
+    }
+    #service-finder .service-finder-panel-head{
+        padding:18px 18px 0;
+    }
+    #service-finder .service-finder-body{
+        min-height:0;
+        padding:36px 18px 28px;
+    }
+    #service-finder .service-finder-step legend{
+        grid-template-columns:28px minmax(0,1fr);
+        gap:11px;
+        font-size:clamp(1.65rem,8.5vw,2.45rem);
+    }
+    #service-finder .service-finder-question-index{
+        padding-top:6px;
+    }
+    #service-finder .service-finder-options-two{
+        grid-template-columns:1fr;
+    }
+    #service-finder .service-finder-options{
+        margin-top:30px;
+    }
+    #service-finder .service-finder-option{
+        min-height:0;
+        padding:17px 15px;
+    }
+    #service-finder .service-finder-controls{
+        padding:0 18px 20px;
+    }
+    #service-finder .service-finder-back,
+    #service-finder .service-finder-next,
+    #service-finder .service-finder-transfer{
+        min-height:46px;
+        padding:0 14px;
+        font-size:6.5px;
+    }
+    #service-finder .service-finder-result-meta{
+        flex-direction:column;
+        gap:8px;
+    }
+}
+@media(prefers-reduced-motion:reduce){
+    #service-finder *{
+        scroll-behavior:auto!important;
+        transition-duration:.01ms!important;
+    }
+}
 </script>
 <script>
 (function(){
@@ -6890,6 +7606,311 @@ applyLanguage(initial,false);
 
     window.addEventListener('bg:languagechange', applyContactLanguage);
     applyContactLanguage();
+})();
+</script>
+
+
+<script id="bg-service-finder">
+(function(){
+    'use strict';
+
+    const root = document.getElementById('service-finder');
+    if (!root) return;
+
+    const steps = Array.from(root.querySelectorAll('.service-finder-step'));
+    const optionButtons = Array.from(root.querySelectorAll('.service-finder-option'));
+    const nextButton = document.getElementById('serviceFinderNext');
+    const backButton = document.getElementById('serviceFinderBack');
+    const controls = document.getElementById('serviceFinderControls');
+    const counter = document.getElementById('serviceFinderCounter');
+    const progressBar = document.getElementById('serviceFinderProgressBar');
+    const areaInput = document.getElementById('serviceFinderArea');
+    const areaOutput = document.getElementById('serviceFinderAreaOutput');
+    const result = document.getElementById('serviceFinderResult');
+    const resultChips = document.getElementById('serviceFinderResultChips');
+    const resultStructure = document.getElementById('serviceFinderResultStructure');
+    const resultArea = document.getElementById('serviceFinderResultArea');
+    const transferButton = document.getElementById('serviceFinderTransfer');
+
+    const contactForm = document.getElementById('contactForm');
+    const contactArea = document.getElementById('projectArea');
+    const contactMessage = document.getElementById('projeMesaji');
+
+    const structureField = document.getElementById('finderStructureField');
+    const stageField = document.getElementById('finderStageField');
+    const visualizationField = document.getElementById('finderVisualizationField');
+    const scopeField = document.getElementById('finderScopeField');
+
+    if (!steps.length || !nextButton || !backButton || !areaInput || !result || !transferButton) return;
+
+    const state = {
+        step: 1,
+        structure: '',
+        stage: '',
+        visualization: '',
+        area: Number(areaInput.value || 180),
+        resultVisible: false
+    };
+
+    function lang(){
+        return window.bgStudioLanguage === 'en' ? 'en' : 'tr';
+    }
+
+    function t(tr, en){
+        return lang() === 'en' ? en : tr;
+    }
+
+    function selectionForStep(step){
+        if (step === 1) return state.structure;
+        if (step === 2) return state.stage;
+        if (step === 3) return state.visualization;
+        if (step === 4) return String(state.area || '');
+        return '';
+    }
+
+    function updateProgress(){
+        const displayStep = Math.max(1, Math.min(4, state.step));
+        counter.textContent = String(displayStep).padStart(2, '0') + ' / 04';
+        progressBar.style.transform = 'scaleX(' + (displayStep / 4).toFixed(2) + ')';
+    }
+
+    function syncArea(){
+        const value = Number(areaInput.value || 180);
+        const min = Number(areaInput.min || 20);
+        const max = Number(areaInput.max || 1500);
+        const pct = max > min ? ((value - min) / (max - min)) * 100 : 0;
+
+        state.area = value;
+        areaInput.style.setProperty('--finder-area-progress', pct.toFixed(2) + '%');
+        areaOutput.textContent = value >= max ? '~1500+ m²' : '~' + value + ' m²';
+    }
+
+    function scopeServices(){
+        const services = [
+            { key:'design', tr:'Mimari Tasarım', en:'Architectural Design' }
+        ];
+
+        if (state.stage === 'application') {
+            services.push({
+                key:'application',
+                tr:'Uygulama Projesi',
+                en:'Construction Documentation'
+            });
+        }
+
+        if (state.visualization === 'yes') {
+            services.push({
+                key:'visualization',
+                tr:'3D Görselleştirme',
+                en:'3D Visualization'
+            });
+        }
+
+        return services;
+    }
+
+    function structureLabel(){
+        return state.structure === 'existing'
+            ? t('Mevcut yapı', 'Existing space')
+            : t('Yeni yapı', 'New build');
+    }
+
+    function stageLabel(){
+        return state.stage === 'application'
+            ? t('Uygulamaya hazırlanıyor', 'Preparing for construction')
+            : t('Tasarım odaklı', 'Design focused');
+    }
+
+    function visualizationLabel(){
+        return state.visualization === 'yes'
+            ? t('3D görselleştirme: Evet', '3D visualization: Yes')
+            : t('3D görselleştirme: Şimdilik hayır', '3D visualization: Not for now');
+    }
+
+    function scopeLabel(){
+        return scopeServices().map(service => lang() === 'en' ? service.en : service.tr).join(' + ');
+    }
+
+    function renderResult(){
+        resultChips.innerHTML = '';
+
+        scopeServices().forEach(service => {
+            const chip = document.createElement('span');
+            chip.textContent = lang() === 'en' ? service.en : service.tr;
+            resultChips.appendChild(chip);
+        });
+
+        resultStructure.textContent = structureLabel() + ' · ' + stageLabel();
+        resultArea.textContent = (state.area >= 1500 ? '1500+ m²' : state.area + ' m²') + ' · ' + visualizationLabel();
+
+        if (scopeField) scopeField.value = scopeLabel();
+        if (structureField) structureField.value = structureLabel();
+        if (stageField) stageField.value = stageLabel();
+        if (visualizationField) visualizationField.value = visualizationLabel();
+    }
+
+    function showStep(step){
+        state.resultVisible = false;
+        result.hidden = true;
+        controls.hidden = false;
+
+        state.step = Math.max(1, Math.min(4, step));
+
+        steps.forEach(stepEl => {
+            const active = Number(stepEl.dataset.finderStep) === state.step;
+            stepEl.hidden = !active;
+            stepEl.classList.toggle('is-active', active);
+        });
+
+        backButton.disabled = state.step === 1;
+        nextButton.disabled = !selectionForStep(state.step);
+
+        const nextText = nextButton.querySelector('span:first-child');
+        if (nextText) {
+            nextText.textContent = state.step === 4
+                ? t('SONUCU GÖR', 'VIEW RESULT')
+                : t('DEVAM', 'CONTINUE');
+        }
+
+        updateProgress();
+    }
+
+    function showResult(){
+        state.resultVisible = true;
+        steps.forEach(stepEl => stepEl.hidden = true);
+        controls.hidden = true;
+        result.hidden = false;
+        renderResult();
+        updateProgress();
+    }
+
+    optionButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const key = button.dataset.finderKey;
+            const value = button.dataset.finderValue;
+
+            if (!key || !value || !(key in state)) return;
+
+            state[key] = value;
+
+            root.querySelectorAll('.service-finder-option[data-finder-key="' + key + '"]').forEach(other => {
+                const selected = other === button;
+                other.classList.toggle('is-selected', selected);
+                other.setAttribute('aria-pressed', selected ? 'true' : 'false');
+            });
+
+            nextButton.disabled = false;
+        });
+    });
+
+    areaInput.addEventListener('input', () => {
+        syncArea();
+        if (state.step === 4) nextButton.disabled = false;
+    }, { passive:true });
+
+    nextButton.addEventListener('click', () => {
+        if (state.step < 4) {
+            if (!selectionForStep(state.step)) return;
+            showStep(state.step + 1);
+            return;
+        }
+
+        syncArea();
+        showResult();
+    });
+
+    backButton.addEventListener('click', () => {
+        if (state.step <= 1) return;
+        showStep(state.step - 1);
+    });
+
+    function buildFinderSummary(){
+        const areaLabel = state.area >= 1500 ? '1500+ m²' : state.area + ' m²';
+
+        if (lang() === 'en') {
+            return [
+                'Service Finder Summary',
+                'Project status: ' + structureLabel(),
+                'Need: ' + stageLabel(),
+                visualizationLabel(),
+                'Approximate area: ' + areaLabel,
+                'Recommended scope: ' + scopeLabel()
+            ].join('\n');
+        }
+
+        return [
+            'Hizmet Bulucu Özeti',
+            'Yapı durumu: ' + structureLabel(),
+            'İhtiyaç: ' + stageLabel(),
+            visualizationLabel(),
+            'Yaklaşık alan: ' + areaLabel,
+            'Önerilen kapsam: ' + scopeLabel()
+        ].join('\n');
+    }
+
+    transferButton.addEventListener('click', () => {
+        renderResult();
+
+        if (contactArea) {
+            const min = Number(contactArea.min || 20);
+            const max = Number(contactArea.max || 1500);
+            contactArea.value = String(Math.max(min, Math.min(max, state.area)));
+            contactArea.dispatchEvent(new Event('input', { bubbles:true }));
+        }
+
+        if (contactMessage) {
+            const summary = buildFinderSummary();
+            const oldTrMarker = 'Hizmet Bulucu Özeti';
+            const oldEnMarker = 'Service Finder Summary';
+
+            if (!contactMessage.dataset.finderPrefilled) {
+                const existing = contactMessage.value.trim();
+                contactMessage.value = existing
+                    ? summary + '\n\n' + existing
+                    : summary + '\n\n';
+                contactMessage.dataset.finderPrefilled = 'true';
+            } else {
+                const current = contactMessage.value;
+                const markerIndexTr = current.indexOf(oldTrMarker);
+                const markerIndexEn = current.indexOf(oldEnMarker);
+                const markerIndex = markerIndexTr >= 0 ? markerIndexTr : markerIndexEn;
+
+                if (markerIndex >= 0) {
+                    const separatorIndex = current.indexOf('\n\n', markerIndex);
+                    const remainder = separatorIndex >= 0 ? current.slice(separatorIndex + 2) : '';
+                    contactMessage.value = summary + '\n\n' + remainder;
+                }
+            }
+        }
+
+        if (contactForm) {
+            contactForm.scrollIntoView({
+                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+                block:'start'
+            });
+
+            window.setTimeout(() => {
+                const firstField = contactForm.querySelector('input:not([type="hidden"]):not([type="checkbox"])');
+                if (firstField) firstField.focus({ preventScroll:true });
+            }, 650);
+        }
+    });
+
+    window.addEventListener('bg:languagechange', () => {
+        if (state.resultVisible) renderResult();
+
+        if (!state.resultVisible) {
+            const nextText = nextButton.querySelector('span:first-child');
+            if (nextText) {
+                nextText.textContent = state.step === 4
+                    ? t('SONUCU GÖR', 'VIEW RESULT')
+                    : t('DEVAM', 'CONTINUE');
+            }
+        }
+    });
+
+    syncArea();
+    showStep(1);
 })();
 </script>
 
