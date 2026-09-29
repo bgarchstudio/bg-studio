@@ -7421,32 +7421,35 @@ textarea:focus-visible{
 }
 
 
-/* ===== EXPLODED ARCHITECTURE 1.9.4.7 / SAFE ISOLATED ===== */
+/* ===== EXPLODED ARCHITECTURE 1.9.4.9 / TRUE PINNED SCROLL ===== */
 #exploded-architecture{
+    --exploded-stage-height:100vh;
+    --exploded-scrub-distance:360vh;
     position:relative;
     width:100%;
     background:#030303;
     border-top:1px solid rgba(255,255,255,.07);
     border-bottom:1px solid rgba(255,255,255,.07);
-    /* Sticky sahnenin özellikle mobil WebView/Safari'de bozulmaması için parent clipping yok. */
-    overflow:visible;
+    /* Bu bölüm normal akışta kendi scroll mesafesini taşır. Sticky sahne bitmeden sonraki bölüm gelmez. */
+    overflow:visible!important;
+    z-index:1;
 }
 #exploded-architecture .exploded-scroll-space{
     position:relative;
-    height:460vh;
-    overflow:visible;
+    width:100%;
+    height:calc(var(--exploded-stage-height) + var(--exploded-scrub-distance));
+    overflow:visible!important;
 }
 #exploded-architecture .exploded-stage{
     position:-webkit-sticky;
     position:sticky;
     top:0;
     width:100%;
-    height:100dvh;
-    min-height:100svh;
+    height:var(--exploded-stage-height);
+    min-height:0;
     overflow:hidden;
     background:#030303;
     isolation:isolate;
-    transform:translateZ(0);
     backface-visibility:hidden;
 }
 #exploded-architecture .exploded-canvas{
@@ -7623,7 +7626,10 @@ textarea:focus-visible{
     object-fit:contain;
 }
 @media(max-width:900px){
-    #exploded-architecture .exploded-scroll-space{height:380vh}
+    #exploded-architecture{
+        --exploded-stage-height:100svh;
+        --exploded-scrub-distance:280svh;
+    }
     #exploded-architecture .exploded-stage{min-height:560px}
     #exploded-architecture .exploded-ui{
         width:calc(100% - 36px);
@@ -7671,8 +7677,11 @@ textarea:focus-visible{
     }
 }
 @media(max-width:520px){
-    #exploded-architecture .exploded-scroll-space{height:340vh}
-    #exploded-architecture .exploded-stage{height:100svh;min-height:540px}
+    #exploded-architecture{
+        --exploded-stage-height:100svh;
+        --exploded-scrub-distance:240svh;
+    }
+    #exploded-architecture .exploded-stage{min-height:540px}
     #exploded-architecture .exploded-ui{padding:84px 0 28px}
     #exploded-architecture .exploded-meta{font-size:5.5px}
     #exploded-architecture .exploded-title{font-size:clamp(2.75rem,14vw,4rem)}
@@ -8748,12 +8757,16 @@ applyLanguage(initial,false);
         if(phaseText)phaseText.textContent=data[3];
     }
 
-    // Timeline yalnızca sahnenin sticky kaldığı gerçek scroll mesafesine bağlanır.
+    // TRUE PINNED TIMELINE:
+    // Bölümün üst kenarı viewport'un üstüne geldiğinde progress 0'dan başlar.
+    // Sticky sahnenin bırakıldığı son noktada progress tam 1 olur.
+    // Böylece son frame tamamlanmadan aşağıdaki bölüme geçilmez.
     function measureProgress(){
-        const rect=space.getBoundingClientRect();
         const stageHeight=Math.max(1,stage.getBoundingClientRect().height||window.innerHeight);
-        const travel=Math.max(1,space.offsetHeight-stageHeight);
-        return clamp((-rect.top)/travel,0,1);
+        const spaceTop=space.getBoundingClientRect().top+window.scrollY;
+        const start=spaceTop;
+        const end=Math.max(start+1,spaceTop+space.offsetHeight-stageHeight);
+        return clamp((window.scrollY-start)/(end-start),0,1);
     }
 
     function render(){
