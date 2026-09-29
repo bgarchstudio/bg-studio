@@ -7421,10 +7421,10 @@ textarea:focus-visible{
 }
 
 
-/* ===== EXPLODED ARCHITECTURE 1.9.4.9 / TRUE PINNED SCROLL ===== */
+/* ===== EXPLODED ARCHITECTURE 1.9.5.0 / HARD PIN + NO GAP ===== */
 #exploded-architecture{
     --exploded-stage-height:100vh;
-    --exploded-scrub-distance:360vh;
+    --exploded-scrub-distance:280vh;
     position:relative;
     width:100%;
     background:#030303;
@@ -7441,9 +7441,10 @@ textarea:focus-visible{
     overflow:visible!important;
 }
 #exploded-architecture .exploded-stage{
-    position:-webkit-sticky;
-    position:sticky;
+    position:absolute;
     top:0;
+    left:0;
+    right:0;
     width:100%;
     height:var(--exploded-stage-height);
     min-height:0;
@@ -7451,6 +7452,27 @@ textarea:focus-visible{
     background:#030303;
     isolation:isolate;
     backface-visibility:hidden;
+    z-index:2;
+}
+/*
+   Sticky yerine kontrollü fixed pin kullanıyoruz. Böylece body/html overflow,
+   tarayıcı compositing ve uzun parent yüksekliği sahneyi yukarı kaçıramaz.
+*/
+#exploded-architecture.is-exploded-pinned .exploded-stage{
+    position:fixed!important;
+    top:0!important;
+    left:0!important;
+    right:0!important;
+    bottom:auto!important;
+    width:100%!important;
+}
+#exploded-architecture.is-exploded-pinned-end .exploded-stage{
+    position:absolute!important;
+    top:auto!important;
+    left:0!important;
+    right:0!important;
+    bottom:0!important;
+    width:100%!important;
 }
 #exploded-architecture .exploded-canvas{
     position:absolute;
@@ -7628,7 +7650,7 @@ textarea:focus-visible{
 @media(max-width:900px){
     #exploded-architecture{
         --exploded-stage-height:100svh;
-        --exploded-scrub-distance:280svh;
+        --exploded-scrub-distance:240svh;
     }
     #exploded-architecture .exploded-stage{min-height:560px}
     #exploded-architecture .exploded-ui{
@@ -7679,7 +7701,7 @@ textarea:focus-visible{
 @media(max-width:520px){
     #exploded-architecture{
         --exploded-stage-height:100svh;
-        --exploded-scrub-distance:240svh;
+        --exploded-scrub-distance:210svh;
     }
     #exploded-architecture .exploded-stage{min-height:540px}
     #exploded-architecture .exploded-ui{padding:84px 0 28px}
@@ -8541,7 +8563,7 @@ applyLanguage(initial,false);
 </script>
 
 
-<script id="bg-exploded-architecture">
+<script id="bg-exploded-architecture" data-version="1.9.5.0">
 (function(){
     'use strict';
 
@@ -8757,23 +8779,42 @@ applyLanguage(initial,false);
         if(phaseText)phaseText.textContent=data[3];
     }
 
-    // TRUE PINNED TIMELINE:
-    // Bölümün üst kenarı viewport'un üstüne geldiğinde progress 0'dan başlar.
-    // Sticky sahnenin bırakıldığı son noktada progress tam 1 olur.
-    // Böylece son frame tamamlanmadan aşağıdaki bölüme geçilmez.
-    function measureProgress(){
-        const stageHeight=Math.max(1,stage.getBoundingClientRect().height||window.innerHeight);
-        const spaceTop=space.getBoundingClientRect().top+window.scrollY;
-        const start=spaceTop;
-        const end=Math.max(start+1,spaceTop+space.offsetHeight-stageHeight);
-        return clamp((window.scrollY-start)/(end-start),0,1);
+    // HARD PIN TIMELINE:
+    // 1) Bölümün üstü viewport'a ulaşınca sahne position:fixed ile ekrana kilitlenir.
+    // 2) Kullanıcının scroll mesafesi 0..1 aralığında frame'lere çevrilir.
+    // 3) Son frame tamamlandığında sahne bölümün altına bırakılır ve Services hemen gelir.
+    function measureTimeline(){
+        const y=window.scrollY||window.pageYOffset||0;
+        const rootTop=root.getBoundingClientRect().top+y;
+        const stageHeight=Math.max(1,stage.offsetHeight||window.innerHeight);
+        const distance=Math.max(1,space.offsetHeight-stageHeight);
+        const end=rootTop+distance;
+        const progress=clamp((y-rootTop)/distance,0,1);
+        return {y,start:rootTop,end,distance,progress};
+    }
+
+    function syncPinnedState(timeline){
+        const y=timeline.y;
+        if(y<timeline.start){
+            root.classList.remove('is-exploded-pinned','is-exploded-pinned-end');
+            return;
+        }
+        if(y<=timeline.end){
+            root.classList.add('is-exploded-pinned');
+            root.classList.remove('is-exploded-pinned-end');
+            return;
+        }
+        root.classList.remove('is-exploded-pinned');
+        root.classList.add('is-exploded-pinned-end');
     }
 
     function render(){
         raf=0;
         if(!activated)return;
 
-        const progress=measureProgress();
+        const timeline=measureTimeline();
+        syncPinnedState(timeline);
+        const progress=timeline.progress;
         previousProgress=lastProgress;
         lastProgress=progress;
 
@@ -8824,9 +8865,9 @@ applyLanguage(initial,false);
     observer.observe(root);
 
     window.addEventListener('scroll',requestRender,{passive:true});
-    window.addEventListener('resize',()=>{resizeCanvas();requestRender()},{passive:true});
+    window.addEventListener('resize',()=>{root.classList.remove('is-exploded-pinned','is-exploded-pinned-end');resizeCanvas();requestRender()},{passive:true});
     window.addEventListener('orientationchange',()=>{
-        setTimeout(()=>{resizeCanvas();requestRender()},140);
+        setTimeout(()=>{root.classList.remove('is-exploded-pinned','is-exploded-pinned-end');resizeCanvas();requestRender()},140);
     },{passive:true});
     window.addEventListener('bg:languagechange',applyStaticLanguage);
 
