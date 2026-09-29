@@ -1358,8 +1358,55 @@ textarea:focus-visible{
                 <p class="projects-editorial-copy">Villa, iç mekân, ticari alan ve sağlık yapıları için hazırlanmış; mimari tasarım, uygulama projesi ve fotogerçekçi görselleştirme seçkisi.</p>
             </div>
         </div>
+
+        <div class="project-filter-shell hidden" aria-label="Proje filtreleri">
+            <div class="project-filter-list" role="group" aria-label="Proje kategorileri">
+                <button type="button" class="project-filter-btn is-active"
+                        data-project-filter="all" aria-pressed="true">
+                    <span data-contact-tr="Tümü" data-contact-en="All">Tümü</span>
+                    <sup>06</sup>
+                </button>
+
+                <button type="button" class="project-filter-btn"
+                        data-project-filter="residential" aria-pressed="false">
+                    <span data-contact-tr="Konut" data-contact-en="Residential">Konut</span>
+                    <sup>03</sup>
+                </button>
+
+                <button type="button" class="project-filter-btn"
+                        data-project-filter="interior" aria-pressed="false">
+                    <span data-contact-tr="İç Mekân" data-contact-en="Interior">İç Mekân</span>
+                    <sup>03</sup>
+                </button>
+
+                <button type="button" class="project-filter-btn"
+                        data-project-filter="commercial" aria-pressed="false">
+                    <span data-contact-tr="Ticari" data-contact-en="Commercial">Ticari</span>
+                    <sup>01</sup>
+                </button>
+
+                <button type="button" class="project-filter-btn"
+                        data-project-filter="clinic" aria-pressed="false">
+                    <span data-contact-tr="Klinik" data-contact-en="Clinic">Klinik</span>
+                    <sup>01</sup>
+                </button>
+
+                <button type="button" class="project-filter-btn"
+                        data-project-filter="visualization" aria-pressed="false">
+                    <span data-contact-tr="Görselleştirme" data-contact-en="Visualization">Görselleştirme</span>
+                    <sup>03</sup>
+                </button>
+            </div>
+
+            <div class="project-filter-rule" aria-hidden="true">
+                <span id="projectFilterRule"></span>
+            </div>
+
+            <p class="sr-only" id="projectFilterStatus" aria-live="polite"></p>
+        </div>
+
 <div class="portfolio-grid">
-            <article class="project-card hidden slideshow-3" style="height: 800px;">
+            <article class="project-card hidden slideshow-3" style="height: 800px;" data-project-categories="residential">
                 <div class="project-dots" aria-label="Proje görselleri">
                     <button type="button" class="project-dot is-active" aria-label="1. render" aria-current="true"></button>
                     <button type="button" class="project-dot" aria-label="2. render" aria-current="false"></button>
@@ -1381,7 +1428,7 @@ textarea:focus-visible{
                 </div>
             </article>
 
-            <article class="project-card hidden slideshow-3" style="height: 800px;">
+            <article class="project-card hidden slideshow-3" style="height: 800px;" data-project-categories="interior visualization">
                 <div class="project-dots" aria-label="Proje görselleri">
                     <button type="button" class="project-dot is-active" aria-label="1. render" aria-current="true"></button>
                     <button type="button" class="project-dot" aria-label="2. render" aria-current="false"></button>
@@ -1403,7 +1450,7 @@ textarea:focus-visible{
                 </div>
             </article>
 
-            <article class="project-card hidden slideshow-3" style="height: 800px;">
+            <article class="project-card hidden slideshow-3" style="height: 800px;" data-project-categories="clinic interior visualization">
                 <div class="project-dots" aria-label="Proje görselleri">
                     <button type="button" class="project-dot is-active" aria-label="1. render" aria-current="true"></button>
                     <button type="button" class="project-dot" aria-label="2. render" aria-current="false"></button>
@@ -1425,7 +1472,7 @@ textarea:focus-visible{
                 </div>
             </article>
 
-            <article class="project-card hidden slideshow-3" style="height: 800px;">
+            <article class="project-card hidden slideshow-3" style="height: 800px;" data-project-categories="residential">
                 <div class="project-dots" aria-label="Proje görselleri">
                     <button type="button" class="project-dot is-active" aria-label="1. render" aria-current="true"></button>
                     <button type="button" class="project-dot" aria-label="2. render" aria-current="false"></button>
@@ -1447,7 +1494,7 @@ textarea:focus-visible{
                 </div>
             </article>
 
-            <article class="project-card hidden slideshow-3" style="height: 800px;">
+            <article class="project-card hidden slideshow-3" style="height: 800px;" data-project-categories="commercial interior visualization">
                 <div class="project-dots" aria-label="Proje görselleri">
                     <button type="button" class="project-dot is-active" aria-label="1. render" aria-current="true"></button>
                     <button type="button" class="project-dot" aria-label="2. render" aria-current="false"></button>
@@ -1469,7 +1516,7 @@ textarea:focus-visible{
                 </div>
             </article>
 
-            <article class="project-card hidden slideshow-3" style="height: 800px;">
+            <article class="project-card hidden slideshow-3" style="height: 800px;" data-project-categories="residential">
                 <div class="project-dots" aria-label="Proje görselleri">
                     <button type="button" class="project-dot is-active" aria-label="1. render" aria-current="true"></button>
                     <button type="button" class="project-dot" aria-label="2. render" aria-current="false"></button>
@@ -7186,6 +7233,142 @@ textarea:focus-visible{
         transition-duration:.01ms!important;
     }
 }
+
+
+/* ===== PROJECT FILTERS 1.9.4.6 / SAFE ISOLATED ===== */
+#projects .project-filter-shell{
+    position:relative;
+    z-index:3;
+    width:100%;
+    max-width:1180px;
+    margin:-24px auto 34px;
+}
+#projects .project-filter-list{
+    display:flex;
+    align-items:center;
+    gap:0;
+    overflow-x:auto;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+    overscroll-behavior-x:contain;
+}
+#projects .project-filter-list::-webkit-scrollbar{
+    display:none;
+}
+#projects .project-filter-btn{
+    position:relative;
+    flex:0 0 auto;
+    min-height:42px;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    margin:0;
+    padding:0 18px 0 0;
+    border:0;
+    background:transparent;
+    box-shadow:none;
+    color:rgba(255,255,255,.34);
+    font-family:"Space Grotesk",sans-serif;
+    font-size:8px;
+    font-weight:650;
+    line-height:1;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:color .24s ease,opacity .24s ease;
+}
+#projects .project-filter-btn + .project-filter-btn{
+    padding-left:18px;
+}
+#projects .project-filter-btn + .project-filter-btn::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:50%;
+    width:1px;
+    height:11px;
+    transform:translateY(-50%);
+    background:rgba(255,255,255,.11);
+}
+#projects .project-filter-btn:hover{
+    color:rgba(255,255,255,.72);
+    background:transparent;
+    letter-spacing:1.2px;
+    box-shadow:none;
+}
+#projects .project-filter-btn.is-active{
+    color:#d7ba91;
+}
+#projects .project-filter-btn sup{
+    position:relative;
+    top:-.16em;
+    color:rgba(198,168,124,.46);
+    font-family:"Space Grotesk",sans-serif;
+    font-size:5px;
+    font-weight:700;
+    letter-spacing:.5px;
+}
+#projects .project-filter-btn.is-active sup{
+    color:#c6a87c;
+}
+#projects .project-filter-rule{
+    position:relative;
+    width:100%;
+    height:1px;
+    overflow:hidden;
+    background:rgba(255,255,255,.09);
+}
+#projects .project-filter-rule span{
+    position:absolute;
+    inset:0 auto 0 0;
+    width:16.6667%;
+    transform:translateX(0);
+    background:#c6a87c;
+    opacity:.80;
+    transition:transform .35s cubic-bezier(.22,1,.36,1),width .35s cubic-bezier(.22,1,.36,1);
+}
+#projects .project-card.is-project-filtered-out{
+    display:none!important;
+}
+#projects.is-project-filtered .project-card:not(.is-project-filtered-out){
+    margin-top:0!important;
+}
+#projects .project-card.project-filter-enter{
+    animation:bgProjectFilterIn .42s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes bgProjectFilterIn{
+    from{opacity:.18;transform:translateY(12px)}
+    to{opacity:1;transform:translateY(0)}
+}
+@media(max-width:768px){
+    #projects .project-filter-shell{
+        margin:-10px auto 26px;
+    }
+    #projects .project-filter-list{
+        width:calc(100vw - 36px);
+        padding-right:20px;
+    }
+    #projects .project-filter-btn{
+        min-height:40px;
+        padding-right:14px;
+        font-size:7px;
+        letter-spacing:1px;
+    }
+    #projects .project-filter-btn + .project-filter-btn{
+        padding-left:14px;
+    }
+    #projects .project-filter-rule{
+        width:100%;
+    }
+}
+@media(prefers-reduced-motion:reduce){
+    #projects .project-card.project-filter-enter{
+        animation:none!important;
+    }
+    #projects .project-filter-rule span{
+        transition:none!important;
+    }
+}
 </script>
 <script>
 (function(){
@@ -7911,6 +8094,122 @@ applyLanguage(initial,false);
 
     syncArea();
     showStep(1);
+})();
+</script>
+
+
+<script id="bg-project-filters">
+(function(){
+    'use strict';
+
+    const projects = document.getElementById('projects');
+    if (!projects) return;
+
+    const buttons = Array.from(projects.querySelectorAll('.project-filter-btn'));
+    const cards = Array.from(projects.querySelectorAll('.project-card[data-project-categories]'));
+    const status = document.getElementById('projectFilterStatus');
+    const rule = document.getElementById('projectFilterRule');
+
+    if (!buttons.length || !cards.length) return;
+
+    let activeFilter = 'all';
+
+    function currentLang(){
+        return window.bgStudioLanguage === 'en' ? 'en' : 'tr';
+    }
+
+    function updateStatus(count){
+        if (!status) return;
+        status.textContent = currentLang() === 'en'
+            ? count + (count === 1 ? ' project shown.' : ' projects shown.')
+            : count + ' proje gösteriliyor.';
+    }
+
+    function updateRule(activeButton){
+        if (!rule || !activeButton) return;
+
+        const list = activeButton.parentElement;
+        if (!list) return;
+
+        const listRect = list.getBoundingClientRect();
+        const btnRect = activeButton.getBoundingClientRect();
+        const left = Math.max(0, btnRect.left - listRect.left + list.scrollLeft);
+        const width = btnRect.width;
+
+        rule.style.width = width + 'px';
+        rule.style.transform = 'translateX(' + left + 'px)';
+    }
+
+    function animateVisibleCard(card, index){
+        card.classList.remove('project-filter-enter');
+        void card.offsetWidth;
+        card.style.animationDelay = Math.min(index * 45, 180) + 'ms';
+        card.classList.add('project-filter-enter');
+
+        window.setTimeout(() => {
+            card.classList.remove('project-filter-enter');
+            card.style.animationDelay = '';
+        }, 650);
+    }
+
+    function applyFilter(filter, shouldFocus){
+        activeFilter = filter || 'all';
+        let visibleCount = 0;
+
+        projects.classList.toggle('is-project-filtered', activeFilter !== 'all');
+
+        cards.forEach(card => {
+            const categories = String(card.dataset.projectCategories || '')
+                .split(/\s+/)
+                .filter(Boolean);
+
+            const matches = activeFilter === 'all' || categories.includes(activeFilter);
+
+            card.classList.toggle('is-project-filtered-out', !matches);
+            card.setAttribute('aria-hidden', matches ? 'false' : 'true');
+
+            if (matches) {
+                animateVisibleCard(card, visibleCount);
+                visibleCount += 1;
+            }
+        });
+
+        buttons.forEach(button => {
+            const selected = button.dataset.projectFilter === activeFilter;
+            button.classList.toggle('is-active', selected);
+            button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+
+            if (selected) {
+                updateRule(button);
+                if (shouldFocus) {
+                    button.focus({preventScroll:true});
+                }
+            }
+        });
+
+        updateStatus(visibleCount);
+    }
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            applyFilter(button.dataset.projectFilter || 'all', false);
+        });
+    });
+
+    window.addEventListener('resize', () => {
+        const activeButton = buttons.find(button => button.dataset.projectFilter === activeFilter);
+        if (activeButton) updateRule(activeButton);
+    }, {passive:true});
+
+    window.addEventListener('bg:languagechange', () => {
+        updateStatus(cards.filter(card => !card.classList.contains('is-project-filtered-out')).length);
+        requestAnimationFrame(() => {
+            const activeButton = buttons.find(button => button.dataset.projectFilter === activeFilter);
+            if (activeButton) updateRule(activeButton);
+        });
+    });
+
+    requestAnimationFrame(() => applyFilter('all', false));
 })();
 </script>
 
