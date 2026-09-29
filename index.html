@@ -7428,21 +7428,26 @@ textarea:focus-visible{
     background:#030303;
     border-top:1px solid rgba(255,255,255,.07);
     border-bottom:1px solid rgba(255,255,255,.07);
-    overflow:clip;
+    /* Sticky sahnenin özellikle mobil WebView/Safari'de bozulmaması için parent clipping yok. */
+    overflow:visible;
 }
 #exploded-architecture .exploded-scroll-space{
     position:relative;
-    height:560vh;
+    height:460vh;
+    overflow:visible;
 }
 #exploded-architecture .exploded-stage{
+    position:-webkit-sticky;
     position:sticky;
     top:0;
     width:100%;
-    height:100svh;
-    min-height:620px;
+    height:100dvh;
+    min-height:100svh;
     overflow:hidden;
     background:#030303;
     isolation:isolate;
+    transform:translateZ(0);
+    backface-visibility:hidden;
 }
 #exploded-architecture .exploded-canvas{
     position:absolute;
@@ -7618,7 +7623,7 @@ textarea:focus-visible{
     object-fit:contain;
 }
 @media(max-width:900px){
-    #exploded-architecture .exploded-scroll-space{height:430vh}
+    #exploded-architecture .exploded-scroll-space{height:380vh}
     #exploded-architecture .exploded-stage{min-height:560px}
     #exploded-architecture .exploded-ui{
         width:calc(100% - 36px);
@@ -7666,7 +7671,7 @@ textarea:focus-visible{
     }
 }
 @media(max-width:520px){
-    #exploded-architecture .exploded-scroll-space{height:400vh}
+    #exploded-architecture .exploded-scroll-space{height:340vh}
     #exploded-architecture .exploded-stage{height:100svh;min-height:540px}
     #exploded-architecture .exploded-ui{padding:84px 0 28px}
     #exploded-architecture .exploded-meta{font-size:5.5px}
@@ -7677,8 +7682,10 @@ textarea:focus-visible{
     #exploded-architecture .exploded-nav{grid-template-columns:1fr auto}
 }
 @media(prefers-reduced-motion:reduce){
-    #exploded-architecture .exploded-scroll-space{height:100vh!important}
-    #exploded-architecture .exploded-stage{position:relative!important}
+    /* Scroll scrub kullanıcı kontrollüdür; bölümü dondurmak yerine yalnızca dekoratif geçişleri kapatırız. */
+    #exploded-architecture .exploded-progress-track span,
+    #exploded-architecture .exploded-phase,
+    #exploded-architecture .exploded-ui{transition:none!important}
 }
 </script>
 <script>
@@ -8530,8 +8537,10 @@ applyLanguage(initial,false);
     'use strict';
 
     const root=document.getElementById('exploded-architecture');
+    const space=root&&root.querySelector('.exploded-scroll-space');
+    const stage=root&&root.querySelector('.exploded-stage');
     const canvas=document.getElementById('explodedCanvas');
-    if(!root||!canvas)return;
+    if(!root||!space||!stage||!canvas)return;
 
     const ctx=canvas.getContext('2d',{alpha:false,desynchronized:true});
     if(!ctx)return;
@@ -8544,7 +8553,6 @@ applyLanguage(initial,false);
     const phaseTitle=document.getElementById('explodedPhaseTitle');
     const phaseText=document.getElementById('explodedPhaseText');
 
-    const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const mobileQuery=window.matchMedia('(max-width: 900px)');
 
     const PHASES_TR=[
@@ -8566,36 +8574,43 @@ applyLanguage(initial,false);
     let frameCount=isMobile?72:120;
     let basePath=isMobile?'assets/exploded/mobile/':'assets/exploded/desktop/';
     let currentFrame=-1;
-    let lastProgress=-1;
-    let previousProgress=-1;
+    let lastProgress=0;
+    let previousProgress=0;
     let raf=0;
     let sizeRaf=0;
     let activated=false;
     let generation=0;
+    let lastTarget=-1;
     const cache=new Map();
     const loading=new Map();
-    const MAX_CACHE=isMobile?10:7;
+    const prefetched=new Set();
+    const MAX_CACHE=isMobile?12:6;
 
     function pad(n){return String(n).padStart(3,'0')}
     function urlFor(index){return basePath+'frame_'+pad(index+1)+'.webp'}
     function lang(){return window.bgStudioLanguage==='en'?'en':'tr'}
+    function clamp(v,min,max){return Math.max(min,Math.min(max,v))}
 
     function applyStaticLanguage(){
         const en=lang()==='en';
         root.querySelectorAll('[data-exploded-tr][data-exploded-en]').forEach(el=>{
             el.textContent=en?el.dataset.explodedEn:el.dataset.explodedTr;
         });
-        updatePhase(lastProgress<0?0:lastProgress,true);
+        updatePhase(lastProgress,true);
     }
 
     function resizeCanvas(){
         cancelAnimationFrame(sizeRaf);
         sizeRaf=requestAnimationFrame(()=>{
             const rect=canvas.getBoundingClientRect();
-            const dpr=Math.min(window.devicePixelRatio||1,isMobile?1.5:2);
+            const dpr=Math.min(window.devicePixelRatio||1,isMobile?1.35:1.75);
             const w=Math.max(1,Math.round(rect.width*dpr));
             const h=Math.max(1,Math.round(rect.height*dpr));
-            if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;redrawCurrent()}
+            if(canvas.width!==w||canvas.height!==h){
+                canvas.width=w;
+                canvas.height=h;
+                redrawCurrent();
+            }
         });
     }
 
@@ -8604,13 +8619,7 @@ applyLanguage(initial,false);
         if(!cw||!ch||!img||!img.naturalWidth)return;
         ctx.fillStyle='#030303';ctx.fillRect(0,0,cw,ch);
         const iw=img.naturalWidth,ih=img.naturalHeight;
-        let scale;
-        if(isMobile){
-            // Mobile keeps the entire 16:9 frame visible against the site's black background.
-            scale=Math.min(cw/iw,ch/ih);
-        }else{
-            scale=Math.max(cw/iw,ch/ih);
-        }
+        const scale=isMobile?Math.min(cw/iw,ch/ih):Math.max(cw/iw,ch/ih);
         const dw=iw*scale,dh=ih*scale;
         const dx=(cw-dw)/2,dy=(ch-dh)/2;
         ctx.imageSmoothingEnabled=true;
@@ -8621,7 +8630,8 @@ applyLanguage(initial,false);
     function touchCache(index,img){
         if(cache.has(index))cache.delete(index);
         cache.set(index,img);
-        while(cache.size>MAX_CACHE){
+        let guard=0;
+        while(cache.size>MAX_CACHE&&guard++<50){
             const oldest=cache.keys().next().value;
             if(oldest===currentFrame&&cache.size>1){
                 const keep=cache.get(oldest);cache.delete(oldest);cache.set(oldest,keep);continue;
@@ -8632,28 +8642,65 @@ applyLanguage(initial,false);
     }
 
     function loadFrame(index,priority){
-        index=Math.max(0,Math.min(frameCount-1,index));
-        if(cache.has(index)){const img=cache.get(index);touchCache(index,img);return Promise.resolve(img)}
+        index=clamp(index,0,frameCount-1);
+        if(cache.has(index)){
+            const img=cache.get(index);touchCache(index,img);return Promise.resolve(img);
+        }
         if(loading.has(index))return loading.get(index);
+
         const myGen=generation;
-        const p=new Promise((resolve,reject)=>{
+        const promise=new Promise((resolve,reject)=>{
             const img=new Image();
             img.decoding='async';
             if(priority)img.fetchPriority='high';
             img.onload=()=>{
+                loading.delete(index);
                 if(myGen!==generation){resolve(null);return}
-                loading.delete(index);touchCache(index,img);resolve(img);
+                touchCache(index,img);
+                resolve(img);
             };
-            img.onerror=()=>{loading.delete(index);reject(new Error('frame '+(index+1)+' failed'))};
+            img.onerror=()=>{
+                loading.delete(index);
+                reject(new Error('Exploded frame failed: '+urlFor(index)));
+            };
             img.src=urlFor(index);
         });
-        loading.set(index,p);return p;
+        loading.set(index,promise);
+        return promise;
+    }
+
+    // Browser HTTP cache'ini önden ısıtır; görüntüleri JS cache'inde decode edilmiş halde tutmaz.
+    function prefetchFrame(index){
+        index=clamp(index,0,frameCount-1);
+        const key=generation+':'+index;
+        if(prefetched.has(key))return;
+        prefetched.add(key);
+        const link=document.createElement('link');
+        link.rel='prefetch';
+        link.as='image';
+        link.href=urlFor(index);
+        document.head.appendChild(link);
+    }
+
+    function prefetchWindow(center,direction){
+        const ahead=isMobile?7:9;
+        for(let n=1;n<=ahead;n++){
+            const i=center+(direction>=0?n:-n);
+            if(i>=0&&i<frameCount)prefetchFrame(i);
+        }
+        for(let n=1;n<=3;n++){
+            const i=center+(direction>=0?-n:n);
+            if(i>=0&&i<frameCount)prefetchFrame(i);
+        }
     }
 
     function nearestLoaded(target){
         if(cache.has(target))return cache.get(target);
         let best=null,dist=Infinity;
-        for(const [idx,img] of cache){const d=Math.abs(idx-target);if(d<dist){dist=d;best=img}}
+        for(const [idx,img] of cache){
+            const d=Math.abs(idx-target);
+            if(d<dist){dist=d;best=img}
+        }
         return best;
     }
 
@@ -8663,20 +8710,33 @@ applyLanguage(initial,false);
     }
 
     function requestFrame(index){
-        index=Math.max(0,Math.min(frameCount-1,index));
+        index=clamp(index,0,frameCount-1);
         currentFrame=index;
+
         const existing=cache.get(index);
-        if(existing){drawCover(existing)}
-        else{
-            const fallback=nearestLoaded(index);if(fallback)drawCover(fallback);
-            loadFrame(index,true).then(img=>{if(img&&currentFrame===index)drawCover(img)}).catch(()=>{});
+        if(existing){
+            drawCover(existing);
+        }else{
+            const fallback=nearestLoaded(index);
+            if(fallback)drawCover(fallback);
+            loadFrame(index,true).then(img=>{
+                if(img&&currentFrame===index)drawCover(img);
+            }).catch(()=>{});
         }
-        const dir=previousProgress>=0&&lastProgress<previousProgress?-1:1;
-        const neighbors=[index+dir,index+2*dir,index-dir,index+3*dir];
-        neighbors.forEach(i=>{if(i>=0&&i<frameCount)loadFrame(i,false).catch(()=>{})});
+
+        const direction=lastProgress>=previousProgress?1:-1;
+        prefetchWindow(index,direction);
+
+        // En yakın birkaç kareyi gerçek Image olarak hazır tut.
+        [index+direction,index+2*direction,index-direction].forEach(i=>{
+            if(i>=0&&i<frameCount)loadFrame(i,false).catch(()=>{});
+        });
     }
 
-    function phaseIndex(progress){return Math.min(4,Math.floor(Math.max(0,Math.min(.9999,progress))*5))}
+    function phaseIndex(progress){
+        return Math.min(4,Math.floor(clamp(progress,0,.9999)*5));
+    }
+
     function updatePhase(progress,force){
         const p=phaseIndex(progress);
         if(!force&&root.dataset.phase===String(p))return;
@@ -8688,65 +8748,91 @@ applyLanguage(initial,false);
         if(phaseText)phaseText.textContent=data[3];
     }
 
+    // Timeline yalnızca sahnenin sticky kaldığı gerçek scroll mesafesine bağlanır.
     function measureProgress(){
-        const rect=root.getBoundingClientRect();
-        const total=Math.max(1,root.offsetHeight-window.innerHeight);
-        return Math.max(0,Math.min(1,-rect.top/total));
+        const rect=space.getBoundingClientRect();
+        const stageHeight=Math.max(1,stage.getBoundingClientRect().height||window.innerHeight);
+        const travel=Math.max(1,space.offsetHeight-stageHeight);
+        return clamp((-rect.top)/travel,0,1);
     }
 
     function render(){
         raf=0;
         if(!activated)return;
-        const progress=reduced?0:measureProgress();
+
+        const progress=measureProgress();
         previousProgress=lastProgress;
         lastProgress=progress;
-        const idx=Math.round(progress*(frameCount-1));
-        if(idx!==currentFrame)requestFrame(idx);
+
+        const target=Math.round(progress*(frameCount-1));
+        lastTarget=target;
+        if(target!==currentFrame)requestFrame(target);
+
         if(progressEl)progressEl.style.transform='scaleX('+progress.toFixed(5)+')';
         if(percentEl)percentEl.textContent=String(Math.round(progress*100)).padStart(2,'0')+'%';
-        if(frameLabel)frameLabel.textContent=pad(idx+1)+' / '+frameCount;
+        if(frameLabel)frameLabel.textContent=pad(target+1)+' / '+frameCount;
         updatePhase(progress,false);
     }
 
-    function requestRender(){if(!raf)raf=requestAnimationFrame(render)}
+    function requestRender(){
+        if(!raf)raf=requestAnimationFrame(render);
+    }
 
     function warmSequence(){
         if(!activated)return;
-        // Sparse anchors give an immediate visual fallback without decoding the full 4K sequence into memory.
-        const anchors=isMobile?[0,12,24,36,48,60,71]:[0,20,40,60,80,100,119];
-        let delay=0;
-        anchors.forEach(index=>{
-            setTimeout(()=>{if(activated)loadFrame(index,false).catch(()=>{})},delay);
-            delay+=90;
-        });
+        // Başlangıç bölümünde akıcı tepki için ilk karelerin HTTP cache'ini önceden ısıt.
+        const initialCount=isMobile?10:12;
+        for(let i=0;i<Math.min(initialCount,frameCount);i++){
+            setTimeout(()=>prefetchFrame(i),i*35);
+        }
+        const anchors=isMobile?[18,36,54,71]:[24,48,72,96,119];
+        anchors.forEach((index,n)=>setTimeout(()=>prefetchFrame(index),520+n*90));
     }
 
     function activate(){
         if(activated)return;
         activated=true;
-        loadFrame(0,true).then(img=>{if(img&&currentFrame<0){currentFrame=0;drawCover(img)}}).catch(()=>{});
-        warmSequence();resizeCanvas();requestRender();
+        loadFrame(0,true).then(img=>{
+            if(img&&currentFrame<0){
+                currentFrame=0;
+                drawCover(img);
+            }
+        }).catch(()=>{});
+        warmSequence();
+        resizeCanvas();
+        requestRender();
     }
 
     const observer=new IntersectionObserver(entries=>{
         entries.forEach(entry=>{
             if(entry.isIntersecting){activate();requestRender()}
         });
-    },{rootMargin:'1400px 0px 1400px 0px',threshold:0});
+    },{rootMargin:'1800px 0px 1800px 0px',threshold:0});
     observer.observe(root);
 
     window.addEventListener('scroll',requestRender,{passive:true});
     window.addEventListener('resize',()=>{resizeCanvas();requestRender()},{passive:true});
-    window.addEventListener('orientationchange',()=>{setTimeout(()=>{resizeCanvas();requestRender()},120)},{passive:true});
+    window.addEventListener('orientationchange',()=>{
+        setTimeout(()=>{resizeCanvas();requestRender()},140);
+    },{passive:true});
     window.addEventListener('bg:languagechange',applyStaticLanguage);
 
     if(mobileQuery.addEventListener){
         mobileQuery.addEventListener('change',event=>{
             const nextMobile=event.matches;
             if(nextMobile===isMobile)return;
-            isMobile=nextMobile;frameCount=isMobile?72:120;basePath=isMobile?'assets/exploded/mobile/':'assets/exploded/desktop/';
-            generation++;cache.clear();loading.clear();currentFrame=-1;lastProgress=-1;previousProgress=-1;root.dataset.phase='';
-            if(activated){loadFrame(0,true).then(img=>{if(img){currentFrame=0;drawCover(img)}}).catch(()=>{});warmSequence();resizeCanvas();requestRender()}
+            isMobile=nextMobile;
+            frameCount=isMobile?72:120;
+            basePath=isMobile?'assets/exploded/mobile/':'assets/exploded/desktop/';
+            generation++;
+            cache.clear();loading.clear();prefetched.clear();
+            currentFrame=-1;lastTarget=-1;lastProgress=0;previousProgress=0;root.dataset.phase='';
+            if(activated){
+                loadFrame(0,true).then(img=>{
+                    if(img){currentFrame=0;drawCover(img)}
+                }).catch(()=>{});
+                warmSequence();resizeCanvas();requestRender();
+            }
         });
     }
 
