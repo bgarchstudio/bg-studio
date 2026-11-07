@@ -8633,7 +8633,7 @@ applyLanguage(initial,false);
         ANNO.forEach(an=>{
             const t=ease((p-an.s)/(an.e-an.s));if(t<=0)return;
             const ax=b.dx+an.nx*b.dw, ay=b.dy+an.ny*b.dh;
-            if(ay<72*dpr||ay>chh-90*dpr)return;
+            if(ay<72*dpr||ay>chh-90*dpr||ax<0||ax>cw-130*dpr)return;
             const label=an.n+'   '+(en?an.en:an.tr);
             const tw=actx.measureText(label).width;
             const lx=Math.max(ax+36*dpr,rightEdge-tw-6*dpr);
