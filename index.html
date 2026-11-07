@@ -8006,132 +8006,13 @@ applyLanguage(initial,false);
         areaOutput.textContent = value >= max ? '~1500+ m²' : '~' + value + ' m²';
     }
 
-    function prettySize(bytes){
-        if (bytes < 1024) return bytes + ' B';
-        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
-    }
-
-    function extensionOf(name){
-        const parts = String(name || '').toLowerCase().split('.');
-        return parts.length > 1 ? parts.pop() : '';
-    }
-
-    function showLocalError(message){
-        if (typeof showFormToast === 'function') {
-            showFormToast(message, 'error');
-            return;
-        }
-        window.alert(message);
-    }
-
-    function validateFile(file){
-        if (!file) return true;
-
-        const ext = extensionOf(file.name);
-
-        if (!ALLOWED_EXTENSIONS.includes(ext)) {
-            showLocalError(contactText(
-                'Dosya türü ZIP, JPG, JPEG, PNG veya PDF olmalı.',
-                'File type must be ZIP, JPG, JPEG, PNG or PDF.'
-            ));
-            return false;
-        }
-
-        if (file.size > MAX_FILE_BYTES) {
-            showLocalError(contactText(
-                'Dosya 5 MB sınırını aşıyor. Büyük dosyalar için paylaşım bağlantısı alanını kullanın.',
-                'The file exceeds 5 MB. Please use the sharing-link field for larger files.'
-            ));
-            return false;
-        }
-
-        return true;
-    }
-
-    function syncFileUI(){
-        if (!fileInput || !fileSelected || !fileName || !fileSize) return;
-
-        const file = fileInput.files && fileInput.files[0];
-
-        if (!file) {
-            fileSelected.hidden = true;
-            fileName.textContent = '—';
-            fileSize.textContent = '—';
-            return;
-        }
-
-        fileSelected.hidden = false;
-        fileName.textContent = file.name;
-        fileSize.textContent = prettySize(file.size);
-    }
-
     if (area) {
         area.value = area.defaultValue || '180';
         area.addEventListener('input', syncArea, {passive:true});
         syncArea();
     }
 
-    if (fileInput) {
-        fileInput.addEventListener('change', () => {
-            const file = fileInput.files && fileInput.files[0];
-
-            if (file && !validateFile(file)) {
-                fileInput.value = '';
-            }
-
-        });
-    }
-
-    if (fileRemove && fileInput) {
-        fileRemove.addEventListener('click', () => {
-            fileInput.value = '';
-        });
-    }
-
-    if (uploadZone && fileInput) {
-        ['dragenter','dragover'].forEach(eventName => {
-            uploadZone.addEventListener(eventName, event => {
-                event.preventDefault();
-                uploadZone.classList.add('is-dragging');
-            });
-        });
-
-        ['dragleave','drop'].forEach(eventName => {
-            uploadZone.addEventListener(eventName, event => {
-                event.preventDefault();
-                uploadZone.classList.remove('is-dragging');
-            });
-        });
-
-        uploadZone.addEventListener('drop', event => {
-            const file = event.dataTransfer && event.dataTransfer.files
-                ? event.dataTransfer.files[0]
-                : null;
-
-            if (!file || !validateFile(file)) return;
-
-            try {
-                const transfer = new DataTransfer();
-                transfer.items.add(file);
-                fileInput.files = transfer.files;
-                } catch (error) {
-                showLocalError(contactText(
-                    'Bu tarayıcı sürükle-bırak dosya aktarımını desteklemiyor. Kutuyu tıklayarak dosyayı seçin.',
-                    'This browser does not support drag-and-drop file transfer. Click the upload area to choose the file.'
-                ));
-            }
-        });
-    }
-
-    form.addEventListener('submit', event => {
-        const file = fileInput && fileInput.files ? fileInput.files[0] : null;
-
-        if (file && !validateFile(file)) {
-            event.preventDefault();
-            return;
-        }
-
+    form.addEventListener('submit', () => {
         if (languageField) languageField.value = currentLang();
     }, true);
 
