@@ -1630,7 +1630,7 @@ html body #exploded-architecture .exploded-intro{text-shadow:0 1px 14px rgba(0,0
                 </div>
 
                 <noscript>
-                    <img class="exploded-noscript" src="assets/exploded/seq4/f_067.webp" alt="BG Studio mimari exploded view">
+                    <img class="exploded-noscript" src="assets/exploded/seq4/f_053.webp" alt="BG Studio mimari exploded view">
                 </noscript>
             </div>
         </div>
@@ -8480,6 +8480,10 @@ applyLanguage(initial,false);
     if(!ctx)return;
     ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
 
+    const annoCv=document.createElement('canvas');annoCv.className='exploded-anno';annoCv.setAttribute('aria-hidden','true');
+    annoCv.style.cssText='position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none';
+    {const vg=root.querySelector('.exploded-vignette');if(vg)vg.parentNode.insertBefore(annoCv,vg.nextSibling);else canvas.parentNode.appendChild(annoCv)}
+    const actx=annoCv.getContext('2d');
     const progressEl=document.getElementById('explodedProgress');
     const percentEl=document.getElementById('explodedPercent');
     const frameLabel=document.getElementById('explodedFrameLabel');
@@ -8505,7 +8509,7 @@ applyLanguage(initial,false);
         ['05','EXPLODED VIEW','The architectural system is visible in full.','Design decisions are read through the complete set of layers that form the finished architecture.']
     ];
 
-    const FRAME_COUNT=67;                 // assets/exploded/seq4/f_001..f_067 (Veo 3.1, tek çekim, 12 kare/sn)
+    const FRAME_COUNT=53;                 // assets/exploded/seq4/f_001..f_053 (Veo 3.1, tek çekim, 12 kare/sn)
     const BASE='assets/exploded/seq4/';
     const WINDOW_AHEAD=7, WINDOW_BEHIND=4; // decode edilmiş pencere
     const DAMP=10;                          // yüksek = daha seri takip
@@ -8527,6 +8531,7 @@ applyLanguage(initial,false);
     function applyStaticLanguage(){
         const en=lang()==='en';
         root.querySelectorAll('[data-exploded-tr][data-exploded-en]').forEach(el=>{el.textContent=en?el.dataset.explodedEn:el.dataset.explodedTr});
+        drawnKey='';requestTick();
         updatePhase(lastProgress,true);
     }
 
@@ -8537,7 +8542,7 @@ applyLanguage(initial,false);
     }
     function resizeCanvas(){
         const s=canvasSize();
-        if(canvas.width!==s.w||canvas.height!==s.h){canvas.width=s.w;canvas.height=s.h;drawnKey='';requestTick()}
+        if(canvas.width!==s.w||canvas.height!==s.h){canvas.width=s.w;canvas.height=s.h;annoCv.width=s.w;annoCv.height=s.h;drawnKey='';requestTick()}
         const k=s.w+'x'+s.h;
         if(k!==sizeKey){sizeKey=k;dropBitmaps()}
     }
@@ -8589,13 +8594,62 @@ applyLanguage(initial,false);
         const B=i1!==i0&&bitmaps.has(i1)?bitmaps.get(i1):null;
         const key=i0+':'+i1+':'+a.toFixed(3)+':'+(bitmaps.has(i0)?1:0)+(B?1:0)+':'+cw+'x'+ch;
         if(key===drawnKey)return;drawnKey=key;
+        const shownP=cur/(FRAME_COUNT-1);
+        const push=1;
+        let box=null;
         const cover=img=>{
             const iw=img.width||img.naturalWidth,ih=img.height||img.naturalHeight;
-            const sc=Math.max(cw/iw,ch/ih),dw=iw*sc,dh=ih*sc;
-            ctx.drawImage(img,(cw-dw)/2,(ch-dh)/2,dw,dh);
+            const sc=Math.max(cw/iw,ch/ih)*push,dw=iw*sc,dh=ih*sc;
+            const dx=(cw-dw)/2,dy=(ch-dh)/2;
+            box={dx,dy,dw,dh};
+            ctx.drawImage(img,dx,dy,dw,dh);
         };
         ctx.globalAlpha=1;cover(A);
         if(B&&a>0.003){ctx.globalAlpha=a;cover(B);ctx.globalAlpha=1}
+        if(box&&!useFallback)drawAnnotations(box,shownP);
+    }
+
+    /* İnce altın çizgili katman etiketleri: videonun bittiği pozdaki parça konumlarına bağlı, sonda belirir */
+    const ANNO=[
+        {nx:.831,ny:.139,tr:'ÇATI SİSTEMİ',en:'ROOF SYSTEM',n:'01',s:.66,e:.78},
+        {nx:.800,ny:.333,tr:'ÜST KAT KABUĞU',en:'UPPER ENVELOPE',n:'02',s:.72,e:.84},
+        {nx:.825,ny:.464,tr:'DÖŞEME PLAĞI',en:'FLOOR SLAB',n:'03',s:.78,e:.90},
+        {nx:.809,ny:.667,tr:'ZEMİN KAT',en:'GROUND LEVEL',n:'04',s:.84,e:.96}
+    ];
+    const ease=t=>t<0?0:t>1?1:1-Math.pow(1-t,3);
+    function drawAnnotations(b,p){
+        const cw=annoCv.width,chh=annoCv.height;
+        if(annoCv.width!==canvas.width||annoCv.height!==canvas.height){annoCv.width=canvas.width;annoCv.height=canvas.height}
+        actx.clearRect(0,0,annoCv.width,annoCv.height);
+        if(p<ANNO[0].s)return;
+        const dpr=Math.min(window.devicePixelRatio||1,2);
+        const en=lang()==='en';
+        const fs=Math.round(12*dpr);
+        actx.save();
+        actx.lineWidth=Math.max(1,dpr);
+        actx.font='500 '+fs+'px "Space Grotesk",Inter,system-ui,sans-serif';
+        if('letterSpacing' in actx)actx.letterSpacing=(1.8*dpr)+'px';
+        const rightEdge=cw-Math.round(40*dpr);
+        ANNO.forEach(an=>{
+            const t=ease((p-an.s)/(an.e-an.s));if(t<=0)return;
+            const ax=b.dx+an.nx*b.dw, ay=b.dy+an.ny*b.dh;
+            if(ay<72*dpr||ay>chh-90*dpr)return;
+            const label=an.n+'   '+(en?an.en:an.tr);
+            const tw=actx.measureText(label).width;
+            const lx=Math.max(ax+36*dpr,rightEdge-tw-6*dpr);
+            const x1=ax+(lx+tw+6*dpr-ax)*t;
+            actx.strokeStyle='#cfae7c';actx.fillStyle='#cfae7c';
+            actx.globalAlpha=.95*t;
+            actx.beginPath();actx.moveTo(ax,ay);actx.lineTo(x1,ay);actx.stroke();
+            actx.beginPath();actx.arc(ax,ay,3.2*dpr,0,Math.PI*2);actx.fill();
+            actx.globalAlpha=.4*t;
+            actx.beginPath();actx.arc(ax,ay,8*dpr*(0.55+0.45*t),0,Math.PI*2);actx.stroke();
+            actx.globalAlpha=Math.max(0,(t-.4)/.6);
+            actx.shadowColor='rgba(0,0,0,.8)';actx.shadowBlur=10*dpr;
+            actx.fillStyle='#f6ecd9';
+            actx.fillText(label,lx,ay-8*dpr);
+        });
+        actx.restore();
     }
 
     function phaseIndex(p){return Math.min(4,Math.floor(clamp(p,0,.9999)*5))}
