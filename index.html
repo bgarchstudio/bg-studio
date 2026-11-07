@@ -1281,6 +1281,9 @@ a:focus-visible,button:focus-visible,[role=button]:focus-visible{outline:2px sol
 html body #exploded-architecture .exploded-title-row{container-type:inline-size!important;grid-template-columns:minmax(0,max-content) minmax(260px,1fr)!important;gap:clamp(28px,4cqw,96px)!important}
 html body #exploded-architecture .exploded-title{font-size:clamp(2.6rem,min(6vw,7.2cqw),7rem)!important}
 html body #exploded-architecture .exploded-intro{min-width:0!important;overflow-wrap:break-word}
+html body #exploded-architecture .exploded-title-row{position:relative}
+html body #exploded-architecture .exploded-title-row::before{content:"";position:absolute;inset:-28px -4vw -36px;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(8,8,10,.7),rgba(8,8,10,.5) 60%,rgba(8,8,10,0));-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+html body #exploded-architecture .exploded-intro{text-shadow:0 1px 14px rgba(0,0,0,.9),0 0 3px rgba(0,0,0,.8)}
 @media (min-width:901px) and (max-width:1100px){html body #exploded-architecture .exploded-title{font-size:clamp(2.4rem,6cqw,4.4rem)!important}}
 @media (max-width:900px){html body #exploded-architecture .exploded-title-row{grid-template-columns:1fr!important}}
 </style>
@@ -1627,7 +1630,7 @@ html body #exploded-architecture .exploded-intro{min-width:0!important;overflow-
                 </div>
 
                 <noscript>
-                    <img class="exploded-noscript" src="assets/exploded/seq/f_047.webp" alt="BG Studio mimari exploded view">
+                    <img class="exploded-noscript" src="assets/exploded/seq4/f_067.webp" alt="BG Studio mimari exploded view">
                 </noscript>
             </div>
         </div>
@@ -8475,6 +8478,7 @@ applyLanguage(initial,false);
     if(!root||!space||!stage||!canvas)return;
     const ctx=canvas.getContext('2d',{alpha:false});
     if(!ctx)return;
+    ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
 
     const progressEl=document.getElementById('explodedProgress');
     const percentEl=document.getElementById('explodedPercent');
@@ -8501,8 +8505,8 @@ applyLanguage(initial,false);
         ['05','EXPLODED VIEW','The architectural system is visible in full.','Design decisions are read through the complete set of layers that form the finished architecture.']
     ];
 
-    const FRAME_COUNT=47;                 // assets/exploded/seq/f_001..f_047 (tek çekim)
-    const BASE='assets/exploded/seq/';
+    const FRAME_COUNT=67;                 // assets/exploded/seq4/f_001..f_067 (Veo 3.1, tek çekim, 12 kare/sn)
+    const BASE='assets/exploded/seq4/';
     const WINDOW_AHEAD=7, WINDOW_BEHIND=4; // decode edilmiş pencere
     const DAMP=10;                          // yüksek = daha seri takip
     let activated=false, raf=0, lastT=0;
@@ -8518,7 +8522,7 @@ applyLanguage(initial,false);
     const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
     const lang=()=>window.bgStudioLanguage==='en'?'en':'tr';
     let useFallback=false;
-    const urlFor=i=>useFallback?('assets/exploded/desktop/frame_'+pad(58+i)+'.webp'):(BASE+'f_'+pad(i+1)+'.webp');
+    const urlFor=i=>useFallback?('assets/exploded/desktop/frame_'+pad(Math.min(104,58+Math.round(i*46/(FRAME_COUNT-1))))+'.webp'):(BASE+'f_'+pad(i+1)+'.webp');
 
     function applyStaticLanguage(){
         const en=lang()==='en';
@@ -8550,10 +8554,7 @@ applyLanguage(initial,false);
         const key=sizeKey;
         const p=fetch(urlFor(index)).then(r=>{if(!r.ok)throw new Error(r.status);return r.blob()}).catch(err=>{if(!useFallback){useFallback=true;dropBitmaps();return fetch(urlFor(index)).then(r=>{if(!r.ok)throw err;return r.blob()})}throw err}).then(blob=>{
             if(!window.createImageBitmap)return new Promise((res,rej)=>{const im=new Image();im.onload=()=>res(im);im.onerror=rej;im.src=URL.createObjectURL(blob)});
-            const s=canvasSize();
-            const scale=Math.max(s.w/2560,s.h/1440);
-            const rw=Math.round(2560*Math.min(1,scale)),rh=Math.round(1440*Math.min(1,scale));
-            return createImageBitmap(blob,{resizeWidth:Math.max(2,rw),resizeHeight:Math.max(2,rh),resizeQuality:'high'});
+            return createImageBitmap(blob);
         }).then(bm=>{
             pending.delete(index);
             if(key!==sizeKey){if(bm.close)bm.close();return null}
