@@ -1281,9 +1281,8 @@ a:focus-visible,button:focus-visible,[role=button]:focus-visible{outline:2px sol
 html body #exploded-architecture .exploded-title-row{container-type:inline-size!important;grid-template-columns:minmax(0,max-content) minmax(260px,1fr)!important;gap:clamp(28px,4cqw,96px)!important}
 html body #exploded-architecture .exploded-title{font-size:clamp(2.6rem,min(6vw,7.2cqw),7rem)!important}
 html body #exploded-architecture .exploded-intro{min-width:0!important;overflow-wrap:break-word}
-html body #exploded-architecture .exploded-title-row{position:relative}
-html body #exploded-architecture .exploded-title-row::before{content:"";position:absolute;inset:-28px -4vw -36px;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(8,8,10,.7),rgba(8,8,10,.5) 60%,rgba(8,8,10,0));-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
-html body #exploded-architecture .exploded-intro{text-shadow:0 1px 14px rgba(0,0,0,.9),0 0 3px rgba(0,0,0,.8)}
+html body #exploded-architecture .exploded-intro{text-shadow:0 1px 3px rgba(0,0,0,.95),0 2px 18px rgba(0,0,0,.85),0 0 40px rgba(0,0,0,.55)}
+html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,0,.6),0 4px 28px rgba(0,0,0,.7)}
 @media (min-width:901px) and (max-width:1100px){html body #exploded-architecture .exploded-title{font-size:clamp(2.4rem,6cqw,4.4rem)!important}}
 @media (max-width:900px){html body #exploded-architecture .exploded-title-row{grid-template-columns:1fr!important}}
 </style>
@@ -1630,7 +1629,7 @@ html body #exploded-architecture .exploded-intro{text-shadow:0 1px 14px rgba(0,0
                 </div>
 
                 <noscript>
-                    <img class="exploded-noscript" src="assets/exploded/seq4/f_053.webp" alt="BG Studio mimari exploded view">
+                    <img class="exploded-noscript" src="assets/exploded/seq4/f_106.webp" alt="BG Studio mimari exploded view">
                 </noscript>
             </div>
         </div>
@@ -3323,6 +3322,19 @@ html body #exploded-architecture .exploded-intro{text-shadow:0 1px 14px rgba(0,0
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank', 'noopener');
         }
+
+        // Mobil alt bar (Instagram, Teklif Al) ve sayfa içi # bağlantıları WhatsApp panelini otomatik kapatır.
+        document.addEventListener('click', function (event) {
+            const link = event.target.closest && event.target.closest('a.mobile-contact-item, a[href^="#"]');
+            if (!link) return;
+            const chatBox = document.getElementById('whatsappChatBox');
+            if (chatBox && chatBox.classList.contains('active')) closeWhatsappChat();
+        });
+        document.addEventListener('keydown', function (event) {
+            if (event.key !== 'Escape') return;
+            const chatBox = document.getElementById('whatsappChatBox');
+            if (chatBox && chatBox.classList.contains('active')) closeWhatsappChat();
+        });
     
 
         // BG Studio Architecture — cinematic hero interaction.
@@ -8509,9 +8521,9 @@ applyLanguage(initial,false);
         ['05','EXPLODED VIEW','The architectural system is visible in full.','Design decisions are read through the complete set of layers that form the finished architecture.']
     ];
 
-    const FRAME_COUNT=53;                 // assets/exploded/seq4/f_001..f_053 (Veo 3.1, tek çekim, 12 kare/sn)
+    const FRAME_COUNT=106;                 // assets/exploded/seq4/f_001..f_106 (Veo 3.1, tek çekim, 24 kare/sn)
     const BASE='assets/exploded/seq4/';
-    const WINDOW_AHEAD=7, WINDOW_BEHIND=4; // decode edilmiş pencere
+    const WINDOW_AHEAD=10, WINDOW_BEHIND=6; // decode edilmiş pencere
     const DAMP=10;                          // yüksek = daha seri takip
     let activated=false, raf=0, lastT=0;
     let target=0;                          // scroll'dan gelen hedef (0..FRAME_COUNT-1, ondalıklı)
@@ -8587,9 +8599,11 @@ applyLanguage(initial,false);
 
     function draw(){
         const cw=canvas.width,ch=canvas.height;if(!cw||!ch)return;
-        const i0=clamp(Math.floor(cur),0,FRAME_COUNT-1);
-        const i1=Math.min(FRAME_COUNT-1,i0+1);
-        const a=clamp(cur-i0,0,1);
+        /* Kareler arası bindirme (crossfade) yok: hızlı hareket eden çatıda çift görüntü/gölge yapar.
+           24 kare/sn kaynak yeterince akıcı; en yakın net kare gösterilir. */
+        const i0=clamp(Math.round(cur),0,FRAME_COUNT-1);
+        const i1=i0;
+        const a=0;
         const A=nearest(i0);if(!A)return;
         const B=i1!==i0&&bitmaps.has(i1)?bitmaps.get(i1):null;
         const key=i0+':'+i1+':'+a.toFixed(3)+':'+(bitmaps.has(i0)?1:0)+(B?1:0)+':'+cw+'x'+ch;
