@@ -1620,7 +1620,7 @@ a:focus-visible,button:focus-visible,[role=button]:focus-visible{outline:2px sol
                 </div>
 
                 <noscript>
-                    <img class="exploded-noscript" src="assets/exploded/desktop/frame_001.webp" alt="BG Studio mimari exploded view">
+                    <img class="exploded-noscript" src="assets/exploded/seq/f_047.webp" alt="BG Studio mimari exploded view">
                 </noscript>
             </div>
         </div>
@@ -8456,17 +8456,17 @@ applyLanguage(initial,false);
 </script>
 
 
-<script id="bg-exploded-architecture" data-version="1.9.5.1">
+<script id="bg-exploded-architecture" data-version="2.0.0">
 (function(){
     'use strict';
-
+    /* v2.0: sönümlü (damped) ilerleme + kareler arası geçiş (crossfade) + pencereli ImageBitmap önbelleği.
+       Tek çekimlik temiz dizi: bütün -> kabuk -> katmanlar. */
     const root=document.getElementById('exploded-architecture');
     const space=root&&root.querySelector('.exploded-scroll-space');
     const stage=root&&root.querySelector('.exploded-stage');
     const canvas=document.getElementById('explodedCanvas');
     if(!root||!space||!stage||!canvas)return;
-
-    const ctx=canvas.getContext('2d',{alpha:false,desynchronized:true});
+    const ctx=canvas.getContext('2d',{alpha:false});
     if(!ctx)return;
 
     const progressEl=document.getElementById('explodedProgress');
@@ -8476,8 +8476,8 @@ applyLanguage(initial,false);
     const phaseKicker=document.getElementById('explodedPhaseKicker');
     const phaseTitle=document.getElementById('explodedPhaseTitle');
     const phaseText=document.getElementById('explodedPhaseText');
-
     const desktopOnlyQuery=window.matchMedia('(min-width: 901px)');
+    const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 
     const PHASES_TR=[
         ['01','BÜTÜN','Yapı tek kompozisyon olarak okunur.','Mimari, peyzaj ve çevre ilişkisi başlangıçta tek bir bütün olarak görünür.'],
@@ -8494,314 +8494,174 @@ applyLanguage(initial,false);
         ['05','EXPLODED VIEW','The architectural system is visible in full.','Design decisions are read through the complete set of layers that form the finished architecture.']
     ];
 
-    let frameCount=120;
-    let basePath='assets/exploded/desktop/';
-    let currentFrame=-1;
-    let lastProgress=0;
-    let previousProgress=0;
-    let raf=0;
-    let sizeRaf=0;
-    let activated=false;
-    let generation=0;
-    let lastTarget=-1;
-    const cache=new Map();
-    const loading=new Map();
-    const prefetched=new Set();
-    const MAX_CACHE=6;
+    const FRAME_COUNT=47;                 // assets/exploded/seq/f_001..f_047 (tek çekim)
+    const BASE='assets/exploded/seq/';
+    const WINDOW_AHEAD=7, WINDOW_BEHIND=4; // decode edilmiş pencere
+    const DAMP=10;                          // yüksek = daha seri takip
+    let activated=false, raf=0, lastT=0;
+    let target=0;                          // scroll'dan gelen hedef (0..FRAME_COUNT-1, ondalıklı)
+    let cur=0;                             // ekranda gösterilen (sönümlü)
+    let scrollProgress=0, lastProgress=0;
+    let drawnKey='';
+    const bitmaps=new Map();               // index -> ImageBitmap | HTMLImageElement
+    const pending=new Map();
+    let sizeKey='';
 
-    function pad(n){return String(n).padStart(3,'0')}
-    function urlFor(index){return basePath+'frame_'+pad(index+1)+'.webp'}
-    function lang(){return window.bgStudioLanguage==='en'?'en':'tr'}
-    function clamp(v,min,max){return Math.max(min,Math.min(max,v))}
+    const pad=n=>String(n).padStart(3,'0');
+    const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+    const lang=()=>window.bgStudioLanguage==='en'?'en':'tr';
+    const urlFor=i=>BASE+'f_'+pad(i+1)+'.webp';
 
     function applyStaticLanguage(){
         const en=lang()==='en';
-        root.querySelectorAll('[data-exploded-tr][data-exploded-en]').forEach(el=>{
-            el.textContent=en?el.dataset.explodedEn:el.dataset.explodedTr;
-        });
+        root.querySelectorAll('[data-exploded-tr][data-exploded-en]').forEach(el=>{el.textContent=en?el.dataset.explodedEn:el.dataset.explodedTr});
         updatePhase(lastProgress,true);
     }
 
+    function canvasSize(){
+        const rect=canvas.getBoundingClientRect();
+        const dpr=Math.min(window.devicePixelRatio||1,2);
+        return {w:Math.max(1,Math.round(rect.width*dpr)),h:Math.max(1,Math.round(rect.height*dpr))};
+    }
     function resizeCanvas(){
-        cancelAnimationFrame(sizeRaf);
-        sizeRaf=requestAnimationFrame(()=>{
-            const rect=canvas.getBoundingClientRect();
-            const dpr=Math.min(window.devicePixelRatio||1,1.75);
-            const w=Math.max(1,Math.round(rect.width*dpr));
-            const h=Math.max(1,Math.round(rect.height*dpr));
-            if(canvas.width!==w||canvas.height!==h){
-                canvas.width=w;
-                canvas.height=h;
-                redrawCurrent();
-            }
-        });
+        const s=canvasSize();
+        if(canvas.width!==s.w||canvas.height!==s.h){canvas.width=s.w;canvas.height=s.h;drawnKey='';requestTick()}
+        const k=s.w+'x'+s.h;
+        if(k!==sizeKey){sizeKey=k;dropBitmaps()}
+    }
+    function dropBitmaps(){
+        bitmaps.forEach(b=>{if(b&&b.close)try{b.close()}catch(e){}});
+        bitmaps.clear();pending.clear();
     }
 
-    function drawCover(img){
-        const cw=canvas.width,ch=canvas.height;
-        if(!cw||!ch||!img||!img.naturalWidth)return;
-        ctx.fillStyle='#030303';ctx.fillRect(0,0,cw,ch);
-        const iw=img.naturalWidth,ih=img.naturalHeight;
-        const scale=Math.max(cw/iw,ch/ih);
-        const dw=iw*scale,dh=ih*scale;
-        const dx=(cw-dw)/2,dy=(ch-dh)/2;
-        ctx.imageSmoothingEnabled=true;
-        ctx.imageSmoothingQuality='high';
-        ctx.drawImage(img,dx,dy,dw,dh);
+    /* Kareyi canvas çözünürlüğünde decode et (her çizimde büyük görsel ölçeklemekten kaçınır) */
+    function load(index){
+        index=clamp(index,0,FRAME_COUNT-1);
+        if(bitmaps.has(index))return Promise.resolve(bitmaps.get(index));
+        if(pending.has(index))return pending.get(index);
+        const key=sizeKey;
+        const p=fetch(urlFor(index)).then(r=>{if(!r.ok)throw new Error(r.status);return r.blob()}).then(blob=>{
+            if(!window.createImageBitmap)return new Promise((res,rej)=>{const im=new Image();im.onload=()=>res(im);im.onerror=rej;im.src=URL.createObjectURL(blob)});
+            const s=canvasSize();
+            const scale=Math.max(s.w/2560,s.h/1440);
+            const rw=Math.round(2560*Math.min(1,scale)),rh=Math.round(1440*Math.min(1,scale));
+            return createImageBitmap(blob,{resizeWidth:Math.max(2,rw),resizeHeight:Math.max(2,rh),resizeQuality:'high'});
+        }).then(bm=>{
+            pending.delete(index);
+            if(key!==sizeKey){if(bm.close)bm.close();return null}
+            bitmaps.set(index,bm);requestTick();return bm;
+        }).catch(()=>{pending.delete(index);return null});
+        pending.set(index,p);return p;
     }
-
-    function touchCache(index,img){
-        if(cache.has(index))cache.delete(index);
-        cache.set(index,img);
-        let guard=0;
-        while(cache.size>MAX_CACHE&&guard++<50){
-            const oldest=cache.keys().next().value;
-            if(oldest===currentFrame&&cache.size>1){
-                const keep=cache.get(oldest);cache.delete(oldest);cache.set(oldest,keep);continue;
-            }
-            const victim=cache.get(oldest);cache.delete(oldest);
-            if(victim)victim.onload=victim.onerror=null;
-        }
+    function ensureWindow(center,dir){
+        const a=dir>=0?WINDOW_AHEAD:WINDOW_BEHIND, b=dir>=0?WINDOW_BEHIND:WINDOW_AHEAD;
+        const lo=Math.max(0,Math.floor(center)-b), hi=Math.min(FRAME_COUNT-1,Math.ceil(center)+a);
+        // Önce en yakın kareler
+        const order=[];
+        for(let i=lo;i<=hi;i++)order.push(i);
+        order.sort((x,y)=>Math.abs(x-center)-Math.abs(y-center));
+        order.forEach(i=>load(i));
+        // Pencere dışını bırak (bellek)
+        bitmaps.forEach((bm,i)=>{if(i<lo-3||i>hi+3){if(bm&&bm.close)try{bm.close()}catch(e){}bitmaps.delete(i)}});
     }
-
-    function loadFrame(index,priority){
-        index=clamp(index,0,frameCount-1);
-        if(cache.has(index)){
-            const img=cache.get(index);touchCache(index,img);return Promise.resolve(img);
-        }
-        if(loading.has(index))return loading.get(index);
-
-        const myGen=generation;
-        const promise=new Promise((resolve,reject)=>{
-            const img=new Image();
-            img.decoding='async';
-            if(priority)img.fetchPriority='high';
-            img.onload=()=>{
-                loading.delete(index);
-                if(myGen!==generation){resolve(null);return}
-                touchCache(index,img);
-                resolve(img);
-            };
-            img.onerror=()=>{
-                loading.delete(index);
-                reject(new Error('Exploded frame failed: '+urlFor(index)));
-            };
-            img.src=urlFor(index);
-        });
-        loading.set(index,promise);
-        return promise;
-    }
-
-    // Browser HTTP cache'ini önden ısıtır; görüntüleri JS cache'inde decode edilmiş halde tutmaz.
-    function prefetchFrame(index){
-        index=clamp(index,0,frameCount-1);
-        const key=generation+':'+index;
-        if(prefetched.has(key))return;
-        prefetched.add(key);
-        const link=document.createElement('link');
-        link.rel='prefetch';
-        link.as='image';
-        link.href=urlFor(index);
-        document.head.appendChild(link);
-    }
-
-    function prefetchWindow(center,direction){
-        const ahead=9;
-        for(let n=1;n<=ahead;n++){
-            const i=center+(direction>=0?n:-n);
-            if(i>=0&&i<frameCount)prefetchFrame(i);
-        }
-        for(let n=1;n<=3;n++){
-            const i=center+(direction>=0?-n:n);
-            if(i>=0&&i<frameCount)prefetchFrame(i);
-        }
-    }
-
-    function nearestLoaded(target){
-        if(cache.has(target))return cache.get(target);
-        let best=null,dist=Infinity;
-        for(const [idx,img] of cache){
-            const d=Math.abs(idx-target);
-            if(d<dist){dist=d;best=img}
-        }
+    function nearest(i){
+        if(bitmaps.has(i))return bitmaps.get(i);
+        let best=null,d=1e9;
+        bitmaps.forEach((bm,k)=>{const dd=Math.abs(k-i);if(dd<d){d=dd;best=bm}});
         return best;
     }
 
-    function redrawCurrent(){
-        const img=cache.get(currentFrame)||nearestLoaded(currentFrame);
-        if(img)drawCover(img);
+    function draw(){
+        const cw=canvas.width,ch=canvas.height;if(!cw||!ch)return;
+        const i0=clamp(Math.floor(cur),0,FRAME_COUNT-1);
+        const i1=Math.min(FRAME_COUNT-1,i0+1);
+        const a=clamp(cur-i0,0,1);
+        const A=nearest(i0);if(!A)return;
+        const B=i1!==i0&&bitmaps.has(i1)?bitmaps.get(i1):null;
+        const key=i0+':'+i1+':'+a.toFixed(3)+':'+(bitmaps.has(i0)?1:0)+(B?1:0)+':'+cw+'x'+ch;
+        if(key===drawnKey)return;drawnKey=key;
+        const cover=img=>{
+            const iw=img.width||img.naturalWidth,ih=img.height||img.naturalHeight;
+            const sc=Math.max(cw/iw,ch/ih),dw=iw*sc,dh=ih*sc;
+            ctx.drawImage(img,(cw-dw)/2,(ch-dh)/2,dw,dh);
+        };
+        ctx.globalAlpha=1;cover(A);
+        if(B&&a>0.003){ctx.globalAlpha=a;cover(B);ctx.globalAlpha=1}
     }
 
-    function requestFrame(index){
-        index=clamp(index,0,frameCount-1);
-        currentFrame=index;
-
-        const existing=cache.get(index);
-        if(existing){
-            drawCover(existing);
-        }else{
-            const fallback=nearestLoaded(index);
-            if(fallback)drawCover(fallback);
-            loadFrame(index,true).then(img=>{
-                if(img&&currentFrame===index)drawCover(img);
-            }).catch(()=>{});
-        }
-
-        const direction=lastProgress>=previousProgress?1:-1;
-        prefetchWindow(index,direction);
-
-        // En yakın birkaç kareyi gerçek Image olarak hazır tut.
-        [index+direction,index+2*direction,index-direction].forEach(i=>{
-            if(i>=0&&i<frameCount)loadFrame(i,false).catch(()=>{});
-        });
-    }
-
-    function phaseIndex(progress){
-        return Math.min(4,Math.floor(clamp(progress,0,.9999)*5));
-    }
-
+    function phaseIndex(p){return Math.min(4,Math.floor(clamp(p,0,.9999)*5))}
     function updatePhase(progress,force){
         const p=phaseIndex(progress);
         if(!force&&root.dataset.phase===String(p))return;
         root.dataset.phase=String(p);
-        const data=(lang()==='en'?PHASES_EN:PHASES_TR)[p];
-        if(phaseNo)phaseNo.textContent=data[0];
-        if(phaseKicker)phaseKicker.textContent=data[1];
-        if(phaseTitle)phaseTitle.textContent=data[2];
-        if(phaseText)phaseText.textContent=data[3];
+        const d=(lang()==='en'?PHASES_EN:PHASES_TR)[p];
+        if(phaseNo)phaseNo.textContent=d[0];
+        if(phaseKicker)phaseKicker.textContent=d[1];
+        if(phaseTitle)phaseTitle.textContent=d[2];
+        if(phaseText)phaseText.textContent=d[3];
     }
 
-    // HARD PIN TIMELINE:
-    // 1) Bölümün üstü viewport'a ulaşınca sahne position:fixed ile ekrana kilitlenir.
-    // 2) Kullanıcının scroll mesafesi 0..1 aralığında frame'lere çevrilir.
-    // 3) Son frame tamamlandığında sahne bölümün altına bırakılır ve Services hemen gelir.
-    function measureTimeline(){
+    function measure(){
         const y=window.scrollY||window.pageYOffset||0;
-        const rootTop=root.getBoundingClientRect().top+y;
-        const stageHeight=Math.max(1,stage.offsetHeight||window.innerHeight);
-        const distance=Math.max(1,space.offsetHeight-stageHeight);
-        const end=rootTop+distance;
-        const progress=clamp((y-rootTop)/distance,0,1);
-        return {y,start:rootTop,end,distance,progress};
+        const top=root.getBoundingClientRect().top+y;
+        const sh=Math.max(1,stage.offsetHeight||window.innerHeight);
+        const dist=Math.max(1,space.offsetHeight-sh);
+        return {y,start:top,end:top+dist,progress:clamp((y-top)/dist,0,1)};
+    }
+    function syncPinned(t){
+        if(t.y<t.start){root.classList.remove('is-exploded-pinned','is-exploded-pinned-end');return}
+        if(t.y<=t.end){root.classList.add('is-exploded-pinned');root.classList.remove('is-exploded-pinned-end');return}
+        root.classList.remove('is-exploded-pinned');root.classList.add('is-exploded-pinned-end');
     }
 
-    function syncPinnedState(timeline){
-        const y=timeline.y;
-        if(y<timeline.start){
-            root.classList.remove('is-exploded-pinned','is-exploded-pinned-end');
-            return;
-        }
-        if(y<=timeline.end){
-            root.classList.add('is-exploded-pinned');
-            root.classList.remove('is-exploded-pinned-end');
-            return;
-        }
-        root.classList.remove('is-exploded-pinned');
-        root.classList.add('is-exploded-pinned-end');
-    }
-
-    function render(){
+    /* Ana döngü: scroll olayında değil, ekran yenileme hızında çalışır; yakınsayınca durur. */
+    function tick(now){
         raf=0;
-        if(!activated||!desktopOnlyQuery.matches){
-            root.classList.remove('is-exploded-pinned','is-exploded-pinned-end');
-            return;
-        }
-
-        const timeline=measureTimeline();
-        syncPinnedState(timeline);
-        const progress=timeline.progress;
-        previousProgress=lastProgress;
-        lastProgress=progress;
-
-        const target=Math.round(progress*(frameCount-1));
-        lastTarget=target;
-        if(target!==currentFrame)requestFrame(target);
-
-        if(progressEl)progressEl.style.transform='scaleX('+progress.toFixed(5)+')';
-        if(percentEl)percentEl.textContent=String(Math.round(progress*100)).padStart(2,'0')+'%';
-        if(frameLabel)frameLabel.textContent=pad(target+1)+' / '+frameCount;
-        updatePhase(progress,false);
+        if(!activated||!desktopOnlyQuery.matches){root.classList.remove('is-exploded-pinned','is-exploded-pinned-end');return}
+        const dt=Math.min(0.05,Math.max(0.001,(now-(lastT||now))/1000));lastT=now;
+        const t=measure();syncPinned(t);
+        lastProgress=scrollProgress;scrollProgress=t.progress;
+        target=scrollProgress*(FRAME_COUNT-1);
+        // Sönümleme: hedefe üstel yaklaş; küçük farkta kilitle
+        const diff=target-cur;
+        if(reduceMotion.matches||Math.abs(diff)<0.004)cur=target;
+        else cur+=diff*(1-Math.exp(-DAMP*dt));
+        const dir=diff>=0?1:-1;
+        ensureWindow(cur,dir);
+        draw();
+        const shown=cur/(FRAME_COUNT-1);
+        if(progressEl)progressEl.style.transform='scaleX('+shown.toFixed(5)+')';
+        if(percentEl)percentEl.textContent=String(Math.round(shown*100)).padStart(2,'0')+'%';
+        if(frameLabel)frameLabel.textContent=pad(Math.round(cur)+1)+' / '+FRAME_COUNT;
+        updatePhase(shown,false);
+        if(cur!==target||pending.size)raf=requestAnimationFrame(tick);else lastT=0;
     }
-
-    function requestRender(){
-        if(!raf)raf=requestAnimationFrame(render);
-    }
-
-    function warmSequence(){
-        if(!activated||!desktopOnlyQuery.matches)return;
-        // Başlangıç bölümünde akıcı tepki için ilk karelerin HTTP cache'ini önceden ısıt.
-        const initialCount=12;
-        for(let i=0;i<Math.min(initialCount,frameCount);i++){
-            setTimeout(()=>prefetchFrame(i),i*35);
-        }
-        const anchors=[24,48,72,96,119];
-        anchors.forEach((index,n)=>setTimeout(()=>prefetchFrame(index),520+n*90));
-    }
+    function requestTick(){if(!raf)raf=requestAnimationFrame(tick)}
 
     function activate(){
         if(activated||!desktopOnlyQuery.matches)return;
-        activated=true;
-        loadFrame(0,true).then(img=>{
-            if(img&&currentFrame<0){
-                currentFrame=0;
-                drawCover(img);
-            }
-        }).catch(()=>{});
-        warmSequence();
-        resizeCanvas();
-        requestRender();
+        activated=true;resizeCanvas();
+        load(0).then(()=>requestTick());
+        requestTick();
     }
 
-    const observer=new IntersectionObserver(entries=>{
-        entries.forEach(entry=>{
-            if(entry.isIntersecting&&desktopOnlyQuery.matches){activate();requestRender()}
-        });
-    },{rootMargin:'1800px 0px 1800px 0px',threshold:0});
+    const observer=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&desktopOnlyQuery.matches){activate();requestTick()}})},{rootMargin:'1800px 0px 1800px 0px',threshold:0});
     observer.observe(root);
 
-    window.addEventListener('scroll',requestRender,{passive:true});
-    window.addEventListener('resize',()=>{root.classList.remove('is-exploded-pinned','is-exploded-pinned-end');resizeCanvas();requestRender()},{passive:true});
-    window.addEventListener('orientationchange',()=>{
-        setTimeout(()=>{root.classList.remove('is-exploded-pinned','is-exploded-pinned-end');resizeCanvas();requestRender()},140);
-    },{passive:true});
+    window.addEventListener('scroll',requestTick,{passive:true});
+    window.addEventListener('resize',()=>{root.classList.remove('is-exploded-pinned','is-exploded-pinned-end');resizeCanvas();requestTick()},{passive:true});
+    window.addEventListener('orientationchange',()=>{setTimeout(()=>{resizeCanvas();requestTick()},140)},{passive:true});
     window.addEventListener('bg:languagechange',applyStaticLanguage);
+    document.addEventListener('visibilitychange',()=>{if(!document.hidden)requestTick()});
 
     if(desktopOnlyQuery.addEventListener){
-        desktopOnlyQuery.addEventListener('change',event=>{
+        desktopOnlyQuery.addEventListener('change',e=>{
             root.classList.remove('is-exploded-pinned','is-exploded-pinned-end');
-
-            if(!event.matches){
-                // Mobil/tablette bölüm CSS ile tamamen gizlidir. Animasyon işi ve yeni frame yüklemeleri durur.
-                generation++;
-                loading.clear();
-                prefetched.clear();
-                cancelAnimationFrame(raf);
-                raf=0;
-                return;
-            }
-
-            // Tekrar masaüstü genişliğine geçilirse yalnızca desktop sequence devreye girer.
-            frameCount=120;
-            basePath='assets/exploded/desktop/';
-            currentFrame=-1;
-            lastTarget=-1;
-            lastProgress=0;
-            previousProgress=0;
-            root.dataset.phase='';
-
-            if(!activated){
-                activate();
-            }else{
-                loadFrame(0,true).then(img=>{
-                    if(img){currentFrame=0;drawCover(img)}
-                }).catch(()=>{});
-                warmSequence();
-                resizeCanvas();
-                requestRender();
-            }
+            if(!e.matches){cancelAnimationFrame(raf);raf=0;dropBitmaps();return}
+            cur=0;drawnKey='';root.dataset.phase='';
+            if(!activated)activate();else{resizeCanvas();load(0);requestTick()}
         });
     }
-
     applyStaticLanguage();
 })();
 </script>
