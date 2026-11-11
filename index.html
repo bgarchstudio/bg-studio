@@ -1289,6 +1289,10 @@ html body #exploded-architecture .exploded-intro{text-shadow:0 1px 3px rgba(0,0,
 html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,0,.6),0 4px 28px rgba(0,0,0,.7)}
 @media (min-width:901px) and (max-width:1100px){html body #exploded-architecture .exploded-title{font-size:clamp(2.4rem,6cqw,4.4rem)!important}}
 @media (max-width:900px){html body #exploded-architecture .exploded-title-row{grid-template-columns:1fr!important}}
+
+/* Project card frame base. Mirrors the deferred stylesheet so the frame's
+   colour transition has nothing to animate when that sheet is injected. */
+#projects .project-card{border-color:transparent;outline:1px solid rgba(255,255,255,.085);outline-offset:-1px}
 </style>
 </head>
 <body>
@@ -6501,6 +6505,29 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
 #process.process-editorial::before,
 #contact.contact-editorial::before{
     display: none;
+}
+
+/* Project card frame: drawn as an outline so the scaled gallery image can never
+   paint over it, and so it does not flash from currentColor while CSS loads. */
+#projects .project-card,
+#projects .project-card[style]{
+    border-color: transparent!important;
+    outline: 1px solid rgba(255,255,255,.085);
+    outline-offset: -1px;
+    transition: outline-color .45s ease, transform .55s cubic-bezier(.22,1,.36,1), box-shadow .55s ease!important;
+}
+#projects .project-card:hover{
+    outline-color: rgba(198,168,124,.72);
+}
+/* Touch screens have no hover: show the gold frame while the card is on screen. */
+@media (hover: none){
+    #projects .project-card.is-in-view{
+        outline-color: rgba(198,168,124,.62);
+    }
+}
+/* Hide alt text while a lazily swapped gallery image is still loading. */
+#projects .project-card img{
+    color: transparent;
 }
 
 
