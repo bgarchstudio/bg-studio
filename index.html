@@ -1221,27 +1221,31 @@ textarea:focus-visible{
 
 /* ===== TR / EN LANGUAGE SWITCH ===== */
 .site-nav .language-switcher{
-    display:flex;align-items:center;justify-content:center;gap:4px;
-    margin-left:auto;margin-right:22px;height:30px;padding:0 7px;
-    border:1px solid rgba(198,168,124,.22);border-radius:999px;
-    background:rgba(5,5,5,.30);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    display:flex;align-items:center;justify-content:center;gap:2px;
+    margin-left:auto;margin-right:22px;height:34px;padding:3px;
+    border:1px solid rgba(198,168,124,.28);border-radius:999px;
+    background:rgba(5,5,5,.42);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
     flex:0 0 auto
 }
 .site-nav .language-btn{
-    min-width:26px;height:24px;margin:0;padding:0 4px;border:0;border-radius:999px;
-    background:transparent;color:rgba(255,255,255,0.62);
+    position:relative;display:inline-flex;align-items:center;justify-content:center;
+    min-width:38px;height:26px;margin:0;padding:0 8px 0 9.2px;border:0;border-radius:999px;
+    background:transparent;color:rgba(255,255,255,.62);
     font-family:"Space Grotesk",sans-serif;font-size:12px;font-weight:700;line-height:1;
-    letter-spacing:1px;cursor:pointer;box-shadow:none;
+    letter-spacing:1.2px;cursor:pointer;box-shadow:none;overflow:visible;align-self:center;
     transition:color .25s ease,background .25s ease
 }
-.site-nav .language-btn:hover{color:#fff;background:rgba(198,168,124,.08);letter-spacing:1px;box-shadow:none}
+/* Invisible hit area so taps stay comfortable without growing the pill */
+.site-nav .language-btn::after{content:"";position:absolute;inset:-4px -1px}
+.site-nav .language-btn:hover{color:#fff;background:rgba(198,168,124,.1);box-shadow:none;letter-spacing:1.2px}
+.site-nav .language-btn.is-active:hover{color:#050505;background:#c6a87c}
 .site-nav .language-btn.is-active{color:#050505;background:#c6a87c}
-.site-nav .language-divider{color:rgba(198,168,124,.72);font-family:"Space Grotesk",sans-serif;font-size:12px}
+.site-nav .language-divider{display:none}
 @media(max-width:768px){
-    .site-nav .language-switcher{order:2;margin-left:auto;margin-right:12px;height:30px;padding:0 6px}
+    .site-nav .language-switcher{order:2;margin-left:auto;margin-right:14px;height:32px}
     .site-nav .menu-toggle{order:3;flex:0 0 auto}
     .site-nav .nav-links{order:4}
-    .site-nav .language-btn{min-width:25px;font-size:11.5px}
+    .site-nav .language-btn{min-width:36px;height:24px;font-size:11.5px}
 }
 
 /* ===== GLOBAL SCROLL PROGRESS / SAFE ISOLATED LAYER ===== */
@@ -1275,7 +1279,7 @@ textarea:focus-visible{
 #exploded-architecture .exploded-intro,#exploded-architecture .exploded-title-row p{text-shadow:0 1px 18px rgba(0,0,0,.7)}
 #contactForm input:focus-visible,#contactForm textarea:focus-visible,#contactForm select:focus-visible{outline:2px solid #cfae7c!important;outline-offset:6px!important}
 a:focus-visible,button:focus-visible,[role=button]:focus-visible{outline:2px solid #cfae7c;outline-offset:4px}
-@media (pointer:coarse){#navLinks a,.language-btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center}}
+@media (pointer:coarse){#navLinks a{min-height:44px;display:inline-flex;align-items:center;justify-content:center}.site-nav .language-btn::after{inset:-10px -1px}}
 
 /* BG-POLISH v2: başlık ile giriş metni üst üste binmesin (başlık, bulunduğu satırın genişliğine göre ölçeklenir) */
 html body #exploded-architecture .exploded-title-row{container-type:inline-size!important;grid-template-columns:minmax(0,max-content) minmax(260px,1fr)!important;gap:clamp(28px,4cqw,96px)!important}
