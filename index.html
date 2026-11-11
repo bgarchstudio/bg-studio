@@ -6492,6 +6492,17 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
     }
 }
 
+/* Decorative vertical guide lines removed: they appeared only in some
+   sections and read as rendering glitches. The hero's horizontal rule stays. */
+.hero-architecture-lines span:nth-child(1),
+.hero-architecture-lines span:nth-child(2),
+#projects::before,
+#services.services-editorial::before,
+#process.process-editorial::before,
+#contact.contact-editorial::before{
+    display: none;
+}
+
 
 /* ===== MOBILE WHATSAPP FIT + FOOTER WATERMARK FINAL OVERRIDE ===== */
 @media(max-width:768px){
