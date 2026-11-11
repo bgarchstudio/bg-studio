@@ -3421,6 +3421,8 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
     const textEl = document.getElementById('servicePreviewText');
 
     const pinQuery = window.matchMedia('(min-width: 1100px) and (min-height: 760px)');
+    const stickyQuery = window.matchMedia('(max-width: 768px)');
+    const layout = section.querySelector('.services-editorial-layout');
     let activeIndex = -1;
     let pinStart = 0;
     let pinDistance = 1;
@@ -3428,6 +3430,24 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
 
     function isPinned(){
         return pinQuery.matches;
+    }
+
+    // Phones: the layout is position:sticky and the stage's ::after spacer
+    // supplies the scroll distance (see MOBILE SERVICES SCROLLYTELLING).
+    function isSticky(){
+        return stickyQuery.matches && !!layout;
+    }
+
+    function isScrollDriven(){
+        return isPinned() || isSticky();
+    }
+
+    function stickyMetrics(){
+        const spacer = parseFloat(getComputedStyle(stage, '::after').height) || 1;
+        const top = parseFloat(getComputedStyle(layout).top) || 0;
+        // Once stuck, the stage bottom travels from top+layout+spacer down to top+layout.
+        const travelled = top + layout.offsetHeight + spacer - stage.getBoundingClientRect().bottom;
+        return {spacer, top, progress: Math.max(0, Math.min(1, travelled / spacer))};
     }
 
     function setPinState(y){
@@ -3484,6 +3504,13 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
 
     function updateFromScroll(){
         ticking = false;
+
+        if (isSticky()) {
+            const progress = stickyMetrics().progress;
+            activate(Math.min(items.length - 1, Math.floor(progress * items.length)));
+            return;
+        }
+
         if (!isPinned()) return;
 
         const y = window.scrollY || window.pageYOffset || 0;
@@ -3494,7 +3521,7 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
     }
 
     function requestUpdate(){
-        if (ticking || !isPinned()) return;
+        if (ticking || !isScrollDriven()) return;
         ticking = true;
         window.requestAnimationFrame(updateFromScroll);
     }
@@ -3507,6 +3534,14 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
     }
 
     function scrollToIndex(index){
+        if (isSticky()) {
+            // Land in the middle of the step's slice of the spacer.
+            const m = stickyMetrics();
+            const target = (index + 0.5) / items.length;
+            activate(index);
+            window.scrollBy({top: (target - m.progress) * m.spacer, behavior: 'smooth'});
+            return;
+        }
         if (!isPinned()) {
             activate(index);
             return;
@@ -3520,10 +3555,10 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
 
     items.forEach((item, index) => {
         item.addEventListener('mouseenter', () => {
-            if (!isPinned()) activate(index);
+            if (!isScrollDriven()) activate(index);
         });
         item.addEventListener('focus', () => {
-            if (!isPinned()) activate(index);
+            if (!isScrollDriven()) activate(index);
         });
         item.addEventListener('click', () => scrollToIndex(index));
     });
@@ -3532,6 +3567,7 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
     window.addEventListener('resize', refresh, {passive:true});
     window.addEventListener('load', refresh, {once:true, passive:true});
     pinQuery.addEventListener?.('change', refresh);
+    stickyQuery.addEventListener?.('change', refresh);
 
     if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(refresh).catch(() => {});
@@ -6345,6 +6381,114 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
         overflow: visible;
         display: block;
         padding: 0;
+    }
+}
+
+/* ===== MOBILE SERVICES SCROLLYTELLING =====
+   Step tabs, image and copy stick under the nav while a spacer gives the
+   scroll distance; the services script maps that distance to the active step. */
+@media (max-width: 768px) {
+    /* overflow-x:hidden turns body into a scroll container, which stops
+       position:sticky from tracking the viewport; clip trims the same overflow. */
+    body{
+        overflow-x: clip!important;
+    }
+
+    #services.services-editorial{
+        overflow: visible!important;
+        overflow-x: clip!important;
+    }
+
+    #services .services-scroll-stage::after{
+        content: "";
+        display: block;
+        height: 180svh;
+    }
+
+    #services .services-editorial-layout{
+        position: sticky;
+        top: 62px;
+        z-index: 2;
+        gap: 14px;
+        padding-top: 12px;
+        background: #050505;
+    }
+
+    #services .services-editorial-list{
+        order: 0;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(min-content, 1fr));
+        gap: 8px;
+        border-top: 0;
+    }
+
+    #services .services-editorial-list .service-editorial-item,
+    #services .services-editorial-list .service-editorial-item:hover,
+    #services .services-editorial-list .service-editorial-item:focus-visible,
+    #services .services-editorial-list .service-editorial-item.is-active{
+        min-height: 0!important;
+        display: flex!important;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        padding: 10px 0 2px!important;
+        border: 0!important;
+        border-top: 2px solid rgba(255,255,255,.16)!important;
+        background: transparent!important;
+        letter-spacing: normal;
+        text-align: left;
+        transition: border-color .35s ease;
+    }
+
+    #services .services-editorial-list .service-editorial-item.is-active{
+        border-top-color: #c6a87c!important;
+    }
+
+    #services .services-editorial-list .service-editorial-name{
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.2;
+        letter-spacing: 0;
+        hyphens: auto;
+        color: rgba(255,255,255,.52);
+        transform: none!important;
+    }
+
+    #services .services-editorial-list .service-editorial-item.is-active .service-editorial-name{
+        color: #fff;
+    }
+
+    #services .services-editorial-list .service-editorial-note,
+    #services .services-editorial-list .service-editorial-arrow{
+        display: none;
+    }
+
+    #services .services-editorial-visual{
+        order: 1;
+    }
+
+    #services .services-preview-media{
+        aspect-ratio: auto;
+        height: clamp(170px, 30svh, 260px);
+    }
+
+    #services .services-preview-copy{
+        padding-top: 14px;
+    }
+
+    #services .services-preview-copy h3{
+        font-size: 1.4rem;
+        line-height: 1.15;
+    }
+
+    #services .services-preview-copy p{
+        margin-top: 8px;
+        font-size: .98rem;
+        line-height: 1.45;
+    }
+
+    #services .services-preview-link{
+        margin-top: 12px;
     }
 }
 
