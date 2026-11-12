@@ -1299,6 +1299,8 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
    cannot cover the panel's send button; it returns when the chat closes. */
 .mobile-contact-bar{transition:opacity .25s ease,transform .3s ease,visibility .3s}
 body.whatsapp-chat-open .mobile-contact-bar{opacity:0!important;visibility:hidden!important;transform:translateY(calc(100% + 24px))!important;pointer-events:none!important}
+/* ...and the chat grows into the space the bar leaves, down to the screen edge. */
+@media (max-width:768px){body.whatsapp-chat-open .whatsapp-widget.whatsapp-architecture .whatsapp-chat-box{bottom:calc(12px + env(safe-area-inset-bottom))!important}}
 </style>
 </head>
 <body>
@@ -1370,7 +1372,7 @@ body.whatsapp-chat-open .mobile-contact-bar{opacity:0!important;visibility:hidde
         </div>
 
         <a class="hero-scroll" href="#projects" aria-label="Seçili projelere kaydır">
-            <span class="hero-scroll-index">01 / SELECTED WORKS</span>
+            <span class="hero-scroll-index">SELECTED WORKS</span>
             <span class="hero-scroll-copy">SCROLL TO EXPLORE</span>
             <span class="hero-scroll-line" aria-hidden="true"></span>
         </a>
@@ -1379,7 +1381,7 @@ body.whatsapp-chat-open .mobile-contact-bar{opacity:0!important;visibility:hidde
     <section id="projects">
         <div class="projects-editorial-head hidden">
             <div class="projects-editorial-meta">
-                <span>02 / SELECTED WORKS</span>
+                <span>01 / SELECTED WORKS</span>
                 <span>BG STUDIO ARCHITECTURE</span>
             </div>
             <div class="projects-editorial-title-row">
@@ -1659,7 +1661,7 @@ body.whatsapp-chat-open .mobile-contact-bar{opacity:0!important;visibility:hidde
         <div class="services-scroll-stage">
         <div class="services-editorial-head hidden">
             <div class="services-editorial-meta">
-                <span>03 / SERVICES</span>
+                <span>02 / SERVICES</span>
                 <span>BG STUDIO ARCHITECTURE</span>
             </div>
 
@@ -1766,7 +1768,7 @@ body.whatsapp-chat-open .mobile-contact-bar{opacity:0!important;visibility:hidde
         <div class="process-scroll-stage">
         <div class="process-editorial-head hidden">
             <div class="process-editorial-meta">
-                <span>04 / PROCESS</span>
+                <span>03 / PROCESS</span>
                 <span>FİKİRDEN TESLİME</span>
             </div>
 
@@ -1874,7 +1876,7 @@ body.whatsapp-chat-open .mobile-contact-bar{opacity:0!important;visibility:hidde
         <div class="studio-editorial-inner">
             <div class="studio-editorial-head hidden">
                 <div class="studio-editorial-meta">
-                    <span>05 / STUDIO</span>
+                    <span>04 / STUDIO</span>
                     <span>KUŞADASI · AYDIN</span>
                 </div>
 
@@ -2206,7 +2208,7 @@ body.whatsapp-chat-open .mobile-contact-bar{opacity:0!important;visibility:hidde
         <div class="contact-editorial-inner">
             <div class="contact-editorial-head hidden">
                 <div class="contact-editorial-meta">
-                    <span>06 / CONTACT</span>
+                    <span>05 / CONTACT</span>
                     <span data-contact-tr="PROJE KONFİGÜRATÖRÜ" data-contact-en="PROJECT CONFIGURATOR">PROJE KONFİGÜRATÖRÜ</span>
                 </div>
 
@@ -3943,12 +3945,20 @@ body.whatsapp-chat-open .mobile-contact-bar{opacity:0!important;visibility:hidde
     }, {passive:true});
 
     // Phones and tablets (not pinned): the step crossing the middle of the
-    // screen becomes active, so the list lights up 01-04 as you scroll down.
+    // screen lights up, so the list reads 01-04 as you scroll down. Only the
+    // highlight changes: rewriting the stage copy above would change its height
+    // mid-scroll and make the page jump.
+    function highlightStep(index){
+        steps.forEach((step, i) => step.classList.toggle('is-active', i === index));
+        const discreteProgress = steps.length > 1 ? index / (steps.length - 1) : 1;
+        section.style.setProperty('--process-progress', discreteProgress.toFixed(4));
+    }
+
     if ('IntersectionObserver' in window) {
         const stepObserver = new IntersectionObserver(entries => {
             if (isPinned()) return;
             entries.forEach(entry => {
-                if (entry.isIntersecting) activate(steps.indexOf(entry.target));
+                if (entry.isIntersecting) highlightStep(steps.indexOf(entry.target));
             });
         }, {rootMargin: '-45% 0px -45% 0px'});
         steps.forEach(step => stepObserver.observe(step));
@@ -6768,6 +6778,25 @@ body.whatsapp-chat-open .mobile-contact-bar{opacity:0!important;visibility:hidde
     }
 }
 
+/* Phones: a section's first line (e.g. "02 / SERVICES") sits 89px below its
+   top edge. Pull anchor jumps up so the line lands ~16px under the 65px header
+   instead of leaving an empty band (adds to html scroll-padding-top: 62px). */
+@media (max-width: 768px){
+    #projects,
+    #services,
+    #process,
+    #about,
+    #contact{
+        scroll-margin-top: -70px!important;
+    }
+}
+
+/* Service finder: its controls set display:flex/inline-flex, which beat the
+   [hidden] attribute the script relies on to swap steps, result and buttons. */
+#service-finder [hidden]{
+    display: none!important;
+}
+
 /* Quality cards: the hover effect, played in sequence by script on desktop. */
 .quality-card.auto-beam{
     border-color: rgba(198,168,124,.72)!important;
@@ -8710,6 +8739,7 @@ applyLanguage(initial,false);
         state.resultVisible = false;
         result.hidden = true;
         controls.hidden = false;
+        nextButton.hidden = false;
 
         state.step = Math.max(1, Math.min(4, step));
 
@@ -8735,7 +8765,9 @@ applyLanguage(initial,false);
     function showResult(){
         state.resultVisible = true;
         steps.forEach(stepEl => stepEl.hidden = true);
-        controls.hidden = true;
+        // Keep "Back" so answers can still be changed; the result replaces "View result".
+        nextButton.hidden = true;
+        backButton.disabled = false;
         result.hidden = false;
         renderResult();
         updateProgress();
@@ -8777,6 +8809,10 @@ applyLanguage(initial,false);
     });
 
     backButton.addEventListener('click', () => {
+        if (state.resultVisible) {
+            showStep(4);
+            return;
+        }
         if (state.step <= 1) return;
         showStep(state.step - 1);
     });
