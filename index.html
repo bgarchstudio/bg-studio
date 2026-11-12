@@ -44,8 +44,8 @@
 <link rel="dns-prefetch" href="//www.googletagmanager.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet"></noscript>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@500;600;700&display=swap" rel="stylesheet"></noscript>
 
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -2617,7 +2617,18 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
                 </div>
             </div>
 
-            <div class="footer-editorial-watermark" aria-hidden="true"></div>
+            <div class="fbrand">
+                <div class="fbrand-top">
+                    <p class="fbrand-say">Tek stüdyo, iki iş kolu. Burada <em>mekânları tasarlıyoruz.</em></p>
+                    <div class="fbrand-switch" role="navigation" aria-label="BG Studio iş kolları">
+                        <span class="is-on" aria-current="page"><b>Mimarlık</b><small>Buradasınız</small></span>
+                        <a href="https://3d.bgstudio.com.tr" rel="noopener" target="_blank"><b>3D Üretim ↗</b><small>3d.bgstudio.com.tr</small></a>
+                    </div>
+                </div>
+                <div class="fbrand-dim" aria-hidden="true"><i></i><b>TASARIMDAN ÜRETİME · KUŞADASI</b></div>
+                <div class="fbrand-wm" aria-hidden="true">BG STUDIO</div>
+                <p class="fbrand-sign">Kurucu · <span>Mimar Berkant Gökbel</span></p>
+            </div>
         </div>
     </footer>
 
@@ -6532,6 +6543,43 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
 /* Hide alt text while a lazily swapped gallery image is still loading. */
 #projects .project-card img{
     color: transparent;
+}
+
+/* ===== SHARED FOOTER BRAND (mirror of 3d.bgstudio.com.tr .fbrand-v3392) =====
+   Same sizes as the 3D site; only accent, serif and label backdrop differ.
+   Replaces the old ghost "BG STUDIO" watermark. */
+.fbrand{--ac:#c9a86a;--bg:#040404;--serif:"Cormorant Garamond",Georgia,serif;
+  position:relative;z-index:2;container-type:inline-size;margin-top:clamp(28px,4vw,48px);padding:clamp(28px,4vw,48px) 0 18px;border-top:1px solid rgba(255,255,255,.09);color:#f4f3f1}
+.fbrand-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px 32px;flex-wrap:wrap}
+.fbrand-say{margin:0;max-width:30ch;font-family:"DM Sans",sans-serif;font-size:clamp(1.15rem,2vw,1.6rem);line-height:1.25;letter-spacing:-.01em;color:#f4f3f1;text-transform:none}
+.fbrand-say em{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--ac)}
+.fbrand-switch{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border:1px solid rgba(255,255,255,.18);border-radius:999px;font-family:"DM Sans",sans-serif}
+.fbrand-switch a,.fbrand-switch span{display:grid;align-content:center;min-height:44px;padding:6px 18px;border-radius:999px;color:rgba(255,255,255,.7);text-decoration:none;white-space:nowrap}
+.fbrand-switch b{font-size:13px;font-weight:700;color:inherit}
+.fbrand-switch small{font-size:11px;letter-spacing:.02em;opacity:.8}
+.fbrand-switch .is-on{background:var(--ac);color:#14110f}
+/* Visitors who have opened the 3D site would otherwise see the visited-link colour. */
+.fbrand-switch a:visited,.fbrand-switch a:visited b,.fbrand-switch a:visited small{color:rgba(255,255,255,.7)}
+.fbrand-switch a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+@media (hover:hover) and (pointer:fine){.fbrand-switch a{transition:background-color .25s ease,color .25s ease}.fbrand-switch a:hover{background:rgba(255,255,255,.08);color:#fff}}
+.fbrand-dim{position:relative;height:10px;margin:clamp(26px,3.5vw,40px) 0 12px;border-left:1px solid var(--ac);border-right:1px solid var(--ac)}
+.fbrand-dim i{position:absolute;left:0;right:0;top:5px;border-top:1px solid var(--ac)}
+.fbrand-dim b{position:absolute;left:50%;top:-6px;transform:translateX(-50%);padding:0 12px;background:var(--bg);font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;color:var(--ac);white-space:nowrap}
+.fbrand-wm{font-family:"DM Sans",sans-serif;font-weight:700;font-size:19.9cqw;line-height:.8;letter-spacing:-.06em;white-space:nowrap;color:#f4f3f1;margin-left:-.02em;text-transform:none}
+.fbrand-sign{margin:16px 0 0;font-family:"DM Sans",sans-serif;font-size:12px;letter-spacing:.06em;color:rgba(255,255,255,.55)}
+.fbrand-sign span{font-family:var(--serif);font-style:italic;font-size:15px;letter-spacing:0;color:#f4f3f1}
+@media (max-width:760px){
+  .fbrand-top{gap:16px}
+  .fbrand-say{font-size:1.15rem}
+  .fbrand-switch{width:100%}
+  .fbrand-switch a,.fbrand-switch span{padding:6px 14px}
+  .fbrand-dim b{letter-spacing:.1em;padding:0 8px}
+}
+/* Phones: the brand block closes the footer, after the bottom row. The old
+   negative margin only existed to overlap the removed watermark. */
+@media (max-width:768px){
+  html body .site-footer.footer-editorial .footer-editorial-bottom{margin-top:0!important}
+  html body .site-footer.footer-editorial .fbrand{order:4}
 }
 
 
