@@ -6619,6 +6619,18 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
     }
 }
 
+/* Services list: hover/active used to add side padding, which narrowed the
+   name column and re-wrapped "Mimari Tasarım" onto two lines. Keep the box
+   still; the gradient, name nudge and arrow still mark the active row. */
+@media (min-width: 769px){
+    #services .services-editorial-list .service-editorial-item:hover,
+    #services .services-editorial-list .service-editorial-item:focus-visible,
+    #services .services-editorial-list .service-editorial-item.is-active{
+        padding-left: 4px!important;
+        padding-right: 4px!important;
+    }
+}
+
 /* Quality cards: the hover effect, played in sequence by script on desktop. */
 .quality-card.auto-beam{
     border-color: rgba(198,168,124,.72)!important;
