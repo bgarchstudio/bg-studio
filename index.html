@@ -1294,6 +1294,11 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
    GPU-composited image can never paint over it. Lives in the critical CSS so
    the colour transition has nothing to animate when the deferred sheet lands. */
 #projects .project-card-frame{position:absolute;inset:0;z-index:21;pointer-events:none;border:1px solid rgba(255,255,255,.085);transition:border-color .45s ease}
+
+/* The fixed mobile contact bar slides away while the WhatsApp chat is open so it
+   cannot cover the panel's send button; it returns when the chat closes. */
+.mobile-contact-bar{transition:opacity .25s ease,transform .3s ease,visibility .3s}
+body.whatsapp-chat-open .mobile-contact-bar{opacity:0!important;visibility:hidden!important;transform:translateY(calc(100% + 24px))!important;pointer-events:none!important}
 </style>
 </head>
 <body>
@@ -1707,6 +1712,7 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
 
             <aside class="services-editorial-visual hidden" aria-live="polite">
                 <div class="services-preview-media" aria-hidden="true">
+                    <div class="services-preview-track">
                     <picture class="service-preview is-active" data-service-preview="0">
                         <source media="(max-width: 768px)" type="image/webp"
                                 data-srcset="coastal-residence-01-560.webp 560w, coastal-residence-01-736.webp 736w">
@@ -1735,8 +1741,10 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
                              alt="" loading="lazy" decoding="async" fetchpriority="low">
                     </picture>
 
+                    </div>
                     <div class="services-preview-shade"></div>
                     <span class="services-preview-index" id="servicePreviewIndex">01 / 04</span>
+                    <span class="services-swipe-hint" aria-hidden="true">Yana kaydır</span>
                 </div>
 
                 <div class="services-preview-copy">
@@ -3302,6 +3310,9 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
             const chatBox = document.getElementById('whatsappChatBox');
             if (!chatBox) return;
 
+            // Lets the fixed mobile contact bar step aside while the chat is open.
+            document.body.classList.toggle('whatsapp-chat-open', !!shouldOpen);
+
             if (shouldOpen) {
                 chatBox.removeAttribute('inert');
                 chatBox.classList.add('active');
@@ -3474,8 +3485,8 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
     const textEl = document.getElementById('servicePreviewText');
 
     const pinQuery = window.matchMedia('(min-width: 1100px) and (min-height: 760px)');
-    const stickyQuery = window.matchMedia('(max-width: 768px)');
-    const layout = section.querySelector('.services-editorial-layout');
+    const carouselQuery = window.matchMedia('(max-width: 768px)');
+    const track = section.querySelector('.services-preview-track');
     let activeIndex = -1;
     let pinStart = 0;
     let pinDistance = 1;
@@ -3485,22 +3496,15 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
         return pinQuery.matches;
     }
 
-    // Phones: the layout is position:sticky and the stage's ::after spacer
-    // supplies the scroll distance (see MOBILE SERVICES SCROLLYTELLING).
-    function isSticky(){
-        return stickyQuery.matches && !!layout;
+    // Phones: the image strip swipes sideways through the steps (see MOBILE
+    // SERVICES CAROUSEL); the page itself never locks.
+    function isCarousel(){
+        return carouselQuery.matches && !!track;
     }
 
-    function isScrollDriven(){
-        return isPinned() || isSticky();
-    }
-
-    function stickyMetrics(){
-        const spacer = parseFloat(getComputedStyle(stage, '::after').height) || 1;
-        const top = parseFloat(getComputedStyle(layout).top) || 0;
-        // Once stuck, the stage bottom travels from top+layout+spacer down to top+layout.
-        const travelled = top + layout.offsetHeight + spacer - stage.getBoundingClientRect().bottom;
-        return {spacer, top, progress: Math.max(0, Math.min(1, travelled / spacer))};
+    function scrollTrackTo(index, smooth){
+        if (!isCarousel()) return;
+        track.scrollTo({left: index * track.clientWidth, behavior: smooth ? 'smooth' : 'auto'});
     }
 
     function setPinState(y){
@@ -3557,13 +3561,6 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
 
     function updateFromScroll(){
         ticking = false;
-
-        if (isSticky()) {
-            const progress = stickyMetrics().progress;
-            activate(Math.min(items.length - 1, Math.floor(progress * items.length)));
-            return;
-        }
-
         if (!isPinned()) return;
 
         measure();
@@ -3575,7 +3572,7 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
     }
 
     function requestUpdate(){
-        if (ticking || !isScrollDriven()) return;
+        if (ticking || !isPinned()) return;
         ticking = true;
         window.requestAnimationFrame(updateFromScroll);
     }
@@ -3584,11 +3581,12 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
         window.requestAnimationFrame(() => {
             measure();
             updateFromScroll();
+            // Keep the strip on the active step after rotation or resize.
+            scrollTrackTo(Math.max(0, activeIndex), false);
         });
     }
 
     function currentProgress(){
-        if (isSticky()) return stickyMetrics().progress;
         // Re-measure: lazy images above the section move it after load.
         measure();
         const y = window.scrollY || window.pageYOffset || 0;
@@ -3601,30 +3599,25 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
     }
 
     function scrollToProgress(target){
-        if (isSticky()) {
-            const m = stickyMetrics();
-            window.scrollBy({top: (target - m.progress) * m.spacer, behavior: 'smooth'});
-        } else {
-            measure();
-            window.scrollTo({top: pinStart + target * pinDistance, behavior: 'smooth'});
-        }
+        measure();
+        window.scrollTo({top: pinStart + target * pinDistance, behavior: 'smooth'});
     }
 
     function scrollToIndex(index){
-        if (!isScrollDriven()) {
-            activate(index);
+        activate(index);
+        if (isCarousel()) {
+            scrollTrackTo(index, true);
             return;
         }
-        activate(index);
-        scrollToProgress(stepCentre(index));
+        if (isPinned()) scrollToProgress(stepCentre(index));
     }
 
     items.forEach((item, index) => {
         item.addEventListener('mouseenter', () => {
-            if (!isScrollDriven()) activate(index);
+            if (!isPinned() && !isCarousel()) activate(index);
         });
         item.addEventListener('focus', () => {
-            if (!isScrollDriven()) activate(index);
+            if (!isPinned() && !isCarousel()) activate(index);
         });
         item.addEventListener('click', () => scrollToIndex(index));
     });
@@ -3673,37 +3666,66 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
         scrollToProgress(stepCentre(next));
     }, {passive:false});
 
-    // Touch, scrollbar and keys: once scrolling stops between the first and last
-    // step, settle on the nearest step instead of resting half way.
+    // Scrollbar and keys: once scrolling stops between the first and last step,
+    // settle on the nearest step instead of resting half way.
     let settleTimer = 0;
-    let touching = false;
-
-    function settle(){
-        if (touching || !isScrollDriven()) return;
-        const p = currentProgress();
-        if (p <= stepCentre(0) || p >= stepCentre(items.length - 1)) return;
-        const target = stepCentre(Math.round(p * items.length - 0.5));
-        if (Math.abs(target - p) > 0.01) scrollToProgress(target);
-    }
-
-    function scheduleSettle(delay){
-        clearTimeout(settleTimer);
-        settleTimer = setTimeout(settle, delay);
-    }
-
-    window.addEventListener('touchstart', () => { touching = true; }, {passive:true});
-    ['touchend', 'touchcancel'].forEach(type => {
-        window.addEventListener(type, () => { touching = false; scheduleSettle(180); }, {passive:true});
-    });
     window.addEventListener('scroll', () => {
-        if (isScrollDriven()) scheduleSettle(160);
+        if (!isPinned()) return;
+        clearTimeout(settleTimer);
+        settleTimer = setTimeout(() => {
+            const p = currentProgress();
+            if (p <= stepCentre(0) || p >= stepCentre(items.length - 1)) return;
+            const target = stepCentre(Math.round(p * items.length - 0.5));
+            if (Math.abs(target - p) > 0.01) scrollToProgress(target);
+        }, 160);
     }, {passive:true});
+
+    if (track) {
+        // The strip's snap position is the active step; the hint fades after the first swipe.
+        let trackTicking = false;
+        track.addEventListener('scroll', () => {
+            if (trackTicking || !isCarousel()) return;
+            trackTicking = true;
+            window.requestAnimationFrame(() => {
+                trackTicking = false;
+                activate(Math.round(track.scrollLeft / (track.clientWidth || 1)));
+                if (track.scrollLeft > 8) section.classList.add('services-swiped');
+            });
+        }, {passive:true});
+
+        // Slides off to the right are clipped by the strip, so the shared lazy
+        // loader never sees them; load all four as the strip comes near.
+        const hydrate = img => {
+            const picture = img.closest('picture');
+            if (picture) {
+                picture.querySelectorAll('source[data-srcset]').forEach(source => {
+                    source.srcset = source.dataset.srcset;
+                    source.removeAttribute('data-srcset');
+                });
+            }
+            if (img.dataset.src) {
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+            }
+        };
+
+        if ('IntersectionObserver' in window) {
+            const nearObserver = new IntersectionObserver(entries => {
+                if (!entries.some(entry => entry.isIntersecting)) return;
+                track.querySelectorAll('img').forEach(hydrate);
+                nearObserver.disconnect();
+            }, {rootMargin: '400px 0px'});
+            nearObserver.observe(track);
+        } else {
+            track.querySelectorAll('img').forEach(hydrate);
+        }
+    }
 
     window.addEventListener('scroll', requestUpdate, {passive:true});
     window.addEventListener('resize', refresh, {passive:true});
     window.addEventListener('load', refresh, {once:true, passive:true});
     pinQuery.addEventListener?.('change', refresh);
-    stickyQuery.addEventListener?.('change', refresh);
+    carouselQuery.addEventListener?.('change', refresh);
 
     if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(refresh).catch(() => {});
@@ -3919,6 +3941,18 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
             if (Math.abs(target - p) > 0.01) scrollToProgress(target);
         }, 160);
     }, {passive:true});
+
+    // Phones and tablets (not pinned): the step crossing the middle of the
+    // screen becomes active, so the list lights up 01-04 as you scroll down.
+    if ('IntersectionObserver' in window) {
+        const stepObserver = new IntersectionObserver(entries => {
+            if (isPinned()) return;
+            entries.forEach(entry => {
+                if (entry.isIntersecting) activate(steps.indexOf(entry.target));
+            });
+        }, {rootMargin: '-45% 0px -45% 0px'});
+        steps.forEach(step => stepObserver.observe(step));
+    }
 
     window.addEventListener('scroll', requestUpdate, {passive:true});
     window.addEventListener('resize', refresh, {passive:true});
@@ -6587,34 +6621,85 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
     }
 }
 
-/* ===== MOBILE SERVICES SCROLLYTELLING =====
-   Step tabs, image and copy stick under the nav while a spacer gives the
-   scroll distance; the services script maps that distance to the active step. */
+/* ===== MOBILE SERVICES CAROUSEL =====
+   Phones swipe the image strip sideways through the four steps; the step tabs
+   and copy follow the strip (services script) and the page never locks. */
+.services-swipe-hint{
+    display: none;
+}
+
+@keyframes bgSwipeNudge{
+    0%, 100%{transform: translateX(-50%)}
+    50%{transform: translateX(calc(-50% - 6px))}
+}
+
 @media (max-width: 768px) {
-    /* overflow-x:hidden turns body into a scroll container, which stops
-       position:sticky from tracking the viewport; clip trims the same overflow. */
-    body{
-        overflow-x: clip!important;
-    }
-
-    #services.services-editorial{
-        overflow: visible!important;
-        overflow-x: clip!important;
-    }
-
-    #services .services-scroll-stage::after{
-        content: "";
-        display: block;
-        height: 260svh;
-    }
-
     #services .services-editorial-layout{
-        position: sticky;
-        top: 62px;
-        z-index: 2;
         gap: 14px;
-        padding-top: 12px;
-        background: #050505;
+    }
+
+    #services .services-preview-track{
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #services .services-preview-track::-webkit-scrollbar{
+        display: none;
+    }
+
+    #services .services-preview-track .service-preview{
+        position: relative!important;
+        inset: auto!important;
+        flex: 0 0 100%;
+        width: 100%;
+        height: 100%;
+        opacity: 1!important;
+        visibility: visible!important;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+    }
+
+    #services .services-swipe-hint{
+        position: absolute;
+        left: 50%;
+        bottom: 14px;
+        z-index: 5;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 7px 14px;
+        border: 1px solid rgba(198,168,124,.45);
+        border-radius: 999px;
+        background: rgba(5,5,5,.55);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+        color: #f3f1ed;
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1.6px;
+        text-transform: uppercase;
+        white-space: nowrap;
+        pointer-events: none;
+        transform: translateX(-50%);
+        transition: opacity .4s ease;
+        animation: bgSwipeNudge 1.8s ease-in-out infinite;
+    }
+
+    #services .services-swipe-hint::before{content: "←"; color: #c6a87c}
+    #services .services-swipe-hint::after{content: "→"; color: #c6a87c}
+
+    #services.services-swiped .services-swipe-hint{
+        opacity: 0;
+        animation: none;
     }
 
     #services .services-editorial-list{
@@ -6668,30 +6753,6 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
 
     #services .services-editorial-visual{
         order: 1;
-    }
-
-    #services .services-preview-media{
-        aspect-ratio: auto;
-        height: clamp(170px, 30svh, 260px);
-    }
-
-    #services .services-preview-copy{
-        padding-top: 14px;
-    }
-
-    #services .services-preview-copy h3{
-        font-size: 1.4rem;
-        line-height: 1.15;
-    }
-
-    #services .services-preview-copy p{
-        margin-top: 8px;
-        font-size: .98rem;
-        line-height: 1.45;
-    }
-
-    #services .services-preview-link{
-        margin-top: 12px;
     }
 }
 
@@ -8262,7 +8323,7 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
 <script id="bg-i18n">
 (function(){
 'use strict';
-const TEXT_TR_EN={"Ana içeriğe geç": "Skip to main content", "PROJELER": "PROJECTS", "HİZMETLER": "SERVICES", "SÜREÇ": "PROCESS", "STÜDYO": "STUDIO", "İLETİŞİM": "CONTACT", "KUŞADASI MİMARLIK OFİSİ": "ARCHITECTURE OFFICE IN KUŞADASI", "MİMARİ TASARIM": "ARCHITECTURAL DESIGN", "UYGULAMA PROJESİ": "CONSTRUCTION DOCUMENTATION", "3D GÖRSELLEŞTİRME": "3D VISUALIZATION", "Kuşadası merkezli mimarlık stüdyosu. Konut, villa, iç mekân ve ticari alan projelerinde tasarım fikrini teknik çözüm ve güçlü görselleştirme ile tek bir mimari dilde buluşturuyoruz.": "An architecture studio based in Kuşadası. We bring design ideas, technical resolution and strong visualization together in a single architectural language for residential, villa, interior and commercial projects.", "Seçili Projeler": "Selected Projects", "Projenizi Konuşalım": "Discuss Your Project", "SEÇİLİ": "SELECTED", "Villa, iç mekân, ticari alan ve sağlık yapıları için hazırlanmış; mimari tasarım, uygulama projesi ve fotogerçekçi görselleştirme seçkisi.": "A curated selection of architectural design, construction documentation and photorealistic visualization for villas, interiors, commercial spaces and healthcare projects.", "Kaydır": "Swipe", "01 — LÜKS VİLLA / SAHİL KONUTU": "01 — LUXURY VILLA / COASTAL RESIDENCE", "Deniz Manzaralı Lüks Villa": "Luxury Seafront Villa", "Mimari Tasarım & 3D Görselleştirme": "Architectural Design & 3D Visualization", "Denizle kurduğu güçlü ilişki, modern cephe dili ve açık yaşam kurgusuyla öne çıkan lüks villa konsepti. Geniş cam yüzeyler, gün batımı atmosferi ve havuz çevresi yaşam alanlarıyla güçlü bir satış sunumu dili oluşturur.": "A luxury villa concept defined by a strong relationship with the sea, a contemporary façade language and open-plan living. Expansive glazing, sunset atmosphere and poolside spaces create a compelling presentation for the project.", "Bu tarz proje için teklif al": "Get a Quote for a Similar Project", "02 — KONUT / İÇ MEKÂN": "02 — RESIDENCE / INTERIOR", "Marina Manzaralı Konut İç Mekânı": "Marina View Residence Interior", "Mekân Tasarımı & 3D Render": "Interior Design & 3D Render", "Sıcak malzeme paleti ve marina manzarasıyla zenginleşen rafine iç mekân kurgusu. Yaşam alanı, mutfak ve yatak odasında kontrollü ışık, ahşap dokular ve sakin lüks dili bir arada ele alındı.": "A refined interior enriched by a warm material palette and marina views. Controlled lighting, timber textures and a quiet sense of luxury shape the living area, kitchen and bedroom.", "03 — SAĞLIK YAPISI / KLİNİK": "03 — HEALTHCARE / CLINIC", "Modern Klinik Tasarımı": "Modern Clinic Design", "Mimari Tasarım & İç Mekân Görselleştirme": "Architectural Design & Interior Visualization", "Temiz çizgiler, dengeli ışık kullanımı ve güven veren mekân kurgusuyla öne çıkan modern klinik tasarımı. Dış cepheden lobiye ve tedavi alanlarına kadar bütüncül, kurumsal ve sakin bir atmosfer hedeflendi.": "A modern clinic shaped by clean lines, balanced lighting and a reassuring spatial concept. From the façade to the lobby and treatment areas, the design aims for a coherent, professional and calm atmosphere.", "04 — DAĞ EVİ / KONUT": "04 — MOUNTAIN HOUSE / RESIDENCE", "Taş ve Ahşap Dağ Evi": "Stone & Timber Mountain House", "Mimari Konsept & 3D Görselleştirme": "Architectural Concept & 3D Visualization", "Taş, ahşap ve manzara dengesini öne çıkaran; doğayla bütünleşen çağdaş dağ evi tasarımı. Güçlü kütle dili, doğal malzeme kullanımı ve şömine çevresinde şekillenen iç mekân atmosferiyle sıcak bir sığınak etkisi kurar.": "A contemporary mountain house that balances stone, timber and landscape while integrating with nature. Strong massing, natural materials and a fireplace-centered interior create the feeling of a warm retreat.", "05 — TİCARİ MEKÂN / RESTORAN": "05 — COMMERCIAL / RESTAURANT", "Marina Restoran & Bistro": "Marina Restaurant & Bistro", "Mimari Tasarım & Ticari Mekân Render": "Architectural Design & Commercial Visualization", "Sahil atmosferini çağdaş detaylarla birleştiren, güçlü ambiyansa sahip ticari mekân tasarımı. Teras, iç mekân ve marina cephesi; marka algısını yükselten sıcak ışık, doğal dokular ve davetkâr oturma düzenleriyle kurgulandı.": "A commercial space with a strong atmosphere, combining the waterfront setting with contemporary detailing. The terrace, interior and marina frontage are shaped by warm lighting, natural textures and inviting seating that strengthen the brand experience.", "06 — AKDENİZ KONUTU / AVLULU VİLLA": "06 — MEDITERRANEAN RESIDENCE / COURTYARD VILLA", "Avlulu Taş Villa": "Courtyard Stone Villa", "Mimari Tasarım & Atmosfer Render": "Architectural Design & Atmosphere Visualization", "Taş doku, avlu yaşamı ve sıcak ışık kurgusuyla Akdeniz karakterini modern konforla birleştiren villa konsepti. İç-dış mekân sürekliliği, avlu merkezli yaşam ve doğal peyzaj dili projenin ana omurgasını oluşturur.": "A villa concept blending Mediterranean character with modern comfort through stone textures, courtyard living and warm light. Indoor-outdoor continuity, courtyard-centered life and a natural landscape language form the project's backbone.", "Projelerinizi yalnızca görselleştirmiyoruz; satışa, sunuma ve yatırıma hazır bir mimari hikâyeye dönüştürüyoruz.": "We do more than visualize your projects; we turn them into architectural stories ready for presentation, sales and investment.", "Kalite Standardı": "Quality Standard", "Her proje; ışık, kompozisyon ve sunum diliyle kontrollü bir mimari hikâyeye dönüştürülür.": "Every project is shaped into a controlled architectural narrative through light, composition and presentation.", "Fotogerçekçi Işık": "Photorealistic Lighting", "Malzeme ve atmosfer kararları gerçekçi render diliyle sunulur.": "Material and atmosphere decisions are presented through a realistic rendering language.", "Mimari Kompozisyon": "Architectural Composition", "Her kare yalnızca görsel değil, projeyi anlatan bir sunum aracıdır.": "Every frame is more than an image; it is a presentation tool that communicates the project.", "Satışa Hazır Sunum": "Sales-Ready Presentation", "Görseller sosyal medya, portfolyo ve müşteri sunumları için optimize edilir.": "Visuals are optimized for social media, portfolios and client presentations.", "MİMARİ": "ARCHITECTURAL", "Hizmetler": "Services", "Tasarım fikrinden teknik çizime, mekân kurgusundan fotogerçekçi sunuma kadar projeyi tek bir mimari dil içinde geliştiriyoruz.": "From the first design idea to technical drawings, spatial planning and photorealistic presentation, we develop the project within one coherent architectural language.", "Mimari Tasarım": "Architectural Design", "Konut · Villa · Ticari Alan": "Residence · Villa · Commercial", "Uygulama Projesi": "Construction Documentation", "Plan · Kesit · Görünüş · Detay": "Plan · Section · Elevation · Detail", "3D Görselleştirme": "3D Visualization", "Render · Atmosfer · Malzeme": "Render · Atmosphere · Material", "Mimari Sunum": "Architectural Presentation", "Pafta · Animasyon · Görsel Hikâye": "Boards · Animation · Visual Storytelling", "Mekânı fikirden mimariye dönüştüren tasarım kararları.": "Design decisions that transform an idea into architecture.", "Konut, villa ve ticari alanlarda işlev, oran, malzeme ve kullanıcı deneyimini birlikte ele alan; güçlü bir mimari karakter oluşturan tasarım çözümleri geliştiriyoruz.": "For residences, villas and commercial spaces, we develop design solutions that balance function, proportion, material and user experience to create a strong architectural identity.", "Tasarım fikrini uygulanabilir ve okunabilir teknik çizimlere taşıyoruz.": "We translate the design idea into clear, buildable technical drawings.", "Plan, kesit, görünüş ve detay kararlarını sahada anlaşılır bir proje setine dönüştürerek tasarım ile uygulama arasındaki bağı güçlendiriyoruz.": "We turn plans, sections, elevations and details into a clear construction set, strengthening the connection between design and execution.", "Henüz inşa edilmemiş mekânı güçlü bir görsel deneyime dönüştürüyoruz.": "We turn an unbuilt space into a compelling visual experience.", "Işık, malzeme, doku ve kamera kararlarıyla projeyi fotogerçekçi renderlara taşıyor; tasarımın müşteriye, yatırımcıya ve kullanıcıya net biçimde aktarılmasını sağlıyoruz.": "Through lighting, material, texture and camera decisions, we create photorealistic renders that communicate the design clearly to clients, investors and users.", "Projeyi yalnızca göstermiyor, doğru bir görsel hikâyeyle anlatıyoruz.": "We do not just show the project; we communicate it through the right visual story.", "Render, animasyon, pafta düzeni ve sunum diliyle projeyi teklif, satış, portfolyo ve müşteri sunumlarına hazır, bütünlüklü bir anlatıya dönüştürüyoruz.": "Through renders, animation, presentation boards and visual language, we turn the project into a coherent story ready for proposals, sales, portfolios and client presentations.", "Projenizi konuşalım": "Discuss your project", "FİKİRDEN TESLİME": "FROM IDEA TO DELIVERY", "ÇALIŞMA": "DESIGN", "Süreci": "Process", "Her projede tasarım kararlarını adım adım netleştiriyor; fikir, proje geliştirme, görselleştirme ve teslim aşamalarını kontrollü bir akış içinde yürütüyoruz.": "We clarify design decisions step by step, guiding each project through concept, development, visualization and delivery in a controlled workflow.", "ÖN GÖRÜŞME & İHTİYAÇ": "INITIAL CONSULTATION & NEEDS", "Projeyi doğru sorularla başlatıyoruz.": "We start the project with the right questions.", "İhtiyaçları, proje kapsamını, kullanım senaryolarını ve teslim hedeflerini birlikte netleştiriyor; tasarım sürecinin temelini doğru veriler üzerine kuruyoruz.": "Together we clarify needs, project scope, use scenarios and delivery goals, building the design process on the right information.", "Ön Görüşme & İhtiyaç": "Initial Consultation & Needs", "İhtiyaçlarınızı, proje kapsamını, mevcut verileri, beklentileri ve teslim hedeflerini birlikte netleştiriyoruz.": "We clarify your needs, project scope, available information, expectations and delivery goals together.", "KONSEPT TASARIM": "CONCEPT DESIGN", "Konsept Tasarım": "Concept Design", "Mekân kurgusu, kütle yaklaşımı, oran, malzeme ve atmosfer kararlarıyla projeye güçlü ve tutarlı bir mimari omurga kazandırıyoruz.": "Through spatial planning, massing, proportion, material and atmosphere, we give the project a strong and consistent architectural framework.", "Mimari karakteri erken aşamada netleştiriyoruz.": "We define the architectural character early in the process.", "Mekân kurgusu, kütle yaklaşımı, oran, malzeme ve atmosfer kararlarını birlikte geliştirerek projenin ana tasarım dilini oluşturuyoruz.": "We develop spatial organization, massing, proportion, material and atmosphere together to establish the project's main design language.", "PROJE GELİŞTİRME & GÖRSELLEŞTİRME": "DESIGN DEVELOPMENT & VISUALIZATION", "Proje Geliştirme & Görselleştirme": "Design Development & Visualization", "Tasarım kararlarını plan, kesit, görünüş ve 3D model üzerinde geliştiriyor; ışık, doku ve malzemeyle projeyi fotogerçekçi görsellerle görünür hâle getiriyoruz.": "We develop design decisions through plans, sections, elevations and 3D models, using light, texture and materials to make the project visible through photorealistic imagery.", "Tasarımı çizim ve görselleştirmeyle olgunlaştırıyoruz.": "We refine the design through drawing and visualization.", "Plan, kesit, görünüş ve 3D model üzerinde tasarım kararlarını geliştiriyor; ışık, malzeme ve doku kararlarını fotogerçekçi görsellerle test ediyoruz.": "We develop decisions through plans, sections, elevations and 3D models, testing light, material and texture through photorealistic visuals.", "UYGULAMA PROJESİ & TESLİM": "CONSTRUCTION DOCUMENTS & DELIVERY", "Uygulama Projesi & Teslim": "Construction Documents & Delivery", "Son geri bildirimleri işleyerek teknik çizim ve sunum dosyalarını tamamlıyor; projeyi anlaşılır, düzenli ve uygulanabilir bir teslim setine dönüştürüyoruz.": "We incorporate final feedback, complete the technical drawings and presentation files, and turn the project into a clear, organized and buildable delivery set.", "Projeyi uygulanabilir bir teslim setine dönüştürüyoruz.": "We turn the project into a buildable delivery set.", "Son geri bildirimleri işleyerek teknik çizim, detay ve sunum dosyalarını tamamlıyor; projeyi anlaşılır, düzenli ve uygulamaya hazır biçimde teslim ediyoruz.": "We incorporate final feedback, complete technical drawings, details and presentation files, and deliver the project in a clear, organized and construction-ready format.", "Mekânı yalnızca biçim olarak değil; işlev, atmosfer, malzeme ve bulunduğu coğrafyayla kurduğu ilişki üzerinden ele alan bir mimarlık stüdyosu.": "An architecture studio that approaches space not only as form, but through function, atmosphere, material and its relationship with its context.", "KURUCU MİMAR": "FOUNDER / ARCHITECT", "BG Studio, Kuşadası merkezli olarak mimari tasarım, uygulama projesi, iç mekân kurgusu ve 3D görselleştirme süreçlerini tek bir tasarım dili içerisinde geliştirmek amacıyla kuruldu.": "BG Studio was founded in Kuşadası to develop architectural design, construction documentation, interior design and 3D visualization within one coherent design language.", "Her projede estetik kararları uygulanabilirlikten ayırmadan; bulunduğu yer, kullanıcı ihtiyaçları ve uzun vadeli mekânsal değer üzerinden düşünürüz. Hedefimiz yalnızca iyi görünen değil, yaşamaya ve kullanılmaya devam ettikçe karakter kazanan mekânlar üretmek.": "In every project, we connect aesthetics with buildability, context, user needs and long-term spatial value. Our aim is not simply to create spaces that look good, but spaces that gain character as they are lived in and used.", "TASARIM": "DESIGN", "Karakterli ve işlevsel": "Distinctive and functional", "Mekânsal kararları görsel etkiden önce kullanım, oran ve bağlam üzerinden kuruyoruz.": "We base spatial decisions on use, proportion and context before visual impact.", "UYGULANABİLİRLİK": "BUILDABILITY", "Çizimden sahaya okunabilir": "Clear from drawing to site", "Tasarımı teknik kararlarla güçlendiriyor, proje ile uygulama arasındaki boşluğu azaltıyoruz.": "We strengthen design through technical decisions and reduce the gap between project and construction.", "SUNUM": "PRESENTATION", "Projeyi doğru anlatan görseller": "Visuals that communicate the project clearly", "Render ve sunumları süs olarak değil, tasarım kararlarını görünür kılan araçlar olarak kullanıyoruz.": "We use renders and presentations not as decoration, but as tools that make design decisions visible.", "Her yapı, bulunduğu coğrafyayla kurduğu ilişki üzerinden": "Every building gains identity through", "kimlik kazanır.": "its relationship with its context.", "YIL TASARIM DENEYİMİ": "YEARS OF DESIGN EXPERIENCE", "TAMAMLANMIŞ PROJE": "COMPLETED PROJECTS", "MÜŞTERİ MEMNUNİYETİ": "CLIENT SATISFACTION", "BİRLİKTE": "LET'S", "Çalışalım": "Work Together", "Yeni bir yapı, iç mekân veya görselleştirme projesi için ilk adımı burada atalım. Kapsamı kısaca paylaşın; size uygun çalışma akışını birlikte netleştirelim.": "Take the first step here for a new building, interior or visualization project. Briefly share the scope and we will define the right workflow together.", "Projenizin ilk çizgisi bir konuşmayla başlar.": "The first line of your project starts with a conversation.", "Kuşadası ve Aydın çevresinde yüz yüze, farklı şehirlerde ise çevrim içi olarak mimari tasarım, uygulama projesi ve 3D görselleştirme süreçleri yürütüyoruz.": "We provide architectural design, construction documentation and 3D visualization face to face in Kuşadası and Aydın, and online for clients in other cities.", "E-POSTA": "EMAIL", "Proje türünü seçin ve ihtiyacınızı birkaç cümleyle anlatın. Gelen talepleri proje kapsamına göre değerlendiriyoruz.": "Choose your project type and describe what you need in a few sentences. We evaluate inquiries according to project scope.", "İLETİŞİM BİLGİLERİ": "CONTACT DETAILS", "Adınız Soyadınız": "Full Name", "E-posta Adresiniz": "Email Address", "PROJE TÜRÜ": "PROJECT TYPE", "Konut / Villa": "Residence / Villa", "İç Mekan": "Interior", "Ticari Mekan": "Commercial", "Klinik / Ofis": "Clinic / Office", "PROJE DETAYLARI": "PROJECT DETAILS", "Projenizden kısaca bahsedin": "Tell us briefly about your project", "Formu göndererek proje talebinizin değerlendirilmesi için gerekli bilgileri BG Studio ile paylaşmış olursunuz.": "By submitting the form, you share the information required for BG Studio to evaluate your project inquiry.", "PROJE TALEBİNİ GÖNDER": "SEND PROJECT INQUIRY", "Teklif Al": "Get Quote", "MİMARİ İLETİŞİM": "ARCHITECTURAL INQUIRY", "Merhaba. Mimari projeniz hakkında birkaç detay paylaşın, size uygun çalışma biçimini birlikte belirleyelim.": "Hello. Share a few details about your architectural project and we will determine the most suitable way to work together.", "HIZLI SEÇENEKLER": "QUICK OPTIONS", "Villa / Konut Projesi": "Villa / Residential Project", "İç Mekân Tasarımı": "Interior Design", "Ortalama yanıt süresi: aynı gün içinde": "Average response time: within the same day", "WhatsApp mesajınız": "Your WhatsApp message", "Merhaba, BG Studio Architecture üzerinden ulaşıyorum. Projem hakkında bilgi almak istiyorum.": "Hello, I am contacting you through BG Studio Architecture. I would like to get information about my project.", "WHATSAPP’TA GÖNDER": "SEND ON WHATSAPP", "Projeler": "Projects", "Süreç": "Process", "Stüdyo": "Studio", "İletişim": "Contact", "MİMAR BERKANT GÖKBEL": "ARCHITECT BERKANT GÖKBEL", "TÜM HAKLARI SAKLIDIR": "ALL RIGHTS RESERVED"};
+const TEXT_TR_EN={"Ana içeriğe geç": "Skip to main content", "PROJELER": "PROJECTS", "HİZMETLER": "SERVICES", "SÜREÇ": "PROCESS", "STÜDYO": "STUDIO", "İLETİŞİM": "CONTACT", "KUŞADASI MİMARLIK OFİSİ": "ARCHITECTURE OFFICE IN KUŞADASI", "MİMARİ TASARIM": "ARCHITECTURAL DESIGN", "UYGULAMA PROJESİ": "CONSTRUCTION DOCUMENTATION", "3D GÖRSELLEŞTİRME": "3D VISUALIZATION", "Kuşadası merkezli mimarlık stüdyosu. Konut, villa, iç mekân ve ticari alan projelerinde tasarım fikrini teknik çözüm ve güçlü görselleştirme ile tek bir mimari dilde buluşturuyoruz.": "An architecture studio based in Kuşadası. We bring design ideas, technical resolution and strong visualization together in a single architectural language for residential, villa, interior and commercial projects.", "Seçili Projeler": "Selected Projects", "Projenizi Konuşalım": "Discuss Your Project", "SEÇİLİ": "SELECTED", "Villa, iç mekân, ticari alan ve sağlık yapıları için hazırlanmış; mimari tasarım, uygulama projesi ve fotogerçekçi görselleştirme seçkisi.": "A curated selection of architectural design, construction documentation and photorealistic visualization for villas, interiors, commercial spaces and healthcare projects.", "Kaydır": "Swipe", "01 — LÜKS VİLLA / SAHİL KONUTU": "01 — LUXURY VILLA / COASTAL RESIDENCE", "Deniz Manzaralı Lüks Villa": "Luxury Seafront Villa", "Mimari Tasarım & 3D Görselleştirme": "Architectural Design & 3D Visualization", "Denizle kurduğu güçlü ilişki, modern cephe dili ve açık yaşam kurgusuyla öne çıkan lüks villa konsepti. Geniş cam yüzeyler, gün batımı atmosferi ve havuz çevresi yaşam alanlarıyla güçlü bir satış sunumu dili oluşturur.": "A luxury villa concept defined by a strong relationship with the sea, a contemporary façade language and open-plan living. Expansive glazing, sunset atmosphere and poolside spaces create a compelling presentation for the project.", "Bu tarz proje için teklif al": "Get a Quote for a Similar Project", "02 — KONUT / İÇ MEKÂN": "02 — RESIDENCE / INTERIOR", "Marina Manzaralı Konut İç Mekânı": "Marina View Residence Interior", "Mekân Tasarımı & 3D Render": "Interior Design & 3D Render", "Sıcak malzeme paleti ve marina manzarasıyla zenginleşen rafine iç mekân kurgusu. Yaşam alanı, mutfak ve yatak odasında kontrollü ışık, ahşap dokular ve sakin lüks dili bir arada ele alındı.": "A refined interior enriched by a warm material palette and marina views. Controlled lighting, timber textures and a quiet sense of luxury shape the living area, kitchen and bedroom.", "03 — SAĞLIK YAPISI / KLİNİK": "03 — HEALTHCARE / CLINIC", "Modern Klinik Tasarımı": "Modern Clinic Design", "Mimari Tasarım & İç Mekân Görselleştirme": "Architectural Design & Interior Visualization", "Temiz çizgiler, dengeli ışık kullanımı ve güven veren mekân kurgusuyla öne çıkan modern klinik tasarımı. Dış cepheden lobiye ve tedavi alanlarına kadar bütüncül, kurumsal ve sakin bir atmosfer hedeflendi.": "A modern clinic shaped by clean lines, balanced lighting and a reassuring spatial concept. From the façade to the lobby and treatment areas, the design aims for a coherent, professional and calm atmosphere.", "04 — DAĞ EVİ / KONUT": "04 — MOUNTAIN HOUSE / RESIDENCE", "Taş ve Ahşap Dağ Evi": "Stone & Timber Mountain House", "Mimari Konsept & 3D Görselleştirme": "Architectural Concept & 3D Visualization", "Taş, ahşap ve manzara dengesini öne çıkaran; doğayla bütünleşen çağdaş dağ evi tasarımı. Güçlü kütle dili, doğal malzeme kullanımı ve şömine çevresinde şekillenen iç mekân atmosferiyle sıcak bir sığınak etkisi kurar.": "A contemporary mountain house that balances stone, timber and landscape while integrating with nature. Strong massing, natural materials and a fireplace-centered interior create the feeling of a warm retreat.", "05 — TİCARİ MEKÂN / RESTORAN": "05 — COMMERCIAL / RESTAURANT", "Marina Restoran & Bistro": "Marina Restaurant & Bistro", "Mimari Tasarım & Ticari Mekân Render": "Architectural Design & Commercial Visualization", "Sahil atmosferini çağdaş detaylarla birleştiren, güçlü ambiyansa sahip ticari mekân tasarımı. Teras, iç mekân ve marina cephesi; marka algısını yükselten sıcak ışık, doğal dokular ve davetkâr oturma düzenleriyle kurgulandı.": "A commercial space with a strong atmosphere, combining the waterfront setting with contemporary detailing. The terrace, interior and marina frontage are shaped by warm lighting, natural textures and inviting seating that strengthen the brand experience.", "06 — AKDENİZ KONUTU / AVLULU VİLLA": "06 — MEDITERRANEAN RESIDENCE / COURTYARD VILLA", "Avlulu Taş Villa": "Courtyard Stone Villa", "Mimari Tasarım & Atmosfer Render": "Architectural Design & Atmosphere Visualization", "Taş doku, avlu yaşamı ve sıcak ışık kurgusuyla Akdeniz karakterini modern konforla birleştiren villa konsepti. İç-dış mekân sürekliliği, avlu merkezli yaşam ve doğal peyzaj dili projenin ana omurgasını oluşturur.": "A villa concept blending Mediterranean character with modern comfort through stone textures, courtyard living and warm light. Indoor-outdoor continuity, courtyard-centered life and a natural landscape language form the project's backbone.", "Projelerinizi yalnızca görselleştirmiyoruz; satışa, sunuma ve yatırıma hazır bir mimari hikâyeye dönüştürüyoruz.": "We do more than visualize your projects; we turn them into architectural stories ready for presentation, sales and investment.", "Kalite Standardı": "Quality Standard", "Her proje; ışık, kompozisyon ve sunum diliyle kontrollü bir mimari hikâyeye dönüştürülür.": "Every project is shaped into a controlled architectural narrative through light, composition and presentation.", "Fotogerçekçi Işık": "Photorealistic Lighting", "Malzeme ve atmosfer kararları gerçekçi render diliyle sunulur.": "Material and atmosphere decisions are presented through a realistic rendering language.", "Mimari Kompozisyon": "Architectural Composition", "Her kare yalnızca görsel değil, projeyi anlatan bir sunum aracıdır.": "Every frame is more than an image; it is a presentation tool that communicates the project.", "Satışa Hazır Sunum": "Sales-Ready Presentation", "Görseller sosyal medya, portfolyo ve müşteri sunumları için optimize edilir.": "Visuals are optimized for social media, portfolios and client presentations.", "MİMARİ": "ARCHITECTURAL", "Hizmetler": "Services", "Tasarım fikrinden teknik çizime, mekân kurgusundan fotogerçekçi sunuma kadar projeyi tek bir mimari dil içinde geliştiriyoruz.": "From the first design idea to technical drawings, spatial planning and photorealistic presentation, we develop the project within one coherent architectural language.", "Yana kaydır": "Swipe", "Mimari Tasarım": "Architectural Design", "Konut · Villa · Ticari Alan": "Residence · Villa · Commercial", "Uygulama Projesi": "Construction Documentation", "Plan · Kesit · Görünüş · Detay": "Plan · Section · Elevation · Detail", "3D Görselleştirme": "3D Visualization", "Render · Atmosfer · Malzeme": "Render · Atmosphere · Material", "Mimari Sunum": "Architectural Presentation", "Pafta · Animasyon · Görsel Hikâye": "Boards · Animation · Visual Storytelling", "Mekânı fikirden mimariye dönüştüren tasarım kararları.": "Design decisions that transform an idea into architecture.", "Konut, villa ve ticari alanlarda işlev, oran, malzeme ve kullanıcı deneyimini birlikte ele alan; güçlü bir mimari karakter oluşturan tasarım çözümleri geliştiriyoruz.": "For residences, villas and commercial spaces, we develop design solutions that balance function, proportion, material and user experience to create a strong architectural identity.", "Tasarım fikrini uygulanabilir ve okunabilir teknik çizimlere taşıyoruz.": "We translate the design idea into clear, buildable technical drawings.", "Plan, kesit, görünüş ve detay kararlarını sahada anlaşılır bir proje setine dönüştürerek tasarım ile uygulama arasındaki bağı güçlendiriyoruz.": "We turn plans, sections, elevations and details into a clear construction set, strengthening the connection between design and execution.", "Henüz inşa edilmemiş mekânı güçlü bir görsel deneyime dönüştürüyoruz.": "We turn an unbuilt space into a compelling visual experience.", "Işık, malzeme, doku ve kamera kararlarıyla projeyi fotogerçekçi renderlara taşıyor; tasarımın müşteriye, yatırımcıya ve kullanıcıya net biçimde aktarılmasını sağlıyoruz.": "Through lighting, material, texture and camera decisions, we create photorealistic renders that communicate the design clearly to clients, investors and users.", "Projeyi yalnızca göstermiyor, doğru bir görsel hikâyeyle anlatıyoruz.": "We do not just show the project; we communicate it through the right visual story.", "Render, animasyon, pafta düzeni ve sunum diliyle projeyi teklif, satış, portfolyo ve müşteri sunumlarına hazır, bütünlüklü bir anlatıya dönüştürüyoruz.": "Through renders, animation, presentation boards and visual language, we turn the project into a coherent story ready for proposals, sales, portfolios and client presentations.", "Projenizi konuşalım": "Discuss your project", "FİKİRDEN TESLİME": "FROM IDEA TO DELIVERY", "ÇALIŞMA": "DESIGN", "Süreci": "Process", "Her projede tasarım kararlarını adım adım netleştiriyor; fikir, proje geliştirme, görselleştirme ve teslim aşamalarını kontrollü bir akış içinde yürütüyoruz.": "We clarify design decisions step by step, guiding each project through concept, development, visualization and delivery in a controlled workflow.", "ÖN GÖRÜŞME & İHTİYAÇ": "INITIAL CONSULTATION & NEEDS", "Projeyi doğru sorularla başlatıyoruz.": "We start the project with the right questions.", "İhtiyaçları, proje kapsamını, kullanım senaryolarını ve teslim hedeflerini birlikte netleştiriyor; tasarım sürecinin temelini doğru veriler üzerine kuruyoruz.": "Together we clarify needs, project scope, use scenarios and delivery goals, building the design process on the right information.", "Ön Görüşme & İhtiyaç": "Initial Consultation & Needs", "İhtiyaçlarınızı, proje kapsamını, mevcut verileri, beklentileri ve teslim hedeflerini birlikte netleştiriyoruz.": "We clarify your needs, project scope, available information, expectations and delivery goals together.", "KONSEPT TASARIM": "CONCEPT DESIGN", "Konsept Tasarım": "Concept Design", "Mekân kurgusu, kütle yaklaşımı, oran, malzeme ve atmosfer kararlarıyla projeye güçlü ve tutarlı bir mimari omurga kazandırıyoruz.": "Through spatial planning, massing, proportion, material and atmosphere, we give the project a strong and consistent architectural framework.", "Mimari karakteri erken aşamada netleştiriyoruz.": "We define the architectural character early in the process.", "Mekân kurgusu, kütle yaklaşımı, oran, malzeme ve atmosfer kararlarını birlikte geliştirerek projenin ana tasarım dilini oluşturuyoruz.": "We develop spatial organization, massing, proportion, material and atmosphere together to establish the project's main design language.", "PROJE GELİŞTİRME & GÖRSELLEŞTİRME": "DESIGN DEVELOPMENT & VISUALIZATION", "Proje Geliştirme & Görselleştirme": "Design Development & Visualization", "Tasarım kararlarını plan, kesit, görünüş ve 3D model üzerinde geliştiriyor; ışık, doku ve malzemeyle projeyi fotogerçekçi görsellerle görünür hâle getiriyoruz.": "We develop design decisions through plans, sections, elevations and 3D models, using light, texture and materials to make the project visible through photorealistic imagery.", "Tasarımı çizim ve görselleştirmeyle olgunlaştırıyoruz.": "We refine the design through drawing and visualization.", "Plan, kesit, görünüş ve 3D model üzerinde tasarım kararlarını geliştiriyor; ışık, malzeme ve doku kararlarını fotogerçekçi görsellerle test ediyoruz.": "We develop decisions through plans, sections, elevations and 3D models, testing light, material and texture through photorealistic visuals.", "UYGULAMA PROJESİ & TESLİM": "CONSTRUCTION DOCUMENTS & DELIVERY", "Uygulama Projesi & Teslim": "Construction Documents & Delivery", "Son geri bildirimleri işleyerek teknik çizim ve sunum dosyalarını tamamlıyor; projeyi anlaşılır, düzenli ve uygulanabilir bir teslim setine dönüştürüyoruz.": "We incorporate final feedback, complete the technical drawings and presentation files, and turn the project into a clear, organized and buildable delivery set.", "Projeyi uygulanabilir bir teslim setine dönüştürüyoruz.": "We turn the project into a buildable delivery set.", "Son geri bildirimleri işleyerek teknik çizim, detay ve sunum dosyalarını tamamlıyor; projeyi anlaşılır, düzenli ve uygulamaya hazır biçimde teslim ediyoruz.": "We incorporate final feedback, complete technical drawings, details and presentation files, and deliver the project in a clear, organized and construction-ready format.", "Mekânı yalnızca biçim olarak değil; işlev, atmosfer, malzeme ve bulunduğu coğrafyayla kurduğu ilişki üzerinden ele alan bir mimarlık stüdyosu.": "An architecture studio that approaches space not only as form, but through function, atmosphere, material and its relationship with its context.", "KURUCU MİMAR": "FOUNDER / ARCHITECT", "BG Studio, Kuşadası merkezli olarak mimari tasarım, uygulama projesi, iç mekân kurgusu ve 3D görselleştirme süreçlerini tek bir tasarım dili içerisinde geliştirmek amacıyla kuruldu.": "BG Studio was founded in Kuşadası to develop architectural design, construction documentation, interior design and 3D visualization within one coherent design language.", "Her projede estetik kararları uygulanabilirlikten ayırmadan; bulunduğu yer, kullanıcı ihtiyaçları ve uzun vadeli mekânsal değer üzerinden düşünürüz. Hedefimiz yalnızca iyi görünen değil, yaşamaya ve kullanılmaya devam ettikçe karakter kazanan mekânlar üretmek.": "In every project, we connect aesthetics with buildability, context, user needs and long-term spatial value. Our aim is not simply to create spaces that look good, but spaces that gain character as they are lived in and used.", "TASARIM": "DESIGN", "Karakterli ve işlevsel": "Distinctive and functional", "Mekânsal kararları görsel etkiden önce kullanım, oran ve bağlam üzerinden kuruyoruz.": "We base spatial decisions on use, proportion and context before visual impact.", "UYGULANABİLİRLİK": "BUILDABILITY", "Çizimden sahaya okunabilir": "Clear from drawing to site", "Tasarımı teknik kararlarla güçlendiriyor, proje ile uygulama arasındaki boşluğu azaltıyoruz.": "We strengthen design through technical decisions and reduce the gap between project and construction.", "SUNUM": "PRESENTATION", "Projeyi doğru anlatan görseller": "Visuals that communicate the project clearly", "Render ve sunumları süs olarak değil, tasarım kararlarını görünür kılan araçlar olarak kullanıyoruz.": "We use renders and presentations not as decoration, but as tools that make design decisions visible.", "Her yapı, bulunduğu coğrafyayla kurduğu ilişki üzerinden": "Every building gains identity through", "kimlik kazanır.": "its relationship with its context.", "YIL TASARIM DENEYİMİ": "YEARS OF DESIGN EXPERIENCE", "TAMAMLANMIŞ PROJE": "COMPLETED PROJECTS", "MÜŞTERİ MEMNUNİYETİ": "CLIENT SATISFACTION", "BİRLİKTE": "LET'S", "Çalışalım": "Work Together", "Yeni bir yapı, iç mekân veya görselleştirme projesi için ilk adımı burada atalım. Kapsamı kısaca paylaşın; size uygun çalışma akışını birlikte netleştirelim.": "Take the first step here for a new building, interior or visualization project. Briefly share the scope and we will define the right workflow together.", "Projenizin ilk çizgisi bir konuşmayla başlar.": "The first line of your project starts with a conversation.", "Kuşadası ve Aydın çevresinde yüz yüze, farklı şehirlerde ise çevrim içi olarak mimari tasarım, uygulama projesi ve 3D görselleştirme süreçleri yürütüyoruz.": "We provide architectural design, construction documentation and 3D visualization face to face in Kuşadası and Aydın, and online for clients in other cities.", "E-POSTA": "EMAIL", "Proje türünü seçin ve ihtiyacınızı birkaç cümleyle anlatın. Gelen talepleri proje kapsamına göre değerlendiriyoruz.": "Choose your project type and describe what you need in a few sentences. We evaluate inquiries according to project scope.", "İLETİŞİM BİLGİLERİ": "CONTACT DETAILS", "Adınız Soyadınız": "Full Name", "E-posta Adresiniz": "Email Address", "PROJE TÜRÜ": "PROJECT TYPE", "Konut / Villa": "Residence / Villa", "İç Mekan": "Interior", "Ticari Mekan": "Commercial", "Klinik / Ofis": "Clinic / Office", "PROJE DETAYLARI": "PROJECT DETAILS", "Projenizden kısaca bahsedin": "Tell us briefly about your project", "Formu göndererek proje talebinizin değerlendirilmesi için gerekli bilgileri BG Studio ile paylaşmış olursunuz.": "By submitting the form, you share the information required for BG Studio to evaluate your project inquiry.", "PROJE TALEBİNİ GÖNDER": "SEND PROJECT INQUIRY", "Teklif Al": "Get Quote", "MİMARİ İLETİŞİM": "ARCHITECTURAL INQUIRY", "Merhaba. Mimari projeniz hakkında birkaç detay paylaşın, size uygun çalışma biçimini birlikte belirleyelim.": "Hello. Share a few details about your architectural project and we will determine the most suitable way to work together.", "HIZLI SEÇENEKLER": "QUICK OPTIONS", "Villa / Konut Projesi": "Villa / Residential Project", "İç Mekân Tasarımı": "Interior Design", "Ortalama yanıt süresi: aynı gün içinde": "Average response time: within the same day", "WhatsApp mesajınız": "Your WhatsApp message", "Merhaba, BG Studio Architecture üzerinden ulaşıyorum. Projem hakkında bilgi almak istiyorum.": "Hello, I am contacting you through BG Studio Architecture. I would like to get information about my project.", "WHATSAPP’TA GÖNDER": "SEND ON WHATSAPP", "Projeler": "Projects", "Süreç": "Process", "Stüdyo": "Studio", "İletişim": "Contact", "MİMAR BERKANT GÖKBEL": "ARCHITECT BERKANT GÖKBEL", "TÜM HAKLARI SAKLIDIR": "ALL RIGHTS RESERVED"};
 const ATTR_TR_EN={"Dil seçimi": "Language selection", "Ana menü": "Main navigation", "BG Studio ana sayfa": "BG Studio home", "Menüyü aç veya kapat": "Open or close menu", "Stüdyo bilgisi": "Studio information", "Seçili projelere kaydır": "Scroll to selected projects", "Proje görselleri": "Project images", "Coastal Residence tarzı proje için WhatsApp üzerinden teklif al": "Get a quote on WhatsApp for a project similar to Coastal Residence", "Marina Interior tarzı proje için WhatsApp üzerinden teklif al": "Get a quote on WhatsApp for a project similar to Marina Interior", "Modern Clinic tarzı proje için WhatsApp üzerinden teklif al": "Get a quote on WhatsApp for a project similar to Modern Clinic", "Alpine Stone House tarzı proje için WhatsApp üzerinden teklif al": "Get a quote on WhatsApp for a project similar to Alpine Stone House", "Marina Bistro tarzı proje için WhatsApp üzerinden teklif al": "Get a quote on WhatsApp for a project similar to Marina Bistro", "Stone Courtyard House tarzı proje için WhatsApp üzerinden teklif al": "Get a quote on WhatsApp for a project similar to Stone Courtyard House", "BG Studio yaklaşımı": "BG Studio approach", "BG Studio kalite standardı": "BG Studio quality standard", "Mimari hizmetler": "Architectural services", "BG Studio sayılarla": "BG Studio in numbers", "Mobil hızlı iletişim": "Mobile quick contact", "WhatsApp chat penceresini aç veya kapat": "Open or close WhatsApp chat", "WhatsApp chat penceresini aç": "Open WhatsApp chat", "WhatsApp chat penceresini kapat": "Close WhatsApp chat", "Instagram sayfasını aç": "Open Instagram page", "Teklif formuna git": "Go to project inquiry form", "BG Studio Architecture ile WhatsApp üzerinden iletişime geç": "Contact BG Studio Architecture on WhatsApp", "WhatsApp penceresini kapat": "Close WhatsApp panel", "WhatsApp hızlı mesaj seçenekleri": "WhatsApp quick message options", "Alt menü": "Footer navigation", "Ad Soyad": "Full Name", "ornek@email.com": "name@example.com", "Projenin yeri, yaklaşık m²'si, ihtiyaç duyduğunuz hizmet ve varsa hedef teslim tarihini paylaşabilirsiniz.": "Share the project location, approximate area, services you need and target delivery date if applicable.", "Mesajınızı yazın...": "Write your message..."};
 const META={"tr": {"title": "BG Studio Architecture | Kuşadası Mimar | Berkant Gökbel", "description": "BG Studio Architecture, Mimar Berkant Gökbel tarafından Kuşadası merkezli olarak mimari tasarım, uygulama projesi, iç mekân ve 3D görselleştirme hizmetleri sunar.", "ogTitle": "BG Studio Architecture | Kuşadası Mimar | Berkant Gökbel", "ogDescription": "Kuşadası merkezli BG Studio Architecture; mimari tasarım, uygulama projesi, iç mekân ve fotogerçekçi 3D görselleştirme hizmetleri sunar.", "twitterDescription": "Kuşadası merkezli mimarlık stüdyosu: mimari tasarım, uygulama projesi, iç mekân ve 3D görselleştirme."}, "en": {"title": "BG Studio Architecture | Architect in Kuşadası | Berkant Gökbel", "description": "BG Studio Architecture, founded by architect Berkant Gökbel in Kuşadası, provides architectural design, construction documentation, interior design and 3D visualization services.", "ogTitle": "BG Studio Architecture | Architect in Kuşadası | Berkant Gökbel", "ogDescription": "BG Studio Architecture in Kuşadası provides architectural design, construction documentation, interior design and photorealistic 3D visualization services.", "twitterDescription": "Architecture studio in Kuşadası: architectural design, construction documentation, interiors and 3D visualization."}};
 const TEXT_EN_TR=Object.fromEntries(Object.entries(TEXT_TR_EN).map(([tr,en])=>[en,tr]));
