@@ -3629,31 +3629,40 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
         item.addEventListener('click', () => scrollToIndex(index));
     });
 
-    // Desktop: one wheel gesture moves exactly one step. Inertia and fast flicks
-    // are swallowed until the wheel goes quiet; past the first or last step the
-    // page scrolls normally so the section never traps anyone.
+    // Desktop: one wheel gesture moves exactly one step, the same for every
+    // step. Inertia and fast flicks are swallowed until the wheel goes quiet;
+    // past the first or last step the page scrolls normally so the section
+    // never traps anyone.
     let wheelLockedAt = 0;
     let lastWheelAt = 0;
+    let lastWheelOutside = true;
 
     window.addEventListener('wheel', event => {
         if (!isPinned() || event.ctrlKey) return;
-        const p = currentProgress();
-        if (p < 0 || p > 1) return;
         const dir = Math.sign(event.deltaY);
         if (!dir) return;
 
         const now = performance.now();
-        const locked = wheelLockedAt && (now - wheelLockedAt < 650 || now - lastWheelAt < 220);
+        const sinceLast = now - lastWheelAt;
         lastWheelAt = now;
-        if (locked) {
+
+        const p = currentProgress();
+        if (p < 0 || p > 1) {
+            lastWheelOutside = true;
+            return;
+        }
+        // A gesture that began outside the section and is still running only
+        // lands on the edge step; it must not carry on into the next one.
+        const entering = lastWheelOutside && sinceLast < 220;
+        lastWheelOutside = false;
+
+        if (wheelLockedAt && (now - wheelLockedAt < 650 || sinceLast < 220)) {
             event.preventDefault();
             return;
         }
 
-        const centre = stepCentre(activeIndex);
-        let next = activeIndex;
-        if (dir > 0 && p >= centre - 0.01) next = activeIndex + 1;
-        if (dir < 0 && p <= centre + 0.01) next = activeIndex - 1;
+        let next = activeIndex + dir;
+        if (entering) next = dir > 0 ? 0 : items.length - 1;
         if (next < 0 || next >= items.length) {
             wheelLockedAt = 0;
             return;
@@ -3808,6 +3817,7 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
         ticking = false;
         if (!isPinned()) return;
 
+        measure();
         const y = window.scrollY || window.pageYOffset || 0;
         setPinState(y);
         const progress = Math.max(0, Math.min(1, (y - pinStart) / pinDistance));
@@ -3828,21 +3838,87 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
         });
     }
 
+    // Same stepping as the services pin: equal slices, rest in each one's middle.
+    function stepCentre(index){
+        return (index + 0.5) / steps.length;
+    }
+
+    function currentProgress(){
+        // Re-measure: lazy images above the section move it after load.
+        measure();
+        const y = window.scrollY || window.pageYOffset || 0;
+        return (y - pinStart) / pinDistance;
+    }
+
+    function scrollToProgress(target){
+        measure();
+        window.scrollTo({top: pinStart + target * pinDistance, behavior: 'smooth'});
+    }
+
     function scrollToIndex(index){
         if (!isPinned()) {
             activate(index);
             return;
         }
-        const targetProgress = steps.length > 1 ? index / (steps.length - 1) : 0;
-        window.scrollTo({
-            top: pinStart + targetProgress * pinDistance,
-            behavior: 'smooth'
-        });
+        scrollToProgress(stepCentre(index));
     }
 
     steps.forEach((step, index) => {
         step.addEventListener('click', () => scrollToIndex(index));
     });
+
+    // One wheel gesture = one step; a gesture that crosses into the section only
+    // lands on the edge step; past the first or last step the page scrolls on.
+    let wheelLockedAt = 0;
+    let lastWheelAt = 0;
+    let lastWheelOutside = true;
+
+    window.addEventListener('wheel', event => {
+        if (!isPinned() || event.ctrlKey) return;
+        const dir = Math.sign(event.deltaY);
+        if (!dir) return;
+
+        const now = performance.now();
+        const sinceLast = now - lastWheelAt;
+        lastWheelAt = now;
+
+        const p = currentProgress();
+        if (p < 0 || p > 1) {
+            lastWheelOutside = true;
+            return;
+        }
+        const entering = lastWheelOutside && sinceLast < 220;
+        lastWheelOutside = false;
+
+        if (wheelLockedAt && (now - wheelLockedAt < 650 || sinceLast < 220)) {
+            event.preventDefault();
+            return;
+        }
+
+        let next = activeIndex + dir;
+        if (entering) next = dir > 0 ? 0 : steps.length - 1;
+        if (next < 0 || next >= steps.length) {
+            wheelLockedAt = 0;
+            return;
+        }
+
+        event.preventDefault();
+        wheelLockedAt = now;
+        scrollToProgress(stepCentre(next));
+    }, {passive:false});
+
+    // Scrollbar and keys: settle on the nearest step when scrolling stops.
+    let settleTimer = 0;
+    window.addEventListener('scroll', () => {
+        if (!isPinned()) return;
+        clearTimeout(settleTimer);
+        settleTimer = setTimeout(() => {
+            const p = currentProgress();
+            if (p <= stepCentre(0) || p >= stepCentre(steps.length - 1)) return;
+            const target = stepCentre(Math.round(p * steps.length - 0.5));
+            if (Math.abs(target - p) > 0.01) scrollToProgress(target);
+        }, 160);
+    }, {passive:true});
 
     window.addEventListener('scroll', requestUpdate, {passive:true});
     window.addEventListener('resize', refresh, {passive:true});
@@ -6643,7 +6719,8 @@ html body #exploded-architecture .exploded-title{text-shadow:0 2px 4px rgba(0,0,
 
 /* Services pin: a longer scroll per step so the four steps read one by one. */
 @media (min-width: 1100px) and (min-height: 760px) {
-    #services.services-editorial{
+    #services.services-editorial,
+    #process.process-editorial{
         --pin-scroll-distance: 260vh;
     }
 }
