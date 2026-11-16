@@ -1651,7 +1651,7 @@ body.whatsapp-chat-open .mobile-contact-bar{opacity:0!important;visibility:hidde
                 </div>
 
                 <noscript>
-                    <img class="exploded-noscript" src="assets/exploded/seq4/f_106.webp" alt="BG Studio mimari exploded view">
+                    <img class="exploded-noscript" src="assets/exploded/seq5/f_188.webp" alt="BG Studio mimari exploded view">
                 </noscript>
             </div>
         </div>
@@ -9024,7 +9024,7 @@ applyLanguage(initial,false);
 </script>
 
 
-<script id="bg-exploded-architecture" data-version="2.0.0">
+<script id="bg-exploded-architecture" data-version="2.1.0">
 (function(){
     'use strict';
     /* v2.0: sönümlü (damped) ilerleme + kareler arası geçiş (crossfade) + pencereli ImageBitmap önbelleği.
@@ -9055,20 +9055,20 @@ applyLanguage(initial,false);
     const PHASES_TR=[
         ['01','BÜTÜN','Yapı tek kompozisyon olarak okunur.','Mimari, peyzaj ve çevre ilişkisi başlangıçta tek bir bütün olarak görünür.'],
         ['02','KÜTLE','Ana hacimler birbirinden ayrışmaya başlar.','Kütle kurgusu, katların birbirleriyle kurduğu ilişkiyi daha okunur hâle getirir.'],
-        ['03','KABUK','Cephe ve dış katmanlar yapının üzerinden açılır.','Malzeme, açıklık ve dış kabuk kararları ana hacimden bağımsız olarak izlenebilir.'],
-        ['04','MEKÂN','İç mekânsal organizasyon görünür hâle gelir.','Döşemeler ve mekânsal katmanlar ayrıştıkça yapının iç ilişkileri okunmaya başlar.'],
-        ['05','EXPLODED VIEW','Mimari sistem bütün parçalarıyla görünür.','Tasarım kararları tek bir final görsel yerine, onu oluşturan katmanların bütünü üzerinden okunur.']
+        ['03','EXPLODED VIEW','Mimari sistem bütün parçalarıyla görünür.','Çatı, üst kat kabuğu, döşeme ve zemin kat birbirinden bağımsız katmanlar olarak okunur.'],
+        ['04','KURGU','Katmanlar yeniden yerine oturur.','Çatı ve kabuk, aynı strüktürel mantıkla taşıyıcı sistemin üzerine geri iner.'],
+        ['05','YAPI','Katmanlar tek bir mimariye dönüşür.','Her tasarım kararı, tamamlanmış yapının bütününde yerini bulur.']
     ];
     const PHASES_EN=[
         ['01','WHOLE','The building reads as one composition.','Architecture, landscape and context are initially perceived as a single whole.'],
         ['02','MASS','Primary volumes begin to separate.','The massing strategy and relationships between levels become easier to read.'],
-        ['03','ENVELOPE','Facade and outer layers open away from the building.','Material, openings and envelope decisions can be observed independently from the main volume.'],
-        ['04','SPACE','The spatial organization becomes visible.','As floors and spatial layers separate, the internal relationships of the building are revealed.'],
-        ['05','EXPLODED VIEW','The architectural system is visible in full.','Design decisions are read through the complete set of layers that form the finished architecture.']
+        ['03','EXPLODED VIEW','The architectural system is visible in full.','Roof, upper envelope, slab and ground level read as independent layers.'],
+        ['04','ASSEMBLY','The layers settle back into place.','Roof and envelope return onto the structure following the same structural logic.'],
+        ['05','BUILDING','The layers become one architecture.','Every design decision finds its place in the completed whole.']
     ];
 
-    const FRAME_COUNT=106;                 // assets/exploded/seq4/f_001..f_106 (Veo 3.1, tek çekim, 24 kare/sn)
-    const BASE='assets/exploded/seq4/';
+    const FRAME_COUNT=188;                 // assets/exploded/seq5/f_001..f_188 (1.mp4 tam çekim, 1600x900, 24 kare/sn)
+    const BASE='assets/exploded/seq5/';
     const WINDOW_AHEAD=10, WINDOW_BEHIND=6; // decode edilmiş pencere
     const DAMP=10;                          // yüksek = daha seri takip
     let activated=false, raf=0, lastT=0;
@@ -9171,10 +9171,10 @@ applyLanguage(initial,false);
 
     /* İnce altın çizgili katman etiketleri: videonun bittiği pozdaki parça konumlarına bağlı, sonda belirir */
     const ANNO=[
-        {nx:.831,ny:.139,tr:'ÇATI SİSTEMİ',en:'ROOF SYSTEM',n:'01',s:.66,e:.78},
-        {nx:.800,ny:.333,tr:'ÜST KAT KABUĞU',en:'UPPER ENVELOPE',n:'02',s:.72,e:.84},
-        {nx:.825,ny:.464,tr:'DÖŞEME PLAĞI',en:'FLOOR SLAB',n:'03',s:.78,e:.90},
-        {nx:.809,ny:.667,tr:'ZEMİN KAT',en:'GROUND LEVEL',n:'04',s:.84,e:.96}
+        {nx:.831,ny:.139,tr:'ÇATI SİSTEMİ',en:'ROOF SYSTEM',n:'01',s:.43,e:.50},
+        {nx:.800,ny:.333,tr:'ÜST KAT KABUĞU',en:'UPPER ENVELOPE',n:'02',s:.46,e:.53},
+        {nx:.825,ny:.464,tr:'DÖŞEME PLAĞI',en:'FLOOR SLAB',n:'03',s:.49,e:.56},
+        {nx:.809,ny:.667,tr:'ZEMİN KAT',en:'GROUND LEVEL',n:'04',s:.52,e:.58}
     ];
     const ease=t=>t<0?0:t>1?1:1-Math.pow(1-t,3);
     function drawAnnotations(b,p){
@@ -9191,7 +9191,7 @@ applyLanguage(initial,false);
         if('letterSpacing' in actx)actx.letterSpacing=(1.8*dpr)+'px';
         const rightEdge=cw-Math.round(40*dpr);
         ANNO.forEach(an=>{
-            const t=ease((p-an.s)/(an.e-an.s));if(t<=0)return;
+            const t=ease((p-an.s)/(an.e-an.s))*(1-ease((p-.59)/.06));if(t<=0)return;
             const ax=b.dx+an.nx*b.dw, ay=b.dy+an.ny*b.dh;
             if(ay<72*dpr||ay>chh-90*dpr||ax<0||ax>cw-130*dpr)return;
             const label=an.n+'   '+(en?an.en:an.tr);
